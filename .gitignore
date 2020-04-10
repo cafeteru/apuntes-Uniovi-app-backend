@@ -1,0 +1,3 @@
+# Para enlazar varios gitignore
+backend/.gitignore
+log/
