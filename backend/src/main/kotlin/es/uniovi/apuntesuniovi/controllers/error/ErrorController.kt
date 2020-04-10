@@ -14,6 +14,10 @@ import java.util.*
 class ErrorController {
     private var logService: LogService = LogService(this)
 
+    /**
+     * Controla la excepciones que ocurren en el sistema
+     * y devuelve un Json con el error ocurrido
+     */
     @ExceptionHandler(value = [IllegalArgumentException::class])
     fun responseException(
             e: IllegalArgumentException): ResponseEntity<Map<String, String?>>? {

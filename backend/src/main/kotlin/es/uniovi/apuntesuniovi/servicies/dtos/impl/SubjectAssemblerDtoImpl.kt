@@ -17,7 +17,8 @@ class SubjectAssemblerDtoImpl : SubjectDtoAssembler {
     }
 
     override fun dtoToEntity(dto: SubjectDto): Subject {
-        return Subject(id = dto.id,
+        return Subject(
+                id = dto.id,
                 name = dto.name,
                 course = dto.course)
     }
