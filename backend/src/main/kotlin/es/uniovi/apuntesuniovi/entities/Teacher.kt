@@ -1,14 +1,13 @@
 package es.uniovi.apuntesuniovi.entities
 
-import es.uniovi.apuntesuniovi.entities.types.IdentificationType
+import javax.persistence.CascadeType
 import javax.persistence.Entity
-import javax.persistence.EnumType
-import javax.persistence.Enumerated
+import javax.persistence.OneToMany
 
 @Entity
 class Teacher : Person() {
-    @Enumerated(EnumType.STRING)
-    private var identificationType: IdentificationType = IdentificationType.DNI
-    private var numberIdentification: String = ""
     private var isAdmin: Boolean = false
+
+    @OneToMany(mappedBy = "teacher", cascade = [(CascadeType.ALL)])
+    private val teachSubjects: Set<TeachSubject> = HashSet()
 }
