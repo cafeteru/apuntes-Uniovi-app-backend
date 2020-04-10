@@ -3,22 +3,27 @@ package es.uniovi.apuntesuniovi.entities
 import javax.persistence.*
 
 @Entity
-class Subject {
+class Subject(id: Long?, name: String, course: Int) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long? = null
+    var id: Long? = id
+        set(value) {
+            if (value != null && value <= 0)
+                throw IllegalArgumentException("El id de la asignatura no puede ser menor que 1")
+            field = value
+        }
 
-    var name: String = ""
+    var name: String = name
         set(value) {
             if (value.isEmpty())
                 throw IllegalArgumentException("El nombre de la asignatura no puede estar vacío")
             field = value
         }
 
-    var course: Int = 0
+    var course: Int = course
         set(value) {
             if (value < 1)
-                throw IllegalArgumentException("El curso de la asignatura no puede menor que 1")
+                throw IllegalArgumentException("El curso de la asignatura no puede ser menor que 1")
             field = value
         }
 

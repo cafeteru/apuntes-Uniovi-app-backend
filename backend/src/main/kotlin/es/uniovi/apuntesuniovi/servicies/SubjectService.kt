@@ -1,8 +1,8 @@
 package es.uniovi.apuntesuniovi.servicies
 
-import es.uniovi.apuntesuniovi.entities.Subject
+import es.uniovi.apuntesuniovi.servicies.dtos.entities.SubjectDto
 
 interface SubjectService {
-    fun findAll(): List<Subject>
-    fun save(subject: Subject): List<Subject>
+    fun findAll(): List<SubjectDto>
+    fun save(subjectDto: SubjectDto): List<SubjectDto>
 }

@@ -7,7 +7,7 @@ import javax.persistence.*
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-class Person {
+open class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private var id: Long? = null
