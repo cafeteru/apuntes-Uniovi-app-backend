@@ -1,7 +1,11 @@
 matrix:
   include:
     - language: java
+      install:
+      - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
       before_script:
         - cd backend
+      script:
+          - mvn test
 after_success:
   - bash <(curl -s https://codecov.io/bash)
