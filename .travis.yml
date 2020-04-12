@@ -4,6 +4,6 @@ matrix:
       install:
       - cd backend && mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
       script:
-      - cd backend && mvn test
+      - mvn test
 after_success:
   - bash <(curl -s https://codecov.io/bash)
