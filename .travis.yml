@@ -4,7 +4,7 @@ matrix:
       install: true
       jdk:
       - oraclejdk8
-      before_install:
+      before_script:
         - cd backend
 after_success:
   - bash <(curl -s https://codecov.io/bash)
