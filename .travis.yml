@@ -1,9 +1,6 @@
 matrix:
   include:
     - language: java
-      install: true
-      jdk:
-      - oraclejdk8
       before_script:
         - cd backend
 after_success:
