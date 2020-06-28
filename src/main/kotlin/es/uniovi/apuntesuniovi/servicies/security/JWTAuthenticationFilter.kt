@@ -24,7 +24,6 @@ class JWTAuthenticationFilter(
     @Throws(AuthenticationException::class)
     override fun attemptAuthentication(req: HttpServletRequest, res: HttpServletResponse): Authentication {
         return try {
-            val a = req.inputStream
             val personDto: Login = Gson().fromJson(req.inputStream.toString(), Login::class.java)
             val list: PersonDto = serviceFactory.getPersons().findByUsername(personDto.username)
             if (list.active) {
