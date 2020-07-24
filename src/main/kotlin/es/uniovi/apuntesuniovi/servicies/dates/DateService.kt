@@ -32,7 +32,7 @@ object DateService {
 
     fun stringToDate(date: String): LocalDate {
         return try {
-            require(!date.isEmpty()) {
+            require(date.isNotEmpty()) {
                 "la fecha no puede " +
                         "estar vacía"
             }
