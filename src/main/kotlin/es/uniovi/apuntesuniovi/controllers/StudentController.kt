@@ -7,6 +7,6 @@ import java.security.Principal
 /**
  * Controlador de las personas
  */
-interface StudentController {
+interface StudentController : Controller {
     fun findAll(principal: Principal?): ResponseEntity<List<Student>>
 }

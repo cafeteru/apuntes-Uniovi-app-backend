@@ -1,5 +1,7 @@
 package es.uniovi.apuntesuniovi.log
 
+import es.uniovi.apuntesuniovi.controllers.Controller
+import es.uniovi.apuntesuniovi.infrastructure.GlobalConstants
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.io.File
@@ -7,12 +9,11 @@ import java.io.File
 /**
  * Clase para manejar el log de la aplicación
  */
-class LogService(controller: Any) {
-    private val log: Logger
+class LogService(controller: Class<Controller>) {
+    private val log: Logger = LoggerFactory.getLogger(controller)
 
     init {
         createFolder()
-        log = LoggerFactory.getLogger(controller.javaClass)
     }
 
     /**
@@ -33,12 +34,12 @@ class LogService(controller: Any) {
      * Función que crea la carpeta contenedora del log si no existe previamente
      */
     private fun createFolder() {
-        val file = File("../log")
+        val file = File(GlobalConstants.urlLog)
         if (file.exists()) {
             return
         }
         if (file.mkdir()) {
-            println("Creada carpeta log correctamente")
+            log.info("Creada carpeta log correctamente")
         }
     }
 }

@@ -1,5 +1,6 @@
 package es.uniovi.apuntesuniovi.controllers.error
 
+import es.uniovi.apuntesuniovi.controllers.Controller
 import es.uniovi.apuntesuniovi.log.LogService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -11,8 +12,8 @@ import java.util.*
  * Controlador para manejar las excepciones producidas en la aplicación e informar de ellas
  */
 @ControllerAdvice
-class ErrorController {
-    private var logService: LogService = LogService(this)
+class ErrorController : Controller {
+    private val logService: LogService = LogService(this.javaClass)
 
     /**
      * Controla la excepciones que ocurren en el sistema

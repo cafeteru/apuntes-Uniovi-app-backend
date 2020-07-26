@@ -7,7 +7,7 @@ import java.security.Principal
 /**
  * Controlador de las asignaturas
  */
-interface SubjectController {
+interface SubjectController : Controller {
     /**
      * Devuelve todas las asignaturas registradas en el sistema
      */

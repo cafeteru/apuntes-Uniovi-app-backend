@@ -3,6 +3,7 @@ package es.uniovi.apuntesuniovi.controllers.impl
 import es.uniovi.apuntesuniovi.controllers.SubjectController
 import es.uniovi.apuntesuniovi.controllers.impl.subjects.FindAllSubjects
 import es.uniovi.apuntesuniovi.controllers.impl.subjects.SaveSubject
+import es.uniovi.apuntesuniovi.infrastructure.GlobalConstants
 import es.uniovi.apuntesuniovi.log.LogService
 import es.uniovi.apuntesuniovi.servicies.ServiceFactory
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.SubjectDto
@@ -14,22 +15,22 @@ import org.springframework.web.bind.annotation.*
 import java.security.Principal
 
 @RestController
-@RequestMapping("/subjects")
+@RequestMapping(GlobalConstants.subject)
 class SubjectControllerImpl @Autowired constructor(
         private val serviceFactory: ServiceFactory,
         private val loadMessages: LoadMessages
 ) : SubjectController {
-    private val logService: LogService = LogService(this)
+    private val logService: LogService = LogService(this.javaClass)
 
-    @GetMapping("")
+    @GetMapping(GlobalConstants.findAll)
     override fun findAll(principal: Principal?): ResponseEntity<List<SubjectDto>> {
         logService.info(principal?.name + " " + loadMessages.getString("subject.find.all"))
-        return ResponseEntity<List<SubjectDto>>(FindAllSubjects(serviceFactory).execute(), HttpStatus.OK)
+        return ResponseEntity(FindAllSubjects(serviceFactory).execute(), HttpStatus.OK)
     }
 
-    @PostMapping("/save")
+    @PostMapping(GlobalConstants.save)
     override fun save(principal: Principal?, @RequestBody json: String?): ResponseEntity<List<SubjectDto>> {
         logService.info(principal?.name + " " + loadMessages.getString("subject.save"))
-        return ResponseEntity<List<SubjectDto>>(SaveSubject(serviceFactory, loadMessages, json).execute(), HttpStatus.OK)
+        return ResponseEntity(SaveSubject(serviceFactory, loadMessages, json).execute(), HttpStatus.OK)
     }
 }
