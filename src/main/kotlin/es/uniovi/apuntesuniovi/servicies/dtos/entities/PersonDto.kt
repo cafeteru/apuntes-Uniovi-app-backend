@@ -13,4 +13,5 @@ data class PersonDto(
         var password: String,
         var role: String,
         var identificationType: String,
-        var numberIdentification: String)
+        var numberIdentification: String
+)

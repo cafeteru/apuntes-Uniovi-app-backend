@@ -13,7 +13,7 @@ import java.util.*
  */
 @ControllerAdvice
 class ErrorController : Controller {
-    private val logService: LogService = LogService(this.javaClass)
+    private val logService = LogService(this.javaClass)
 
     /**
      * Controla la excepciones que ocurren en el sistema

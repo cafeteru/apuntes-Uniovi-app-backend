@@ -20,7 +20,7 @@ class SubjectControllerImpl @Autowired constructor(
         private val serviceFactory: ServiceFactory,
         private val loadMessages: LoadMessages
 ) : SubjectController {
-    private val logService: LogService = LogService(this.javaClass)
+    private val logService = LogService(this.javaClass)
 
     @GetMapping(GlobalConstants.findAll)
     override fun findAll(principal: Principal?): ResponseEntity<List<SubjectDto>> {
