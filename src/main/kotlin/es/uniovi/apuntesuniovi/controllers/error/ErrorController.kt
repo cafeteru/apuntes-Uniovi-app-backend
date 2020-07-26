@@ -20,11 +20,9 @@ class ErrorController : Controller {
      * y devuelve un Json con el error ocurrido
      */
     @ExceptionHandler(value = [IllegalArgumentException::class])
-    fun responseException(
-            e: IllegalArgumentException): ResponseEntity<Map<String, String?>>? {
+    fun responseException(e: IllegalArgumentException): ResponseEntity<Map<String, String?>>? {
         logService.error(e.message)
-        return ResponseEntity(setMapErrors(e.message),
-                HttpStatus.BAD_REQUEST)
+        return ResponseEntity(setMapErrors(e.message), HttpStatus.BAD_REQUEST)
     }
 
     /**

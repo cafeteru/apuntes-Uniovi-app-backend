@@ -24,13 +24,13 @@ class SubjectControllerImpl @Autowired constructor(
 
     @GetMapping(GlobalConstants.findAll)
     override fun findAll(principal: Principal?): ResponseEntity<List<SubjectDto>> {
-        logService.info(principal?.name + " " + loadMessages.getString("subject.find.all"))
+        logService.info("${principal?.name} ${loadMessages.getString("subject.find.all")}")
         return ResponseEntity(FindAllSubjects(serviceFactory).execute(), HttpStatus.OK)
     }
 
     @PostMapping(GlobalConstants.save)
     override fun save(principal: Principal?, @RequestBody json: String?): ResponseEntity<List<SubjectDto>> {
-        logService.info(principal?.name + " " + loadMessages.getString("subject.save"))
+        logService.info("${principal?.name} ${loadMessages.getString("subject.save")}")
         return ResponseEntity(SaveSubject(serviceFactory, loadMessages, json).execute(), HttpStatus.OK)
     }
 }

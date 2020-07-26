@@ -26,7 +26,7 @@ class StudentControllerImpl @Autowired constructor(
 
     @GetMapping(GlobalConstants.findAll)
     override fun findAll(principal: Principal?): ResponseEntity<List<Student>> {
-        logService.info(principal?.name + " " + loadMessages.getString("subject.find.all"))
+        logService.info("${principal?.name} ${loadMessages.getString("subject.find.all")}")
         return ResponseEntity(serviceFactory.getStudents().findAll(), HttpStatus.OK)
     }
 }
