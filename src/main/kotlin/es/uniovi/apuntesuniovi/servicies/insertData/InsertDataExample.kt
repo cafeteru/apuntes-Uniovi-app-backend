@@ -1,6 +1,7 @@
 package es.uniovi.apuntesuniovi.servicies.insertData
 
 import es.uniovi.apuntesuniovi.entities.Person
+import es.uniovi.apuntesuniovi.log.LogService
 import es.uniovi.apuntesuniovi.repositories.RepositoryFactory
 import es.uniovi.apuntesuniovi.servicies.ServiceFactory
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.SubjectDto
@@ -13,12 +14,13 @@ class InsertDataExample @Autowired constructor(
         private val serviceFactory: ServiceFactory,
         private val repositoryFactory: RepositoryFactory
 ) {
+    private val logService = LogService(this.javaClass)
 
     @PostConstruct
     fun initData() {
+        logService.info("initData() - start")
         val subjectDto = SubjectDto(id = null, name = "TFG", course = 4)
         serviceFactory.getSubjects().save(subjectDto)
-
         val admin = Person(id = null,
                 name = "admin",
                 surname = "admin",
@@ -33,5 +35,6 @@ class InsertDataExample @Autowired constructor(
                 role = "admin",
                 username = "admin")
         repositoryFactory.getPersons().save(admin)
+        logService.info("initData() - end")
     }
 }

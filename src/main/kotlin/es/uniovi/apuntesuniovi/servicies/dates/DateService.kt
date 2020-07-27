@@ -1,108 +1,126 @@
 package es.uniovi.apuntesuniovi.servicies.dates
 
+import es.uniovi.apuntesuniovi.infrastructure.constants.ExceptionMessages
+import es.uniovi.apuntesuniovi.log.LogService
 import org.joda.time.LocalDate
 import org.joda.time.LocalDateTime
 import org.joda.time.LocalTime
 import org.joda.time.format.DateTimeFormat
 
 object DateService {
+    private const val dateFormat = "dd-MM-yyyy"
+    private const val dateHourFormat = "dd-MM-yyyy HH:mm"
+    private const val hourFormat = "HH:mm"
+    private val logService = LogService(this.javaClass)
 
+    /**
+     * Convierte una variable de tipo LocalDate a string con el formato
+     *
+     * @param date La fecha a convertir.
+     */
     fun dateToString(date: LocalDate?): String {
-        if (date == null) {
-            throw IllegalArgumentException("la fecha no puede ser nula")
+        logService.info("dateToString(date: ${date}) - start")
+        if (date != null) {
+            val result = date.toString(dateFormat)
+            logService.info("dateToString(date: ${date}) - end")
+            return result
         }
-        return date.toString("dd-MM-yyyy")
+        throw IllegalArgumentException(ExceptionMessages.nullDate)
     }
 
-    fun dateToStringWithHour(localDateTime: LocalDateTime): String {
-        return try {
-            localDateTime.toString("dd-MM-yyyy HH:mm")
-        } catch (e: NullPointerException) {
-            throw IllegalArgumentException("la fecha no puede ser nula")
+    fun dateToStringWithHour(localDateTime: LocalDateTime?): String {
+        logService.info("dateToStringWithHour(localDateTime: ${localDateTime}) - start")
+        if (localDateTime != null) {
+            val result = localDateTime.toString(dateHourFormat)
+            logService.info("dateToStringWithHour(localDateTime: ${localDateTime}) - end")
+            return result
         }
+        throw IllegalArgumentException(ExceptionMessages.nullDate)
     }
 
-    fun dateToStringOnlyHour(localTime: LocalTime): String {
-        return try {
-            localTime.toString("HH:mm")
-        } catch (e: NullPointerException) {
-            throw IllegalArgumentException("la hora no puede ser nula")
+    fun dateToStringOnlyHour(localTime: LocalTime?): String {
+        logService.info("dateToStringOnlyHour(localTime: ${localTime}) - start")
+        if (localTime != null) {
+            val result = localTime.toString(hourFormat)
+            logService.info("dateToStringOnlyHour(localTime: ${localTime}) - end")
+            return result
         }
+        throw IllegalArgumentException(ExceptionMessages.nullDate)
     }
 
-    fun stringToDate(date: String): LocalDate {
-        return try {
-            require(date.isNotEmpty()) {
-                "la fecha no puede " +
-                        "estar vacía"
+    fun stringToDate(date: String?): LocalDate {
+        logService.info("stringToDate(date: ${date}) - start")
+        try {
+            require(!date.isNullOrEmpty()) {
+                ExceptionMessages.nullEmptyDate
             }
-            LocalDate.parse(date, DateTimeFormat.forPattern(
-                    "dd-MM-yyyy"))
-        } catch (e: NullPointerException) {
-            throw IllegalArgumentException("la fecha no puede ser nula")
+            val result = LocalDate.parse(date, DateTimeFormat.forPattern(dateFormat))
+            logService.info("stringToDate(date: ${date}) - end")
+            return result
         } catch (e: IllegalArgumentException) {
-            throw IllegalArgumentException("el formato de la fecha no" +
-                    " es válido")
+            throw IllegalArgumentException(ExceptionMessages.illegalFormatDate)
         }
     }
 
-    fun stringToDateOnlyHour(date: String): LocalTime {
-        return try {
-            require(!date.isEmpty()) {
-                "la fecha no puede " +
-                        "estar vacía"
+    fun stringToDateOnlyHour(date: String?): LocalTime {
+        logService.info("stringToDateOnlyHour(date: ${date}) - start")
+        try {
+            require(!date.isNullOrEmpty()) {
+                ExceptionMessages.nullEmptyDate
             }
-            LocalTime.parse(date, DateTimeFormat.forPattern("HH:mm"))
-        } catch (e: NullPointerException) {
-            throw IllegalArgumentException("la hora no puede ser nula")
+            val result = LocalTime.parse(date, DateTimeFormat.forPattern(hourFormat))
+            logService.info("stringToDateOnlyHour(date: ${date}) - end")
+            return result
         } catch (e: IllegalArgumentException) {
-            throw IllegalArgumentException("el formato de la hora no" +
-                    " es válido")
+            throw IllegalArgumentException(ExceptionMessages.illegalFormatHour)
         }
     }
 
-    fun stringToDateWithHour(date: String): LocalDateTime {
-        return try {
-            require(!date.isEmpty()) {
-                "la fecha no puede estar vacía"
+    fun stringToDateWithHour(date: String?): LocalDateTime? {
+        logService.info("stringToDateWithHour(date: ${date}) - start")
+        try {
+            require(!date.isNullOrEmpty()) {
+                ExceptionMessages.nullEmptyDate
             }
-            LocalDateTime.parse(date,
-                    DateTimeFormat.forPattern("dd-MM-yyyy HH:mm"))
-        } catch (e: NullPointerException) {
-            throw IllegalArgumentException("la fecha no puede ser nula")
+            val result = LocalDateTime.parse(date, DateTimeFormat.forPattern(dateHourFormat))
+            logService.info("stringToDateWithHour(date: ${date}) - end")
+            return result
         } catch (e: IllegalArgumentException) {
-            throw IllegalArgumentException("el formato de la fecha no" +
-                    " es válido")
+            throw IllegalArgumentException(ExceptionMessages.illegalFormatDate)
         }
     }
 
-    fun stringToDateWithHour(date: String, hour: String): LocalDateTime {
-        return try {
-            require(date.isNotEmpty()) {
-                "la fecha no puede vacía"
+    fun stringToDateWithHour(date: String?, hour: String?): LocalDateTime {
+        logService.info("stringToDateWithHour(date: ${date}, hour: ${hour}) - start")
+        try {
+            require(!date.isNullOrEmpty()) {
+                ExceptionMessages.nullEmptyDate
             }
-            require(hour.isNotEmpty()) {
-                "la fecha no puede estar vacía"
+            require(!hour.isNullOrEmpty()) {
+                ExceptionMessages.nullEmptyHour
             }
             val newDate = "$date $hour"
-            LocalDateTime.parse(newDate,
-                    DateTimeFormat.forPattern("dd-MM-yyyy HH:mm"))
-        } catch (e: NullPointerException) {
-            throw IllegalArgumentException("la fecha no puede ser nula")
+            val result = LocalDateTime.parse(newDate, DateTimeFormat.forPattern(dateHourFormat))
+            logService.info("stringToDateWithHour(date: ${date}, hour: ${hour}) - end")
+            return result
         } catch (e: IllegalArgumentException) {
-            throw IllegalArgumentException("el formato de la fecha no" +
-                    " es válido")
+            throw IllegalArgumentException(ExceptionMessages.illegalFormatDate)
         }
     }
 
-    fun compareTwoDatesWithoutYear(
-            first: LocalDate, second: LocalDate): Boolean {
-        return try {
-            (first.monthOfYear == second.monthOfYear
-                    && first.dayOfWeek == second.dayOfWeek)
-        } catch (e: NullPointerException) {
-            throw IllegalArgumentException("las dos fechas a comparar no" +
-                    " deben ser nulas")
+    fun compareTwoDatesWithoutYear(first: LocalDate?, second: LocalDate?): Boolean {
+        logService.info("compareTwoDatesWithoutYear(first: ${first}, second: ${second}) - start")
+        var result = false
+        if (first != null && second != null) {
+            result = (first.monthOfYear == second.monthOfYear && first.dayOfWeek == second.dayOfWeek)
+            logService.info("compareTwoDatesWithoutYear(first: ${first}, second: ${second}) - end")
         }
+        require(first == null) {
+            ExceptionMessages.nullEmptyDate
+        }
+        require(second == null) {
+            ExceptionMessages.nullEmptyDate
+        }
+        return result
     }
 }

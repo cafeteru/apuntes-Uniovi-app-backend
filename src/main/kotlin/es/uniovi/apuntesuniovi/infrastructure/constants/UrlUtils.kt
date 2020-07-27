@@ -1,6 +1,6 @@
-package es.uniovi.apuntesuniovi.infrastructure
+package es.uniovi.apuntesuniovi.infrastructure.constants
 
-object GlobalConstants {
+object UrlUtils {
     const val students = "/students"
     const val subject = "/subjects"
     const val urlLog = "../log-Apuntes";

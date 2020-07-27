@@ -1,5 +1,6 @@
 package es.uniovi.apuntesuniovi.servicies.impl
 
+import es.uniovi.apuntesuniovi.log.LogService
 import es.uniovi.apuntesuniovi.repositories.RepositoryFactory
 import es.uniovi.apuntesuniovi.servicies.SubjectService
 import es.uniovi.apuntesuniovi.servicies.dtos.DtoFactory
@@ -14,12 +15,19 @@ class SubjectServiceImpl @Autowired constructor(
         private val repositoryFactory: RepositoryFactory,
         private val dtoFactory: DtoFactory
 ) : SubjectService {
+    private val logService = LogService(this.javaClass)
 
     override fun findAll(): List<SubjectDto> {
-        return FindAllSubjectsService(repositoryFactory, dtoFactory).execute()
+        logService.info("findAll() - start")
+        val result = FindAllSubjectsService(repositoryFactory, dtoFactory).execute()
+        logService.info("findAll() - end")
+        return result
     }
 
     override fun save(subjectDto: SubjectDto): List<SubjectDto> {
-        return SaveSubjectService(repositoryFactory, dtoFactory, subjectDto).execute()
+        logService.info("save(subjectDto:${subjectDto}) - start")
+        val result = SaveSubjectService(repositoryFactory, dtoFactory, subjectDto).execute()
+        logService.info("save(subjectDto:${subjectDto}) - end")
+        return result
     }
 }

@@ -1,6 +1,5 @@
 package es.uniovi.apuntesuniovi.controllers.error
 
-import es.uniovi.apuntesuniovi.controllers.Controller
 import es.uniovi.apuntesuniovi.log.LogService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -12,7 +11,7 @@ import java.util.*
  * Controlador para manejar las excepciones producidas en la aplicación e informar de ellas
  */
 @ControllerAdvice
-class ErrorController : Controller {
+class ErrorController {
     private val logService = LogService(this.javaClass)
 
     /**
@@ -29,8 +28,10 @@ class ErrorController : Controller {
      * Crea json con los errores detectados
      */
     private fun setMapErrors(message: String?): Map<String, String?> {
+        logService.info("setMapErrors(message: ${message}) - start")
         val map: MutableMap<String, String?> = HashMap()
         map["error"] = message
+        logService.info("setMapErrors(message: ${message}) - end")
         return map
     }
 }

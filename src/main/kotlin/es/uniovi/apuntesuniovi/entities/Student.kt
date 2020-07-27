@@ -22,5 +22,5 @@ class Student(
 ) : Person(id, name, surname, email, phone, active, img, birthDate, username, password, role,
         identificationType, numberIdentification) {
     @OneToMany(mappedBy = "student", cascade = [(CascadeType.ALL)])
-    internal val learnSubject: Set<LearnSubject> = HashSet()
+    val learnSubject: Set<LearnSubject> = HashSet()
 }
