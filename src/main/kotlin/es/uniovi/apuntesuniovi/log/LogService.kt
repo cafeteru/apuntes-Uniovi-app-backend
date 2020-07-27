@@ -17,6 +17,8 @@ class LogService(controller: Class<Any>) {
 
     /**
      * Añade un mensaje de información al log
+     *
+     * @param message Mensaje a mostrar
      */
     fun info(message: String?) {
         log.info(message)
@@ -24,11 +26,18 @@ class LogService(controller: Class<Any>) {
 
     /**
      * Añade un mensage de error al log
+     *
+     * @param message Mensaje a mostrar
      */
     fun error(message: String?) {
         log.error(message)
     }
 
+    /**
+     * Formatea un json para mostrarlo en el log
+     *
+     * @param json Json a modificar
+     */
     fun formatJson(json: String?): String {
         if (json.isNullOrEmpty()) {
             return ""
