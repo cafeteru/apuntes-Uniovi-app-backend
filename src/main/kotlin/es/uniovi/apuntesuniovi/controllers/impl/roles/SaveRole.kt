@@ -1,4 +1,4 @@
-package es.uniovi.apuntesuniovi.controllers.impl.subjects
+package es.uniovi.apuntesuniovi.controllers.impl.roles
 
 import com.google.gson.Gson
 import es.uniovi.apuntesuniovi.infrastructure.Command
@@ -14,7 +14,7 @@ class SaveRole(
 
     override fun execute(): List<RoleDto> {
         logService.info("execute() - start")
-        if (json == null || json.isEmpty()) {
+        if (json.isNullOrEmpty()) {
             throw IllegalArgumentException("")
         }
         val roleDto = Gson().fromJson(json, RoleDto::class.java)

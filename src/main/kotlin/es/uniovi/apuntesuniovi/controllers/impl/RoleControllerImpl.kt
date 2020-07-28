@@ -2,7 +2,7 @@ package es.uniovi.apuntesuniovi.controllers.impl
 
 import es.uniovi.apuntesuniovi.controllers.RoleController
 import es.uniovi.apuntesuniovi.controllers.impl.roles.FindAllRoles
-import es.uniovi.apuntesuniovi.controllers.impl.subjects.SaveRole
+import es.uniovi.apuntesuniovi.controllers.impl.roles.SaveRole
 import es.uniovi.apuntesuniovi.infrastructure.constants.UrlUtils
 import es.uniovi.apuntesuniovi.log.LogService
 import es.uniovi.apuntesuniovi.servicies.ServiceFactory

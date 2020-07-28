@@ -1,4 +1,4 @@
-package es.uniovi.apuntesuniovi.controllers.impl.subjects
+package es.uniovi.apuntesuniovi.controllers.impl.users
 
 import com.google.gson.Gson
 import es.uniovi.apuntesuniovi.infrastructure.Command
@@ -14,7 +14,7 @@ class SaveUser(
 
     override fun execute(): List<UserDto> {
         logService.info("execute() - start")
-        if (json == null || json.isEmpty()) {
+        if (json.isNullOrEmpty()) {
             throw IllegalArgumentException("")
         }
         val userDto = Gson().fromJson(json, UserDto::class.java)

@@ -14,7 +14,7 @@ class SaveSubject(
 
     override fun execute(): List<SubjectDto> {
         logService.info("execute() - start")
-        if (json == null || json.isEmpty()) {
+        if (json.isNullOrEmpty()) {
             throw IllegalArgumentException("")
         }
         val subject: SubjectDto = Gson().fromJson(json, SubjectDto::class.java)

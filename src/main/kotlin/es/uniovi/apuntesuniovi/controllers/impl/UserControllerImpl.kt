@@ -1,7 +1,7 @@
 package es.uniovi.apuntesuniovi.controllers.impl
 
 import es.uniovi.apuntesuniovi.controllers.UserController
-import es.uniovi.apuntesuniovi.controllers.impl.subjects.SaveUser
+import es.uniovi.apuntesuniovi.controllers.impl.users.SaveUser
 import es.uniovi.apuntesuniovi.controllers.impl.users.FindAllUsers
 import es.uniovi.apuntesuniovi.infrastructure.constants.UrlUtils
 import es.uniovi.apuntesuniovi.log.LogService
