@@ -2,32 +2,32 @@ package es.uniovi.apuntesuniovi.servicies.impl
 
 import es.uniovi.apuntesuniovi.log.LogService
 import es.uniovi.apuntesuniovi.repositories.RepositoryFactory
-import es.uniovi.apuntesuniovi.servicies.SubjectService
+import es.uniovi.apuntesuniovi.servicies.RoleService
 import es.uniovi.apuntesuniovi.servicies.dtos.DtoFactory
-import es.uniovi.apuntesuniovi.servicies.dtos.entities.SubjectDto
-import es.uniovi.apuntesuniovi.servicies.impl.subjects.FindAllSubjectsService
-import es.uniovi.apuntesuniovi.servicies.impl.subjects.SaveSubjectService
+import es.uniovi.apuntesuniovi.servicies.dtos.entities.RoleDto
+import es.uniovi.apuntesuniovi.servicies.impl.roles.FindAllRolesService
+import es.uniovi.apuntesuniovi.servicies.impl.roles.SaveRoleService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
-class SubjectServiceImpl @Autowired constructor(
+class RoleServiceImpl @Autowired constructor(
         private val repositoryFactory: RepositoryFactory,
         private val dtoFactory: DtoFactory
-) : SubjectService {
+) : RoleService {
     private val logService = LogService(this.javaClass)
 
-    override fun findAll(): List<SubjectDto> {
+    override fun findAll(): List<RoleDto> {
         logService.info("findAll() - start")
-        val result = FindAllSubjectsService(repositoryFactory, dtoFactory).execute()
+        val result = FindAllRolesService(repositoryFactory, dtoFactory).execute()
         logService.info("findAll() - end")
         return result
     }
 
-    override fun save(subjectDto: SubjectDto): List<SubjectDto> {
-        logService.info("save(subjectDto:${subjectDto}) - start")
-        val result = SaveSubjectService(repositoryFactory, dtoFactory, subjectDto).execute()
-        logService.info("save(subjectDto:${subjectDto}) - end")
+    override fun save(roleDto: RoleDto): List<RoleDto> {
+        logService.info("save(roleDto:${roleDto}) - start")
+        val result = SaveRoleService(repositoryFactory, dtoFactory, roleDto).execute()
+        logService.info("save(roleDto:${roleDto}) - end")
         return result
     }
 }

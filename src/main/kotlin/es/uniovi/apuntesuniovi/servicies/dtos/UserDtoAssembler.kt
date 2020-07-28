@@ -1,11 +1,11 @@
 package es.uniovi.apuntesuniovi.servicies.dtos
 
 import es.uniovi.apuntesuniovi.entities.User
-import es.uniovi.apuntesuniovi.servicies.dtos.entities.PersonDto
+import es.uniovi.apuntesuniovi.servicies.dtos.entities.UserDto
 
-interface PersonDtoAssembler {
-    fun entityToDto(entity: User): PersonDto
-    fun dtoToEntity(dto: PersonDto): User
-    fun listToDto(entityList: List<User>): List<PersonDto>
-    fun listToEntities(dtoList: List<PersonDto>): List<User>
+interface UserDtoAssembler {
+    fun entityToDto(entity: User): UserDto
+    fun dtoToEntity(dto: UserDto): User
+    fun listToDto(entityList: List<User>): List<UserDto>
+    fun listToEntities(dtoList: List<UserDto>): List<User>
 }

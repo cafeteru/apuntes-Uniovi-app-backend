@@ -1,24 +1,24 @@
-package es.uniovi.apuntesuniovi.servicies.impl.persons
+package es.uniovi.apuntesuniovi.servicies.impl.roles
 
 import es.uniovi.apuntesuniovi.infrastructure.Command
 import es.uniovi.apuntesuniovi.log.LogService
 import es.uniovi.apuntesuniovi.repositories.RepositoryFactory
 import es.uniovi.apuntesuniovi.servicies.dtos.DtoFactory
-import es.uniovi.apuntesuniovi.servicies.dtos.entities.PersonDto
+import es.uniovi.apuntesuniovi.servicies.dtos.entities.RoleDto
 
-class SavePersonService(
+class SaveRoleService(
         private val repositoryFactory: RepositoryFactory,
         private val dtoFactory: DtoFactory,
-        private val personDto: PersonDto
-) : Command<List<PersonDto>> {
+        private val roleDto: RoleDto
+) : Command<List<RoleDto>> {
     private val logService = LogService(this.javaClass)
 
-    override fun execute(): List<PersonDto> {
+    override fun execute(): List<RoleDto> {
         logService.info("execute() - start")
-        val list = ArrayList<PersonDto>()
-        val person = dtoFactory.getPersons().dtoToEntity(personDto)
-        val result = repositoryFactory.getPersons().save(person)
-        list.add(dtoFactory.getPersons().entityToDto(result))
+        val list = ArrayList<RoleDto>()
+        val role = dtoFactory.getRoles().dtoToEntity(roleDto)
+        val result = repositoryFactory.getRoles().save(role)
+        list.add(dtoFactory.getRoles().entityToDto(result))
         logService.info("execute() - end")
         return list
     }

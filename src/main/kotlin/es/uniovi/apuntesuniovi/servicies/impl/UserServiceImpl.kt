@@ -2,34 +2,40 @@ package es.uniovi.apuntesuniovi.servicies.impl
 
 import es.uniovi.apuntesuniovi.log.LogService
 import es.uniovi.apuntesuniovi.repositories.RepositoryFactory
-import es.uniovi.apuntesuniovi.servicies.PersonService
+import es.uniovi.apuntesuniovi.servicies.UserService
 import es.uniovi.apuntesuniovi.servicies.dtos.DtoFactory
-import es.uniovi.apuntesuniovi.servicies.dtos.entities.PersonDto
-import es.uniovi.apuntesuniovi.servicies.dtos.entities.SubjectDto
-import es.uniovi.apuntesuniovi.servicies.impl.persons.FindPersonByUsername
-import es.uniovi.apuntesuniovi.servicies.impl.persons.SavePersonService
-import es.uniovi.apuntesuniovi.servicies.impl.subjects.SaveSubjectService
+import es.uniovi.apuntesuniovi.servicies.dtos.entities.UserDto
+import es.uniovi.apuntesuniovi.servicies.impl.users.FindAllUsersService
+import es.uniovi.apuntesuniovi.servicies.impl.users.FindUserByUsernameService
+import es.uniovi.apuntesuniovi.servicies.impl.users.SaveUserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
-class PersonServiceImpl @Autowired constructor(
+class UserServiceImpl @Autowired constructor(
         private val repositoryFactory: RepositoryFactory,
         private val dtoFactory: DtoFactory
-) : PersonService {
+) : UserService {
     private val logService = LogService(this.javaClass)
 
-    override fun findByUsername(username: String): PersonDto {
+    override fun findAll(): List<UserDto> {
+        logService.info("findAll() - start")
+        val result = FindAllUsersService(repositoryFactory, dtoFactory).execute()
+        logService.info("findAll() - end")
+        return result
+    }
+
+    override fun findByUsername(username: String): UserDto {
         logService.info("findByUsername(username: ${username}) - start")
-        val result = FindPersonByUsername(repositoryFactory, dtoFactory, username).execute()
+        val result = FindUserByUsernameService(repositoryFactory, dtoFactory, username).execute()
         logService.info("findByUsername(username: ${username}) - end")
         return result
     }
 
-    override fun save(personDto: PersonDto): List<PersonDto> {
-        logService.info("save(personDto:${personDto}) - start")
-        val result = SavePersonService(repositoryFactory, dtoFactory, personDto).execute()
-        logService.info("save(personDto:${personDto}) - end")
+    override fun save(userDto: UserDto): List<UserDto> {
+        logService.info("save(personDto:${userDto}) - start")
+        val result = SaveUserService(repositoryFactory, dtoFactory, userDto).execute()
+        logService.info("save(personDto:${userDto}) - end")
         return result
     }
 }

@@ -1,4 +1,7 @@
 package es.uniovi.apuntesuniovi.servicies.dtos.entities
 
-class RoleDto {
-}
+data class RoleDto(
+        var id: Long?,
+        var name: String,
+        var active: Boolean
+)
