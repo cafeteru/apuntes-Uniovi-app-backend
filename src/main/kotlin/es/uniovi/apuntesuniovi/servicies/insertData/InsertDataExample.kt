@@ -1,9 +1,10 @@
 package es.uniovi.apuntesuniovi.servicies.insertData
 
-import es.uniovi.apuntesuniovi.entities.Person
 import es.uniovi.apuntesuniovi.log.LogService
 import es.uniovi.apuntesuniovi.repositories.RepositoryFactory
 import es.uniovi.apuntesuniovi.servicies.ServiceFactory
+import es.uniovi.apuntesuniovi.servicies.dtos.entities.UserDto
+import es.uniovi.apuntesuniovi.servicies.dtos.entities.RoleDto
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.SubjectDto
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -19,9 +20,17 @@ class InsertDataExample @Autowired constructor(
     @PostConstruct
     fun initData() {
         logService.info("initData() - start")
+        var role = RoleDto(
+                id = 1,
+                name = "admin",
+                active = true
+        )
+        role = serviceFactory.getRoles().save(role)[0]
+
         val subjectDto = SubjectDto(id = null, name = "TFG", course = 4)
         serviceFactory.getSubjects().save(subjectDto)
-        val admin = Person(id = null,
+        val admin = UserDto(
+                id = null,
                 name = "admin",
                 surname = "admin",
                 active = true,
@@ -32,9 +41,10 @@ class InsertDataExample @Autowired constructor(
                 numberIdentification = "",
                 password = "admin",
                 phone = "",
-                role = "admin",
-                username = "admin")
-        repositoryFactory.getPersons().save(admin)
+                username = "admin",
+                role = role
+        )
+        serviceFactory.getUsers().save(admin)
         logService.info("initData() - end")
     }
 }

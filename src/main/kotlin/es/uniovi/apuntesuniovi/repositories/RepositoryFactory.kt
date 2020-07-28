@@ -1,7 +1,7 @@
 package es.uniovi.apuntesuniovi.repositories
 
 interface RepositoryFactory {
-    fun getPersons(): PersonRepository
-    fun getStudents(): StudentRepository
+    fun getUsers(): UserRepository
     fun getSubjects(): SubjectRepository
+    fun getRoles(): RoleRepository
 }

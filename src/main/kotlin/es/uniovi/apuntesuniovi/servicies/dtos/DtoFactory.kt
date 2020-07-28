@@ -1,6 +1,7 @@
 package es.uniovi.apuntesuniovi.servicies.dtos
 
 interface DtoFactory {
-    fun getPersons(): PersonDtoAssembler
+    fun getUsers(): UserDtoAssembler
+    fun getRoles(): RoleDtoAssembler
     fun getSubjects(): SubjectDtoAssembler
 }

@@ -9,7 +9,7 @@ class TeachSubject {
     private var id: Long? = null
 
     @ManyToOne
-    private var teacher: Teacher? = null
+    private var teacher: User? = null
 
     @ManyToOne
     private var subject: Subject? = null

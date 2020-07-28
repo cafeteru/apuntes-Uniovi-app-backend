@@ -1,6 +1,6 @@
 package es.uniovi.apuntesuniovi.servicies.impl.persons
 
-import es.uniovi.apuntesuniovi.entities.Person
+import es.uniovi.apuntesuniovi.entities.User
 import es.uniovi.apuntesuniovi.infrastructure.Command
 import es.uniovi.apuntesuniovi.log.LogService
 import es.uniovi.apuntesuniovi.repositories.RepositoryFactory
@@ -17,7 +17,7 @@ class FindPersonByUsername(
 
     override fun execute(): PersonDto {
         logService.info("execute() - start")
-        val optional: Optional<Person> = repositoryFactory.getPersons().findByUsername(username)
+        val optional: Optional<User> = repositoryFactory.getUsers().findByUsername(username)
         if (optional.isPresent) {
             logService.info("execute() - end")
             return dtoFactory.getPersons().entityToDto(optional.get())
