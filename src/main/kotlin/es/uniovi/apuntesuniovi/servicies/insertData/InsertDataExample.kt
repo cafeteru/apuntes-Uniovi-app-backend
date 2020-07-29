@@ -1,19 +1,17 @@
 package es.uniovi.apuntesuniovi.servicies.insertData
 
 import es.uniovi.apuntesuniovi.log.LogService
-import es.uniovi.apuntesuniovi.repositories.RepositoryFactory
 import es.uniovi.apuntesuniovi.servicies.ServiceFactory
-import es.uniovi.apuntesuniovi.servicies.dtos.entities.UserDto
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.RoleDto
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.SubjectDto
+import es.uniovi.apuntesuniovi.servicies.dtos.entities.UserDto
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import javax.annotation.PostConstruct
 
 @Service
 class InsertDataExample @Autowired constructor(
-        private val serviceFactory: ServiceFactory,
-        private val repositoryFactory: RepositoryFactory
+        private val serviceFactory: ServiceFactory
 ) {
     private val logService = LogService(this.javaClass)
 
@@ -44,7 +42,8 @@ class InsertDataExample @Autowired constructor(
                 username = "admin",
                 role = role
         )
-        serviceFactory.getUsers().save(admin)
+        val user = serviceFactory.getUsers().save(admin)
+        logService.info(user.toString())
         logService.info("initData() - end")
     }
 }

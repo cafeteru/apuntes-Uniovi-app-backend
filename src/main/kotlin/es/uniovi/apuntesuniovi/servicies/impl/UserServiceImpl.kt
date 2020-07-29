@@ -9,6 +9,7 @@ import es.uniovi.apuntesuniovi.servicies.impl.users.FindAllUsersService
 import es.uniovi.apuntesuniovi.servicies.impl.users.FindUserByUsernameService
 import es.uniovi.apuntesuniovi.servicies.impl.users.SaveUserService
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
 
 @Service
@@ -17,6 +18,11 @@ class UserServiceImpl @Autowired constructor(
         private val dtoFactory: DtoFactory
 ) : UserService {
     private val logService = LogService(this.javaClass)
+
+    @Autowired
+    fun bCryptPasswordEncoder(): BCryptPasswordEncoder {
+        return BCryptPasswordEncoder()
+    }
 
     override fun findAll(): List<UserDto> {
         logService.info("findAll() - start")
@@ -34,7 +40,7 @@ class UserServiceImpl @Autowired constructor(
 
     override fun save(userDto: UserDto): List<UserDto> {
         logService.info("save(personDto:${userDto}) - start")
-        val result = SaveUserService(repositoryFactory, dtoFactory, userDto).execute()
+        val result = SaveUserService(repositoryFactory, dtoFactory, bCryptPasswordEncoder(), userDto).execute()
         logService.info("save(personDto:${userDto}) - end")
         return result
     }
