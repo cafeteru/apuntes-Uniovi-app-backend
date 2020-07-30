@@ -42,8 +42,7 @@ class InsertDataExample @Autowired constructor(
                 username = "admin",
                 role = role
         )
-        val user = serviceFactory.getUsers().save(admin)
-        logService.info(user.toString())
+        serviceFactory.getUsers().save(admin)
         logService.info("initData() - end")
     }
 }

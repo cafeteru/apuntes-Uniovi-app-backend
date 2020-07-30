@@ -22,7 +22,7 @@ class DateServiceTest {
             fail<Boolean>()
         } catch (e: Exception) {
             assertEquals(e.javaClass, IllegalArgumentException::class.java)
-            assertEquals(e.message, ExceptionMessages.nullDate)
+            assertEquals(e.message, ExceptionMessages.NULL_DATE)
         }
     }
 }

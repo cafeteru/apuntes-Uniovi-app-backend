@@ -8,6 +8,8 @@ object SecurityConstants {
 
     // JWT
     const val SECRET = "SecretKeyToGenJWTs";
-    const val EXPIRATION_TIME = 1000 * 60 * 60 * 6;
+    private const val HOURS = 6
+    const val EXPIRATION_TIME = 1000 * 60 * 60 * HOURS;
+
 
 }

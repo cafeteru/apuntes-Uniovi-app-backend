@@ -3,7 +3,7 @@ package es.uniovi.apuntesuniovi.controllers.impl
 import es.uniovi.apuntesuniovi.controllers.RoleController
 import es.uniovi.apuntesuniovi.controllers.impl.roles.FindAllRoles
 import es.uniovi.apuntesuniovi.controllers.impl.roles.SaveRole
-import es.uniovi.apuntesuniovi.infrastructure.constants.UrlUtils
+import es.uniovi.apuntesuniovi.infrastructure.constants.Urls
 import es.uniovi.apuntesuniovi.log.LogService
 import es.uniovi.apuntesuniovi.servicies.ServiceFactory
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.RoleDto
@@ -13,13 +13,13 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping(UrlUtils.roles)
+@RequestMapping(Urls.ROLES)
 class RoleControllerImpl @Autowired constructor(
         private val serviceFactory: ServiceFactory
 ) : RoleController {
     private val logService = LogService(this.javaClass)
 
-    @GetMapping(UrlUtils.findAll)
+    @GetMapping(Urls.FIND_ALL)
     override fun findAll(): ResponseEntity<List<RoleDto>> {
         logService.info("findAll() - start")
         val result = FindAllRoles(serviceFactory).execute()
@@ -27,7 +27,7 @@ class RoleControllerImpl @Autowired constructor(
         return ResponseEntity(result, HttpStatus.OK)
     }
 
-    @PostMapping(UrlUtils.save)
+    @PostMapping(Urls.SAVE)
     override fun save(@RequestBody json: String?): ResponseEntity<List<RoleDto>> {
         logService.info("save(json: ${logService.formatJson(json)}) - start")
         val result = SaveRole(serviceFactory, json).execute()

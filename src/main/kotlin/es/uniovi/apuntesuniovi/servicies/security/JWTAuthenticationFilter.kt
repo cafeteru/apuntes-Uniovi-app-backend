@@ -36,10 +36,10 @@ class JWTAuthenticationFilter(
     ): Authentication {
         logService.info("attemptAuthentication(request: HttpServletRequest, " +
                 "response: HttpServletResponse) - start")
-        return try {
+        try {
             val credentials: User = ObjectMapper().readValue(request.inputStream, User::class.java)
             logService.info("attemptAuthentication(request: $request, response: $response) - end")
-            authenticationManager.authenticate(UsernamePasswordAuthenticationToken(
+            return authenticationManager.authenticate(UsernamePasswordAuthenticationToken(
                     credentials.username, credentials.password, ArrayList()))
         } catch (e: IOException) {
             logService.error("attemptAuthentication(request: HttpServletRequest, " +

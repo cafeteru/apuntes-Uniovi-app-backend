@@ -5,9 +5,7 @@ import es.uniovi.apuntesuniovi.log.LogService
 import es.uniovi.apuntesuniovi.servicies.ServiceFactory
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.RoleDto
 
-class FindAllRoles(
-        private val serviceFactory: ServiceFactory
-) : Command<List<RoleDto>> {
+class FindAllRoles(private val serviceFactory: ServiceFactory) : Command<List<RoleDto>> {
     private val logService = LogService(this.javaClass)
 
     override fun execute(): List<RoleDto> {

@@ -1,10 +1,13 @@
 package es.uniovi.apuntesuniovi.servicies.security
 
+import es.uniovi.apuntesuniovi.infrastructure.constants.ExceptionMessages
 import es.uniovi.apuntesuniovi.log.LogService
 import es.uniovi.apuntesuniovi.servicies.security.SecurityConstants.HEADER_STRING
 import es.uniovi.apuntesuniovi.servicies.security.SecurityConstants.SECRET
 import es.uniovi.apuntesuniovi.servicies.security.SecurityConstants.TOKEN_BEARER_PREFIX
+import io.jsonwebtoken.ExpiredJwtException
 import io.jsonwebtoken.Jwts
+import io.jsonwebtoken.SignatureException
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
@@ -15,7 +18,6 @@ import javax.servlet.FilterChain
 import javax.servlet.ServletException
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
-
 
 class JWTAuthorizationFilter(authManager: AuthenticationManager) : BasicAuthenticationFilter(authManager) {
     private val logService = LogService(this.javaClass)
@@ -34,15 +36,20 @@ class JWTAuthorizationFilter(authManager: AuthenticationManager) : BasicAuthenti
     }
 
     private fun getAuthentication(request: HttpServletRequest): UsernamePasswordAuthenticationToken? {
-        logService.info("getAuthentication(request: HttpServletRequest) - start")
-        val token = request.getHeader(HEADER_STRING)
-        if (token != null) {
-            // Se procesa el token y se recupera el usuario.
-            val user: String = Jwts.parser()
-                    .setSigningKey(SECRET)
-                    .parseClaimsJws(token.replace(TOKEN_BEARER_PREFIX, "")).body.subject
-            logService.info("getAuthentication(request: HttpServletRequest) - end")
-            return UsernamePasswordAuthenticationToken(user, null, ArrayList())
+        try {
+            logService.info("getAuthentication(request: HttpServletRequest) - start")
+            val token = request.getHeader(HEADER_STRING)
+            if (token != null) {
+                val user: String = Jwts.parser()
+                        .setSigningKey(SECRET)
+                        .parseClaimsJws(token.replace(TOKEN_BEARER_PREFIX, "")).body.subject
+                logService.info("getAuthentication(request: HttpServletRequest) - end")
+                return UsernamePasswordAuthenticationToken(user, null, ArrayList())
+            }
+        } catch (e: ExpiredJwtException) {
+            logService.error(ExceptionMessages.EXPIRED_TOKEN)
+        } catch (e: SignatureException) {
+            logService.error(ExceptionMessages.INVALID_TOKEN)
         }
         logService.info("getAuthentication(request: HttpServletRequest) - end")
         return null
