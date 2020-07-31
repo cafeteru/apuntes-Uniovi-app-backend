@@ -2,9 +2,9 @@ package es.uniovi.apuntesuniovi.servicies.security
 
 import es.uniovi.apuntesuniovi.infrastructure.constants.ExceptionMessages
 import es.uniovi.apuntesuniovi.log.LogService
-import es.uniovi.apuntesuniovi.servicies.security.SecurityConstants.HEADER_STRING
-import es.uniovi.apuntesuniovi.servicies.security.SecurityConstants.SECRET
-import es.uniovi.apuntesuniovi.servicies.security.SecurityConstants.TOKEN_BEARER_PREFIX
+import es.uniovi.apuntesuniovi.infrastructure.constants.SecurityConstants.HEADER_STRING
+import es.uniovi.apuntesuniovi.infrastructure.constants.SecurityConstants.SECRET
+import es.uniovi.apuntesuniovi.infrastructure.constants.SecurityConstants.TOKEN_BEARER_PREFIX
 import io.jsonwebtoken.ExpiredJwtException
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureException

@@ -10,7 +10,7 @@ import org.springframework.boot.runApplication
 class ApuntesunioviApplication
 
 /**
- * launches the application
+ * Launches the application
  */
 fun main(args: Array<String>) {
     runApplication<ApuntesunioviApplication>(*args)

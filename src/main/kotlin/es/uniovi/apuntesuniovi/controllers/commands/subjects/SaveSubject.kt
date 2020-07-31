@@ -1,4 +1,4 @@
-package es.uniovi.apuntesuniovi.controllers.impl.subjects
+package es.uniovi.apuntesuniovi.controllers.commands.subjects
 
 import com.google.gson.Gson
 import es.uniovi.apuntesuniovi.infrastructure.Command

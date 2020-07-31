@@ -1,7 +1,7 @@
 package es.uniovi.apuntesuniovi.servicies.security
 
 import es.uniovi.apuntesuniovi.log.LogService
-import es.uniovi.apuntesuniovi.servicies.security.SecurityConstants.LOGIN_URL
+import es.uniovi.apuntesuniovi.infrastructure.constants.SecurityConstants.LOGIN_URL
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
@@ -15,7 +15,9 @@ import org.springframework.web.cors.CorsConfigurationSource
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 import javax.inject.Inject
 
-
+/**
+ *
+ */
 @Configuration
 @EnableWebSecurity
 class WebSecurity @Inject constructor(
