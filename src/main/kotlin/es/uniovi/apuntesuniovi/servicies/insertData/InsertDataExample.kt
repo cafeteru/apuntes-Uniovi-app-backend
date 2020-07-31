@@ -25,11 +25,10 @@ class InsertDataExample @Autowired constructor(
                 isAdmin = true
         )
         role = serviceFactory.getRoles().save(role)[0]
-
-        val subjectDto = SubjectDto(id = null, name = "TFG", course = 4)
+        val subjectDto = SubjectDto(id = 0, name = "TFG", course = 4)
         serviceFactory.getSubjects().save(subjectDto)
         val admin = UserDto(
-                id = null,
+                id = 0,
                 name = "admin",
                 surname = "admin",
                 active = true,

@@ -9,15 +9,12 @@ import es.uniovi.apuntesuniovi.servicies.dtos.entities.UserDto
 
 class SaveUser(
         private val userService: UserService,
-        private val json: String?
+        private val json: String
 ) : Command<List<UserDto>> {
     private val logService = LogService(this.javaClass)
 
     override fun execute(): List<UserDto> {
         logService.info("execute() - start")
-        if (json.isNullOrEmpty()) {
-            throw IllegalArgumentException("")
-        }
         val userDto = Gson().fromJson(json, UserDto::class.java)
         val result = userService.save(userDto)
         logService.info("execute() - end")

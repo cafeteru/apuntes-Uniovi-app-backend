@@ -6,8 +6,8 @@ import javax.persistence.*
 class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long? = null
-    lateinit var name: String
+    var id: Long = 0
+    var name: String = ""
     var isAdmin: Boolean = false
     var active: Boolean = false
 

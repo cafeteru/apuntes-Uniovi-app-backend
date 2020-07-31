@@ -16,5 +16,5 @@ interface UserController {
     /**
      * Añade un nuevo usuario a través de una cadena de texto (JSON)
      */
-    fun save(json: String?): ResponseEntity<List<UserDto>>
+    fun save(json: String): ResponseEntity<List<UserDto>>
 }

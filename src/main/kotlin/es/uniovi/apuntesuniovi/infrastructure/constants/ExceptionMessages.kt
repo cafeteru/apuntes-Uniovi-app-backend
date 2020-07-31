@@ -2,6 +2,7 @@ package es.uniovi.apuntesuniovi.infrastructure.constants
 
 object ExceptionMessages {
     const val ALREADY_REGISTERED_USERNAME = "already registered username"
+    const val ALREADY_REGISTERED_SUBJECT = "already registered subject"
     const val EXPIRED_TOKEN = "expired token"
     const val NOT_FOUND_USERNAME = "No hay ningun usuario registrado con "
     const val NULL_DATE = "the date can´t be null"

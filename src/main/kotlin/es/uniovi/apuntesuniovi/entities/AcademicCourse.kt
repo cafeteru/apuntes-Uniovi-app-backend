@@ -7,7 +7,7 @@ import javax.persistence.*
 class AcademicCourse {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long? = null
+    var id: Long = 0
 
     @OneToMany(mappedBy = "student", cascade = [(CascadeType.ALL)])
     val learnSubject: Set<LearnSubject> = HashSet()

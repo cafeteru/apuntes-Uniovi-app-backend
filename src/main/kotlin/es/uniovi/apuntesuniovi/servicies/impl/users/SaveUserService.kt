@@ -22,7 +22,7 @@ class SaveUserService(
     override fun execute(): List<UserDto> {
         logService.info("execute() - start")
         val list = ArrayList<UserDto>()
-        checkUser()
+        check()
         userDto.password = bCryptPasswordEncoder.encode(userDto.password)
         val person = userDtoAssembler.dtoToEntity(userDto)
         val result = userRepository.save(person)
@@ -31,13 +31,13 @@ class SaveUserService(
         return list
     }
 
-    private fun checkUser() {
-        logService.info("checkUser() - start")
+    private fun check() {
+        logService.info("check() - start")
         val optional = userRepository.findByUsername(userDto.username)
         if (optional.isPresent) {
-            logService.error("checkUser() - $ALREADY_REGISTERED_USERNAME")
+            logService.error("check() - error")
             throw IllegalArgumentException(ALREADY_REGISTERED_USERNAME)
         }
-        logService.info("checkUser() - end")
+        logService.info("check() - end")
     }
 }

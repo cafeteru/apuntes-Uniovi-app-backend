@@ -1,17 +1,17 @@
 package es.uniovi.apuntesuniovi.entities
 
-import org.joda.time.LocalDate
+import java.util.*
 import javax.persistence.*
 
 @Entity
 class TeachSubjectRegistry {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long? = null
+    var id: Long = 0
 
     @ManyToOne
-    var teachSubject: TeachSubject? = null
+    lateinit var teachSubject: TeachSubject
 
-    var initDay: LocalDate? = null
-    var finishDay: LocalDate? = null
+    lateinit var initDay: Date
+    lateinit var finishDay: Date
 }

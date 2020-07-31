@@ -28,7 +28,7 @@ class UserControllerImpl @Autowired constructor(
     }
 
     @PostMapping(Urls.SAVE)
-    override fun save(@RequestBody json: String?): ResponseEntity<List<UserDto>> {
+    override fun save(@RequestBody json: String): ResponseEntity<List<UserDto>> {
         logService.info("save(json: ${logService.formatJson(json)}) - start")
         val result = SaveUser(serviceFactory.getUsers(), json).execute()
         logService.info("save(json:${logService.formatJson(json)}) - end")

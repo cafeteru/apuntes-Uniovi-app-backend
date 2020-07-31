@@ -15,5 +15,5 @@ interface SubjectController {
     /**
      * Añade una nueva asignatura a través de una cadena de texto (JSON)
      */
-    fun save(json: String?): ResponseEntity<List<SubjectDto>>
+    fun save(json: String): ResponseEntity<List<SubjectDto>>
 }

@@ -8,6 +8,6 @@ Aplicación móvil de soporte a las asignaturas
 
 ## Módulos
 
-- Backend: Spring Boot con Kotlin y Maven
-- Frontend: Angular 10
-- Móvil: Aplicación Android con Kotlin
+  - [Backend: Spring Boot con Kotlin y Maven](https://github.com/igm1990/apuntes-Uniovi-app-backend)
+  - Frontend: Angular 10
+  - Móvil: Aplicación Android con Kotlin

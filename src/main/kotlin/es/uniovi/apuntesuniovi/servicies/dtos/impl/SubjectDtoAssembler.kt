@@ -19,10 +19,10 @@ class SubjectDtoAssembler : AbstractDtoAssembler<Subject, SubjectDto>() {
 
     override fun dtoToEntity(dto: SubjectDto): Subject {
         logService.info("dtoToEntity(dto: ${dto}) - start")
-        val result = Subject(
-                id = dto.id,
-                name = dto.name,
-                course = dto.course)
+        val result = Subject()
+        result.id = dto.id
+        result.name = dto.name
+        result.course = dto.course
         logService.info("dtoToEntity(dto: ${dto}) - end")
         return result
     }

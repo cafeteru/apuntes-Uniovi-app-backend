@@ -6,7 +6,7 @@ import javax.persistence.*
 class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long? = null
+    var id: Long = 0
 
     @ManyToMany
     val tests: Set<Test> = HashSet()

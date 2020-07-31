@@ -6,13 +6,13 @@ import javax.persistence.*
 class LearnSubject {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long? = null
+    var id: Long = 0
 
     @ManyToOne
-    var student: User? = null
+    lateinit var student: User
 
     @ManyToOne
-    var subject: Subject? = null
+    lateinit var subject: Subject
 
     var pass: Boolean = false
 }

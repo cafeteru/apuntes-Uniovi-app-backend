@@ -13,7 +13,6 @@ class UserDtoAssembler @Autowired constructor(
 ) : AbstractDtoAssembler<User, UserDto>() {
     override fun entityToDto(entity: User): UserDto {
         logService.info("entityToDto(entity: ${entity}) - start")
-        val role = entity.role?.let { roleDtoAssembler.entityToDto(it) }
         val result = UserDto(
                 id = entity.id,
                 name = entity.name,
@@ -25,7 +24,7 @@ class UserDtoAssembler @Autowired constructor(
                 birthDate = DateService.dateToString(entity.birthDate),
                 username = entity.username,
                 password = entity.password,
-                role = role,
+                role = roleDtoAssembler.entityToDto(entity.role),
                 identificationType = entity.identificationType.toString(),
                 numberIdentification = entity.numberIdentification)
         logService.info("entityToDto(entity: ${entity}) - end")
@@ -34,7 +33,6 @@ class UserDtoAssembler @Autowired constructor(
 
     override fun dtoToEntity(dto: UserDto): User {
         logService.info("dtoToEntity(dto: ${dto}) - start")
-        val role = dto.role?.let { roleDtoAssembler.dtoToEntity(it) }
         val result = User()
         result.id = dto.id
         result.name = dto.name
@@ -48,7 +46,7 @@ class UserDtoAssembler @Autowired constructor(
         result.password = dto.password
         result.identificationType = result.setIdentificationType(dto.identificationType)
         result.numberIdentification = dto.numberIdentification
-        result.role = role
+        result.role = roleDtoAssembler.dtoToEntity(dto.role)
         logService.info("dtoToEntity(dto: ${dto}) - end")
         return result
     }

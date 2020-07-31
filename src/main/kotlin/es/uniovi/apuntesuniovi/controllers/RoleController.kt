@@ -15,5 +15,5 @@ interface RoleController {
     /**
      * Añade un nuevo rol a través de una cadena de texto (JSON)
      */
-    fun save(json: String?): ResponseEntity<List<RoleDto>>
+    fun save(json: String): ResponseEntity<List<RoleDto>>
 }

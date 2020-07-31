@@ -6,10 +6,10 @@ import javax.persistence.*
 class Lesson {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long? = null
+    var id: Long = 0
 
     @ManyToOne
-    var subject: Subject? = null
+    lateinit var subject: Subject
 
     @ManyToMany(mappedBy = "lessons", fetch = FetchType.LAZY, cascade = [(CascadeType.ALL)])
     val tests: Set<Test> = HashSet()

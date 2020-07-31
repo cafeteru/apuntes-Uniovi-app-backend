@@ -28,7 +28,7 @@ class RoleControllerImpl @Autowired constructor(
     }
 
     @PostMapping(Urls.SAVE)
-    override fun save(@RequestBody json: String?): ResponseEntity<List<RoleDto>> {
+    override fun save(@RequestBody json: String): ResponseEntity<List<RoleDto>> {
         logService.info("save(json: ${logService.formatJson(json)}) - start")
         val result = SaveRole(serviceFactory.getRoles(), json).execute()
         logService.info("save(json:${logService.formatJson(json)}) - end")

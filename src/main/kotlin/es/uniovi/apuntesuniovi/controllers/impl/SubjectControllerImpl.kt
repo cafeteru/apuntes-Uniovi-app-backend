@@ -28,7 +28,7 @@ class SubjectControllerImpl @Autowired constructor(
     }
 
     @PostMapping(Urls.SAVE)
-    override fun save(@RequestBody json: String?): ResponseEntity<List<SubjectDto>> {
+    override fun save(@RequestBody json: String): ResponseEntity<List<SubjectDto>> {
         logService.info("save(json: ${logService.formatJson(json)}) - start")
         val result = SaveSubject(serviceFactory.getSubjects(), json).execute()
         logService.info("save(json:${logService.formatJson(json)}) - end")
