@@ -3,7 +3,6 @@ package es.uniovi.apuntesuniovi.controllers.impl.users
 import com.google.gson.Gson
 import es.uniovi.apuntesuniovi.infrastructure.Command
 import es.uniovi.apuntesuniovi.log.LogService
-import es.uniovi.apuntesuniovi.servicies.ServiceFactory
 import es.uniovi.apuntesuniovi.servicies.UserService
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.UserDto
 

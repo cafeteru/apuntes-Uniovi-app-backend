@@ -1,20 +1,19 @@
 package es.uniovi.apuntesuniovi.controllers
 
-import es.uniovi.apuntesuniovi.servicies.dtos.entities.SubjectDto
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.UserDto
 import org.springframework.http.ResponseEntity
 
 /**
- * Controlador de usuarios
+ * Define user endpoints
  */
 interface UserController {
     /**
-     * Devuelve todos los usuarios registrados en el sistema
+     * Returns all registered users in the system
      */
     fun findAll(): ResponseEntity<List<UserDto>>
 
     /**
-     * Añade un nuevo usuario a través de una cadena de texto (JSON)
+     * Add a new user through a text string (JSON)
      */
     fun save(json: String): ResponseEntity<List<UserDto>>
 }

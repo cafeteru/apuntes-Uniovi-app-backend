@@ -4,33 +4,33 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
 /**
- * Clase para manejar el log de la aplicación
+ * Manage the application log
  */
 class LogService(controller: Class<Any>) {
     private val log: Logger = LoggerFactory.getLogger(controller)
 
     /**
-     * Añade un mensaje de información al log
+     * Add an information message to the log
      *
-     * @param message Mensaje a mostrar
+     * @param message Message to display
      */
     fun info(message: String?) {
         log.info(message)
     }
 
     /**
-     * Añade un mensage de error al log
+     * Add an error message to the log
      *
-     * @param message Mensaje a mostrar
+     * @param message Message to display
      */
     fun error(message: String?) {
         log.error(message)
     }
 
     /**
-     * Formatea un json para mostrarlo en el log
+     * Format a json to show it in the log
      *
-     * @param json Json a modificar
+     * @param json Json to modify
      */
     fun formatJson(json: String?): String {
         if (json.isNullOrEmpty()) {

@@ -1,11 +1,11 @@
 package es.uniovi.apuntesuniovi.infrastructure
 
 /**
- * Interfaz para aplicar el patrón Command
+ * Interface to apply the Command pattern
  */
 interface Command<T> {
     /**
-     * Ejecuta el comando y devuelve un valor
+     * Run the command and return a value
      */
     fun execute(): T
 }

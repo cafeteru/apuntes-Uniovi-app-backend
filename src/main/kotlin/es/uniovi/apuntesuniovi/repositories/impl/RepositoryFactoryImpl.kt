@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 /**
- * Patrón Factory aplicado a la capa de repositorios
+ * Implement the repository factory interface
  */
 @Service
 class RepositoryFactoryImpl @Autowired constructor(

@@ -4,16 +4,16 @@ import es.uniovi.apuntesuniovi.servicies.dtos.entities.SubjectDto
 import org.springframework.http.ResponseEntity
 
 /**
- * Controlador de las asignaturas
+ * Define subject endpoints
  */
 interface SubjectController {
     /**
-     * Devuelve todas las asignaturas registradas en el sistema
+     * Returns all subjects registered in the system
      */
     fun findAll(): ResponseEntity<List<SubjectDto>>
 
     /**
-     * Añade una nueva asignatura a través de una cadena de texto (JSON)
+     * Add a new subject through a text string (JSON)
      */
     fun save(json: String): ResponseEntity<List<SubjectDto>>
 }

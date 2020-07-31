@@ -5,29 +5,29 @@ import java.util.*
 import java.util.function.Consumer
 
 /**
- * Clase abstracta para definir los métodos de conversión de entidades y dto
+ * Abstract class to define the entity and dto conversion methods
  */
 abstract class AbstractDtoAssembler<Entity, Dto> {
     protected val logService = LogService(this.javaClass)
 
     /**
-     * Convierte una entidad en un dto
+     * Convert an entity into to dto
      *
-     * @param entity Entidad a convertir
+     * @param entity Entity to convert
      */
     abstract fun entityToDto(entity: Entity): Dto
 
     /**
-     * Convierte un dto en una entidad
+     * Convert an dto into to entity
      *
-     * @param dto Dto a convertir
+     * @param dto Dto to convert
      */
     abstract fun dtoToEntity(dto: Dto): Entity
 
     /**
-     * Convierte una lista de entidades en una lista de dtos
+     * Converts a list of entities to a list of dtos
      *
-     * @param entityList Lista de entidades a convertir
+     * @param entityList List of entities to convert
      */
     fun listToDto(entityList: List<Entity>): List<Dto> {
         logService.info("listToDto(entityList: ${entityList}) - start")
@@ -38,9 +38,9 @@ abstract class AbstractDtoAssembler<Entity, Dto> {
     }
 
     /**
-     * Convierte una lista de dtos en una lista de entidades
+     * Converts a list of dtos to a list of entities
      *
-     * @param dtoList Lista de dtos a convertir
+     * @param dtoList List of dtos to convert
      */
     fun listToEntities(dtoList: List<Dto>): List<Entity> {
         logService.info("listToEntities(dtoList: ${dtoList}) - start")

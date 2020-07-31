@@ -15,9 +15,9 @@ object DateService {
     private val logService = LogService(this.javaClass)
 
     /**
-     * Convierte una variable de tipo LocalDate a string con el formato
+     * Converts a variable of type LocalDate to string with the format
      *
-     * @param date La fecha a convertir.
+     * @param date The date to convert
      */
     fun dateToString(date: Date?): String {
         logService.info("dateToString(date: ${date}) - start")
