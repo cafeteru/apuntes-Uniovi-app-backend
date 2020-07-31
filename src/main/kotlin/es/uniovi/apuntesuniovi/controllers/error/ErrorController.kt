@@ -12,26 +12,26 @@ import java.util.*
  */
 @ControllerAdvice
 class ErrorController {
-    private var logService: LogService = LogService(this)
+    private val logService = LogService(this.javaClass)
 
     /**
      * Controla la excepciones que ocurren en el sistema
      * y devuelve un Json con el error ocurrido
      */
     @ExceptionHandler(value = [IllegalArgumentException::class])
-    fun responseException(
-            e: IllegalArgumentException): ResponseEntity<Map<String, String?>>? {
+    fun responseException(e: IllegalArgumentException): ResponseEntity<Map<String, String?>>? {
         logService.error(e.message)
-        return ResponseEntity(setMapErrors(e.message),
-                HttpStatus.BAD_REQUEST)
+        return ResponseEntity(setMapErrors(e.message), HttpStatus.BAD_REQUEST)
     }
 
     /**
      * Crea json con los errores detectados
      */
     private fun setMapErrors(message: String?): Map<String, String?> {
+        logService.info("setMapErrors(message: ${message}) - start")
         val map: MutableMap<String, String?> = HashMap()
         map["error"] = message
+        logService.info("setMapErrors(message: ${message}) - end")
         return map
     }
 }

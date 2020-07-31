@@ -1,6 +1,6 @@
 package es.uniovi.apuntesuniovi.servicies.dtos.entities
 
-data class PersonDto(
+data class UserDto(
         var id: Long?,
         var name: String,
         var surname: String,
@@ -11,6 +11,7 @@ data class PersonDto(
         var birthDate: String,
         var username: String,
         var password: String,
-        var role: String,
+        var role: RoleDto?,
         var identificationType: String,
-        var numberIdentification: String)
+        var numberIdentification: String
+)

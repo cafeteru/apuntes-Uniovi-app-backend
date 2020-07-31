@@ -7,11 +7,11 @@ import javax.persistence.*
 class TeachSubjectRegistry {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private var id: Long? = null
+    var id: Long? = null
 
     @ManyToOne
-    private var teachSubject: TeachSubject? = null
+    var teachSubject: TeachSubject? = null
 
-    private var initDay: LocalDate? = null
-    private var finishDay: LocalDate? = null
+    var initDay: LocalDate? = null
+    var finishDay: LocalDate? = null
 }

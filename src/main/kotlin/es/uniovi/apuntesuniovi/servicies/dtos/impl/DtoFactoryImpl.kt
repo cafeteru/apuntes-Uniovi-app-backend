@@ -1,18 +1,21 @@
 package es.uniovi.apuntesuniovi.servicies.dtos.impl
 
 import es.uniovi.apuntesuniovi.servicies.dtos.DtoFactory
-import es.uniovi.apuntesuniovi.servicies.dtos.PersonDtoAssembler
-import es.uniovi.apuntesuniovi.servicies.dtos.SubjectDtoAssembler
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
 class DtoFactoryImpl @Autowired constructor(
-        private val personDtoAssembler: PersonDtoAssembler,
+        private val userDtoAssembler: UserDtoAssembler,
+        private val roleDtoAssembler: RoleDtoAssembler,
         private val subjectDtoAssembler: SubjectDtoAssembler
 ) : DtoFactory {
-    override fun getPersons(): PersonDtoAssembler {
-        return personDtoAssembler
+    override fun getUsers(): UserDtoAssembler {
+        return userDtoAssembler
+    }
+
+    override fun getRoles(): RoleDtoAssembler {
+        return roleDtoAssembler
     }
 
     override fun getSubjects(): SubjectDtoAssembler {

@@ -2,21 +2,17 @@ package es.uniovi.apuntesuniovi.log
 
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import java.io.File
 
 /**
  * Clase para manejar el log de la aplicación
  */
-class LogService(controller: Any) {
-    private val log: Logger
-
-    init {
-        createFolder()
-        log = LoggerFactory.getLogger(controller.javaClass)
-    }
+class LogService(controller: Class<Any>) {
+    private val log: Logger = LoggerFactory.getLogger(controller)
 
     /**
      * Añade un mensaje de información al log
+     *
+     * @param message Mensaje a mostrar
      */
     fun info(message: String?) {
         log.info(message)
@@ -24,21 +20,22 @@ class LogService(controller: Any) {
 
     /**
      * Añade un mensage de error al log
+     *
+     * @param message Mensaje a mostrar
      */
     fun error(message: String?) {
         log.error(message)
     }
 
     /**
-     * Función que crea la carpeta contenedora del log si no existe previamente
+     * Formatea un json para mostrarlo en el log
+     *
+     * @param json Json a modificar
      */
-    private fun createFolder() {
-        val file = File("../log")
-        if (file.exists()) {
-            return
+    fun formatJson(json: String?): String {
+        if (json.isNullOrEmpty()) {
+            return ""
         }
-        if (file.mkdir()) {
-            println("Creada carpeta log correctamente")
-        }
+        return json.replace("\n", "").replace("\r", "")
     }
 }

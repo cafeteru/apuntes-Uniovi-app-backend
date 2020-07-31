@@ -6,14 +6,14 @@ import javax.persistence.*
 class LearnSubjectRegistry {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private var id: Long? = null
+    var id: Long? = null
 
     @ManyToOne
-    private var learnSubject: LearnSubject? = null
+    var learnSubject: LearnSubject? = null
 
     @ManyToOne
-    private var academicCourse: AcademicCourse? = null
+    var academicCourse: AcademicCourse? = null
 
-    private var mark: Float = 0f
-    private var number: Int = 0
+    var mark: Float = 0f
+    var number: Int = 0
 }

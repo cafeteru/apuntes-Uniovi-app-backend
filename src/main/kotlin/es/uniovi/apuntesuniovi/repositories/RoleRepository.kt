@@ -1,6 +1,6 @@
 package es.uniovi.apuntesuniovi.repositories
 
-import es.uniovi.apuntesuniovi.entities.Student
+import es.uniovi.apuntesuniovi.entities.Role
 import org.springframework.data.jpa.repository.JpaRepository
 
-interface StudentRepository : JpaRepository<Student, Long>
+interface RoleRepository : JpaRepository<Role, Long>

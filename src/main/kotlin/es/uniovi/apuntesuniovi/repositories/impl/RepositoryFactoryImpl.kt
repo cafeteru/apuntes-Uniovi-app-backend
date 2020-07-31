@@ -1,9 +1,9 @@
 package es.uniovi.apuntesuniovi.repositories.impl
 
-import es.uniovi.apuntesuniovi.repositories.PersonRepository
 import es.uniovi.apuntesuniovi.repositories.RepositoryFactory
-import es.uniovi.apuntesuniovi.repositories.StudentRepository
+import es.uniovi.apuntesuniovi.repositories.RoleRepository
 import es.uniovi.apuntesuniovi.repositories.SubjectRepository
+import es.uniovi.apuntesuniovi.repositories.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
@@ -12,22 +12,15 @@ import org.springframework.stereotype.Service
  */
 @Service
 class RepositoryFactoryImpl @Autowired constructor(
-        private val personRepository: PersonRepository,
-        private val studentRepository: StudentRepository,
-        private val subjectRepository: SubjectRepository
+        private val personRepository: UserRepository,
+        private val subjectRepository: SubjectRepository,
+        private val roleRepository: RoleRepository
 ) : RepositoryFactory {
     /**
-     * Devuelve el repositorio de las personas
+     * Devuelve el repositorio de los usuarios
      */
-    override fun getPersons(): PersonRepository {
+    override fun getUsers(): UserRepository {
         return personRepository
-    }
-
-    /**
-     * Devuelve el repositorio de los estudiantes
-     */
-    override fun getStudents(): StudentRepository {
-        return studentRepository
     }
 
     /**
@@ -35,5 +28,12 @@ class RepositoryFactoryImpl @Autowired constructor(
      */
     override fun getSubjects(): SubjectRepository {
         return subjectRepository
+    }
+
+    /**
+     * Devuelve el repositorio de los roles de usuario
+     */
+    override fun getRoles(): RoleRepository {
+        return roleRepository
     }
 }

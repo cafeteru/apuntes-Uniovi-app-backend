@@ -3,7 +3,11 @@ package es.uniovi.apuntesuniovi.entities
 import javax.persistence.*
 
 @Entity
-class Subject(id: Long?, name: String, course: Int) {
+class Subject(
+        id: Long?,
+        name: String,
+        course: Int
+) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = id
@@ -30,9 +34,15 @@ class Subject(id: Long?, name: String, course: Int) {
     @OneToMany(mappedBy = "subject", cascade = [(CascadeType.ALL)])
     val teachSubjects: Set<TeachSubject> = HashSet()
 
-    @OneToMany(mappedBy = "student", cascade = [(CascadeType.ALL)])
+    @OneToMany(mappedBy = "subject", cascade = [(CascadeType.ALL)])
     val learnSubject: Set<LearnSubject> = HashSet()
 
     @OneToMany(mappedBy = "subject", cascade = [(CascadeType.ALL)])
     val lessons: Set<Lesson> = HashSet()
+
+    override fun toString(): String {
+        return "Subject(id=$id, name='$name', course=$course)"
+    }
+
+
 }

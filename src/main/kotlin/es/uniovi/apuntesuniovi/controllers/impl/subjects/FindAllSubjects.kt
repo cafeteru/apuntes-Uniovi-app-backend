@@ -1,15 +1,21 @@
 package es.uniovi.apuntesuniovi.controllers.impl.subjects
 
 import es.uniovi.apuntesuniovi.infrastructure.Command
+import es.uniovi.apuntesuniovi.log.LogService
 import es.uniovi.apuntesuniovi.servicies.ServiceFactory
+import es.uniovi.apuntesuniovi.servicies.SubjectService
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.SubjectDto
 
 class FindAllSubjects(
-        private val serviceFactory: ServiceFactory
+        private val subjectService: SubjectService
 ) : Command<List<SubjectDto>> {
+    private val logService = LogService(this.javaClass)
 
     override fun execute(): List<SubjectDto> {
-        return serviceFactory.getSubjects().findAll()
+        logService.info("execute() - start")
+        val result = subjectService.findAll()
+        logService.info("execute() - end")
+        return result
     }
 
 }

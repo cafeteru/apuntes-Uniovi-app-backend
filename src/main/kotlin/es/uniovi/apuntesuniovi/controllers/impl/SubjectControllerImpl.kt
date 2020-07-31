@@ -3,33 +3,35 @@ package es.uniovi.apuntesuniovi.controllers.impl
 import es.uniovi.apuntesuniovi.controllers.SubjectController
 import es.uniovi.apuntesuniovi.controllers.impl.subjects.FindAllSubjects
 import es.uniovi.apuntesuniovi.controllers.impl.subjects.SaveSubject
+import es.uniovi.apuntesuniovi.infrastructure.constants.Urls
 import es.uniovi.apuntesuniovi.log.LogService
 import es.uniovi.apuntesuniovi.servicies.ServiceFactory
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.SubjectDto
-import es.uniovi.apuntesuniovi.servicies.messages.LoadMessages
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import java.security.Principal
 
 @RestController
-@RequestMapping("/subjects")
+@RequestMapping(Urls.SUBJECT)
 class SubjectControllerImpl @Autowired constructor(
-        private val serviceFactory: ServiceFactory,
-        private val loadMessages: LoadMessages
+        private val serviceFactory: ServiceFactory
 ) : SubjectController {
-    private val logService: LogService = LogService(this)
+    private val logService = LogService(this.javaClass)
 
-    @GetMapping("")
-    override fun findAll(principal: Principal?): ResponseEntity<List<SubjectDto>> {
-        logService.info(principal?.name + " " + loadMessages.getString("subject.find.all"))
-        return ResponseEntity<List<SubjectDto>>(FindAllSubjects(serviceFactory).execute(), HttpStatus.OK)
+    @GetMapping(Urls.FIND_ALL)
+    override fun findAll(): ResponseEntity<List<SubjectDto>> {
+        logService.info("findAll() - start")
+        val result = FindAllSubjects(serviceFactory.getSubjects()).execute()
+        logService.info("findAll() - end")
+        return ResponseEntity(result, HttpStatus.OK)
     }
 
-    @PostMapping("/save")
-    override fun save(principal: Principal?, @RequestBody json: String?): ResponseEntity<List<SubjectDto>> {
-        logService.info(principal?.name + " " + loadMessages.getString("subject.save"))
-        return ResponseEntity<List<SubjectDto>>(SaveSubject(serviceFactory, loadMessages, json).execute(), HttpStatus.OK)
+    @PostMapping(Urls.SAVE)
+    override fun save(@RequestBody json: String?): ResponseEntity<List<SubjectDto>> {
+        logService.info("save(json: ${logService.formatJson(json)}) - start")
+        val result = SaveSubject(serviceFactory.getSubjects(), json).execute()
+        logService.info("save(json:${logService.formatJson(json)}) - end")
+        return ResponseEntity(result, HttpStatus.OK)
     }
 }

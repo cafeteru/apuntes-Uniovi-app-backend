@@ -6,16 +6,16 @@ import javax.persistence.*
 class TeachSubject {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private var id: Long? = null
+    var id: Long? = null
 
     @ManyToOne
-    private var teacher: Teacher? = null
+    var teacher: User? = null
 
     @ManyToOne
-    private var subject: Subject? = null
+    var subject: Subject? = null
 
     @OneToMany(mappedBy = "teachSubject", cascade = [(CascadeType.ALL)])
-    private val registries: Set<TeachSubjectRegistry> = HashSet()
+    val registries: Set<TeachSubjectRegistry> = HashSet()
 
-    private var isCoordinator: Boolean = false
+    var isCoordinator: Boolean = false
 }
