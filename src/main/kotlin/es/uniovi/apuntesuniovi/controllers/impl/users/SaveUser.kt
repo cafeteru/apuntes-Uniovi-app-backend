@@ -4,10 +4,11 @@ import com.google.gson.Gson
 import es.uniovi.apuntesuniovi.infrastructure.Command
 import es.uniovi.apuntesuniovi.log.LogService
 import es.uniovi.apuntesuniovi.servicies.ServiceFactory
+import es.uniovi.apuntesuniovi.servicies.UserService
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.UserDto
 
 class SaveUser(
-        private val serviceFactory: ServiceFactory,
+        private val userService: UserService,
         private val json: String?
 ) : Command<List<UserDto>> {
     private val logService = LogService(this.javaClass)
@@ -18,7 +19,7 @@ class SaveUser(
             throw IllegalArgumentException("")
         }
         val userDto = Gson().fromJson(json, UserDto::class.java)
-        val result = serviceFactory.getUsers().save(userDto)
+        val result = userService.save(userDto)
         logService.info("execute() - end")
         return result
     }

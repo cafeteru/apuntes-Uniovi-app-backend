@@ -35,19 +35,20 @@ class UserDtoAssembler @Autowired constructor(
     override fun dtoToEntity(dto: UserDto): User {
         logService.info("dtoToEntity(dto: ${dto}) - start")
         val role = dto.role?.let { roleDtoAssembler.dtoToEntity(it) }
-        val result = User(id = dto.id,
-                name = dto.name,
-                surname = dto.surname,
-                email = dto.email,
-                phone = dto.phone,
-                active = dto.active,
-                img = dto.img,
-                birthDate = dto.birthDate,
-                username = dto.username,
-                password = dto.password,
-                identificationType = dto.identificationType,
-                numberIdentification = dto.numberIdentification,
-                role = role)
+        val result = User()
+        result.id = dto.id
+        result.name = dto.name
+        result.surname = dto.surname
+        result.email = dto.email
+        result.phone = dto.phone
+        result.active = dto.active
+        result.img = dto.img
+        result.birthDate = DateService.stringToDate(dto.birthDate).toDate()
+        result.username = dto.username
+        result.password = dto.password
+        result.identificationType = result.setIdentificationType(dto.identificationType)
+        result.numberIdentification = dto.numberIdentification
+        result.role = role
         logService.info("dtoToEntity(dto: ${dto}) - end")
         return result
     }

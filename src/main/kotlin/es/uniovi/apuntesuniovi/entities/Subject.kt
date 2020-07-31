@@ -34,7 +34,7 @@ class Subject(
     @OneToMany(mappedBy = "subject", cascade = [(CascadeType.ALL)])
     val teachSubjects: Set<TeachSubject> = HashSet()
 
-    @OneToMany(mappedBy = "student", cascade = [(CascadeType.ALL)])
+    @OneToMany(mappedBy = "subject", cascade = [(CascadeType.ALL)])
     val learnSubject: Set<LearnSubject> = HashSet()
 
     @OneToMany(mappedBy = "subject", cascade = [(CascadeType.ALL)])

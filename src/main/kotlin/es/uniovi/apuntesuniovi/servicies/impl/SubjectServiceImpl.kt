@@ -19,14 +19,14 @@ class SubjectServiceImpl @Autowired constructor(
 
     override fun findAll(): List<SubjectDto> {
         logService.info("findAll() - start")
-        val result = FindAllSubjectsService(repositoryFactory, dtoFactory).execute()
+        val result = FindAllSubjectsService(repositoryFactory.getSubjects(), dtoFactory.getSubjects()).execute()
         logService.info("findAll() - end")
         return result
     }
 
     override fun save(subjectDto: SubjectDto): List<SubjectDto> {
         logService.info("save(subjectDto:${subjectDto}) - start")
-        val result = SaveSubjectService(repositoryFactory, dtoFactory, subjectDto).execute()
+        val result = SaveSubjectService(repositoryFactory.getSubjects(), dtoFactory.getSubjects(), subjectDto).execute()
         logService.info("save(subjectDto:${subjectDto}) - end")
         return result
     }

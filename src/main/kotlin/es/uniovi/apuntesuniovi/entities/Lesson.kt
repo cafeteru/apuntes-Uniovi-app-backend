@@ -6,11 +6,11 @@ import javax.persistence.*
 class Lesson {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private var id: Long? = null
+    var id: Long? = null
 
     @ManyToOne
-    private var subject: Subject? = null
+    var subject: Subject? = null
 
     @ManyToMany(mappedBy = "lessons", fetch = FetchType.LAZY, cascade = [(CascadeType.ALL)])
-    private val tests: Set<Test> = HashSet()
+    val tests: Set<Test> = HashSet()
 }

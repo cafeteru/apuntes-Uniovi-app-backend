@@ -1,57 +1,50 @@
 package es.uniovi.apuntesuniovi.entities
 
 import es.uniovi.apuntesuniovi.entities.types.IdentificationType
-import es.uniovi.apuntesuniovi.servicies.dates.DateService
-import org.joda.time.LocalDate
+import java.util.*
 import javax.persistence.*
 
 @Entity
-class User(
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        var id: Long?,
-        var name: String,
-        var surname: String,
-        var email: String,
-        var phone: String,
-        var active: Boolean,
-        var img: String,
-        birthDate: String,
-        var username: String,
-        var password: String,
-        @ManyToOne
-        var role: Role?,
-        identificationType: String,
-        var numberIdentification: String
-) {
-    var birthDate: LocalDate? = DateService.stringToDate(birthDate)
+class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    var id: Long? = null
 
-    @Enumerated(EnumType.STRING)
-    var identificationType: IdentificationType = IdentificationType.DNI
+    lateinit var name: String
+    lateinit var surname: String
+    lateinit var email: String
+    lateinit var phone: String
+    var active: Boolean = false
+    lateinit var img: String
+    lateinit var birthDate: Date
+
+    @Column(unique = true)
+    lateinit var username: String
+    lateinit var password: String
+
+    @ManyToOne
+    var role: Role? = null
+    lateinit var identificationType: IdentificationType
+    lateinit var numberIdentification: String
 
     @OneToMany(mappedBy = "student", cascade = [(CascadeType.ALL)])
     val learnSubject: Set<LearnSubject> = HashSet()
 
-    private var isAdmin: Boolean = false
-
     @OneToMany(mappedBy = "teacher", cascade = [(CascadeType.ALL)])
     private val teachSubjects: Set<TeachSubject> = HashSet()
-
-    init {
-        setIdentificationType(identificationType)
-    }
 
     /**
      * Cambia el tipo de identificación
      *
      * @param identificationType Tipo de identificación en formato texto
      */
-    fun setIdentificationType(identificationType: String) {
+    fun setIdentificationType(identificationType: String?): IdentificationType {
         try {
-            this.identificationType = IdentificationType.valueOf(
-                    identificationType.toUpperCase())
-        } catch (e: NullPointerException) {
-            throw IllegalArgumentException("Tipo de identificación no valido")
+            if (identificationType == null) {
+                throw IllegalArgumentException("sdfs")
+            }
+            return IdentificationType.valueOf(identificationType.toUpperCase())
+
         } catch (e: IllegalArgumentException) {
             throw IllegalArgumentException("Tipo de identificación no valido")
         }

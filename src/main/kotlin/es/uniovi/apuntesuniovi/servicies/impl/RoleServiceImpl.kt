@@ -19,14 +19,14 @@ class RoleServiceImpl @Autowired constructor(
 
     override fun findAll(): List<RoleDto> {
         logService.info("findAll() - start")
-        val result = FindAllRolesService(repositoryFactory, dtoFactory).execute()
+        val result = FindAllRolesService(repositoryFactory.getRoles(), dtoFactory.getRoles()).execute()
         logService.info("findAll() - end")
         return result
     }
 
     override fun save(roleDto: RoleDto): List<RoleDto> {
         logService.info("save(roleDto:${roleDto}) - start")
-        val result = SaveRoleService(repositoryFactory, dtoFactory, roleDto).execute()
+        val result = SaveRoleService(repositoryFactory.getRoles(), dtoFactory.getRoles(), roleDto).execute()
         logService.info("save(roleDto:${roleDto}) - end")
         return result
     }

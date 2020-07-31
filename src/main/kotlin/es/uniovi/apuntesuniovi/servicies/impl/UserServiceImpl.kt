@@ -26,21 +26,22 @@ class UserServiceImpl @Autowired constructor(
 
     override fun findAll(): List<UserDto> {
         logService.info("findAll() - start")
-        val result = FindAllUsersService(repositoryFactory, dtoFactory).execute()
+        val result = FindAllUsersService(repositoryFactory.getUsers(), dtoFactory.getUsers()).execute()
         logService.info("findAll() - end")
         return result
     }
 
     override fun findByUsername(username: String): UserDto {
         logService.info("findByUsername(username: ${username}) - start")
-        val result = FindUserByUsernameService(repositoryFactory, dtoFactory, username).execute()
+        val result = FindUserByUsernameService(repositoryFactory.getUsers(), dtoFactory.getUsers(), username).execute()
         logService.info("findByUsername(username: ${username}) - end")
         return result
     }
 
     override fun save(userDto: UserDto): List<UserDto> {
         logService.info("save(personDto:${userDto}) - start")
-        val result = SaveUserService(repositoryFactory, dtoFactory, bCryptPasswordEncoder(), userDto).execute()
+        val result = SaveUserService(
+                repositoryFactory.getUsers(), dtoFactory.getUsers(), bCryptPasswordEncoder(), userDto).execute()
         logService.info("save(personDto:${userDto}) - end")
         return result
     }

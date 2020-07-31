@@ -22,7 +22,7 @@ class SubjectControllerImpl @Autowired constructor(
     @GetMapping(Urls.FIND_ALL)
     override fun findAll(): ResponseEntity<List<SubjectDto>> {
         logService.info("findAll() - start")
-        val result = FindAllSubjects(serviceFactory).execute()
+        val result = FindAllSubjects(serviceFactory.getSubjects()).execute()
         logService.info("findAll() - end")
         return ResponseEntity(result, HttpStatus.OK)
     }
@@ -30,7 +30,7 @@ class SubjectControllerImpl @Autowired constructor(
     @PostMapping(Urls.SAVE)
     override fun save(@RequestBody json: String?): ResponseEntity<List<SubjectDto>> {
         logService.info("save(json: ${logService.formatJson(json)}) - start")
-        val result = SaveSubject(serviceFactory, json).execute()
+        val result = SaveSubject(serviceFactory.getSubjects(), json).execute()
         logService.info("save(json:${logService.formatJson(json)}) - end")
         return ResponseEntity(result, HttpStatus.OK)
     }

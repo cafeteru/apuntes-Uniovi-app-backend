@@ -12,7 +12,7 @@ class DateServiceTest {
     fun dateToStringValid() {
         val date = LocalDate(1990, 12, 22)
         assertNotNull(date)
-        assertEquals(DateService.dateToString(date), "22-12-1990")
+        assertEquals(DateService.dateToString(date.toDate()), "22-12-1990")
     }
 
     @Test

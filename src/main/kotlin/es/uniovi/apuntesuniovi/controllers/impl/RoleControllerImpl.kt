@@ -22,7 +22,7 @@ class RoleControllerImpl @Autowired constructor(
     @GetMapping(Urls.FIND_ALL)
     override fun findAll(): ResponseEntity<List<RoleDto>> {
         logService.info("findAll() - start")
-        val result = FindAllRoles(serviceFactory).execute()
+        val result = FindAllRoles(serviceFactory.getRoles()).execute()
         logService.info("findAll() - end")
         return ResponseEntity(result, HttpStatus.OK)
     }
@@ -30,7 +30,7 @@ class RoleControllerImpl @Autowired constructor(
     @PostMapping(Urls.SAVE)
     override fun save(@RequestBody json: String?): ResponseEntity<List<RoleDto>> {
         logService.info("save(json: ${logService.formatJson(json)}) - start")
-        val result = SaveRole(serviceFactory, json).execute()
+        val result = SaveRole(serviceFactory.getRoles(), json).execute()
         logService.info("save(json:${logService.formatJson(json)}) - end")
         return ResponseEntity(result, HttpStatus.OK)
     }

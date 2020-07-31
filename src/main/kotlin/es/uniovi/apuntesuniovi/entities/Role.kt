@@ -3,13 +3,14 @@ package es.uniovi.apuntesuniovi.entities
 import javax.persistence.*
 
 @Entity
-class Role(
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        var id: Long?,
-        var name: String,
-        var active: Boolean
-) {
+class Role {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    var id: Long? = null
+    lateinit var name: String
+    var isAdmin: Boolean = false
+    var active: Boolean = false
+
     @OneToMany(mappedBy = "role", cascade = [(CascadeType.ALL)])
     val users: Set<User> = HashSet()
 
@@ -27,8 +28,8 @@ class Role(
     override fun hashCode(): Int {
         return name.hashCode()
     }
-    
+
     override fun toString(): String {
-        return "Role(id=$id, name='$name', active=$active)"
+        return "Role(id=$id, name='$name', isAdmin=$isAdmin, active=$active)"
     }
 }

@@ -6,8 +6,8 @@ import javax.persistence.*
 class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private var id: Long? = null
+    var id: Long? = null
 
     @ManyToMany
-    private val tests: Set<Test> = HashSet()
+    val tests: Set<Test> = HashSet()
 }

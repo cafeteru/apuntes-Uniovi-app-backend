@@ -12,17 +12,19 @@ class RoleDtoAssembler : AbstractDtoAssembler<Role, RoleDto>() {
         val result = RoleDto(
                 id = entity.id,
                 name = entity.name,
-                active = entity.active)
+                active = entity.active,
+                isAdmin = entity.isAdmin)
         logService.info("entityToDto(entity: ${entity}) - end")
         return result
     }
 
     override fun dtoToEntity(dto: RoleDto): Role {
         logService.info("dtoToEntity(dto: ${dto}) - start")
-        val result = Role(
-                id = dto.id,
-                name = dto.name,
-                active = dto.active)
+        val result = Role()
+        result.id = dto.id
+        result.name = dto.name
+        result.active = dto.active
+        result.isAdmin = dto.isAdmin
         logService.info("dtoToEntity(dto: ${dto}) - end")
         return result
     }

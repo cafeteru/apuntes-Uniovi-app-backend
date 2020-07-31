@@ -21,7 +21,8 @@ class InsertDataExample @Autowired constructor(
         var role = RoleDto(
                 id = 1,
                 name = "admin",
-                active = true
+                active = true,
+                isAdmin = true
         )
         role = serviceFactory.getRoles().save(role)[0]
 

@@ -6,6 +6,7 @@ import org.joda.time.LocalDate
 import org.joda.time.LocalDateTime
 import org.joda.time.LocalTime
 import org.joda.time.format.DateTimeFormat
+import java.util.*
 
 object DateService {
     private const val dateFormat = "dd-MM-yyyy"
@@ -18,10 +19,10 @@ object DateService {
      *
      * @param date La fecha a convertir.
      */
-    fun dateToString(date: LocalDate?): String {
+    fun dateToString(date: Date?): String {
         logService.info("dateToString(date: ${date}) - start")
         if (date != null) {
-            val result = date.toString(dateFormat)
+            val result = LocalDate(date).toString(dateFormat)
             logService.info("dateToString(date: ${date}) - end")
             return result
         }
