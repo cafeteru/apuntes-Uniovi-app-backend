@@ -1,6 +1,5 @@
 package es.uniovi.apuntesuniovi.servicies.dtos
 
-import es.uniovi.apuntesuniovi.servicies.dtos.impl.RoleDtoAssembler
 import es.uniovi.apuntesuniovi.servicies.dtos.impl.SubjectDtoAssembler
 import es.uniovi.apuntesuniovi.servicies.dtos.impl.UserDtoAssembler
 
@@ -12,11 +11,6 @@ interface DtoFactory {
      * Returns the user assembler
      */
     fun getUsers(): UserDtoAssembler
-
-    /**
-     * Returns the role assembler
-     */
-    fun getRoles(): RoleDtoAssembler
 
     /**
      * Returns the subject assembler

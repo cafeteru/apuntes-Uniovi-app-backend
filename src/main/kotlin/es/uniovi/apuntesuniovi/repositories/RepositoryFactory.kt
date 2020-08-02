@@ -13,9 +13,4 @@ interface RepositoryFactory {
      * Returns the subjects repository
      */
     fun getSubjects(): SubjectRepository
-
-    /**
-     * Returns the roles repository
-     */
-    fun getRoles(): RoleRepository
 }

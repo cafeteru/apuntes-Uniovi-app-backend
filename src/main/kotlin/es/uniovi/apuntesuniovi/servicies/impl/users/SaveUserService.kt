@@ -21,8 +21,8 @@ class SaveUserService(
 
     override fun execute(): List<UserDto> {
         logService.info("execute() - start")
+        checkUniqueUsername()
         val list = ArrayList<UserDto>()
-        check()
         userDto.password = bCryptPasswordEncoder.encode(userDto.password)
         val person = userDtoAssembler.dtoToEntity(userDto)
         val result = userRepository.save(person)
@@ -31,7 +31,7 @@ class SaveUserService(
         return list
     }
 
-    private fun check() {
+    private fun checkUniqueUsername() {
         logService.info("check() - start")
         val optional = userRepository.findByUsername(userDto.username)
         if (optional.isPresent) {

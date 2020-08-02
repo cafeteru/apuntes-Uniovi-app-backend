@@ -4,13 +4,10 @@ import es.uniovi.apuntesuniovi.entities.User
 import es.uniovi.apuntesuniovi.servicies.dates.DateService
 import es.uniovi.apuntesuniovi.servicies.dtos.AbstractDtoAssembler
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.UserDto
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
-class UserDtoAssembler @Autowired constructor(
-        private val roleDtoAssembler: RoleDtoAssembler
-) : AbstractDtoAssembler<User, UserDto>() {
+class UserDtoAssembler : AbstractDtoAssembler<User, UserDto>() {
     override fun entityToDto(entity: User): UserDto {
         logService.info("entityToDto(entity: ${entity}) - start")
         val result = UserDto(
@@ -24,7 +21,7 @@ class UserDtoAssembler @Autowired constructor(
                 birthDate = DateService.dateToString(entity.birthDate),
                 username = entity.username,
                 password = entity.password,
-                role = roleDtoAssembler.entityToDto(entity.role),
+                role = entity.role.toString(),
                 identificationType = entity.identificationType.toString(),
                 numberIdentification = entity.numberIdentification)
         logService.info("entityToDto(entity: ${entity}) - end")
@@ -44,9 +41,9 @@ class UserDtoAssembler @Autowired constructor(
         result.birthDate = DateService.stringToDate(dto.birthDate).toDate()
         result.username = dto.username
         result.password = dto.password
-        result.identificationType = result.setIdentificationType(dto.identificationType)
+        result.setIdentificationType(dto.identificationType)
         result.numberIdentification = dto.numberIdentification
-        result.role = roleDtoAssembler.dtoToEntity(dto.role)
+        result.setRole(dto.role)
         logService.info("dtoToEntity(dto: ${dto}) - end")
         return result
     }

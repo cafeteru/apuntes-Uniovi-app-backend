@@ -1,6 +1,7 @@
 package es.uniovi.apuntesuniovi.entities
 
 import es.uniovi.apuntesuniovi.entities.types.IdentificationType
+import es.uniovi.apuntesuniovi.entities.types.RoleType
 import java.util.*
 import javax.persistence.*
 
@@ -22,9 +23,12 @@ class User {
     lateinit var username: String
     lateinit var password: String
 
-    @ManyToOne
-    lateinit var role: Role
+    @Enumerated(EnumType.STRING)
+    lateinit var role: RoleType
+
+    @Enumerated(EnumType.STRING)
     lateinit var identificationType: IdentificationType
+
     lateinit var numberIdentification: String
 
     @OneToMany(mappedBy = "student", cascade = [(CascadeType.ALL)])
@@ -38,15 +42,25 @@ class User {
      *
      * @param identificationType Tipo de identificación en formato texto
      */
-    fun setIdentificationType(identificationType: String?): IdentificationType {
+    fun setIdentificationType(identificationType: String?) {
         try {
             if (identificationType == null) {
                 throw IllegalArgumentException("sdfs")
             }
-            return IdentificationType.valueOf(identificationType.toUpperCase())
-
+            this.identificationType = IdentificationType.valueOf(identificationType.toUpperCase())
         } catch (e: IllegalArgumentException) {
             throw IllegalArgumentException("Tipo de identificación no valido")
+        }
+    }
+
+    fun setRole(role: String?) {
+        try {
+            if (role == null) {
+                throw IllegalArgumentException("sdfs")
+            }
+            this.role = RoleType.valueOf(role.toUpperCase())
+        } catch (e: IllegalArgumentException) {
+            throw IllegalArgumentException("Rol no valido")
         }
     }
 

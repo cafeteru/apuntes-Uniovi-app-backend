@@ -10,11 +10,6 @@ interface ServiceFactory {
     fun getUsers(): UserService
 
     /**
-     * Returns the roles service
-     */
-    fun getRoles(): RoleService
-
-    /**
      * Returns the subject service
      */
     fun getSubjects(): SubjectService

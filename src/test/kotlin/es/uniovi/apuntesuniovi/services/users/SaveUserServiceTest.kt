@@ -1,10 +1,9 @@
 package es.uniovi.apuntesuniovi.services.users
 
 import es.uniovi.apuntesuniovi.entities.User
+import es.uniovi.apuntesuniovi.entities.types.RoleType
 import es.uniovi.apuntesuniovi.repositories.UserRepository
-import es.uniovi.apuntesuniovi.servicies.dtos.entities.RoleDto
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.UserDto
-import es.uniovi.apuntesuniovi.servicies.dtos.impl.RoleDtoAssembler
 import es.uniovi.apuntesuniovi.servicies.dtos.impl.UserDtoAssembler
 import es.uniovi.apuntesuniovi.servicies.impl.users.SaveUserService
 import org.junit.jupiter.api.Assertions.assertNotNull
@@ -24,16 +23,14 @@ class SaveUserServiceTest {
     @Mock
     private lateinit var userRepository: UserRepository
     private lateinit var userDtoAssembler: UserDtoAssembler
+    private lateinit var saveUserService: SaveUserService
 
     private fun bCryptPasswordEncoder(): BCryptPasswordEncoder {
         return BCryptPasswordEncoder()
     }
 
-    private lateinit var saveUserService: SaveUserService
-
     @BeforeEach
     fun initTest() {
-        val roleDto = RoleDto(id = 1, name = "admin", active = true, isAdmin = true)
         val userDto = UserDto(
                 id = 3,
                 name = "admin",
@@ -47,9 +44,9 @@ class SaveUserServiceTest {
                 password = "admin",
                 phone = "",
                 username = "admin",
-                role = roleDto
+                role = RoleType.ADMIN.toString()
         )
-        userDtoAssembler = UserDtoAssembler(RoleDtoAssembler())
+        userDtoAssembler = UserDtoAssembler()
         user = userDtoAssembler.dtoToEntity(userDto)
         saveUserService = SaveUserService(userRepository, userDtoAssembler,
                 bCryptPasswordEncoder(), userDto)
