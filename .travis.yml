@@ -1,11 +1,9 @@
-matrix:
-  include:
-    - language: java
-      jdk:
-        - openjdk11
-      install:
-        - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
-      script:
-        - mvn test
-      after_success:
-        - bash <(curl -s https://codecov.io/bash) -t 45c2d60f-ec5d-47d4-a88c-27360d10a7bf -v
+language: java
+jdk:
+  - openjdk11
+install:
+  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+script:
+  - mvn test
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
