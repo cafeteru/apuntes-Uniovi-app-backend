@@ -8,4 +8,4 @@ matrix:
       script:
         - mvn test
 after_success:
-  - bash <(curl -s https://codecov.io/bash) 45c2d60f-ec5d-47d4-a88c-27360d10a7bf
+  - bash <(curl -s https://codecov.io/bash) -t 45c2d60f-ec5d-47d4-a88c-27360d10a7bf
