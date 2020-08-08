@@ -2,6 +2,7 @@ package es.uniovi.apuntesuniovi.entities
 
 import es.uniovi.apuntesuniovi.entities.types.IdentificationType
 import es.uniovi.apuntesuniovi.entities.types.RoleType
+import es.uniovi.apuntesuniovi.infrastructure.constants.ExceptionMessages
 import java.util.*
 import javax.persistence.*
 
@@ -37,19 +38,14 @@ class User {
     @OneToMany(mappedBy = "teacher", cascade = [(CascadeType.ALL)])
     private val teachSubjects: Set<TeachSubject> = HashSet()
 
-    /**
-     * Cambia el tipo de identificación
-     *
-     * @param identificationType Tipo de identificación en formato texto
-     */
     fun setIdentificationType(identificationType: String?) {
         try {
             if (identificationType == null) {
-                throw IllegalArgumentException("sdfs")
+                throw IllegalArgumentException(ExceptionMessages.NULL_IDENTIFICATION_TYPE)
             }
             this.identificationType = IdentificationType.valueOf(identificationType.toUpperCase())
         } catch (e: IllegalArgumentException) {
-            throw IllegalArgumentException("Tipo de identificación no valido")
+            throw IllegalArgumentException(ExceptionMessages.INVALID_IDENTIFICATION_TYPE)
         }
     }
 
@@ -83,8 +79,8 @@ class User {
     }
 
     override fun toString(): String {
-        return "User(id=$id, name='$name', surname='$surname', email='$email', phone='$phone', active=$active," +
-                " img='$img', birthDate=$birthDate, username='$username', password='$password'," +
+        return "User(id=$id, name='$name', surname='$surname', email='$email', phone='$phone'," +
+                " active=$active, img='$img', birthDate=$birthDate, username='$username', " +
                 " identificationType=$identificationType, numberIdentification='$numberIdentification')"
     }
 }
