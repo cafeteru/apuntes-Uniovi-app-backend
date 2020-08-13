@@ -12,4 +12,5 @@ interface UserRepository : JpaRepository<User, Long> {
      * Find subject by username
      */
     fun findByUsername(userName: String): Optional<User>
+
 }

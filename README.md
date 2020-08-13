@@ -1,6 +1,6 @@
 # Apuntes-Uniovi-app
 
-Aplicación móvil de soporte a las asignaturas
+Aplicación de soporte a las asignaturas
 
 [![Build Status](https://travis-ci.org/Arquisoft/parti4b.svg?branch=master)](https://travis-ci.org/github/igm1990/Apuntes-Uniovi-app)
 [![codecov](https://codecov.io/gh/igm1990/apuntes-Uniovi-app-backend/branch/develop/graph/badge.svg)](https://codecov.io/gh/igm1990/apuntes-Uniovi-app-backend)
@@ -9,5 +9,5 @@ Aplicación móvil de soporte a las asignaturas
 ## Módulos
 
 - [Backend: Spring Boot con Kotlin y Maven](https://github.com/igm1990/apuntes-Uniovi-app-backend)
-- Frontend: Angular 10
-- Móvil: Aplicación Android con Kotlin
+- [Frontend: Angular 10](https://github.com/igm1990/curso_avanzado_angular)
+- [Móvil: Android con Kotlin](https://github.com/igm1990/apuntes-Uniovi-app-android)
