@@ -1,9 +1,22 @@
 language: java
+
+addons:
+  sonarcloud:
+    organization: "igm1990"
+    token:
+      secure: VwFqgKNO42Kf7XOVkrWFdInstNbg//AYlHNY5AKSBEm9vK6ZpnVxVaVNAA5e7scbW9B3T9FYf6YeRJoUldovVNOxtvoO6UrCATNuNT/dnHZ1lA4oCzK+wzlWkcWP4PLK5onbXsIndOjaCGoi7Rbx6PSui4aF4DlSH83epP1YqwP7o/WZntRtcJK0i2raAgOwG9rtEPvh9skUMnbAcUZ4SUfU8RuF8
+        CSfrBGfuPcIK0KBF5ZRQUEJGBK1ypkKiNe9ug4Y5CXymi1zUV5AHViVfThaDtL9OGUFVTc35xcqxlXNtiKEBl2F3XEnsxYo4L8n9GMe3QYY8WShYLXhY7OkLoAGzDh1NysDvYRzpYBkPg4NamxybIssth/qttCCddiC+/7JGbJYurc8Js31FMs/y/W2z6Vu5Vi9A3cmjG5Ijv7pJD3WdUaukioekN5fKTT9hjaIs
+        /ItF90PPKXuG3s2qhZc12wL/UTrD/i7TKnfeTRPmLksXKOz4t5cWWtd8SKlvuui9OZorg0JNkp1HjOgTvPE2Y1pL6zKFt+83366PVekSvjiI7dXrUg4MdB0wXCZBbgYECZgTMK8IfwJSuEff7/B7j0z+BgVejoEseAjZN62oWXXBitM0m7jNX4IgcJXAlC67EijQX6U1ETGCaOH8gceeFdv0BVtD5y6s4Ml7OI=
+
 jdk:
   - openjdk11
+
 install:
   - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+
 script:
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=igm1990_apuntes-Uniovi-app-backend
   - mvn package
+
 after_success:
   - bash <(curl -s https://codecov.io/bash)
