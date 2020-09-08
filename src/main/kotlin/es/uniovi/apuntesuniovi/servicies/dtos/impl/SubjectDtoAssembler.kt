@@ -11,8 +11,7 @@ class SubjectDtoAssembler : AbstractDtoAssembler<Subject, SubjectDto>() {
         logService.info("entityToDto(entity: ${entity}) - start")
         val result = SubjectDto(
                 id = entity.id,
-                name = entity.name,
-                course = entity.course)
+                name = entity.name)
         logService.info("entityToDto(entity: ${entity}) - end")
         return result
     }
@@ -22,7 +21,6 @@ class SubjectDtoAssembler : AbstractDtoAssembler<Subject, SubjectDto>() {
         val result = Subject()
         result.id = dto.id
         result.name = dto.name
-        result.course = dto.course
         logService.info("dtoToEntity(dto: ${dto}) - end")
         return result
     }

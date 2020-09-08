@@ -5,7 +5,7 @@ import javax.persistence.*
 @Entity
 class Test {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     var id: Long = 0
 
     @ManyToMany

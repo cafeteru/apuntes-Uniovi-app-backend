@@ -9,8 +9,8 @@ import javax.persistence.*
 @Entity
 class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long = 0
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    var id: Long = 0L
 
     lateinit var name: String
     lateinit var surname: String
@@ -36,7 +36,7 @@ class User {
     val learnSubject: Set<LearnSubject> = HashSet()
 
     @OneToMany(mappedBy = "teacher", cascade = [(CascadeType.ALL)])
-    private val teachSubjects: Set<TeachSubject> = HashSet()
+    val teachSubjects: Set<TeachSubject> = HashSet()
 
     fun setIdentificationType(identificationType: String?) {
         try {

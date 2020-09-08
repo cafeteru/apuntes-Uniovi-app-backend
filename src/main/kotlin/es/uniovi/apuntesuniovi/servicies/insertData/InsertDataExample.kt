@@ -19,7 +19,7 @@ class InsertDataExample @Autowired constructor(
     fun initData() {
         logService.info("initData() - start")
 
-        val subjectDto = SubjectDto(id = 0, name = "TFG", course = 4)
+        val subjectDto = SubjectDto(id = 0, name = "TFG")
         serviceFactory.getSubjects().save(subjectDto)
         val admin = UserDto(
                 id = 0,

@@ -9,7 +9,7 @@ import java.util.*
  */
 interface SubjectRepository : JpaRepository<Subject, Long> {
     /**
-     * Find subject by name and course
+     * Find subject by name
      */
-    fun findByNameAndCourse(name: String, course: Int): Optional<Subject>
+    fun findByName(name: String): Optional<Subject>
 }

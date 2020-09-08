@@ -16,22 +16,11 @@ class SaveSubjectService(
 
     override fun execute(): List<SubjectDto> {
         logService.info("execute() - start")
-        check()
         val list = ArrayList<SubjectDto>()
         val subject = subjectDtoAssembler.dtoToEntity(subjectDto)
         val result = subjectRepository.save(subject)
         list.add(subjectDtoAssembler.entityToDto(result))
         logService.info("execute() - end")
         return list
-    }
-
-    private fun check() {
-        logService.info("check() - start")
-        val optional = subjectRepository.findByNameAndCourse(subjectDto.name, subjectDto.course)
-        if (optional.isPresent) {
-            logService.error("check() - error")
-            throw IllegalArgumentException(ExceptionMessages.ALREADY_REGISTERED_SUBJECT)
-        }
-        logService.info("check() - end")
     }
 }
