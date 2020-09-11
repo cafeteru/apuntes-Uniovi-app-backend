@@ -3,10 +3,10 @@ package es.uniovi.apuntesuniovi.servicies.security
 import com.fasterxml.jackson.databind.ObjectMapper
 import es.uniovi.apuntesuniovi.entities.User
 import es.uniovi.apuntesuniovi.log.LogService
-import es.uniovi.apuntesuniovi.servicies.security.SecurityConstants.EXPIRATION_TIME
-import es.uniovi.apuntesuniovi.servicies.security.SecurityConstants.HEADER_STRING
-import es.uniovi.apuntesuniovi.servicies.security.SecurityConstants.SECRET
-import es.uniovi.apuntesuniovi.servicies.security.SecurityConstants.TOKEN_BEARER_PREFIX
+import es.uniovi.apuntesuniovi.infrastructure.constants.SecurityConstants.EXPIRATION_TIME
+import es.uniovi.apuntesuniovi.infrastructure.constants.SecurityConstants.HEADER_STRING
+import es.uniovi.apuntesuniovi.infrastructure.constants.SecurityConstants.SECRET
+import es.uniovi.apuntesuniovi.infrastructure.constants.SecurityConstants.TOKEN_BEARER_PREFIX
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
 import org.springframework.security.authentication.AuthenticationManager

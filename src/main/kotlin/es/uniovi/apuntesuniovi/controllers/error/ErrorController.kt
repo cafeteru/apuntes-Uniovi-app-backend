@@ -8,30 +8,26 @@ import org.springframework.web.bind.annotation.ExceptionHandler
 import java.util.*
 
 /**
- * Controlador para manejar las excepciones producidas en la aplicación e informar de ellas
+ * Handle exceptions thrown in the app and report them
  */
 @ControllerAdvice
 class ErrorController {
     private val logService = LogService(this.javaClass)
 
     /**
-     * Controla la excepciones que ocurren en el sistema
-     * y devuelve un Json con el error ocurrido
+     * Returns a Json with the error occurred
      */
     @ExceptionHandler(value = [IllegalArgumentException::class])
     fun responseException(e: IllegalArgumentException): ResponseEntity<Map<String, String?>>? {
         logService.error(e.message)
-        return ResponseEntity(setMapErrors(e.message), HttpStatus.BAD_REQUEST)
+        return ResponseEntity(createJsonError(e.message), HttpStatus.BAD_REQUEST)
     }
 
-    /**
-     * Crea json con los errores detectados
-     */
-    private fun setMapErrors(message: String?): Map<String, String?> {
-        logService.info("setMapErrors(message: ${message}) - start")
-        val map: MutableMap<String, String?> = HashMap()
+    private fun createJsonError(message: String?): Map<String, String?> {
+        logService.info("createJsonError(message: ${message}) - start")
+        val map = HashMap<String, String?>()
         map["error"] = message
-        logService.info("setMapErrors(message: ${message}) - end")
+        logService.info("createJsonError(message: ${message}) - end")
         return map
     }
 }

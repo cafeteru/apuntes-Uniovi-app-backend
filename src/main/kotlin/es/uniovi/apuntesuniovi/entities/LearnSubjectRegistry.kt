@@ -5,14 +5,14 @@ import javax.persistence.*
 @Entity
 class LearnSubjectRegistry {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long? = null
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    var id: Long = 0
 
     @ManyToOne
-    var learnSubject: LearnSubject? = null
+    lateinit var learnSubject: LearnSubject
 
     @ManyToOne
-    var academicCourse: AcademicCourse? = null
+    lateinit var academicCourse: AcademicCourse
 
     var mark: Float = 0f
     var number: Int = 0

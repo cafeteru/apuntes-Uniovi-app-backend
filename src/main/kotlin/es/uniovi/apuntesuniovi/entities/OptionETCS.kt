@@ -3,14 +3,16 @@ package es.uniovi.apuntesuniovi.entities
 import javax.persistence.*
 
 @Entity
-class Lesson {
+class OptionETCS {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     var id: Long = 0
 
     @ManyToOne
-    lateinit var subject: Subject
+    lateinit var configurationECTS: ConfigurationECTS
 
-    @ManyToMany(mappedBy = "lessons", fetch = FetchType.LAZY, cascade = [(CascadeType.ALL)])
-    val tests: Set<Test> = HashSet()
+    @ManyToMany
+    var subjectTypes: Set<SubjectType> = HashSet()
+
+    var etcs: Int = 0
 }

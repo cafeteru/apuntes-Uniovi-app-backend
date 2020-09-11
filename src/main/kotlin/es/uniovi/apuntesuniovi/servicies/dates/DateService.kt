@@ -15,9 +15,9 @@ object DateService {
     private val logService = LogService(this.javaClass)
 
     /**
-     * Convierte una variable de tipo LocalDate a string con el formato
+     * Converts a variable of type LocalDate to string with the format
      *
-     * @param date La fecha a convertir.
+     * @param date The date to convert
      */
     fun dateToString(date: Date?): String {
         logService.info("dateToString(date: ${date}) - start")
@@ -26,6 +26,7 @@ object DateService {
             logService.info("dateToString(date: ${date}) - end")
             return result
         }
+        logService.error(ExceptionMessages.NULL_DATE)
         throw IllegalArgumentException(ExceptionMessages.NULL_DATE)
     }
 
@@ -36,6 +37,7 @@ object DateService {
             logService.info("dateToStringWithHour(localDateTime: ${localDateTime}) - end")
             return result
         }
+        logService.error(ExceptionMessages.NULL_DATE)
         throw IllegalArgumentException(ExceptionMessages.NULL_DATE)
     }
 
@@ -46,6 +48,7 @@ object DateService {
             logService.info("dateToStringOnlyHour(localTime: ${localTime}) - end")
             return result
         }
+        logService.error(ExceptionMessages.NULL_DATE)
         throw IllegalArgumentException(ExceptionMessages.NULL_DATE)
     }
 
@@ -59,6 +62,7 @@ object DateService {
             logService.info("stringToDate(date: ${date}) - end")
             return result
         } catch (e: IllegalArgumentException) {
+            logService.error(ExceptionMessages.ILLEGAL_FORMAT_DATE)
             throw IllegalArgumentException(ExceptionMessages.ILLEGAL_FORMAT_DATE)
         }
     }
@@ -67,12 +71,14 @@ object DateService {
         logService.info("stringToDateOnlyHour(date: ${date}) - start")
         try {
             require(!date.isNullOrEmpty()) {
+                logService.error(ExceptionMessages.NULL_EMPTY_DATE)
                 ExceptionMessages.NULL_EMPTY_DATE
             }
             val result = LocalTime.parse(date, DateTimeFormat.forPattern(hourFormat))
             logService.info("stringToDateOnlyHour(date: ${date}) - end")
             return result
         } catch (e: IllegalArgumentException) {
+            logService.error(ExceptionMessages.ILLEGAL_FORMAT_HOUR)
             throw IllegalArgumentException(ExceptionMessages.ILLEGAL_FORMAT_HOUR)
         }
     }
@@ -81,12 +87,14 @@ object DateService {
         logService.info("stringToDateWithHour(date: ${date}) - start")
         try {
             require(!date.isNullOrEmpty()) {
+                logService.error(ExceptionMessages.NULL_EMPTY_DATE)
                 ExceptionMessages.NULL_EMPTY_DATE
             }
             val result = LocalDateTime.parse(date, DateTimeFormat.forPattern(dateHourFormat))
             logService.info("stringToDateWithHour(date: ${date}) - end")
             return result
         } catch (e: IllegalArgumentException) {
+            logService.error(ExceptionMessages.ILLEGAL_FORMAT_DATE)
             throw IllegalArgumentException(ExceptionMessages.ILLEGAL_FORMAT_DATE)
         }
     }
@@ -95,9 +103,11 @@ object DateService {
         logService.info("stringToDateWithHour(date: ${date}, hour: ${hour}) - start")
         try {
             require(!date.isNullOrEmpty()) {
+                logService.error(ExceptionMessages.NULL_EMPTY_DATE)
                 ExceptionMessages.NULL_EMPTY_DATE
             }
             require(!hour.isNullOrEmpty()) {
+                logService.error(ExceptionMessages.NULL_EMPTY_HOUR)
                 ExceptionMessages.NULL_EMPTY_HOUR
             }
             val newDate = "$date $hour"
@@ -105,6 +115,7 @@ object DateService {
             logService.info("stringToDateWithHour(date: ${date}, hour: ${hour}) - end")
             return result
         } catch (e: IllegalArgumentException) {
+            logService.error(ExceptionMessages.ILLEGAL_FORMAT_DATE)
             throw IllegalArgumentException(ExceptionMessages.ILLEGAL_FORMAT_DATE)
         }
     }
@@ -117,9 +128,11 @@ object DateService {
             logService.info("compareTwoDatesWithoutYear(first: ${first}, second: ${second}) - end")
         }
         require(first == null) {
+            logService.error(ExceptionMessages.NULL_EMPTY_DATE)
             ExceptionMessages.NULL_EMPTY_DATE
         }
         require(second == null) {
+            logService.error(ExceptionMessages.NULL_EMPTY_DATE)
             ExceptionMessages.NULL_EMPTY_DATE
         }
         return result

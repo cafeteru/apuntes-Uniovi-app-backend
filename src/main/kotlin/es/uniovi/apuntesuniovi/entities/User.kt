@@ -1,14 +1,16 @@
 package es.uniovi.apuntesuniovi.entities
 
 import es.uniovi.apuntesuniovi.entities.types.IdentificationType
+import es.uniovi.apuntesuniovi.entities.types.RoleType
+import es.uniovi.apuntesuniovi.infrastructure.constants.ExceptionMessages
 import java.util.*
 import javax.persistence.*
 
 @Entity
 class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long? = null
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    var id: Long = 0L
 
     lateinit var name: String
     lateinit var surname: String
@@ -22,31 +24,63 @@ class User {
     lateinit var username: String
     lateinit var password: String
 
-    @ManyToOne
-    var role: Role? = null
+    @Enumerated(EnumType.STRING)
+    lateinit var role: RoleType
+
+    @Enumerated(EnumType.STRING)
     lateinit var identificationType: IdentificationType
+
     lateinit var numberIdentification: String
 
     @OneToMany(mappedBy = "student", cascade = [(CascadeType.ALL)])
     val learnSubject: Set<LearnSubject> = HashSet()
 
     @OneToMany(mappedBy = "teacher", cascade = [(CascadeType.ALL)])
-    private val teachSubjects: Set<TeachSubject> = HashSet()
+    val teachSubjects: Set<TeachSubject> = HashSet()
 
-    /**
-     * Cambia el tipo de identificación
-     *
-     * @param identificationType Tipo de identificación en formato texto
-     */
-    fun setIdentificationType(identificationType: String?): IdentificationType {
+    fun setIdentificationType(identificationType: String?) {
         try {
             if (identificationType == null) {
+                throw IllegalArgumentException(ExceptionMessages.NULL_IDENTIFICATION_TYPE)
+            }
+            this.identificationType = IdentificationType.valueOf(identificationType.toUpperCase())
+        } catch (e: IllegalArgumentException) {
+            throw IllegalArgumentException(ExceptionMessages.INVALID_IDENTIFICATION_TYPE)
+        }
+    }
+
+    fun setRole(role: String?) {
+        try {
+            if (role == null) {
                 throw IllegalArgumentException("sdfs")
             }
-            return IdentificationType.valueOf(identificationType.toUpperCase())
-
+            this.role = RoleType.valueOf(role.toUpperCase())
         } catch (e: IllegalArgumentException) {
-            throw IllegalArgumentException("Tipo de identificación no valido")
+            throw IllegalArgumentException("Rol no valido")
         }
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as User
+
+        if (email != other.email) return false
+        if (username != other.username) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = email.hashCode()
+        result = 31 * result + username.hashCode()
+        return result
+    }
+
+    override fun toString(): String {
+        return "User(id=$id, name='$name', surname='$surname', email='$email', phone='$phone'," +
+                " active=$active, img='$img', birthDate=$birthDate, username='$username', " +
+                " identificationType=$identificationType, numberIdentification='$numberIdentification')"
     }
 }

@@ -5,14 +5,14 @@ import javax.persistence.*
 @Entity
 class TeachSubject {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long? = null
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    var id: Long = 0
 
     @ManyToOne
-    var teacher: User? = null
+    lateinit var teacher: User
 
     @ManyToOne
-    var subject: Subject? = null
+    lateinit var subject: Subject
 
     @OneToMany(mappedBy = "teachSubject", cascade = [(CascadeType.ALL)])
     val registries: Set<TeachSubjectRegistry> = HashSet()

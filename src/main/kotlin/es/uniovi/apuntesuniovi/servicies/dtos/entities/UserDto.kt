@@ -1,7 +1,10 @@
 package es.uniovi.apuntesuniovi.servicies.dtos.entities
 
+/**
+ * Dto of the users
+ */
 data class UserDto(
-        var id: Long?,
+        var id: Long,
         var name: String,
         var surname: String,
         var email: String,
@@ -11,7 +14,7 @@ data class UserDto(
         var birthDate: String,
         var username: String,
         var password: String,
-        var role: RoleDto?,
+        var role: String,
         var identificationType: String,
         var numberIdentification: String
 )

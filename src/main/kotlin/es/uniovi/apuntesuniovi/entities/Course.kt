@@ -4,14 +4,16 @@ import java.util.*
 import javax.persistence.*
 
 @Entity
-class TeachSubjectRegistry {
+class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     var id: Long = 0
 
-    @ManyToOne
-    lateinit var teachSubject: TeachSubject
+    var position: Int = 0
 
-    lateinit var initDay: Date
-    lateinit var finishDay: Date
+    @ManyToOne
+    lateinit var career: Career
+
+    @OneToMany(mappedBy = "course", cascade = [(CascadeType.ALL)])
+    val semesters: Set<Semester> = HashSet()
 }

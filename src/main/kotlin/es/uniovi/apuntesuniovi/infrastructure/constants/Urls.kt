@@ -1,5 +1,8 @@
 package es.uniovi.apuntesuniovi.infrastructure.constants
 
+/**
+ * Defines the urls for the controllers
+ */
 object Urls {
     const val USERS = "/users"
     const val ROLES = "/roles"

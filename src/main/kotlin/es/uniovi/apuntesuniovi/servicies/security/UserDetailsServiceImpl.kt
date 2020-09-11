@@ -31,5 +31,4 @@ class UserDetailsServiceImpl @Inject constructor(
             throw UsernameNotFoundException(username)
         }
     }
-
 }

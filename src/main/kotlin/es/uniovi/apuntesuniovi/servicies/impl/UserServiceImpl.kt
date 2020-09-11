@@ -39,10 +39,10 @@ class UserServiceImpl @Autowired constructor(
     }
 
     override fun save(userDto: UserDto): List<UserDto> {
-        logService.info("save(personDto:${userDto}) - start")
+        logService.info("save(userDto: UserDto) - start")
         val result = SaveUserService(
                 repositoryFactory.getUsers(), dtoFactory.getUsers(), bCryptPasswordEncoder(), userDto).execute()
-        logService.info("save(personDto:${userDto}) - end")
+        logService.info("save(userDto: UserDto) - end")
         return result
     }
 }

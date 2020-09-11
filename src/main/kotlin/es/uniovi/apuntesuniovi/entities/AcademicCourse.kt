@@ -1,17 +1,18 @@
 package es.uniovi.apuntesuniovi.entities
 
-import org.joda.time.LocalDate
+import java.util.*
 import javax.persistence.*
+import kotlin.collections.HashSet
 
 @Entity
 class AcademicCourse {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long? = null
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    var id: Long = 0
 
     @OneToMany(mappedBy = "student", cascade = [(CascadeType.ALL)])
     val learnSubject: Set<LearnSubject> = HashSet()
 
-    lateinit var initDay: LocalDate
-    lateinit var finishDay: LocalDate
+    lateinit var initDay: Date
+    lateinit var finishDay: Date
 }
