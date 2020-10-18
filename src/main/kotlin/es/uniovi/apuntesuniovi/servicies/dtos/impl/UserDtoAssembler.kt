@@ -1,7 +1,6 @@
 package es.uniovi.apuntesuniovi.servicies.dtos.impl
 
 import es.uniovi.apuntesuniovi.entities.User
-import es.uniovi.apuntesuniovi.servicies.dates.DateService
 import es.uniovi.apuntesuniovi.servicies.dtos.AbstractDtoAssembler
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.UserDto
 import org.springframework.stereotype.Service
@@ -18,7 +17,7 @@ class UserDtoAssembler : AbstractDtoAssembler<User, UserDto>() {
                 phone = user.phone,
                 active = user.active,
                 img = user.img,
-                birthDate = DateService.dateToString(user.birthDate),
+                birthDate = user.birthDate,
                 username = user.username,
                 password = user.password,
                 role = user.role.toString(),
@@ -28,22 +27,22 @@ class UserDtoAssembler : AbstractDtoAssembler<User, UserDto>() {
         return result
     }
 
-    override fun dtoToEntity(userDto: UserDto): User {
+    override fun dtoToEntity(dto: UserDto): User {
         logService.info("dtoToEntity(userDto: UserDto) - start")
         val result = User()
-        result.id = userDto.id
-        result.name = userDto.name
-        result.surname = userDto.surname
-        result.email = userDto.email
-        result.phone = userDto.phone
-        result.active = userDto.active
-        result.img = userDto.img
-        result.birthDate = DateService.stringToDate(userDto.birthDate).toDate()
-        result.username = userDto.username
-        result.password = userDto.password
-        result.setIdentificationType(userDto.identificationType)
-        result.numberIdentification = userDto.numberIdentification
-        result.setRole(userDto.role)
+        result.id = dto.id
+        result.name = dto.name
+        result.surname = dto.surname
+        result.email = dto.email
+        result.phone = dto.phone
+        result.active = dto.active
+        result.img = dto.img
+        result.birthDate = dto.birthDate
+        result.username = dto.username
+        result.password = dto.password
+        result.setIdentificationType(dto.identificationType)
+        result.numberIdentification = dto.numberIdentification
+        result.setRole(dto.role)
         logService.info("dtoToEntity(userDto: UserDto) - end")
         return result
     }

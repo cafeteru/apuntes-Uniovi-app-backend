@@ -16,5 +16,5 @@ interface SubjectService {
      *
      * @param subjectDto Subject to save
      */
-    fun save(subjectDto: SubjectDto): List<SubjectDto>
+    fun create(subjectDto: SubjectDto): List<SubjectDto>
 }

@@ -1,23 +1,18 @@
 package es.uniovi.apuntesuniovi.servicies.security
 
 import es.uniovi.apuntesuniovi.log.LogService
-import es.uniovi.apuntesuniovi.infrastructure.constants.SecurityConstants.LOGIN_URL
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
-import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.web.cors.CorsConfiguration
 import org.springframework.web.cors.CorsConfigurationSource
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 import javax.inject.Inject
 
-/**
- *
- */
 @Configuration
 @EnableWebSecurity
 class WebSecurity @Inject constructor(
@@ -28,14 +23,17 @@ class WebSecurity @Inject constructor(
     @Throws(Exception::class)
     override fun configure(httpSecurity: HttpSecurity) {
         logService.info("configure(httpSecurity: HttpSecurity) - start")
-        http.cors().and().csrf().disable().authorizeRequests()
-                .antMatchers(LOGIN_URL).permitAll().anyRequest()
-                .authenticated().and()
-                .addFilter(JWTAuthenticationFilter(authenticationManager()))
-                .addFilter(JWTAuthorizationFilter(authenticationManager()))
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .logout().permitAll()
+        // TODO revisar seguridad, por ahora esta desactivada
+        http.cors().and().csrf().disable();
+        http.authorizeRequests().antMatchers("/").permitAll()
+//        http.cors().and().csrf().disable().authorizeRequests()
+//                .antMatchers(LOGIN_URL).permitAll().anyRequest()
+//                .authenticated().and()
+//                .addFilter(JWTAuthenticationFilter(authenticationManager()))
+//                .addFilter(JWTAuthorizationFilter(authenticationManager()))
+//                .sessionManagement()
+//                .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+//                .logout().permitAll()
         logService.info("configure(httpSecurity: HttpSecurity) - end")
     }
 

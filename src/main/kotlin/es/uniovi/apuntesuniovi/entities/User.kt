@@ -3,6 +3,7 @@ package es.uniovi.apuntesuniovi.entities
 import es.uniovi.apuntesuniovi.entities.types.IdentificationType
 import es.uniovi.apuntesuniovi.entities.types.RoleType
 import es.uniovi.apuntesuniovi.infrastructure.constants.ExceptionMessages
+import java.time.LocalDate
 import java.util.*
 import javax.persistence.*
 
@@ -18,7 +19,7 @@ class User {
     lateinit var phone: String
     var active: Boolean = false
     lateinit var img: String
-    lateinit var birthDate: Date
+    lateinit var birthDate: LocalDate
 
     @Column(unique = true)
     lateinit var username: String

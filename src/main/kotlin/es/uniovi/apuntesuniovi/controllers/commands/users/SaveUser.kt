@@ -15,7 +15,7 @@ class SaveUser(
     override fun execute(): List<UserDto> {
         logService.info("execute() - start")
         val userDto = Gson().fromJson(json, UserDto::class.java)
-        val result = userService.save(userDto)
+        val result = userService.create(userDto)
         logService.info("execute() - end")
         return result
     }

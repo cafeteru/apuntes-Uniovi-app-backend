@@ -1,5 +1,7 @@
 package es.uniovi.apuntesuniovi.servicies.dtos.entities
 
+import java.time.LocalDate
+
 /**
  * Dto of the users
  */
@@ -11,7 +13,7 @@ data class UserDto(
         var phone: String,
         var active: Boolean,
         var img: String,
-        var birthDate: String,
+        var birthDate: LocalDate,
         var username: String,
         var password: String,
         var role: String,

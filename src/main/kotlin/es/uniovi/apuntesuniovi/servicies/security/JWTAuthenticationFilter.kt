@@ -1,12 +1,12 @@
 package es.uniovi.apuntesuniovi.servicies.security
 
-import com.fasterxml.jackson.databind.ObjectMapper
+import com.google.gson.GsonBuilder
 import es.uniovi.apuntesuniovi.entities.User
-import es.uniovi.apuntesuniovi.log.LogService
 import es.uniovi.apuntesuniovi.infrastructure.constants.SecurityConstants.EXPIRATION_TIME
 import es.uniovi.apuntesuniovi.infrastructure.constants.SecurityConstants.HEADER_STRING
 import es.uniovi.apuntesuniovi.infrastructure.constants.SecurityConstants.SECRET
 import es.uniovi.apuntesuniovi.infrastructure.constants.SecurityConstants.TOKEN_BEARER_PREFIX
+import es.uniovi.apuntesuniovi.log.LogService
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
 import org.springframework.security.authentication.AuthenticationManager
@@ -15,6 +15,7 @@ import org.springframework.security.core.Authentication
 import org.springframework.security.core.AuthenticationException
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 import java.io.IOException
+import java.time.LocalDate
 import java.util.*
 import javax.servlet.FilterChain
 import javax.servlet.ServletException
@@ -37,10 +38,15 @@ class JWTAuthenticationFilter(
         logService.info("attemptAuthentication(request: HttpServletRequest, " +
                 "response: HttpServletResponse) - start")
         try {
-            val credentials: User = ObjectMapper().readValue(request.inputStream, User::class.java)
-            logService.info("attemptAuthentication(request: $request, response: $response) - end")
-            return authenticationManager.authenticate(UsernamePasswordAuthenticationToken(
+            val gson = GsonBuilder()
+                    .setPrettyPrinting()
+                    .registerTypeAdapter(LocalDate::class.java, LocalDateTypeAdapter())
+                    .create()
+            val credentials: User = gson.fromJson(request.reader, User::class.java)
+            val result = authenticationManager.authenticate(UsernamePasswordAuthenticationToken(
                     credentials.username, credentials.password, ArrayList()))
+            logService.info("attemptAuthentication(request: $request, response: $response) - end")
+            return result;
         } catch (e: IOException) {
             logService.error("attemptAuthentication(request: HttpServletRequest, " +
                     "response: HttpServletResponse) - error")

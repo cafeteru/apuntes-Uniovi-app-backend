@@ -7,6 +7,7 @@ import es.uniovi.apuntesuniovi.repositories.UserRepository
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.UserDto
 import es.uniovi.apuntesuniovi.servicies.dtos.impl.UserDtoAssembler
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+import java.util.*
 
 /**
  * Service class used to add a user
@@ -14,10 +15,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 class SaveUserService(
         private val userRepository: UserRepository,
         private val userDtoAssembler: UserDtoAssembler,
-        private val bCryptPasswordEncoder: BCryptPasswordEncoder,
         private val userDto: UserDto
 ) : Command<List<UserDto>> {
     private val logService = LogService(this.javaClass)
+    private val bCryptPasswordEncoder = BCryptPasswordEncoder()
 
     override fun execute(): List<UserDto> {
         logService.info("execute() - start")
