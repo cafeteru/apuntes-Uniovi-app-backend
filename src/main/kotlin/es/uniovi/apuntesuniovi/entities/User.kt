@@ -39,6 +39,9 @@ class User {
     @OneToMany(mappedBy = "teacher", cascade = [(CascadeType.ALL)])
     val teachSubjects: Set<TeachSubject> = HashSet()
 
+    @OneToOne
+    lateinit var address: Address
+
     fun setIdentificationType(identificationType: String?) {
         try {
             if (identificationType == null) {

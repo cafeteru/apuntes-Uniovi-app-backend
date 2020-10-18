@@ -13,4 +13,7 @@ class UniversityCenter {
 
     @OneToMany(mappedBy = "universityCenter", cascade = [(CascadeType.ALL)])
     val careers: Set<Career> = HashSet()
+
+    @OneToOne
+    lateinit var address: Address
 }
