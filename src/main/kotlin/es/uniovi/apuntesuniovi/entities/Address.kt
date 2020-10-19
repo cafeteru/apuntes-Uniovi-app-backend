@@ -12,9 +12,4 @@ class Address {
     lateinit var city: String
     lateinit var postalCode: String
     lateinit var country: String
-
-    @OneToOne
-    lateinit var user: User
-    @OneToOne
-    lateinit var universityCenter: UniversityCenter
 }
