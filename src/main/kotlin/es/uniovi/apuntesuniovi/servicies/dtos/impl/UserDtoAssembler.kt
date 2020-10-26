@@ -7,22 +7,22 @@ import org.springframework.stereotype.Service
 
 @Service
 class UserDtoAssembler : AbstractDtoAssembler<User, UserDto>() {
-    override fun entityToDto(user: User): UserDto {
+    override fun entityToDto(entity: User): UserDto {
         logService.info("entityToDto(user: User) - start")
         val result = UserDto(
-                id = user.id,
-                name = user.name,
-                surname = user.surname,
-                email = user.email,
-                phone = user.phone,
-                active = user.active,
-                img = user.img,
-                birthDate = user.birthDate,
-                username = user.username,
-                password = user.password,
-                role = user.role.toString(),
-                identificationType = user.identificationType.toString(),
-                numberIdentification = user.numberIdentification)
+                id = entity.id,
+                name = entity.name,
+                surname = entity.surname,
+                email = entity.email,
+                phone = entity.phone,
+                active = entity.active,
+                img = entity.img,
+                birthDate = entity.birthDate,
+                username = entity.username,
+                password = entity.password,
+                role = entity.role.toString(),
+                identificationType = entity.identificationType.toString(),
+                numberIdentification = entity.numberIdentification)
         logService.info("entityToDto(user: User) - end")
         return result
     }
