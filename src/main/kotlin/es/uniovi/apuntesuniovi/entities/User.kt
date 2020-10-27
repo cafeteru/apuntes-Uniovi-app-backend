@@ -17,7 +17,7 @@ class User {
     lateinit var surname: String
     lateinit var email: String
     lateinit var phone: String
-    var active: Boolean = false
+    var active: Boolean = true
     lateinit var img: String
     lateinit var birthDate: LocalDate
 

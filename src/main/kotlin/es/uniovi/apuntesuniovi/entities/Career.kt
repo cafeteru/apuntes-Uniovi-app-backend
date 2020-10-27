@@ -10,7 +10,12 @@ class Career {
     var id: Long = 0
 
     lateinit var name: String
-    var minECTS: Int = 0
+    lateinit var code: String
+    lateinit var yearImplantation: String
+    lateinit var typeTeaching: String
+    lateinit var ISCED: String
+    var ECTS: Int = 0
+    lateinit var languages: String
 
     @ManyToOne
     lateinit var universityCenter: UniversityCenter
