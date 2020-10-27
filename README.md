@@ -2,9 +2,9 @@
 
 Aplicación de soporte a las asignaturas
 
-[![Build Status](https://travis-ci.org/Arquisoft/parti4b.svg?branch=master)](https://travis-ci.org/github/igm1990/Apuntes-Uniovi-app)
+[![Build Status](https://travis-ci.com/igm1990/apuntes-uniovi-app-backend.svg?branch=master)](https://travis-ci.com/bitbucket/igm1990/apuntes-uniovi-app-backend)
 [![codecov](https://codecov.io/gh/igm1990/apuntes-Uniovi-app-backend/branch/develop/graph/badge.svg)](https://codecov.io/gh/igm1990/apuntes-Uniovi-app-backend)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/3f0e9976e9594596b386eea7b1d592ed)](https://www.codacy.com/manual/igm1990/Apuntes-Uniovi-app?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=igm1990/Apuntes-Uniovi-app&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/2c7028fe7e19495bbd4da9722eedc47d)](https://www.codacy.com/bb/igm1990/apuntes-uniovi-app-backend/dashboard?utm_source=igm1990@bitbucket.org&amp;utm_medium=referral&amp;utm_content=igm1990/apuntes-uniovi-app-backend&amp;utm_campaign=Badge_Grade)
 
 ## Módulos
 
