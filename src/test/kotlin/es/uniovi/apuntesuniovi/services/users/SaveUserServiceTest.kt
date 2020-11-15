@@ -1,7 +1,7 @@
 package es.uniovi.apuntesuniovi.services.users
 
 import es.uniovi.apuntesuniovi.entities.User
-import es.uniovi.apuntesuniovi.entities.types.RoleType
+import es.uniovi.apuntesuniovi.mocks.MockFactory
 import es.uniovi.apuntesuniovi.repositories.UserRepository
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.UserDto
 import es.uniovi.apuntesuniovi.servicies.dtos.impl.UserDtoAssembler
@@ -15,7 +15,6 @@ import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.junit.jupiter.MockitoExtension
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
-import java.time.LocalDate
 import kotlin.test.assertEquals
 
 
@@ -35,21 +34,8 @@ class SaveUserServiceTest {
 
     @BeforeEach
     fun initTest() {
-        userDto = UserDto(
-                id = 3,
-                name = "admin",
-                surname = "admin",
-                active = true,
-                birthDate = LocalDate.of(1990, 12, 22),
-                email = "admin@admin.com",
-                identificationType = "dni",
-                img = "",
-                numberIdentification = "",
-                password = "admin",
-                phone = "",
-                username = "admin",
-                role = RoleType.ADMIN.toString()
-        )
+        val mockFactory = MockFactory()
+        userDto = mockFactory.getDtos().createUserDto();
         userDtoAssembler = UserDtoAssembler()
         user = userDtoAssembler.dtoToEntity(userDto)
         user.password = bCryptPasswordEncoder().encode(user.password)

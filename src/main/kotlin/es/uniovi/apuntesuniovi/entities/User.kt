@@ -3,6 +3,9 @@ package es.uniovi.apuntesuniovi.entities
 import es.uniovi.apuntesuniovi.entities.types.IdentificationType
 import es.uniovi.apuntesuniovi.entities.types.RoleType
 import es.uniovi.apuntesuniovi.infrastructure.constants.ExceptionMessages
+import es.uniovi.apuntesuniovi.validators.impl.ValidatorCompositeAny
+import es.uniovi.apuntesuniovi.validators.impl.ValidatorDni
+import es.uniovi.apuntesuniovi.validators.impl.ValidatorNie
 import java.time.LocalDate
 import java.util.*
 import javax.persistence.*
@@ -32,6 +35,16 @@ class User {
     lateinit var identificationType: IdentificationType
 
     var numberIdentification: String? = null
+        set(value) {
+            val validator = ValidatorCompositeAny()
+            validator.add(ValidatorDni(value))
+            validator.add(ValidatorNie(value))
+            if (validator.isValid()) {
+                field = value
+            } else {
+                throw IllegalArgumentException(ExceptionMessages.INVALID_IDENTIFICATION_NUMBER)
+            }
+        }
 
     @OneToMany(mappedBy = "student", cascade = [(CascadeType.ALL)])
     val learnSubject: Set<LearnSubject> = HashSet()

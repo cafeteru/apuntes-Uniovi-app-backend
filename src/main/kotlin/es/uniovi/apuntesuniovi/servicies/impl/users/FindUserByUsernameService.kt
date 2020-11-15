@@ -23,6 +23,7 @@ class FindUserByUsernameService(
             logService.info("execute() - end")
             return userDtoAssembler.entityToDto(optional.get())
         }
+        logService.error("execute() - error")
         throw IllegalArgumentException("${ExceptionMessages.NOT_FOUND_USERNAME}  $username")
     }
 }

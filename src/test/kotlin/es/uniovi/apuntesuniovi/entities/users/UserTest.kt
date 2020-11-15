@@ -4,6 +4,7 @@ import es.uniovi.apuntesuniovi.entities.User
 import es.uniovi.apuntesuniovi.entities.types.IdentificationType
 import es.uniovi.apuntesuniovi.entities.types.RoleType
 import es.uniovi.apuntesuniovi.infrastructure.constants.ExceptionMessages
+import es.uniovi.apuntesuniovi.mocks.MockFactory
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.fail
 import org.junit.jupiter.api.BeforeEach
@@ -16,17 +17,7 @@ class UserTest {
 
     @BeforeEach
     fun initData() {
-        user = User()
-        user.id = 1
-        user.name = "Test"
-        user.surname = "Test"
-        user.active = true
-        user.birthDate = LocalDate.now()
-        user.email = "test@test.es" // TODO validatorEmail
-        user.identificationType = IdentificationType.NIE
-        user.numberIdentification = "" //TODO validatorNumberIdentification
-        user.username = "test"
-        user.role = RoleType.STUDENT
+        user = MockFactory().getEntities().createUser()
     }
 
     @Test

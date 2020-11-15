@@ -31,7 +31,7 @@ class InsertDataExample @Autowired constructor(
                 email = "admin@admin.com",
                 identificationType = "dni",
                 img = "",
-                numberIdentification = "",
+                numberIdentification = "72479503V",
                 password = "admin",
                 phone = "",
                 username = "admin",
