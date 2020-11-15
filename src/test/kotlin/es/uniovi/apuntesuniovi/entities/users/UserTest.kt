@@ -38,6 +38,17 @@ class UserTest {
     }
 
     @Test
+    fun emptyIdentificationType() {
+        try {
+            user.setIdentificationType("")
+            fail("IdentificationType can´t be empty")
+        } catch (e: IllegalArgumentException) {
+            assertEquals(IdentificationType.NIE, user.identificationType)
+            assertEquals(e.message, ExceptionMessages.INVALID_IDENTIFICATION_TYPE)
+        }
+    }
+
+    @Test
     fun nullIdentificationType() {
         try {
             user.setIdentificationType(null)
@@ -73,6 +84,17 @@ class UserTest {
         } catch (e: IllegalArgumentException) {
             assertEquals(RoleType.STUDENT, user.role)
             assertEquals(e.message, ExceptionMessages.NULL_ROLE_TYPE)
+        }
+    }
+
+    @Test
+    fun emptyRole() {
+        try {
+            user.setRole("")
+            fail("RoleType can´t be empty")
+        } catch (e: IllegalArgumentException) {
+            assertEquals(RoleType.STUDENT, user.role)
+            assertEquals(e.message, ExceptionMessages.INVALID_ROLE_TYPE)
         }
     }
 
