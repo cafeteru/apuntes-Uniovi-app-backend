@@ -7,11 +7,11 @@ import org.springframework.boot.runApplication
  * Main class that launches the application
  */
 @SpringBootApplication
-class ApuntesunioviApplication
+class ApuntesUnioviApplication
 
 /**
  * Launches the application
  */
 fun main(args: Array<String>) {
-    runApplication<ApuntesunioviApplication>(*args)
+    runApplication<ApuntesUnioviApplication>(*args)
 }
