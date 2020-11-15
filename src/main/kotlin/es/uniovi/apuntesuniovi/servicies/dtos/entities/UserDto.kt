@@ -14,9 +14,9 @@ data class UserDto(
         var active: Boolean,
         var img: String,
         var birthDate: LocalDate,
-        var username: String,
+        var username: String?,
         var password: String,
         var role: String,
         var identificationType: String,
-        var numberIdentification: String
+        var numberIdentification: String?
 )

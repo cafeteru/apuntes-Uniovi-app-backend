@@ -24,7 +24,6 @@ class WebSecurity @Inject constructor(
 ) : WebSecurityConfigurerAdapter() {
     private val logService = LogService(this.javaClass)
 
-    @Throws(Exception::class)
     override fun configure(http: HttpSecurity) {
         logService.info("configure(httpSecurity: HttpSecurity) - start")
         http.cors().and().csrf().disable().authorizeRequests()
@@ -39,7 +38,6 @@ class WebSecurity @Inject constructor(
     }
 
     @Inject
-    @Throws(Exception::class)
     fun configureGlobal(auth: AuthenticationManagerBuilder) {
         logService.info("configureGlobal(auth: AuthenticationManagerBuilder) - start")
         auth.userDetailsService(userDetailsService).passwordEncoder(BCryptPasswordEncoder())

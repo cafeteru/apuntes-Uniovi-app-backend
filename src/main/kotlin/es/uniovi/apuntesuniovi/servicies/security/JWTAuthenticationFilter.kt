@@ -78,7 +78,7 @@ class JWTAuthenticationFilter(
         val user = userService.findByUsername(username)
         out.print("{ \n\t")
         addParam(out, AUTHORIZATION_HEADER, "$TOKEN_BEARER_PREFIX$token")
-        addParam(out, "username", user.username)
+        user.username?.let { addParam(out, "username", it) }
         addParam(out, "role", user.role)
         out.print("}")
         out.flush()

@@ -22,7 +22,7 @@ class User {
     lateinit var birthDate: LocalDate
 
     @Column(unique = true)
-    lateinit var username: String
+    var username: String? = null
     lateinit var password: String
 
     @Enumerated(EnumType.STRING)
@@ -31,7 +31,7 @@ class User {
     @Enumerated(EnumType.STRING)
     lateinit var identificationType: IdentificationType
 
-    lateinit var numberIdentification: String
+    var numberIdentification: String? = null
 
     @OneToMany(mappedBy = "student", cascade = [(CascadeType.ALL)])
     val learnSubject: Set<LearnSubject> = HashSet()
@@ -43,10 +43,10 @@ class User {
     lateinit var address: Address
 
     fun setIdentificationType(identificationType: String?) {
+        if (identificationType == null) {
+            throw IllegalArgumentException(ExceptionMessages.NULL_IDENTIFICATION_TYPE)
+        }
         try {
-            if (identificationType == null) {
-                throw IllegalArgumentException(ExceptionMessages.NULL_IDENTIFICATION_TYPE)
-            }
             this.identificationType = IdentificationType.valueOf(identificationType.toUpperCase())
         } catch (e: IllegalArgumentException) {
             throw IllegalArgumentException(ExceptionMessages.INVALID_IDENTIFICATION_TYPE)
@@ -54,13 +54,13 @@ class User {
     }
 
     fun setRole(role: String?) {
+        if (role == null) {
+            throw IllegalArgumentException(ExceptionMessages.NULL_ROLE_TYPE)
+        }
         try {
-            if (role == null) {
-                throw IllegalArgumentException("sdfs")
-            }
             this.role = RoleType.valueOf(role.toUpperCase())
         } catch (e: IllegalArgumentException) {
-            throw IllegalArgumentException("Rol no valido")
+            throw IllegalArgumentException(ExceptionMessages.INVALID_ROLE_TYPE)
         }
     }
 
@@ -70,21 +70,18 @@ class User {
 
         other as User
 
-        if (email != other.email) return false
+        if (id != other.id) return false
         if (username != other.username) return false
+        if (numberIdentification != other.numberIdentification) return false
 
         return true
     }
 
     override fun hashCode(): Int {
-        var result = email.hashCode()
+        var result = id.hashCode()
         result = 31 * result + username.hashCode()
+        result = 31 * result + numberIdentification.hashCode()
         return result
     }
 
-    override fun toString(): String {
-        return "User(id=$id, name='$name', surname='$surname', email='$email', phone='$phone'," +
-                " active=$active, img='$img', birthDate=$birthDate, username='$username', " +
-                " identificationType=$identificationType, numberIdentification='$numberIdentification')"
-    }
 }

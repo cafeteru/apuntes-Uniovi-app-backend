@@ -34,8 +34,8 @@ class SaveUserService(
 
     private fun checkUniqueUsername() {
         logService.info("check() - start")
-        val optional = userRepository.findByUsername(userDto.username)
-        if (optional.isPresent) {
+        val optional = userDto.username?.let { userRepository.findByUsername(it) }
+        if (optional != null && optional.isPresent) {
             logService.error("check() - error")
             throw IllegalArgumentException(ALREADY_REGISTERED_USERNAME)
         }

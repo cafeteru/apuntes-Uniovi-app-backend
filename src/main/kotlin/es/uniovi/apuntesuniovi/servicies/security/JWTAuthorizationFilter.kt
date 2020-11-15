@@ -24,7 +24,6 @@ import javax.servlet.http.HttpServletResponse
 class JWTAuthorizationFilter(authManager: AuthenticationManager) : BasicAuthenticationFilter(authManager) {
     private val logService = LogService(this.javaClass)
 
-    @Throws(IOException::class, ServletException::class)
     override fun doFilterInternal(request: HttpServletRequest, response: HttpServletResponse, chain: FilterChain) {
         logService.info("request: HttpServletRequest, response: HttpServletResponse, chain: FilterChain - start")
         val token = request.getHeader(AUTHORIZATION_HEADER)
