@@ -4,9 +4,6 @@ import es.uniovi.apuntesuniovi.validators.Validator
 
 class ValidatorNie(private var nie: String?) : Validator {
     override fun isValid(): Boolean {
-        if (nie == null) {
-            return true
-        }
         nie?.let {
             if(it.isNotEmpty()) {
                 var nie2 = checkFirstLetter(it, 'X', 0)
@@ -15,7 +12,7 @@ class ValidatorNie(private var nie: String?) : Validator {
                 return ValidatorDni(nie2).isValid();
             }
         }
-        return false
+        return nie == null
     }
 
     private fun checkFirstLetter(nie: String, firstLetter: Char, numberLetter: Int): String {

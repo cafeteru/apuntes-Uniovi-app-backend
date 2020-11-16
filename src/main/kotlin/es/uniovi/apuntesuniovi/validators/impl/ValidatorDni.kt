@@ -7,9 +7,6 @@ class ValidatorDni(private var dni: String?) : Validator {
     private val dniLength = 9
 
     override fun isValid(): Boolean {
-        if (dni == null) {
-            return true
-        }
         dni?.let {
             try {
                 if (it.length == dniLength && Character.isLetter(it[dniLength - 1])) {
@@ -22,6 +19,6 @@ class ValidatorDni(private var dni: String?) : Validator {
                 return false
             }
         }
-        return false
+        return dni == null
     }
 }

@@ -6,6 +6,7 @@ package es.uniovi.apuntesuniovi.infrastructure.constants
 object ExceptionMessages {
     const val ALREADY_REGISTERED_USERNAME = "error.already.registered.username"
     const val EXPIRED_TOKEN = "error.expired.token"
+    const val INVALID_EMAIL = "error.invalid.email"
     const val INVALID_IDENTIFICATION_TYPE = "error.invalid.identification.type"
     const val INVALID_IDENTIFICATION_NUMBER = "error.invalid.identification.number"
     const val INVALID_ROLE_TYPE = "error.invalid.role.type"

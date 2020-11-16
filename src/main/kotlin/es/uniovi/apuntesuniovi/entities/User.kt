@@ -5,6 +5,7 @@ import es.uniovi.apuntesuniovi.entities.types.RoleType
 import es.uniovi.apuntesuniovi.infrastructure.constants.ExceptionMessages
 import es.uniovi.apuntesuniovi.validators.impl.ValidatorCompositeAny
 import es.uniovi.apuntesuniovi.validators.impl.ValidatorDni
+import es.uniovi.apuntesuniovi.validators.impl.ValidatorEmail
 import es.uniovi.apuntesuniovi.validators.impl.ValidatorNie
 import java.time.LocalDate
 import java.util.*
@@ -16,23 +17,32 @@ class User {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     var id: Long = 0L
 
-    lateinit var name: String
-    lateinit var surname: String
-    lateinit var email: String
-    lateinit var phone: String
+    var name: String? = null
+    var surname: String? = null
+    var email: String? = null
+        set(value) {
+            val validator = ValidatorEmail(value)
+            if (validator.isValid()) {
+                field = value
+            } else {
+                throw IllegalArgumentException(ExceptionMessages.INVALID_EMAIL)
+            }
+        }
+
+    var phone: String? = null
     var active: Boolean = true
-    lateinit var img: String
-    lateinit var birthDate: LocalDate
+    var img: String? = null
+    var birthDate: LocalDate? = null
 
     @Column(unique = true)
     var username: String? = null
-    lateinit var password: String
+    var password: String? = null
 
     @Enumerated(EnumType.STRING)
-    lateinit var role: RoleType
+    var role: RoleType = RoleType.STUDENT
 
     @Enumerated(EnumType.STRING)
-    lateinit var identificationType: IdentificationType
+    var identificationType: IdentificationType = IdentificationType.DNI
 
     var numberIdentification: String? = null
         set(value) {
@@ -96,5 +106,4 @@ class User {
         result = 31 * result + numberIdentification.hashCode()
         return result
     }
-
 }
