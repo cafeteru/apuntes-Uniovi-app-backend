@@ -12,18 +12,22 @@ import java.util.*
 class FindUserByUsernameService(
         private val userRepository: UserRepository,
         private val userDtoAssembler: UserDtoAssembler,
-        private val username: String
+        private val username: String?
 ) : Command<UserDto> {
     private val logService = LogService(this.javaClass)
 
     override fun execute(): UserDto {
         logService.info("execute() - start")
+        if (username.isNullOrBlank()) {
+            logService.error("execute() - error")
+            throw IllegalArgumentException(ExceptionMessages.INVALID_USERNAME)
+        }
         val optional: Optional<User> = userRepository.findByUsername(username)
         if (optional.isPresent) {
             logService.info("execute() - end")
             return userDtoAssembler.entityToDto(optional.get())
         }
         logService.error("execute() - error")
-        throw IllegalArgumentException("${ExceptionMessages.NOT_FOUND_USERNAME}  $username")
+        throw IllegalArgumentException(ExceptionMessages.NOT_FOUND_USERNAME)
     }
 }

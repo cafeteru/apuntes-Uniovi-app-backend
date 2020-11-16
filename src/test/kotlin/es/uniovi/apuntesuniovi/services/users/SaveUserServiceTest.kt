@@ -25,7 +25,7 @@ class SaveUserServiceTest {
 
     @Mock
     private lateinit var userRepository: UserRepository
-    private lateinit var userDtoAssembler: UserDtoAssembler
+    private val userDtoAssembler = UserDtoAssembler()
     private lateinit var saveUserService: SaveUserService
 
     private fun bCryptPasswordEncoder(): BCryptPasswordEncoder {
@@ -35,8 +35,7 @@ class SaveUserServiceTest {
     @BeforeEach
     fun initTest() {
         val mockFactory = MockFactory()
-        userDto = mockFactory.getDtos().createUserDto();
-        userDtoAssembler = UserDtoAssembler()
+        userDto = mockFactory.getDtos().createUserDto()
         user = userDtoAssembler.dtoToEntity(userDto)
         user.password = bCryptPasswordEncoder().encode(user.password)
         saveUserService = SaveUserService(userRepository, userDtoAssembler, userDto)

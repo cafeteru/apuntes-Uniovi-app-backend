@@ -11,6 +11,7 @@ object ExceptionMessages {
     const val INVALID_IDENTIFICATION_NUMBER = "error.invalid.identification.number"
     const val INVALID_ROLE_TYPE = "error.invalid.role.type"
     const val INVALID_TOKEN = "error.invalid.token"
+    const val INVALID_USERNAME = "error.invalid.username"
     const val NOT_FOUND_USERNAME = "error.not.found.username"
     const val NULL_IDENTIFICATION_TYPE = "error.null.identification.type"
     const val NULL_ROLE_TYPE = "error.null.role.type"

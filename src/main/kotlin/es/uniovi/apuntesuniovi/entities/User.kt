@@ -12,7 +12,8 @@ import java.util.*
 import javax.persistence.*
 
 @Entity
-class User {
+@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
+open class User {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     var id: Long = 0L
@@ -55,12 +56,6 @@ class User {
                 throw IllegalArgumentException(ExceptionMessages.INVALID_IDENTIFICATION_NUMBER)
             }
         }
-
-    @OneToMany(mappedBy = "student", cascade = [(CascadeType.ALL)])
-    val learnSubject: Set<LearnSubject> = HashSet()
-
-    @OneToMany(mappedBy = "teacher", cascade = [(CascadeType.ALL)])
-    val teachSubjects: Set<TeachSubject> = HashSet()
 
     @OneToOne
     lateinit var address: Address
