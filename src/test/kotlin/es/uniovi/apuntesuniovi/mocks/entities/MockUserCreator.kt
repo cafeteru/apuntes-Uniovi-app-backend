@@ -17,11 +17,12 @@ class MockUserCreator: MockCreator<User> {
         user.surname = "Test"
         user.active = true
         user.birthDate = LocalDate.now()
-        user.email = "test@test.es" // TODO validatorEmail
+        user.email = "test@test.es"
         user.identificationType = IdentificationType.NIE
         user.numberIdentification = "03203911B"
         user.username = "test"
         user.role = RoleType.STUDENT
+        user.phone = "623548956"
         return user
     }
 }

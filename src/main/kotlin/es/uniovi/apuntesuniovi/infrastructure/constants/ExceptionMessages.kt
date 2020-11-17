@@ -17,6 +17,11 @@ object ExceptionMessages {
     const val NULL_ROLE_TYPE = "error.null.role.type"
     const val NULL_USER = "error.null.user"
     const val NULL_SUBJECT = "error.null.subject"
+    const val LIMIT_USER_BIRTH_DATE = "error.limit.user.birth.date"
+    const val LIMIT_USER_EMAIL = "error.limit.user.email"
+    const val LIMIT_USER_IMG = "error.limit.user.img"
     const val LIMIT_USER_NAME = "error.limit.user.name"
     const val LIMIT_USER_SURNAME = "error.limit.user.surname"
+    const val LIMIT_USER_USERNAME = "error.limit.user.username"
+    const val LIMIT_USER_PASSWORD = "error.limit.user.password"
 }

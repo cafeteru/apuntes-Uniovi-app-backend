@@ -4,10 +4,7 @@ import es.uniovi.apuntesuniovi.entities.types.IdentificationType
 import es.uniovi.apuntesuniovi.entities.types.RoleType
 import es.uniovi.apuntesuniovi.infrastructure.constants.DatabaseLimits
 import es.uniovi.apuntesuniovi.infrastructure.constants.ExceptionMessages
-import es.uniovi.apuntesuniovi.validators.impl.ValidatorCompositeAny
-import es.uniovi.apuntesuniovi.validators.impl.ValidatorDni
-import es.uniovi.apuntesuniovi.validators.impl.ValidatorEmail
-import es.uniovi.apuntesuniovi.validators.impl.ValidatorNie
+import es.uniovi.apuntesuniovi.validators.impl.*
 import java.time.LocalDate
 import javax.persistence.*
 
@@ -21,7 +18,7 @@ open class User {
     @Column(length = DatabaseLimits.USER_NAME)
     var name: String? = null
         set(value) {
-            if (value == null || value.length <= DatabaseLimits.USER_NAME) {
+            if (ValidatorMaxSize(value, DatabaseLimits.USER_NAME).isValid()) {
                 field = value
             } else {
                 throw IllegalArgumentException(ExceptionMessages.LIMIT_USER_NAME)
@@ -31,16 +28,19 @@ open class User {
     @Column(length = DatabaseLimits.USER_SURNAME)
     var surname: String? = null
         set(value) {
-            if (value == null || value.length <= DatabaseLimits.USER_SURNAME) {
+            if (ValidatorMaxSize(value, DatabaseLimits.USER_SURNAME).isValid()) {
                 field = value
             } else {
                 throw IllegalArgumentException(ExceptionMessages.LIMIT_USER_SURNAME)
             }
         }
 
+    @Column(length = DatabaseLimits.USER_EMAIL)
     var email: String? = null
         set(value) {
-            val validator = ValidatorEmail(value)
+            val validator = ValidatorCompositeAll()
+            validator.add(ValidatorEmail(value))
+            validator.add(ValidatorMaxSize(value, DatabaseLimits.USER_EMAIL))
             if (validator.isValid()) {
                 field = value
             } else {
@@ -48,14 +48,55 @@ open class User {
             }
         }
 
+    @Column(length = DatabaseLimits.USER_EMAIL)
     var phone: String? = null
-    var active: Boolean = true
-    var img: String? = null
-    var birthDate: LocalDate? = null
+        set(value) {
+            if (ValidatorPhone(value).isValid()) {
+                field = value
+            } else {
+                throw IllegalArgumentException(ExceptionMessages.LIMIT_USER_EMAIL)
+            }
+        }
 
-    @Column(unique = true)
+    var active: Boolean = true
+
+    var img: String? = null
+        set(value) {
+            if (ValidatorMaxSize(value, DatabaseLimits.USER_IMG).isValid()) {
+                field = value
+            } else {
+                throw IllegalArgumentException(ExceptionMessages.LIMIT_USER_IMG)
+            }
+        }
+
+    var birthDate: LocalDate? = null
+        set(value) {
+            if (ValidatorLaterDayToday(value).isValid()) {
+                field = value
+            } else {
+                throw IllegalArgumentException(ExceptionMessages.LIMIT_USER_BIRTH_DATE)
+            }
+        }
+
+    @Column(unique = true, length = DatabaseLimits.USER_USERNAME)
     var username: String? = null
+        set(value) {
+            if (ValidatorMaxSize(value, DatabaseLimits.USER_USERNAME).isValid()) {
+                field = value
+            } else {
+                throw IllegalArgumentException(ExceptionMessages.LIMIT_USER_USERNAME)
+            }
+        }
+
+    @Column(length = DatabaseLimits.USER_PASSWORD)
     var password: String? = null
+        set(value) {
+            if (ValidatorMaxSize(value, DatabaseLimits.USER_PASSWORD).isValid()) {
+                field = value
+            } else {
+                throw IllegalArgumentException(ExceptionMessages.LIMIT_USER_PASSWORD)
+            }
+        }
 
     @Enumerated(EnumType.STRING)
     var role: RoleType = RoleType.STUDENT

@@ -22,7 +22,7 @@ class MockUserDtoCreator : MockCreator<UserDto> {
                 img = "",
                 numberIdentification = "16207928N",
                 password = "admin",
-                phone = "",
+                phone = "623548956",
                 username = "admin",
                 role = RoleType.ADMIN.toString()
         )

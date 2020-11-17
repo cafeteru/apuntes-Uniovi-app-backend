@@ -33,7 +33,7 @@ class InsertDataExample @Autowired constructor(
                 img = "",
                 numberIdentification = "72479503V",
                 password = "admin",
-                phone = "",
+                phone = "623548956",
                 username = "admin",
                 role = RoleType.ADMIN.toString()
         )

@@ -21,21 +21,18 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 class SaveUserServiceTest {
     private lateinit var user: User
     private lateinit var userDto: UserDto
+    private val encoder = BCryptPasswordEncoder()
 
     @Mock
     private lateinit var userRepository: UserRepository
     private val userDtoAssembler = UserDtoAssembler()
-
-    private fun bCryptPasswordEncoder(): BCryptPasswordEncoder {
-        return BCryptPasswordEncoder()
-    }
 
     @BeforeEach
     fun initTest() {
         val mockFactory = MockFactory()
         userDto = mockFactory.getDtos().createUserDto()
         user = userDtoAssembler.dtoToEntity(userDto)
-        user.password = bCryptPasswordEncoder().encode(user.password)
+        user.password = encoder.encode(user.password)
     }
 
     @Test
