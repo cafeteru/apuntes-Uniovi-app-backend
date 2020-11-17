@@ -6,10 +6,10 @@ class ValidatorNie(private var nie: String?) : Validator {
     override fun isValid(): Boolean {
         nie?.let {
             if(it.isNotEmpty()) {
-                var nie2 = checkFirstLetter(it, 'X', 0)
-                nie2 = checkFirstLetter(nie2, 'Y', 1)
-                nie2 = checkFirstLetter(nie2, 'Z', 2)
-                return ValidatorDni(nie2).isValid();
+                var aux = checkFirstLetter(it, 'X', 0)
+                aux = checkFirstLetter(aux, 'Y', 1)
+                aux = checkFirstLetter(aux, 'Z', 2)
+                return ValidatorDni(aux).isValid();
             }
         }
         return nie == null

@@ -9,7 +9,7 @@ import java.time.LocalDate
 import javax.persistence.*
 
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.JOINED)
 open class User {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
