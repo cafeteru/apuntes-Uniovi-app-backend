@@ -15,7 +15,7 @@ import java.util.*
 class SaveUserService(
         private val userRepository: UserRepository,
         private val userDtoAssembler: UserDtoAssembler,
-        private val userDto: UserDto
+        private val userDto: UserDto?
 ) : Command<List<UserDto>> {
     private val logService = LogService(this.javaClass)
     private val bCryptPasswordEncoder = BCryptPasswordEncoder()
@@ -24,7 +24,7 @@ class SaveUserService(
         logService.info("execute() - start")
         checkUniqueUsername()
         val list = ArrayList<UserDto>()
-        userDto.password = bCryptPasswordEncoder.encode(userDto.password)
+        userDto?.password = bCryptPasswordEncoder.encode(userDto?.password)
         val person = userDtoAssembler.dtoToEntity(userDto)
         val result = userRepository.save(person)
         list.add(userDtoAssembler.entityToDto(result))
@@ -34,7 +34,7 @@ class SaveUserService(
 
     private fun checkUniqueUsername() {
         logService.info("check() - start")
-        val optional = userDto.username?.let { userRepository.findByUsername(it) }
+        val optional = userDto?.username?.let { userRepository.findByUsername(it) }
         if (optional != null && optional.isPresent) {
             logService.error("check() - error")
             throw IllegalArgumentException(ALREADY_REGISTERED_USERNAME)

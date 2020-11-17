@@ -15,4 +15,8 @@ object ExceptionMessages {
     const val NOT_FOUND_USERNAME = "error.not.found.username"
     const val NULL_IDENTIFICATION_TYPE = "error.null.identification.type"
     const val NULL_ROLE_TYPE = "error.null.role.type"
+    const val NULL_USER = "error.null.user"
+    const val NULL_SUBJECT = "error.null.subject"
+    const val LIMIT_USER_NAME = "error.limit.user.name"
+    const val LIMIT_USER_SURNAME = "error.limit.user.surname"
 }

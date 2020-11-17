@@ -2,24 +2,42 @@ package es.uniovi.apuntesuniovi.entities
 
 import es.uniovi.apuntesuniovi.entities.types.IdentificationType
 import es.uniovi.apuntesuniovi.entities.types.RoleType
+import es.uniovi.apuntesuniovi.infrastructure.constants.DatabaseLimits
 import es.uniovi.apuntesuniovi.infrastructure.constants.ExceptionMessages
 import es.uniovi.apuntesuniovi.validators.impl.ValidatorCompositeAny
 import es.uniovi.apuntesuniovi.validators.impl.ValidatorDni
 import es.uniovi.apuntesuniovi.validators.impl.ValidatorEmail
 import es.uniovi.apuntesuniovi.validators.impl.ValidatorNie
 import java.time.LocalDate
-import java.util.*
 import javax.persistence.*
 
 @Entity
-@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 open class User {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     var id: Long = 0L
 
+    @Column(length = DatabaseLimits.USER_NAME)
     var name: String? = null
+        set(value) {
+            if (value == null || value.length <= DatabaseLimits.USER_NAME) {
+                field = value
+            } else {
+                throw IllegalArgumentException(ExceptionMessages.LIMIT_USER_NAME)
+            }
+        }
+
+    @Column(length = DatabaseLimits.USER_SURNAME)
     var surname: String? = null
+        set(value) {
+            if (value == null || value.length <= DatabaseLimits.USER_SURNAME) {
+                field = value
+            } else {
+                throw IllegalArgumentException(ExceptionMessages.LIMIT_USER_SURNAME)
+            }
+        }
+
     var email: String? = null
         set(value) {
             val validator = ValidatorEmail(value)

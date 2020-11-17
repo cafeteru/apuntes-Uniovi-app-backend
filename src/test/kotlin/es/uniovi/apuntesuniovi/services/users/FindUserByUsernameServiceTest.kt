@@ -7,8 +7,7 @@ import es.uniovi.apuntesuniovi.repositories.UserRepository
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.UserDto
 import es.uniovi.apuntesuniovi.servicies.dtos.impl.UserDtoAssembler
 import es.uniovi.apuntesuniovi.servicies.impl.users.FindUserByUsernameService
-import org.junit.jupiter.api.Assertions
-import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -16,8 +15,6 @@ import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.junit.jupiter.MockitoExtension
 import java.util.*
-import kotlin.test.assertEquals
-import kotlin.test.fail
 
 @ExtendWith(MockitoExtension::class)
 class FindUserByUsernameServiceTest {
@@ -28,7 +25,6 @@ class FindUserByUsernameServiceTest {
     @Mock
     private lateinit var userRepository: UserRepository
     private val userDtoAssembler = UserDtoAssembler()
-    private lateinit var findUserByUsernameService: FindUserByUsernameService
 
     @BeforeEach
     fun initTest() {
@@ -41,7 +37,7 @@ class FindUserByUsernameServiceTest {
     @Test
     fun validData() {
         Mockito.`when`(userRepository.findByUsername(username)).thenReturn(Optional.of(user))
-        findUserByUsernameService = FindUserByUsernameService(userRepository, userDtoAssembler, userDto.username)
+        val findUserByUsernameService = FindUserByUsernameService(userRepository, userDtoAssembler, userDto.username)
         val result = findUserByUsernameService.execute();
         assertNotNull(result)
         assertEquals(result, userDto)
@@ -50,32 +46,32 @@ class FindUserByUsernameServiceTest {
     @Test
     fun invalidData() {
         try {
-            findUserByUsernameService = FindUserByUsernameService(userRepository, userDtoAssembler, userDto.username + "1")
+            val findUserByUsernameService = FindUserByUsernameService(userRepository, userDtoAssembler, userDto.username + "1")
             findUserByUsernameService.execute();
         } catch (e: IllegalArgumentException) {
-            Assertions.assertEquals(e.message, ExceptionMessages.NOT_FOUND_USERNAME)
+            assertEquals(e.message, ExceptionMessages.NOT_FOUND_USERNAME)
         }
     }
 
     @Test
     fun nullData() {
         try {
-            findUserByUsernameService = FindUserByUsernameService(userRepository, userDtoAssembler, null)
+            val findUserByUsernameService = FindUserByUsernameService(userRepository, userDtoAssembler, null)
             findUserByUsernameService.execute();
             fail("The username can´t be null")
         } catch (e: IllegalArgumentException) {
-            Assertions.assertEquals(e.message, ExceptionMessages.INVALID_USERNAME)
+            assertEquals(e.message, ExceptionMessages.INVALID_USERNAME)
         }
     }
 
     @Test
     fun emptyData() {
         try {
-            findUserByUsernameService = FindUserByUsernameService(userRepository, userDtoAssembler, "")
+            val findUserByUsernameService = FindUserByUsernameService(userRepository, userDtoAssembler, "")
             findUserByUsernameService.execute();
             fail("The username can´t be null")
         } catch (e: IllegalArgumentException) {
-            Assertions.assertEquals(e.message, ExceptionMessages.INVALID_USERNAME)
+            assertEquals(e.message, ExceptionMessages.INVALID_USERNAME)
         }
     }
 }

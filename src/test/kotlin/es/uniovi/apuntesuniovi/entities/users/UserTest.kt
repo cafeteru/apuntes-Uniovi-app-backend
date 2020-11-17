@@ -3,14 +3,12 @@ package es.uniovi.apuntesuniovi.entities.users
 import es.uniovi.apuntesuniovi.entities.User
 import es.uniovi.apuntesuniovi.entities.types.IdentificationType
 import es.uniovi.apuntesuniovi.entities.types.RoleType
+import es.uniovi.apuntesuniovi.infrastructure.constants.DatabaseLimits
 import es.uniovi.apuntesuniovi.infrastructure.constants.ExceptionMessages
 import es.uniovi.apuntesuniovi.mocks.MockFactory
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.fail
+import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import java.time.LocalDate
-import kotlin.test.assertNotEquals
 
 class UserTest {
     private lateinit var user: User
@@ -18,6 +16,66 @@ class UserTest {
     @BeforeEach
     fun initData() {
         user = MockFactory().getEntities().createUser()
+    }
+
+    @Test
+    fun limitName() {
+        var name = ""
+        for (i in 0 until DatabaseLimits.USER_NAME) {
+            name += "1"
+        }
+        user.name = name
+        assertEquals(name, user.name)
+    }
+
+    @Test
+    fun upLimitName() {
+        try {
+            var name = ""
+            for (i in 0..DatabaseLimits.USER_NAME) {
+                name += "1"
+            }
+            user.name = name
+            fail()
+        } catch (e: IllegalArgumentException) {
+            assertEquals(e.message, ExceptionMessages.LIMIT_USER_NAME)
+        }
+    }
+
+    @Test
+    fun nullName() {
+        user.name = null
+        assertEquals(null, user.name)
+    }
+
+    @Test
+    fun limitSurname() {
+        var surname = ""
+        for (i in 0 until DatabaseLimits.USER_SURNAME) {
+            surname += "1"
+        }
+        user.surname = surname
+        assertEquals(surname, user.surname)
+    }
+
+    @Test
+    fun upLimitSurname() {
+        try {
+            var surname = ""
+            for (i in 0..DatabaseLimits.USER_SURNAME) {
+                surname += "1"
+            }
+            user.surname = surname
+            fail()
+        } catch (e: IllegalArgumentException) {
+            assertEquals(e.message, ExceptionMessages.LIMIT_USER_SURNAME)
+        }
+    }
+
+    @Test
+    fun nullSurname() {
+        user.surname = null
+        assertEquals(null, user.surname)
     }
 
     @Test
@@ -100,15 +158,15 @@ class UserTest {
 
     @Test
     fun equalsTest() {
-        val test = User()
-        assertNotEquals(test, user)
-        test.id = user.id
-        assertNotEquals(test, user)
-        test.username = user.username
-        assertNotEquals(test, user)
-        test.numberIdentification = user.numberIdentification
-        assertEquals(test, user)
-        test.name = user.name
-        assertEquals(test, user)
+        val user = User()
+        assertNotEquals(user, this.user)
+        user.id = this.user.id
+        assertNotEquals(user, this.user)
+        user.username = this.user.username
+        assertNotEquals(user, this.user)
+        user.numberIdentification = this.user.numberIdentification
+        assertEquals(user, this.user)
+        user.name = this.user.name
+        assertEquals(user, this.user)
     }
 }
