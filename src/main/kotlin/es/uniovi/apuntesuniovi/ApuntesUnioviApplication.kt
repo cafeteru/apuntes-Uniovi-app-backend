@@ -13,5 +13,5 @@ class ApuntesUnioviApplication
  * Launches the application
  */
 fun main(args: Array<String>) {
-    runApplication<ApuntesUnioviApplication>(*args)
+    runApplication<ApuntesUnioviApplication>(args.contentToString())
 }
