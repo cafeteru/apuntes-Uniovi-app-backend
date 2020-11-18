@@ -13,6 +13,6 @@ class ValidatorEmail(private var email: String?) : Validator {
             val mather: Matcher = pattern.matcher(it)
             return mather.find()
         }
-        return email == null;
+        return email == null
     }
 }

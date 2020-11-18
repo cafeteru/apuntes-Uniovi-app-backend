@@ -1,5 +1,6 @@
 package es.uniovi.apuntesuniovi.entities.users
 
+import es.uniovi.apuntesuniovi.entities.Subject
 import es.uniovi.apuntesuniovi.entities.User
 import es.uniovi.apuntesuniovi.entities.types.IdentificationType
 import es.uniovi.apuntesuniovi.entities.types.RoleType
@@ -9,6 +10,7 @@ import es.uniovi.apuntesuniovi.mocks.MockFactory
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import java.time.LocalDate
 
 class UserTest {
     private lateinit var user: User
@@ -36,7 +38,7 @@ class UserTest {
                 name += "1"
             }
             user.name = name
-            fail()
+            fail("Name is too big")
         } catch (e: IllegalArgumentException) {
             assertEquals(e.message, ExceptionMessages.LIMIT_USER_NAME)
         }
@@ -66,7 +68,7 @@ class UserTest {
                 surname += "1"
             }
             user.surname = surname
-            fail()
+            fail("Surname is too big")
         } catch (e: IllegalArgumentException) {
             assertEquals(e.message, ExceptionMessages.LIMIT_USER_SURNAME)
         }
@@ -76,6 +78,188 @@ class UserTest {
     fun nullSurname() {
         user.surname = null
         assertEquals(null, user.surname)
+    }
+
+    @Test
+    fun limitEmail() {
+        var email = ""
+        val aux = DatabaseLimits.USER_EMAIL / 2
+        for (i in 1 until aux) {
+            email += "1"
+        }
+        email += "@"
+        for (i in 3 until DatabaseLimits.USER_EMAIL - aux) {
+            email += "1"
+        }
+        email += ".es"
+        user.email = email
+        assertEquals(email, user.email)
+    }
+
+    @Test
+    fun upLimitEmail() {
+        try {
+            var email = ""
+            val aux = DatabaseLimits.USER_EMAIL / 2
+            for (i in 0 until aux) {
+                email += "1"
+            }
+            email += "@"
+            for (i in 3 until DatabaseLimits.USER_EMAIL - aux) {
+                email += "1"
+            }
+            email += ".es"
+            user.email = email
+            assertEquals(email, user.email)
+            fail("Email is too big")
+        } catch (e: IllegalArgumentException) {
+            assertEquals(e.message, ExceptionMessages.INVALID_EMAIL)
+        }
+    }
+
+    @Test
+    fun nullEmail() {
+        user.email = null
+        assertEquals(null, user.email)
+    }
+
+    @Test
+    fun validPhone() {
+        val phone = "652789456"
+        user.phone = phone
+        assertEquals(phone, user.phone)
+    }
+
+    @Test
+    fun invalidPhone() {
+        val phone = "652789S456"
+        try {
+            user.phone = phone
+            fail("Phone isn´t valid")
+        } catch (e: IllegalArgumentException) {
+            assertNotEquals(user.phone, phone)
+            assertEquals(e.message, ExceptionMessages.INVALID_PHONE)
+        }
+    }
+
+    @Test
+    fun nullPhone() {
+        user.phone = null
+        assertEquals(null, user.phone)
+    }
+
+    @Test
+    fun limitImg() {
+        var img = ""
+        for (i in 0 until DatabaseLimits.USER_IMG) {
+            img += "1"
+        }
+        user.img = img
+        assertEquals(img, user.img)
+    }
+
+    @Test
+    fun upLimitImg() {
+        try {
+            var img = ""
+            for (i in 0..DatabaseLimits.USER_IMG) {
+                img += "1"
+            }
+            user.img = img
+            fail("Img is too big")
+        } catch (e: IllegalArgumentException) {
+            assertEquals(e.message, ExceptionMessages.LIMIT_USER_IMG)
+        }
+    }
+
+    @Test
+    fun nullImg() {
+        user.img = null
+        assertEquals(null, user.img)
+    }
+
+    @Test
+    fun limitBirthDate() {
+        val birthDate = LocalDate.now()
+        user.birthDate = birthDate
+        assertEquals(birthDate, user.birthDate)
+    }
+
+    @Test
+    fun upLimitBirthDate() {
+        try {
+            val birthDate = LocalDate.now().plusDays(1)
+            user.birthDate = birthDate
+            fail("BirthDate is too big")
+        } catch (e: IllegalArgumentException) {
+            assertEquals(e.message, ExceptionMessages.LIMIT_USER_BIRTH_DATE)
+        }
+    }
+
+    @Test
+    fun nullBirthDate() {
+        user.birthDate = null
+        assertEquals(null, user.birthDate)
+    }
+
+    @Test
+    fun limitUsername() {
+        var username = ""
+        for (i in 0 until DatabaseLimits.USER_USERNAME) {
+            username += "1"
+        }
+        user.username = username
+        assertEquals(username, user.username)
+    }
+
+    @Test
+    fun upLimitUsername() {
+        try {
+            var username = ""
+            for (i in 0..DatabaseLimits.USER_NAME) {
+                username += "1"
+            }
+            user.username = username
+            fail("Username is too big")
+        } catch (e: IllegalArgumentException) {
+            assertEquals(e.message, ExceptionMessages.LIMIT_USER_USERNAME)
+        }
+    }
+
+    @Test
+    fun nullUsername() {
+        user.username = null
+        assertEquals(null, user.username)
+    }
+
+    @Test
+    fun limitPassword() {
+        var password = ""
+        for (i in 0 until DatabaseLimits.USER_PASSWORD) {
+            password += "1"
+        }
+        user.password = password
+        assertEquals(password, user.password)
+    }
+
+    @Test
+    fun upLimitPassword() {
+        try {
+            var password = ""
+            for (i in 0..DatabaseLimits.USER_PASSWORD) {
+                password += "1"
+            }
+            user.password = password
+            fail("Password is too big")
+        } catch (e: IllegalArgumentException) {
+            assertEquals(e.message, ExceptionMessages.LIMIT_USER_PASSWORD)
+        }
+    }
+
+    @Test
+    fun nullPassword() {
+        user.password = null
+        assertEquals(null, user.password)
     }
 
     @Test
@@ -104,6 +288,31 @@ class UserTest {
             assertEquals(IdentificationType.NIE, user.identificationType)
             assertEquals(e.message, ExceptionMessages.INVALID_IDENTIFICATION_TYPE)
         }
+    }
+
+    @Test
+    fun validNumberIdentification() {
+        val numberIdentification = "65057750L"
+        user.numberIdentification = numberIdentification
+        assertEquals(numberIdentification, user.numberIdentification)
+    }
+
+    @Test
+    fun invalidNumberIdentification() {
+        val numberIdentification = "T8057750L"
+        try {
+            user.numberIdentification = numberIdentification
+            fail("NumberIdentification isn´t valid")
+        } catch (e: java.lang.IllegalArgumentException) {
+            assertNotEquals(numberIdentification, user.numberIdentification)
+            assertEquals(e.message, ExceptionMessages.INVALID_IDENTIFICATION_NUMBER)
+        }
+    }
+
+    @Test
+    fun nullNumberIdentification() {
+        user.numberIdentification = null
+        assertEquals(null, user.numberIdentification)
     }
 
     @Test
@@ -157,7 +366,7 @@ class UserTest {
     }
 
     @Test
-    fun equalsTest() {
+    fun equalsUser() {
         val user = User()
         assertNotEquals(user, this.user)
         user.id = this.user.id

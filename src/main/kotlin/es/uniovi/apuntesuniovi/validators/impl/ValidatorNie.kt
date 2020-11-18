@@ -9,7 +9,7 @@ class ValidatorNie(private var nie: String?) : Validator {
                 var aux = checkFirstLetter(it, 'X', 0)
                 aux = checkFirstLetter(aux, 'Y', 1)
                 aux = checkFirstLetter(aux, 'Z', 2)
-                return ValidatorDni(aux).isValid();
+                return ValidatorDni(aux).isValid()
             }
         }
         return nie == null

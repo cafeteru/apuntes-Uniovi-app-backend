@@ -48,13 +48,12 @@ open class User {
             }
         }
 
-    @Column(length = DatabaseLimits.USER_EMAIL)
     var phone: String? = null
         set(value) {
             if (ValidatorPhone(value).isValid()) {
                 field = value
             } else {
-                throw IllegalArgumentException(ExceptionMessages.LIMIT_USER_EMAIL)
+                throw IllegalArgumentException(ExceptionMessages.INVALID_PHONE)
             }
         }
 

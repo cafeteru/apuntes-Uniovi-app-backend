@@ -1,7 +1,7 @@
 package es.uniovi.apuntesuniovi.servicies.impl.users
 
 import es.uniovi.apuntesuniovi.infrastructure.Command
-import es.uniovi.apuntesuniovi.infrastructure.constants.ExceptionMessages.ALREADY_REGISTERED_USERNAME
+import es.uniovi.apuntesuniovi.infrastructure.constants.ExceptionMessages
 import es.uniovi.apuntesuniovi.log.LogService
 import es.uniovi.apuntesuniovi.repositories.UserRepository
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.UserDto
@@ -34,10 +34,14 @@ class SaveUserService(
 
     private fun checkUniqueUsername() {
         logService.info("check() - start")
+        if (userDto?.username.isNullOrEmpty() || userDto?.password.isNullOrBlank()) {
+            logService.error("check() - error")
+            throw IllegalArgumentException(ExceptionMessages.INVALID_DATA_USER)
+        }
         val optional = userDto?.username?.let { userRepository.findByUsername(it) }
         if (optional != null && optional.isPresent) {
             logService.error("check() - error")
-            throw IllegalArgumentException(ALREADY_REGISTERED_USERNAME)
+            throw IllegalArgumentException(ExceptionMessages.ALREADY_REGISTERED_USERNAME)
         }
         logService.info("check() - end")
     }

@@ -12,6 +12,6 @@ class ValidatorPhone(private var phone: String?) : Validator {
             val mather: Matcher = pattern.matcher(it)
             return mather.find()
         }
-        return phone == null;
+        return phone == null
     }
 }

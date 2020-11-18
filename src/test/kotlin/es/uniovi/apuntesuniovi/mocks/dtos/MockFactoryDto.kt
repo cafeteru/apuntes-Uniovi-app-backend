@@ -10,6 +10,6 @@ class MockFactoryDto {
      * Create a mock of UserDto
      */
     fun createUserDto(): UserDto {
-        return MockUserDtoCreator().create();
+        return MockUserDtoCreator().create()
     }
 }

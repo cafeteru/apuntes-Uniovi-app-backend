@@ -38,7 +38,7 @@ class FindUserByUsernameServiceTest {
     fun validData() {
         Mockito.`when`(userRepository.findByUsername(username)).thenReturn(Optional.of(user))
         val findUserByUsernameService = FindUserByUsernameService(userRepository, userDtoAssembler, userDto.username)
-        val result = findUserByUsernameService.execute();
+        val result = findUserByUsernameService.execute()
         assertNotNull(result)
         assertEquals(result, userDto)
     }
@@ -47,7 +47,7 @@ class FindUserByUsernameServiceTest {
     fun invalidData() {
         try {
             val findUserByUsernameService = FindUserByUsernameService(userRepository, userDtoAssembler, userDto.username + "1")
-            findUserByUsernameService.execute();
+            findUserByUsernameService.execute()
         } catch (e: IllegalArgumentException) {
             assertEquals(e.message, ExceptionMessages.NOT_FOUND_USERNAME)
         }
@@ -57,7 +57,7 @@ class FindUserByUsernameServiceTest {
     fun nullData() {
         try {
             val findUserByUsernameService = FindUserByUsernameService(userRepository, userDtoAssembler, null)
-            findUserByUsernameService.execute();
+            findUserByUsernameService.execute()
             fail("The username can´t be null")
         } catch (e: IllegalArgumentException) {
             assertEquals(e.message, ExceptionMessages.INVALID_USERNAME)
@@ -68,7 +68,7 @@ class FindUserByUsernameServiceTest {
     fun emptyData() {
         try {
             val findUserByUsernameService = FindUserByUsernameService(userRepository, userDtoAssembler, "")
-            findUserByUsernameService.execute();
+            findUserByUsernameService.execute()
             fail("The username can´t be null")
         } catch (e: IllegalArgumentException) {
             assertEquals(e.message, ExceptionMessages.INVALID_USERNAME)

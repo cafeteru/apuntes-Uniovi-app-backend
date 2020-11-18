@@ -9,6 +9,6 @@ class ValidatorLaterDayToday(private var date: LocalDate?) : Validator {
             val aux = LocalDate.now()
             return it.isBefore(aux) || it.isEqual(aux)
         }
-        return date == null;
+        return date == null
     }
 }

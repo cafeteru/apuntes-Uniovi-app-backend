@@ -11,7 +11,7 @@ class MockFactory {
      * Return the mock factory of dtos
      */
     fun getDtos(): MockFactoryDto {
-        return MockFactoryDto();
+        return MockFactoryDto()
     }
 
     /**

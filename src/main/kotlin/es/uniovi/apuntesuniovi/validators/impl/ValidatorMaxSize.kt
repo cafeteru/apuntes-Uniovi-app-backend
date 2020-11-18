@@ -10,6 +10,6 @@ class ValidatorMaxSize(
         text?.let {
             return it.length <= maxSize
         }
-        return text == null;
+        return text == null
     }
 }
