@@ -16,6 +16,9 @@ import org.mockito.Mockito
 import org.mockito.junit.jupiter.MockitoExtension
 import java.util.*
 
+/**
+ * Check class FindUserByUsernameService
+ */
 @ExtendWith(MockitoExtension::class)
 class FindUserByUsernameServiceTest {
     private lateinit var user: User
@@ -26,6 +29,9 @@ class FindUserByUsernameServiceTest {
     private lateinit var userRepository: UserRepository
     private val userDtoAssembler = UserDtoAssembler()
 
+    /**
+     * Create init data for the test
+     */
     @BeforeEach
     fun initTest() {
         val mockFactory = MockFactory()
@@ -34,6 +40,9 @@ class FindUserByUsernameServiceTest {
         username = userDto.username!!
     }
 
+    /**
+     * Checks the functionality with valid data
+     */
     @Test
     fun validData() {
         Mockito.`when`(userRepository.findByUsername(username)).thenReturn(Optional.of(user))
@@ -43,6 +52,9 @@ class FindUserByUsernameServiceTest {
         assertEquals(result, userDto)
     }
 
+    /**
+     * Checks the functionality with invalid data
+     */
     @Test
     fun invalidData() {
         try {
@@ -53,6 +65,9 @@ class FindUserByUsernameServiceTest {
         }
     }
 
+    /**
+     * Checks the functionality with null data
+     */
     @Test
     fun nullData() {
         try {
@@ -64,6 +79,9 @@ class FindUserByUsernameServiceTest {
         }
     }
 
+    /**
+     * Checks the functionality with empty data
+     */
     @Test
     fun emptyData() {
         try {

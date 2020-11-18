@@ -11,8 +11,11 @@ class ValidatorMaxLength(
 ) : Validator {
     override fun isValid(): Boolean {
         text?.let {
+            if (it.isEmpty()) {
+                return false
+            }
             return it.length <= maxSize
         }
-        return text == null
+        return text.isNullOrEmpty()
     }
 }

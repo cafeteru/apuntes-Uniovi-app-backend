@@ -9,6 +9,9 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import java.time.LocalDate
 
+/**
+ * Test the assignments to birthDate of a user
+ */
 class BirthDateTest {
     private lateinit var user: User
 
@@ -20,6 +23,9 @@ class BirthDateTest {
         user = MockFactory().getEntities().createUser()
     }
 
+    /**
+     * Checks the assignment under the limit
+     */
     @Test
     fun limitBirthDate() {
         val birthDate = LocalDate.now()
@@ -27,6 +33,9 @@ class BirthDateTest {
         assertEquals(birthDate, user.birthDate)
     }
 
+    /**
+     * Checks the assignment over the limit
+     */
     @Test
     fun upLimitBirthDate() {
         try {

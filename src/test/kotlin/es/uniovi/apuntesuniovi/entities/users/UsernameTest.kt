@@ -9,6 +9,9 @@ import org.junit.jupiter.api.Assertions.fail
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
+/**
+ * Test the assignments to username of a user
+ */
 class UsernameTest {
     private lateinit var user: User
 
@@ -20,6 +23,9 @@ class UsernameTest {
         user = MockFactory().getEntities().createUser()
     }
 
+    /**
+     * Checks the assignment under the limit
+     */
     @Test
     fun limitUsername() {
         var username = ""
@@ -30,6 +36,9 @@ class UsernameTest {
         assertEquals(username, user.username)
     }
 
+    /**
+     * Checks the assignment over the limit
+     */
     @Test
     fun upLimitUsername() {
         try {
@@ -59,7 +68,11 @@ class UsernameTest {
      */
     @Test
     fun emptyUsername() {
-        user.username = ""
-        assertEquals("", user.username)
+        try {
+            user.username = ""
+            fail("Username can´t be empty")
+        } catch (e: IllegalArgumentException) {
+            assertEquals(e.message, ExceptionMessages.LIMIT_USER_USERNAME)
+        }
     }
 }

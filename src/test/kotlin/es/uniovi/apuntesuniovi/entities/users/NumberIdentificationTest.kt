@@ -8,6 +8,9 @@ import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
+/**
+ * Test the assignments to number of identification of a user
+ */
 class NumberIdentificationTest {
     private lateinit var user: User
 
@@ -19,6 +22,9 @@ class NumberIdentificationTest {
         user = MockFactory().getEntities().createUser()
     }
 
+    /**
+     * Checks the assignment with valid data
+     */
     @Test
     fun validNumberIdentification() {
         val numberIdentification = "65057750L"
@@ -26,6 +32,9 @@ class NumberIdentificationTest {
         assertEquals(numberIdentification, user.numberIdentification)
     }
 
+    /**
+     * Checks the assignment with invalid data
+     */
     @Test
     fun invalidNumberIdentification() {
         val numberIdentification = "T8057750L"

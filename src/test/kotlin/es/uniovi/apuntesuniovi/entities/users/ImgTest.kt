@@ -9,6 +9,9 @@ import org.junit.jupiter.api.Assertions.fail
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
+/**
+ * Test the assignments to img of a user
+ */
 class ImgTest {
     private lateinit var user: User
 
@@ -20,6 +23,9 @@ class ImgTest {
         user = MockFactory().getEntities().createUser()
     }
 
+    /**
+     * Checks the assignment under the limit
+     */
     @Test
     fun limitImg() {
         var img = ""
@@ -30,6 +36,9 @@ class ImgTest {
         assertEquals(img, user.img)
     }
 
+    /**
+     * Checks the assignment over the limit
+     */
     @Test
     fun upLimitImg() {
         try {
@@ -58,7 +67,11 @@ class ImgTest {
      */
     @Test
     fun emptyImg() {
-        user.img = ""
-        assertEquals("", user.img)
+        try {
+            user.img = ""
+            fail("Img can´t be empty")
+        } catch (e: IllegalArgumentException) {
+            assertEquals(e.message, ExceptionMessages.LIMIT_USER_IMG)
+        }
     }
 }

@@ -17,7 +17,9 @@ import org.mockito.junit.jupiter.MockitoExtension
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import java.util.*
 
-
+/**
+ * Check class SaveUserService
+ */
 @ExtendWith(MockitoExtension::class)
 class SaveUserServiceTest {
     private lateinit var user: User
@@ -28,6 +30,9 @@ class SaveUserServiceTest {
     private lateinit var userRepository: UserRepository
     private val userDtoAssembler = UserDtoAssembler()
 
+    /**
+     * Create init data for the test
+     */
     @BeforeEach
     fun initTest() {
         val mockFactory = MockFactory()
@@ -36,6 +41,9 @@ class SaveUserServiceTest {
         user.password = encoder.encode(user.password)
     }
 
+    /**
+     * Checks the functionality with valid user
+     */
     @Test
     fun validUser() {
         Mockito.`when`(userRepository.save(Mockito.any(User::class.java))).thenReturn(user)
@@ -46,6 +54,9 @@ class SaveUserServiceTest {
         assertNotEquals(result[0].password, userDto.password)
     }
 
+    /**
+     * Checks the functionality with null user
+     */
     @Test
     fun nullUser() {
         try {
@@ -57,6 +68,9 @@ class SaveUserServiceTest {
         }
     }
 
+    /**
+     * Checks the functionality with valid user but the user already register
+     */
     @Test
     fun existedUser() {
         Mockito.`when`(userRepository.findByUsername(userDto.username!!)).thenReturn(Optional.of(user))
@@ -69,6 +83,9 @@ class SaveUserServiceTest {
         }
     }
 
+    /**
+     * Checks the functionality with valid user except username is null
+     */
     @Test
     fun nullUsername() {
         try {
@@ -81,6 +98,9 @@ class SaveUserServiceTest {
         }
     }
 
+    /**
+     * Checks the functionality with valid user except username is empty
+     */
     @Test
     fun emptyUsername() {
         try {
@@ -93,6 +113,9 @@ class SaveUserServiceTest {
         }
     }
 
+    /**
+     * Checks the functionality with valid user except password is null
+     */
     @Test
     fun nullPassword() {
         try {
@@ -105,6 +128,9 @@ class SaveUserServiceTest {
         }
     }
 
+    /**
+     * Checks the functionality with valid user except password is empty
+     */
     @Test
     fun emptyPassword() {
         try {

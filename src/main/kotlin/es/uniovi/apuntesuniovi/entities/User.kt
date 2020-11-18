@@ -121,6 +121,12 @@ open class User {
     @OneToOne
     lateinit var address: Address
 
+    /**
+     * Set identificationType according to a text
+     *
+     * @param identificationType Text
+     * @throws IllegalArgumentException Invalid text
+     */
     fun setIdentificationType(identificationType: String?) {
         if (identificationType == null) {
             throw IllegalArgumentException(ExceptionMessages.NULL_IDENTIFICATION_TYPE)
@@ -132,6 +138,12 @@ open class User {
         }
     }
 
+    /**
+     * Set role according to a text
+     *
+     * @param role Text
+     * @throws IllegalArgumentException Invalid text
+     */
     fun setRole(role: String?) {
         if (role == null) {
             throw IllegalArgumentException(ExceptionMessages.NULL_ROLE_TYPE)

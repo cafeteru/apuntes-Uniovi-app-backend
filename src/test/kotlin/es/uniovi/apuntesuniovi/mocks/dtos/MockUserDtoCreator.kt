@@ -13,13 +13,13 @@ class MockUserDtoCreator : MockCreator<UserDto> {
     override fun create(): UserDto {
         return UserDto(
                 id = 3,
-                name = "admin",
-                surname = "admin",
+                name = "name",
+                surname = "surname",
                 active = true,
                 birthDate = LocalDate.now(),
                 email = "admin@admin.com",
                 identificationType = IdentificationType.DNI.toString(),
-                img = "",
+                img = null,
                 numberIdentification = "16207928N",
                 password = "admin",
                 phone = "623548956",

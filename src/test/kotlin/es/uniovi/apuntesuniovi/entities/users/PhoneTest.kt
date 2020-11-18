@@ -7,6 +7,9 @@ import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
+/**
+ * Test the assignments to phone of a user
+ */
 class PhoneTest {
     private lateinit var user: User
 
@@ -18,6 +21,9 @@ class PhoneTest {
         user = MockFactory().getEntities().createUser()
     }
 
+    /**
+     * Checks the assignment with valid data
+     */
     @Test
     fun validPhone() {
         val phone = "652789456"
@@ -25,6 +31,9 @@ class PhoneTest {
         assertEquals(phone, user.phone)
     }
 
+    /**
+     * Checks the assignment with invalid data
+     */
     @Test
     fun invalidPhone() {
         val phone = "652789S456"

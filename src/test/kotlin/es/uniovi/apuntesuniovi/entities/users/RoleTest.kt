@@ -9,6 +9,9 @@ import org.junit.jupiter.api.Assertions.fail
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
+/**
+ * Test the assignments to role of a user
+ */
 class RoleTest {
     private lateinit var user: User
 
@@ -20,12 +23,18 @@ class RoleTest {
         user = MockFactory().getEntities().createUser()
     }
 
+    /**
+     * Checks the assignment with valid data
+     */
     @Test
     fun validRole() {
         user.setRole(RoleType.TEACHER.toString())
         assertEquals(RoleType.TEACHER, user.role)
     }
 
+    /**
+     * Checks the assignment with invalid data
+     */
     @Test
     fun invalidRole() {
         try {

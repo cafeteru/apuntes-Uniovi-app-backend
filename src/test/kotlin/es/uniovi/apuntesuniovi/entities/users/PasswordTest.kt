@@ -9,6 +9,9 @@ import org.junit.jupiter.api.Assertions.fail
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
+/**
+ * Test the assignments to password of a user
+ */
 class PasswordTest {
     private lateinit var user: User
 
@@ -20,6 +23,9 @@ class PasswordTest {
         user = MockFactory().getEntities().createUser()
     }
 
+    /**
+     * Checks the assignment under the limit
+     */
     @Test
     fun limitPassword() {
         var password = ""
@@ -30,6 +36,9 @@ class PasswordTest {
         assertEquals(password, user.password)
     }
 
+    /**
+     * Checks the assignment over the limit
+     */
     @Test
     fun upLimitPassword() {
         try {
@@ -58,7 +67,11 @@ class PasswordTest {
      */
     @Test
     fun emptyPassword() {
-        user.password = ""
-        assertEquals("", user.password)
+        try {
+            user.password = ""
+            fail("Password can´t be empty")
+        } catch (e: IllegalArgumentException) {
+            assertEquals(e.message, ExceptionMessages.LIMIT_USER_PASSWORD)
+        }
     }
 }

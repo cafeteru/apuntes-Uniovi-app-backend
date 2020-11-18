@@ -7,10 +7,16 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.fail
 
+/**
+ * Check class UserDtoAssembler
+ */
 class UserDtoAssemblerTest {
     private val userDtoAssembler = UserDtoAssembler()
     private val mockFactory = MockFactory()
 
+    /**
+     * Checks the conversion with valid user
+     */
     @Test
     fun validUser() {
         val user = mockFactory.getEntities().createUser()
@@ -30,6 +36,9 @@ class UserDtoAssemblerTest {
         assertEquals(user.numberIdentification, userDto.numberIdentification)
     }
 
+    /**
+     * Checks the conversion with null user
+     */
     @Test
     fun nullUser() {
         try {
@@ -40,6 +49,9 @@ class UserDtoAssemblerTest {
         }
     }
 
+    /**
+     * Checks the conversion with valid userDto
+     */
     @Test
     fun validUserDto() {
         val userDto = mockFactory.getDtos().createUserDto()
@@ -59,6 +71,9 @@ class UserDtoAssemblerTest {
         assertEquals(user.numberIdentification, userDto.numberIdentification)
     }
 
+    /**
+     * Checks the conversion with null userDto
+     */
     @Test
     fun nullUserDto() {
         try {

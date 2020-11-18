@@ -9,6 +9,9 @@ import org.junit.jupiter.api.Assertions.fail
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
+/**
+ * Test the assignments to identificationType of a user
+ */
 class IdentificationTypeTest {
     private lateinit var user: User
 
@@ -20,12 +23,18 @@ class IdentificationTypeTest {
         user = MockFactory().getEntities().createUser()
     }
 
+    /**
+     * Checks the assignment with valid data
+     */
     @Test
     fun validIdentificationType() {
         user.setIdentificationType("DNI")
         assertEquals(IdentificationType.DNI, user.identificationType)
     }
 
+    /**
+     * Checks the assignment with invalid data
+     */
     @Test
     fun invalidIdentificationType() {
         try {

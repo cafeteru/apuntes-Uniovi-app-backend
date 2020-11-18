@@ -30,7 +30,7 @@ class InsertDataExample @Autowired constructor(
                 birthDate = LocalDate.of(1990, 12, 22),
                 email = "admin@admin.com",
                 identificationType = "dni",
-                img = "",
+                img = null,
                 numberIdentification = "72479503V",
                 password = "admin",
                 phone = "623548956",

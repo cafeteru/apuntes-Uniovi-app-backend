@@ -9,6 +9,9 @@ import org.junit.jupiter.api.Assertions.fail
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
+/**
+ * Test the assignments to email of a user
+ */
 class EmailTest {
     private lateinit var user: User
 
@@ -20,6 +23,9 @@ class EmailTest {
         user = MockFactory().getEntities().createUser()
     }
 
+    /**
+     * Checks the assignment under the limit
+     */
     @Test
     fun limitEmail() {
         var email = ""
@@ -36,6 +42,9 @@ class EmailTest {
         assertEquals(email, user.email)
     }
 
+    /**
+     * Checks the assignment over the limit
+     */
     @Test
     fun upLimitEmail() {
         try {
