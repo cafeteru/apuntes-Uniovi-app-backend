@@ -1,50 +1,57 @@
 package es.uniovi.apuntesuniovi.servicies.dtos.impl
 
 import es.uniovi.apuntesuniovi.entities.User
-import es.uniovi.apuntesuniovi.servicies.dates.DateService
+import es.uniovi.apuntesuniovi.infrastructure.constants.ExceptionMessages
 import es.uniovi.apuntesuniovi.servicies.dtos.AbstractDtoAssembler
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.UserDto
 import org.springframework.stereotype.Service
+import java.lang.IllegalArgumentException
 
 @Service
 class UserDtoAssembler : AbstractDtoAssembler<User, UserDto>() {
-    override fun entityToDto(user: User): UserDto {
+    override fun entityToDto(entity: User?): UserDto {
         logService.info("entityToDto(user: User) - start")
-        val result = UserDto(
-                id = user.id,
-                name = user.name,
-                surname = user.surname,
-                email = user.email,
-                phone = user.phone,
-                active = user.active,
-                img = user.img,
-                birthDate = DateService.dateToString(user.birthDate),
-                username = user.username,
-                password = user.password,
-                role = user.role.toString(),
-                identificationType = user.identificationType.toString(),
-                numberIdentification = user.numberIdentification)
-        logService.info("entityToDto(user: User) - end")
-        return result
+        entity?.let {
+            val result = UserDto(
+                    id = it.id,
+                    name = entity.name,
+                    surname = entity.surname,
+                    email = entity.email,
+                    phone = entity.phone,
+                    active = entity.active,
+                    img = entity.img,
+                    birthDate = entity.birthDate,
+                    username = entity.username,
+                    password = entity.password,
+                    role = entity.role.toString(),
+                    identificationType = entity.identificationType.toString(),
+                    numberIdentification = entity.numberIdentification)
+            logService.info("entityToDto(user: User) - end")
+            return result
+        }
+        throw IllegalArgumentException(ExceptionMessages.NULL_USER)
     }
 
-    override fun dtoToEntity(userDto: UserDto): User {
+    override fun dtoToEntity(dto: UserDto?): User {
         logService.info("dtoToEntity(userDto: UserDto) - start")
-        val result = User()
-        result.id = userDto.id
-        result.name = userDto.name
-        result.surname = userDto.surname
-        result.email = userDto.email
-        result.phone = userDto.phone
-        result.active = userDto.active
-        result.img = userDto.img
-        result.birthDate = DateService.stringToDate(userDto.birthDate).toDate()
-        result.username = userDto.username
-        result.password = userDto.password
-        result.setIdentificationType(userDto.identificationType)
-        result.numberIdentification = userDto.numberIdentification
-        result.setRole(userDto.role)
-        logService.info("dtoToEntity(userDto: UserDto) - end")
-        return result
+        dto?.let {
+            val result = User()
+            result.id = dto.id
+            result.name = dto.name
+            result.surname = dto.surname
+            result.email = dto.email
+            result.phone = dto.phone
+            result.active = dto.active
+            result.img = dto.img
+            result.birthDate = dto.birthDate
+            result.username = dto.username
+            result.password = dto.password
+            result.setIdentificationType(dto.identificationType)
+            result.numberIdentification = dto.numberIdentification
+            result.setRole(dto.role)
+            logService.info("dtoToEntity(userDto: UserDto) - end")
+            return result
+        }
+        throw IllegalArgumentException(ExceptionMessages.NULL_USER)
     }
 }

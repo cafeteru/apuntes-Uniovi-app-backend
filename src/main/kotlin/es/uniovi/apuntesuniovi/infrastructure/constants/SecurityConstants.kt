@@ -5,12 +5,10 @@ package es.uniovi.apuntesuniovi.infrastructure.constants
  */
 object SecurityConstants {
     const val LOGIN_URL = "/login"
-    const val HEADER_STRING = "Authorization"
+    const val AUTHORIZATION_HEADER = "Authorization"
     const val TOKEN_BEARER_PREFIX = "Bearer "
 
     const val SECRET = "SecretKeyToGenJWTs"
     private const val HOURS = 6
     const val EXPIRATION_TIME = 1000 * 60 * 60 * HOURS
-
-
 }

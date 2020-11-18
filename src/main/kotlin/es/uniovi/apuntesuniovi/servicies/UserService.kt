@@ -23,5 +23,5 @@ interface UserService {
      *
      * @param userDto User to save
      */
-    fun save(userDto: UserDto): List<UserDto>
+    fun create(userDto: UserDto): List<UserDto>
 }

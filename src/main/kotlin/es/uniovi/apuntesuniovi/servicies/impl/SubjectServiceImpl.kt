@@ -24,10 +24,10 @@ class SubjectServiceImpl @Autowired constructor(
         return result
     }
 
-    override fun save(subjectDto: SubjectDto): List<SubjectDto> {
-        logService.info("save(subjectDto: SubjectDto) - start")
+    override fun create(subjectDto: SubjectDto): List<SubjectDto> {
+        logService.info("create(subjectDto: SubjectDto) - start")
         val result = SaveSubjectService(repositoryFactory.getSubjects(), dtoFactory.getSubjects(), subjectDto).execute()
-        logService.info("save(subjectDto: SubjectDto) - end")
+        logService.info("create(subjectDto: SubjectDto) - end")
         return result
     }
 }

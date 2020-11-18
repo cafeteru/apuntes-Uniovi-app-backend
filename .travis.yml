@@ -1,13 +1,13 @@
 language: java
 
 jdk:
-  - openjdk11
+  - openjdk14
 
 install:
   - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 
 script:
-  - mvn package
+  - mvn verify package
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)

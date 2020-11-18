@@ -7,6 +7,7 @@ import es.uniovi.apuntesuniovi.servicies.dtos.entities.SubjectDto
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.UserDto
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import java.time.LocalDate
 import javax.annotation.PostConstruct
 
 @Service
@@ -20,23 +21,23 @@ class InsertDataExample @Autowired constructor(
         logService.info("initData() - start")
 
         val subjectDto = SubjectDto(id = 0, name = "TFG")
-        serviceFactory.getSubjects().save(subjectDto)
+        serviceFactory.getSubjects().create(subjectDto)
         val admin = UserDto(
                 id = 0,
                 name = "admin",
                 surname = "admin",
                 active = true,
-                birthDate = "22-12-1990",
+                birthDate = LocalDate.of(1990, 12, 22),
                 email = "admin@admin.com",
                 identificationType = "dni",
-                img = "",
-                numberIdentification = "",
+                img = null,
+                numberIdentification = "72479503V",
                 password = "admin",
-                phone = "",
+                phone = "623548956",
                 username = "admin",
                 role = RoleType.ADMIN.toString()
         )
-        serviceFactory.getUsers().save(admin)
+        serviceFactory.getUsers().create(admin)
         logService.info("initData() - end")
     }
 }

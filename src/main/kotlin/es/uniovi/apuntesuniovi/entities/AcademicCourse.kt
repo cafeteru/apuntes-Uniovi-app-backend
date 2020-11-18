@@ -2,7 +2,6 @@ package es.uniovi.apuntesuniovi.entities
 
 import java.util.*
 import javax.persistence.*
-import kotlin.collections.HashSet
 
 @Entity
 class AcademicCourse {

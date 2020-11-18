@@ -1,7 +1,8 @@
 package es.uniovi.apuntesuniovi.servicies.security
 
-import es.uniovi.apuntesuniovi.log.LogService
 import es.uniovi.apuntesuniovi.infrastructure.constants.SecurityConstants.LOGIN_URL
+import es.uniovi.apuntesuniovi.log.LogService
+import es.uniovi.apuntesuniovi.servicies.UserService
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
@@ -15,23 +16,20 @@ import org.springframework.web.cors.CorsConfigurationSource
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 import javax.inject.Inject
 
-/**
- *
- */
 @Configuration
 @EnableWebSecurity
 class WebSecurity @Inject constructor(
-        private var userDetailsService: UserDetailsServiceImpl
+        private var userDetailsService: UserDetailsServiceImpl,
+        private var userService: UserService
 ) : WebSecurityConfigurerAdapter() {
     private val logService = LogService(this.javaClass)
 
-    @Throws(Exception::class)
-    override fun configure(httpSecurity: HttpSecurity) {
+    override fun configure(http: HttpSecurity) {
         logService.info("configure(httpSecurity: HttpSecurity) - start")
         http.cors().and().csrf().disable().authorizeRequests()
                 .antMatchers(LOGIN_URL).permitAll().anyRequest()
                 .authenticated().and()
-                .addFilter(JWTAuthenticationFilter(authenticationManager()))
+                .addFilter(JWTAuthenticationFilter(authenticationManager(), userService))
                 .addFilter(JWTAuthorizationFilter(authenticationManager()))
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
@@ -40,7 +38,6 @@ class WebSecurity @Inject constructor(
     }
 
     @Inject
-    @Throws(Exception::class)
     fun configureGlobal(auth: AuthenticationManagerBuilder) {
         logService.info("configureGlobal(auth: AuthenticationManagerBuilder) - start")
         auth.userDetailsService(userDetailsService).passwordEncoder(BCryptPasswordEncoder())

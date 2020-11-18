@@ -1,12 +1,13 @@
 package es.uniovi.apuntesuniovi.servicies.security
 
+import com.auth0.jwt.JWT
+import com.auth0.jwt.algorithms.Algorithm
 import es.uniovi.apuntesuniovi.infrastructure.constants.ExceptionMessages
-import es.uniovi.apuntesuniovi.log.LogService
-import es.uniovi.apuntesuniovi.infrastructure.constants.SecurityConstants.HEADER_STRING
+import es.uniovi.apuntesuniovi.infrastructure.constants.SecurityConstants.AUTHORIZATION_HEADER
 import es.uniovi.apuntesuniovi.infrastructure.constants.SecurityConstants.SECRET
 import es.uniovi.apuntesuniovi.infrastructure.constants.SecurityConstants.TOKEN_BEARER_PREFIX
+import es.uniovi.apuntesuniovi.log.LogService
 import io.jsonwebtoken.ExpiredJwtException
-import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureException
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
@@ -19,14 +20,14 @@ import javax.servlet.ServletException
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
+
 class JWTAuthorizationFilter(authManager: AuthenticationManager) : BasicAuthenticationFilter(authManager) {
     private val logService = LogService(this.javaClass)
 
-    @Throws(IOException::class, ServletException::class)
     override fun doFilterInternal(request: HttpServletRequest, response: HttpServletResponse, chain: FilterChain) {
         logService.info("request: HttpServletRequest, response: HttpServletResponse, chain: FilterChain - start")
-        val header = request.getHeader(HEADER_STRING)
-        if (header == null || !header.startsWith(TOKEN_BEARER_PREFIX)) {
+        val token = request.getHeader(AUTHORIZATION_HEADER)
+        if (token == null || !token.startsWith(TOKEN_BEARER_PREFIX)) {
             chain.doFilter(request, response)
             return
         }
@@ -36,13 +37,11 @@ class JWTAuthorizationFilter(authManager: AuthenticationManager) : BasicAuthenti
     }
 
     private fun getAuthentication(request: HttpServletRequest): UsernamePasswordAuthenticationToken? {
+        logService.info("getAuthentication(request: HttpServletRequest) - start")
         try {
-            logService.info("getAuthentication(request: HttpServletRequest) - start")
-            val token = request.getHeader(HEADER_STRING)
-            if (token != null) {
-                val user: String = Jwts.parser()
-                        .setSigningKey(SECRET)
-                        .parseClaimsJws(token.replace(TOKEN_BEARER_PREFIX, "")).body.subject
+            val token = request.getHeader(AUTHORIZATION_HEADER).replace(TOKEN_BEARER_PREFIX, "")
+            if (token != "") {
+                val user = JWT.require(Algorithm.HMAC512(SECRET)).build().verify(token).subject
                 logService.info("getAuthentication(request: HttpServletRequest) - end")
                 return UsernamePasswordAuthenticationToken(user, null, ArrayList())
             }

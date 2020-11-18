@@ -9,7 +9,7 @@ class LearnSubject {
     var id: Long = 0
 
     @ManyToOne
-    lateinit var student: User
+    lateinit var student: Student
 
     @ManyToOne
     lateinit var subject: Subject

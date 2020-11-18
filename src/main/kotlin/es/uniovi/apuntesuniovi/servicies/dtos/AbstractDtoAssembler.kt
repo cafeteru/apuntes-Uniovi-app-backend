@@ -15,14 +15,14 @@ abstract class AbstractDtoAssembler<Entity, Dto> {
      *
      * @param entity Entity to convert
      */
-    abstract fun entityToDto(entity: Entity): Dto
+    abstract fun entityToDto(entity: Entity?): Dto
 
     /**
      * Convert an dto into to entity
      *
      * @param dto Dto to convert
      */
-    abstract fun dtoToEntity(dto: Dto): Entity
+    abstract fun dtoToEntity(dto: Dto?): Entity
 
     /**
      * Converts a list of entities to a list of dtos

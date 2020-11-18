@@ -15,7 +15,7 @@ class SaveSubject(
     override fun execute(): List<SubjectDto> {
         logService.info("execute() - start")
         val subject: SubjectDto = Gson().fromJson(json, SubjectDto::class.java)
-        val result = subjectService.save(subject)
+        val result = subjectService.create(subject)
         logService.info("execute() - end")
         return result
     }

@@ -1,5 +1,6 @@
 package es.uniovi.apuntesuniovi.entities
 
+import java.util.*
 import javax.persistence.*
 
 @Entity
@@ -9,7 +10,7 @@ class TeachSubject {
     var id: Long = 0
 
     @ManyToOne
-    lateinit var teacher: User
+    lateinit var teacher: Teacher
 
     @ManyToOne
     lateinit var subject: Subject
