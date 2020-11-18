@@ -1,5 +1,8 @@
 package es.uniovi.apuntesuniovi.infrastructure.constants
 
+/**
+ * Indicates the size limits of the data in the database
+ */
 object DatabaseLimits {
     const val USER_EMAIL = 50
     const val USER_IMG = 50_000

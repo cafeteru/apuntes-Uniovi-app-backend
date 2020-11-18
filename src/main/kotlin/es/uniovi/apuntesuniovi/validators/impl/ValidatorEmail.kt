@@ -4,6 +4,9 @@ import es.uniovi.apuntesuniovi.validators.Validator
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
+/**
+ * Validate that a text has the correct form of an email
+ */
 class ValidatorEmail(private var email: String?) : Validator {
     override fun isValid(): Boolean {
         email?.let {

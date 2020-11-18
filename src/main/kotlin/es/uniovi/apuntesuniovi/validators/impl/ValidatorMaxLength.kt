@@ -2,7 +2,10 @@ package es.uniovi.apuntesuniovi.validators.impl
 
 import es.uniovi.apuntesuniovi.validators.Validator
 
-class ValidatorMaxSize(
+/**
+ * Validate that a text don´t exceed a specific length
+ */
+class ValidatorMaxLength(
         private var text: String?,
         private var maxSize: Int
 ) : Validator {

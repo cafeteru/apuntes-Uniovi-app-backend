@@ -3,7 +3,7 @@ package es.uniovi.apuntesuniovi.validators.impl
 import es.uniovi.apuntesuniovi.validators.ValidatorComposite
 
 /**
- * Check a list of validators
+ * Check a list of validators. It must validate at least one
  */
 class ValidatorCompositeAny : ValidatorComposite() {
 

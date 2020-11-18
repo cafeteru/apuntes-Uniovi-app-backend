@@ -2,6 +2,9 @@ package es.uniovi.apuntesuniovi.validators.impl
 
 import es.uniovi.apuntesuniovi.validators.Validator
 
+/**
+ * Validate that a text has the correct form of an DNI
+ */
 class ValidatorDni(private var dni: String?) : Validator {
     private val letter = "TRWAGMYFPDXBNJZSQVHLCKET"
     private val dniLength = 9

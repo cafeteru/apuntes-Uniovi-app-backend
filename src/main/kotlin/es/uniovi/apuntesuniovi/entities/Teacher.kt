@@ -5,6 +5,9 @@ import javax.persistence.CascadeType
 import javax.persistence.Entity
 import javax.persistence.OneToMany
 
+/**
+ * Represents teachers
+ */
 @Entity
 class Teacher : User() {
     @OneToMany(mappedBy = "teacher", cascade = [(CascadeType.ALL)])

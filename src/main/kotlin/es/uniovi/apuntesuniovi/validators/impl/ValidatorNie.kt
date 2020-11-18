@@ -2,6 +2,9 @@ package es.uniovi.apuntesuniovi.validators.impl
 
 import es.uniovi.apuntesuniovi.validators.Validator
 
+/**
+ * Validate that a text has the correct form of an NIE
+ */
 class ValidatorNie(private var nie: String?) : Validator {
     override fun isValid(): Boolean {
         nie?.let {
