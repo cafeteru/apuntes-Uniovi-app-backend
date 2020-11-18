@@ -12,6 +12,9 @@ import org.junit.jupiter.api.Test
 class IdentificationTypeTest {
     private lateinit var user: User
 
+    /**
+     * Create init data for the test
+     */
     @BeforeEach
     fun initData() {
         user = MockFactory().getEntities().createUser()
@@ -34,6 +37,9 @@ class IdentificationTypeTest {
         }
     }
 
+    /**
+     * Checks the assignment to empty
+     */
     @Test
     fun emptyIdentificationType() {
         try {
@@ -45,6 +51,9 @@ class IdentificationTypeTest {
         }
     }
 
+    /**
+     * Checks the assignment to null
+     */
     @Test
     fun nullIdentificationType() {
         try {

@@ -11,6 +11,9 @@ import org.junit.jupiter.api.Test
 class NumberIdentificationTest {
     private lateinit var user: User
 
+    /**
+     * Create init data for the test
+     */
     @BeforeEach
     fun initData() {
         user = MockFactory().getEntities().createUser()
@@ -35,62 +38,25 @@ class NumberIdentificationTest {
         }
     }
 
+    /**
+     * Checks the assignment to null
+     */
     @Test
     fun nullNumberIdentification() {
         user.numberIdentification = null
         assertEquals(null, user.numberIdentification)
     }
 
+    /**
+     * Checks the assignment to empty
+     */
     @Test
-    fun validRole() {
-        user.setRole(RoleType.TEACHER.toString())
-        assertEquals(RoleType.TEACHER, user.role)
-    }
-
-    @Test
-    fun invalidRole() {
+    fun emptyNumberIdentification() {
         try {
-            user.setRole("No exists")
-            fail("RoleType is invalid")
+            user.numberIdentification = ""
+            fail("NumberIdentification can´t be empty")
         } catch (e: IllegalArgumentException) {
-            assertEquals(RoleType.STUDENT, user.role)
-            assertEquals(e.message, ExceptionMessages.INVALID_ROLE_TYPE)
+            assertEquals(e.message, ExceptionMessages.INVALID_IDENTIFICATION_NUMBER)
         }
-    }
-
-    @Test
-    fun nullRole() {
-        try {
-            user.setRole(null)
-            fail("RoleType can´t be null")
-        } catch (e: IllegalArgumentException) {
-            assertEquals(RoleType.STUDENT, user.role)
-            assertEquals(e.message, ExceptionMessages.NULL_ROLE_TYPE)
-        }
-    }
-
-    @Test
-    fun emptyRole() {
-        try {
-            user.setRole("")
-            fail("RoleType can´t be empty")
-        } catch (e: IllegalArgumentException) {
-            assertEquals(RoleType.STUDENT, user.role)
-            assertEquals(e.message, ExceptionMessages.INVALID_ROLE_TYPE)
-        }
-    }
-
-    @Test
-    fun equalsUser() {
-        val user = User()
-        assertNotEquals(user, this.user)
-        user.id = this.user.id
-        assertNotEquals(user, this.user)
-        user.username = this.user.username
-        assertNotEquals(user, this.user)
-        user.numberIdentification = this.user.numberIdentification
-        assertEquals(user, this.user)
-        user.name = this.user.name
-        assertEquals(user, this.user)
     }
 }

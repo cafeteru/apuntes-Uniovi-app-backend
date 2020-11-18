@@ -12,6 +12,9 @@ import org.junit.jupiter.api.Test
 class EmailTest {
     private lateinit var user: User
 
+    /**
+     * Create init data for the test
+     */
     @BeforeEach
     fun initData() {
         user = MockFactory().getEntities().createUser()
@@ -54,9 +57,25 @@ class EmailTest {
         }
     }
 
+    /**
+     * Checks the assignment to null
+     */
     @Test
     fun nullEmail() {
         user.email = null
         assertEquals(null, user.email)
+    }
+
+    /**
+     * Checks the assignment to empty
+     */
+    @Test
+    fun emptyEmail() {
+        try {
+            user.email = ""
+            fail("Email can´t be empty")
+        } catch (e: IllegalArgumentException) {
+            assertEquals(e.message, ExceptionMessages.INVALID_EMAIL)
+        }
     }
 }

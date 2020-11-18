@@ -10,6 +10,9 @@ import org.junit.jupiter.api.Test
 class PhoneTest {
     private lateinit var user: User
 
+    /**
+     * Create init data for the test
+     */
     @BeforeEach
     fun initData() {
         user = MockFactory().getEntities().createUser()
@@ -34,9 +37,26 @@ class PhoneTest {
         }
     }
 
+    /**
+     * Checks the assignment to null
+     */
     @Test
     fun nullPhone() {
         user.phone = null
         assertEquals(null, user.phone)
+    }
+
+    /**
+     * Checks the assignment to empty
+     */
+    @Test
+    fun emptyPhone() {
+        try {
+            user.phone = ""
+            fail("Phone isn´t empty")
+        } catch (e: IllegalArgumentException) {
+            assertNotEquals(user.phone, "")
+            assertEquals(e.message, ExceptionMessages.INVALID_PHONE)
+        }
     }
 }

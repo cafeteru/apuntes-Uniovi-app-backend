@@ -12,6 +12,9 @@ import org.junit.jupiter.api.Test
 class SurnameTest {
     private lateinit var user: User
 
+    /**
+     * Create init data for the test
+     */
     @BeforeEach
     fun initData() {
         user = MockFactory().getEntities().createUser()
@@ -41,9 +44,21 @@ class SurnameTest {
         }
     }
 
+    /**
+     * Checks the assignment to null
+     */
     @Test
     fun nullSurname() {
         user.surname = null
         assertEquals(null, user.surname)
+    }
+
+    /**
+     * Checks the assignment to empty
+     */
+    @Test
+    fun emptySurname() {
+        user.surname = ""
+        assertEquals("", user.surname)
     }
 }

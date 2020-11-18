@@ -12,6 +12,9 @@ import java.time.LocalDate
 class BirthDateTest {
     private lateinit var user: User
 
+    /**
+     * Create init data for the test
+     */
     @BeforeEach
     fun initData() {
         user = MockFactory().getEntities().createUser()
@@ -35,6 +38,9 @@ class BirthDateTest {
         }
     }
 
+    /**
+     * Checks the assignment to null
+     */
     @Test
     fun nullBirthDate() {
         user.birthDate = null

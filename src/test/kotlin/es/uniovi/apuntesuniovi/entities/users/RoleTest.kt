@@ -12,6 +12,9 @@ import org.junit.jupiter.api.Test
 class RoleTest {
     private lateinit var user: User
 
+    /**
+     * Create init data for the test
+     */
     @BeforeEach
     fun initData() {
         user = MockFactory().getEntities().createUser()
@@ -34,6 +37,9 @@ class RoleTest {
         }
     }
 
+    /**
+     * Checks the assignment to null
+     */
     @Test
     fun nullRole() {
         try {
@@ -45,6 +51,9 @@ class RoleTest {
         }
     }
 
+    /**
+     * Checks the assignment to empty
+     */
     @Test
     fun emptyRole() {
         try {

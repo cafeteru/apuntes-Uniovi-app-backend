@@ -12,6 +12,9 @@ import org.junit.jupiter.api.Test
 class ImgTest {
     private lateinit var user: User
 
+    /**
+     * Create init data for the test
+     */
     @BeforeEach
     fun initData() {
         user = MockFactory().getEntities().createUser()
@@ -41,9 +44,21 @@ class ImgTest {
         }
     }
 
+    /**
+     * Checks the assignment to null
+     */
     @Test
     fun nullImg() {
         user.img = null
         assertEquals(null, user.img)
+    }
+
+    /**
+     * Checks the assignment to empty
+     */
+    @Test
+    fun emptyImg() {
+        user.img = ""
+        assertEquals("", user.img)
     }
 }
