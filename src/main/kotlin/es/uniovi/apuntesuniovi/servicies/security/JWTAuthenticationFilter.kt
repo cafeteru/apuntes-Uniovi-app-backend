@@ -65,9 +65,6 @@ class JWTAuthenticationFilter(
                 "response: HttpServletResponse, chain: FilterChain, auth: Authentication) - end")
     }
 
-    /**
-     * Create JWT token with logged-in user information
-     */
     private fun createToken(auth: Authentication): String {
         logService.info("createToken(auth: Authentication) - start")
         val username = (auth.principal as User).username
