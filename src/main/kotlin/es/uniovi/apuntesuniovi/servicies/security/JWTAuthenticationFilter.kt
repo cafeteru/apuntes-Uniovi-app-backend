@@ -3,10 +3,11 @@ package es.uniovi.apuntesuniovi.servicies.security
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm.HMAC512
 import com.fasterxml.jackson.databind.ObjectMapper
-import es.uniovi.apuntesuniovi.infrastructure.constants.SecurityConstants.EXPIRATION_TIME
 import es.uniovi.apuntesuniovi.infrastructure.constants.SecurityConstants.AUTHORIZATION_HEADER
+import es.uniovi.apuntesuniovi.infrastructure.constants.SecurityConstants.EXPIRATION_TIME
 import es.uniovi.apuntesuniovi.infrastructure.constants.SecurityConstants.SECRET
 import es.uniovi.apuntesuniovi.infrastructure.constants.SecurityConstants.TOKEN_BEARER_PREFIX
+import es.uniovi.apuntesuniovi.infrastructure.exceptions.ExceptionWithOutStackTrace
 import es.uniovi.apuntesuniovi.log.LogService
 import es.uniovi.apuntesuniovi.servicies.UserService
 import org.springframework.security.authentication.AuthenticationManager
@@ -16,7 +17,6 @@ import org.springframework.security.core.Authentication
 import org.springframework.security.core.userdetails.User
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 import java.io.IOException
-import java.io.PrintWriter
 import java.util.*
 import javax.servlet.FilterChain
 import javax.servlet.http.HttpServletRequest
@@ -48,7 +48,7 @@ class JWTAuthenticationFilter(
             throw RuntimeException(e)
         } catch (e: InternalAuthenticationServiceException) {
             logService.error("\"attemptAuthentication(req: HttpServletRequest, res: HttpServletResponse) - error")
-            throw IllegalArgumentException("User doesn't exist")
+            throw ExceptionWithOutStackTrace("User doesn't exist")
         }
     }
 
@@ -58,38 +58,24 @@ class JWTAuthenticationFilter(
     ) {
         logService.info("successfulAuthentication(request: HttpServletRequest, " +
                 "response: HttpServletResponse, chain: FilterChain, auth: Authentication) - start")
-        val token = JWT.create()
-                .withSubject((auth.principal as User).username)
-                .withExpiresAt(
-                        Date(System.currentTimeMillis() + EXPIRATION_TIME))
-                .sign(HMAC512(SECRET))
-        response.addHeader(AUTHORIZATION_HEADER, token)
+        val token = createToken(auth)
         response.contentType = "application/json;charset=UTF-8"
-        createResponseBody(response, token, auth)
+        response.writer.print("{ \"$AUTHORIZATION_HEADER\" : \"$TOKEN_BEARER_PREFIX$token\" }")
         logService.info("successfulAuthentication(request: HttpServletRequest, " +
                 "response: HttpServletResponse, chain: FilterChain, auth: Authentication) - end")
     }
 
-    private fun createResponseBody(response: HttpServletResponse, token: String, auth: Authentication) {
-        logService.info("createResponseBody(response: HttpServletResponse, token: " +
-                "String, auth: Authentication) - start")
-        val out = response.writer
+    private fun createToken(auth: Authentication): String {
+        logService.info("createToken(auth: Authentication) - start")
         val username = (auth.principal as User).username
         val user = userService.findByUsername(username)
-        out.print("{")
-        addParam(out, AUTHORIZATION_HEADER, "$TOKEN_BEARER_PREFIX$token")
-        user.username?.let { addParam(out, "username", it) }
-        out.print("\"role\" : \"${user.role}\"")
-        out.print("}")
-        out.flush()
-        logService.info("createResponseBody(response: HttpServletResponse, token: " +
-                "String, auth: Authentication) - end")
+        val token = JWT.create()
+                .withClaim("username", user.username)
+                .withClaim("role", user.role)
+                .withClaim("id", user.id)
+                .withExpiresAt(Date(System.currentTimeMillis() + EXPIRATION_TIME))
+                .sign(HMAC512(SECRET))
+        logService.info("createToken(auth: Authentication) - end")
+        return token
     }
-
-    private fun addParam(out: PrintWriter, key: String, value: String) {
-        logService.info("addParam(out: PrintWriter, key: String, value: String) - start")
-        out.print("\"$key\" : \"$value\",")
-        logService.info("addParam(out: PrintWriter, key: String, value: String) - end")
-    }
-
 }
