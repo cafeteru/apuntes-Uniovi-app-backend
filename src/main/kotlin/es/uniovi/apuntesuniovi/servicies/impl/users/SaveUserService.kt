@@ -23,6 +23,7 @@ class SaveUserService(
     override fun execute(): List<UserDto> {
         logService.info("execute() - start")
         checkUniqueUsername()
+        checkUniqueNumberIdentification()
         val list = ArrayList<UserDto>()
         userDto?.password = bCryptPasswordEncoder.encode(userDto?.password)
         val person = userDtoAssembler.dtoToEntity(userDto)
@@ -33,16 +34,26 @@ class SaveUserService(
     }
 
     private fun checkUniqueUsername() {
-        logService.info("check() - start")
+        logService.info("checkUniqueUsername() - start")
         if (userDto?.username.isNullOrEmpty() || userDto?.password.isNullOrBlank()) {
-            logService.error("check() - error")
+            logService.error("checkUniqueUsername() - error")
             throw IllegalArgumentException(ExceptionMessages.INVALID_DATA_USER)
         }
         val optional = userDto?.username?.let { userRepository.findByUsername(it) }
         if (optional != null && optional.isPresent) {
-            logService.error("check() - error")
+            logService.error("checkUniqueUsername() - error")
             throw IllegalArgumentException(ExceptionMessages.ALREADY_REGISTERED_USERNAME)
         }
-        logService.info("check() - end")
+        logService.info("checkUniqueUsername() - end")
+    }
+
+    private fun checkUniqueNumberIdentification() {
+        logService.info("checkUniqueNumberIdentification() - start")
+        val optional = userDto?.numberIdentification?.let { userRepository.findByNumberIdentification(it) }
+        if (optional != null && optional.isPresent) {
+            logService.error("checkUniqueNumberIdentification() - error")
+            throw IllegalArgumentException(ExceptionMessages.ALREADY_REGISTERED_NUMBER_IDENTIFICATION)
+        }
+        logService.info("checkUniqueNumberIdentification() - end")
     }
 }

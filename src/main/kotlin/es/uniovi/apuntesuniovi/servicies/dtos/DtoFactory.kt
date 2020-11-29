@@ -8,12 +8,14 @@ import es.uniovi.apuntesuniovi.servicies.dtos.impl.UserDtoAssembler
  */
 interface DtoFactory {
     /**
+     * Returns the subject assembler
+     */
+    fun getSubjects(): SubjectDtoAssembler
+
+    /**
      * Returns the user assembler
      */
     fun getUsers(): UserDtoAssembler
 
-    /**
-     * Returns the subject assembler
-     */
-    fun getSubjects(): SubjectDtoAssembler
+
 }

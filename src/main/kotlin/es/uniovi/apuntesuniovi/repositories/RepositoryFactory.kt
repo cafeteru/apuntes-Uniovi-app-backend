@@ -5,12 +5,17 @@ package es.uniovi.apuntesuniovi.repositories
  */
 interface RepositoryFactory {
     /**
-     * Returns the users repository
-     */
-    fun getUsers(): UserRepository
-
-    /**
      * Returns the subjects repository
      */
     fun getSubjects(): SubjectRepository
+
+    /**
+     * Returns the teachSubjects repository
+     */
+    fun getTeachSubjects(): TeachSubjectRepository
+
+    /**
+     * Returns the users repository
+     */
+    fun getUsers(): UserRepository
 }

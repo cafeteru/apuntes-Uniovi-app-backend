@@ -6,7 +6,7 @@ import javax.persistence.*
 @Entity
 class Semester {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long = 0
     var position = 0
 

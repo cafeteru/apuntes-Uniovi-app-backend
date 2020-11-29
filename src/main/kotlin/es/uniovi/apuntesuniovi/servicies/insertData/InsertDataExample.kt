@@ -19,13 +19,12 @@ class InsertDataExample @Autowired constructor(
     @PostConstruct
     fun initData() {
         logService.info("initData() - start")
-
-        val subjectDto = SubjectDto(id = 0, name = "TFG")
-        serviceFactory.getSubjects().create(subjectDto)
+        var subjectDto = SubjectDto(id = 0, name = "English")
+        subjectDto = serviceFactory.getSubjects().create(subjectDto)[0]
         val admin = UserDto(
                 id = 0,
-                name = "admin",
-                surname = "admin",
+                name = "adminName",
+                surname = "adminSurname",
                 active = true,
                 birthDate = LocalDate.of(1990, 12, 22),
                 email = "admin@admin.com",
@@ -38,6 +37,39 @@ class InsertDataExample @Autowired constructor(
                 role = RoleType.ADMIN.toString()
         )
         serviceFactory.getUsers().create(admin)
+        var teacher = UserDto(
+                id = 0,
+                name = "teacherName",
+                surname = "teacherSurname",
+                active = true,
+                birthDate = LocalDate.of(1957, 1, 19),
+                email = "teacher@teacher.com",
+                identificationType = "dni",
+                img = null,
+                numberIdentification = "93432683J",
+                username = "teacher",
+                password = "teacher",
+                phone = "623548956",
+                role = RoleType.TEACHER.toString()
+        )
+        teacher = serviceFactory.getUsers().create(teacher)[0]
+        serviceFactory.getSubjects().addTeacher(subjectId = subjectDto.id, teacherId = teacher.id)
+        val student = UserDto(
+                id = 0,
+                name = "studentName",
+                surname = "studentSurname",
+                active = true,
+                birthDate = LocalDate.of(1990, 9, 9),
+                email = "student@student.com",
+                identificationType = "dni",
+                img = null,
+                numberIdentification = "66524869Z",
+                username = "student",
+                password = "student",
+                phone = "623548956",
+                role = RoleType.STUDENT.toString()
+        )
+        serviceFactory.getUsers().create(student)
         logService.info("initData() - end")
     }
 }

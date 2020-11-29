@@ -5,12 +5,12 @@ package es.uniovi.apuntesuniovi.servicies
  */
 interface ServiceFactory {
     /**
+     * Returns the subjects service
+     */
+    fun getSubjects(): SubjectService
+
+    /**
      * Returns the users service
      */
     fun getUsers(): UserService
-
-    /**
-     * Returns the subject service
-     */
-    fun getSubjects(): SubjectService
 }

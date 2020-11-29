@@ -9,8 +9,13 @@ import java.util.*
  */
 interface UserRepository : JpaRepository<User, Long> {
     /**
-     * Find subject by username
+     * Find user by username
      */
     fun findByUsername(userName: String): Optional<User>
+
+    /**
+     * Find user by numberIdentification
+     */
+    fun findByNumberIdentification(numberIdentification: String): Optional<User>
 
 }

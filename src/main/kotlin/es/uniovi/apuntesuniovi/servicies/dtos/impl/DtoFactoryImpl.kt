@@ -6,14 +6,14 @@ import org.springframework.stereotype.Service
 
 @Service
 class DtoFactoryImpl @Autowired constructor(
+        private val subjectDtoAssembler: SubjectDtoAssembler,
         private val userDtoAssembler: UserDtoAssembler,
-        private val subjectDtoAssembler: SubjectDtoAssembler
 ) : DtoFactory {
-    override fun getUsers(): UserDtoAssembler {
-        return userDtoAssembler
-    }
-
     override fun getSubjects(): SubjectDtoAssembler {
         return subjectDtoAssembler
+    }
+
+    override fun getUsers(): UserDtoAssembler {
+        return userDtoAssembler
     }
 }

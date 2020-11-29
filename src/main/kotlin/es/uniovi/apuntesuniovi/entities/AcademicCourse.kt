@@ -6,7 +6,7 @@ import javax.persistence.*
 @Entity
 class AcademicCourse {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long = 0
 
     @OneToMany(mappedBy = "student", cascade = [(CascadeType.ALL)])

@@ -8,14 +8,16 @@ import org.springframework.stereotype.Service
 
 @Service
 class ServiceFactoryImpl @Autowired constructor(
-        private val userService: UserService,
-        private val subjectService: SubjectService
+        private val subjectService: SubjectService,
+        private val userService: UserService
 ) : ServiceFactory {
+    override fun getSubjects(): SubjectService {
+        return subjectService
+    }
+
     override fun getUsers(): UserService {
         return userService
     }
 
-    override fun getSubjects(): SubjectService {
-        return subjectService
-    }
+
 }

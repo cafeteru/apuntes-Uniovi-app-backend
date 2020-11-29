@@ -5,6 +5,8 @@ import es.uniovi.apuntesuniovi.repositories.RepositoryFactory
 import es.uniovi.apuntesuniovi.servicies.SubjectService
 import es.uniovi.apuntesuniovi.servicies.dtos.DtoFactory
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.SubjectDto
+import es.uniovi.apuntesuniovi.servicies.dtos.entities.UserDto
+import es.uniovi.apuntesuniovi.servicies.impl.subjects.AddTeacherService
 import es.uniovi.apuntesuniovi.servicies.impl.subjects.FindAllSubjectsService
 import es.uniovi.apuntesuniovi.servicies.impl.subjects.SaveSubjectService
 import org.springframework.beans.factory.annotation.Autowired
@@ -28,6 +30,14 @@ class SubjectServiceImpl @Autowired constructor(
         logService.info("create(subjectDto: SubjectDto) - start")
         val result = SaveSubjectService(repositoryFactory.getSubjects(), dtoFactory.getSubjects(), subjectDto).execute()
         logService.info("create(subjectDto: SubjectDto) - end")
+        return result
+    }
+
+    override fun addTeacher(subjectId: Long, teacherId: Long): List<UserDto> {
+        logService.info("addTeacher(subjectId: $subjectId, teacherId: $teacherId) - start")
+        val result = AddTeacherService(repositoryFactory.getSubjects(), repositoryFactory.getUsers(),
+                repositoryFactory.getTeachSubjects(), subjectId, teacherId).execute()
+        logService.info("addTeacher(subjectId: $subjectId, teacherId: $teacherId) - end")
         return result
     }
 }

@@ -5,11 +5,11 @@ import javax.persistence.*
 @Entity
 class LearnSubject {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long = 0
 
     @ManyToOne
-    lateinit var student: Student
+    lateinit var student: User
 
     @ManyToOne
     lateinit var subject: Subject

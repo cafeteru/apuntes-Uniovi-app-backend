@@ -12,10 +12,9 @@ import javax.persistence.*
  * Represents users
  */
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
 open class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long = 0L
 
     @Column(length = DatabaseLimits.USER_NAME)
