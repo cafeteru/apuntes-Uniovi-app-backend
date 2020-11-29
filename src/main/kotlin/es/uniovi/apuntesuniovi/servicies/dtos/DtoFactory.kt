@@ -1,6 +1,7 @@
 package es.uniovi.apuntesuniovi.servicies.dtos
 
 import es.uniovi.apuntesuniovi.servicies.dtos.impl.SubjectDtoAssembler
+import es.uniovi.apuntesuniovi.servicies.dtos.impl.TeachSubjectDtoAssembler
 import es.uniovi.apuntesuniovi.servicies.dtos.impl.UserDtoAssembler
 
 /**
@@ -11,6 +12,11 @@ interface DtoFactory {
      * Returns the subject assembler
      */
     fun getSubjects(): SubjectDtoAssembler
+
+    /**
+     * Returns the teachSubject assembler
+     */
+    fun getTeachSubjects(): TeachSubjectDtoAssembler
 
     /**
      * Returns the user assembler

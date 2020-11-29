@@ -1,6 +1,6 @@
 package es.uniovi.apuntesuniovi.entities
 
-import java.util.*
+import java.time.LocalDate
 import javax.persistence.*
 
 @Entity
@@ -12,6 +12,6 @@ class TeachSubjectRegistry {
     @ManyToOne
     lateinit var teachSubject: TeachSubject
 
-    lateinit var initDay: Date
-    lateinit var finishDay: Date
+    lateinit var initDay: LocalDate
+    lateinit var finishDay: LocalDate
 }

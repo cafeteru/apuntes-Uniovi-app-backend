@@ -1,7 +1,7 @@
 package es.uniovi.apuntesuniovi.entities
 
-import java.util.*
 import javax.persistence.*
+
 
 @Entity
 class TeachSubject {

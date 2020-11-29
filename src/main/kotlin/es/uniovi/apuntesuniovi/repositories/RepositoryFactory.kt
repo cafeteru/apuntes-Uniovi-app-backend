@@ -10,6 +10,11 @@ interface RepositoryFactory {
     fun getSubjects(): SubjectRepository
 
     /**
+     * Returns the teachSubjectRegistries repository
+     */
+    fun getTeachSubjectRegistries(): TeachSubjectRegistryRepository
+
+    /**
      * Returns the teachSubjects repository
      */
     fun getTeachSubjects(): TeachSubjectRepository

@@ -53,7 +53,7 @@ class InsertDataExample @Autowired constructor(
                 role = RoleType.TEACHER.toString()
         )
         teacher = serviceFactory.getUsers().create(teacher)[0]
-        serviceFactory.getSubjects().addTeacher(subjectId = subjectDto.id, teacherId = teacher.id)
+        serviceFactory.getSubjects().addTeacher(subjectDto.id, teacher.id, LocalDate.now())
         val student = UserDto(
                 id = 0,
                 name = "studentName",

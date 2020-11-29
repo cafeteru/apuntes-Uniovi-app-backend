@@ -1,16 +1,21 @@
 package es.uniovi.apuntesuniovi.servicies
 
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.SubjectDto
-import es.uniovi.apuntesuniovi.servicies.dtos.entities.UserDto
+import es.uniovi.apuntesuniovi.servicies.dtos.entities.TeachSubjectDto
+import java.time.LocalDate
 
 /**
  * Service to manage subjects
  */
 interface SubjectService {
     /**
-     * Returns all subjects
+     * Add a teacher into the subject
+     *
+     * @param subjectId The subject's id
+     * @param teacherId The teacher's id
+     * @param date The date it started
      */
-    fun findAll(): List<SubjectDto>
+    fun addTeacher(subjectId: Long, teacherId: Long, date: LocalDate): List<TeachSubjectDto>
 
     /**
      * Saves the subject
@@ -20,10 +25,7 @@ interface SubjectService {
     fun create(subjectDto: SubjectDto): List<SubjectDto>
 
     /**
-     * Add a teacher into the subject
-     *
-     * @param subjectId The subject's id
-     * @param teacherId The teacher's id
+     * Returns all subjects
      */
-    fun addTeacher(subjectId: Long, teacherId: Long): List<UserDto>
+    fun findAll(): List<SubjectDto>
 }
