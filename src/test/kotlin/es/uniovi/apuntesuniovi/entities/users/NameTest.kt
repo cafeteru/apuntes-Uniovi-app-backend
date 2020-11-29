@@ -2,7 +2,7 @@ package es.uniovi.apuntesuniovi.entities.users
 
 import es.uniovi.apuntesuniovi.entities.User
 import es.uniovi.apuntesuniovi.infrastructure.constants.DatabaseLimits
-import es.uniovi.apuntesuniovi.infrastructure.constants.ExceptionMessages
+import es.uniovi.apuntesuniovi.infrastructure.exceptions.messages.ExceptionMessagesUser
 import es.uniovi.apuntesuniovi.mocks.MockFactory
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.fail
@@ -49,7 +49,7 @@ class NameTest {
             user.name = name
             fail("Name is too big")
         } catch (e: IllegalArgumentException) {
-            assertEquals(e.message, ExceptionMessages.LIMIT_USER_NAME)
+            assertEquals(e.message, ExceptionMessagesUser.LIMIT_USER_NAME)
         }
     }
 
@@ -71,7 +71,7 @@ class NameTest {
             user.name = ""
             fail("Name can´t be empty")
         } catch (e: IllegalArgumentException) {
-            assertEquals(e.message, ExceptionMessages.LIMIT_USER_NAME)
+            assertEquals(e.message, ExceptionMessagesUser.LIMIT_USER_NAME)
         }
     }
 }

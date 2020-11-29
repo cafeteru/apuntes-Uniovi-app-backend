@@ -1,6 +1,6 @@
 package es.uniovi.apuntesuniovi.services.dtos
 
-import es.uniovi.apuntesuniovi.infrastructure.constants.ExceptionMessages
+import es.uniovi.apuntesuniovi.infrastructure.exceptions.messages.ExceptionMessagesUser
 import es.uniovi.apuntesuniovi.mocks.MockFactory
 import es.uniovi.apuntesuniovi.servicies.dtos.impl.UserDtoAssembler
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -45,7 +45,7 @@ class UserDtoAssemblerTest {
             userDtoAssembler.entityToDto(null)
             fail("User can´t be null")
         } catch (e: IllegalArgumentException) {
-            assertEquals(e.message, ExceptionMessages.NULL_USER)
+            assertEquals(e.message, ExceptionMessagesUser.NULL_USER)
         }
     }
 
@@ -80,7 +80,7 @@ class UserDtoAssemblerTest {
             userDtoAssembler.dtoToEntity(null)
             fail("UserDto can´t be null")
         } catch (e: IllegalArgumentException) {
-            assertEquals(e.message, ExceptionMessages.NULL_USER)
+            assertEquals(e.message, ExceptionMessagesUser.NULL_USER)
         }
     }
 }

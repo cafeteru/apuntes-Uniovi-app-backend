@@ -1,7 +1,7 @@
 package es.uniovi.apuntesuniovi.controllers.commands.users
 
 import es.uniovi.apuntesuniovi.infrastructure.Command
-import es.uniovi.apuntesuniovi.log.LogService
+import es.uniovi.apuntesuniovi.infrastructure.log.LogService
 import es.uniovi.apuntesuniovi.servicies.UserService
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.UserDto
 

@@ -1,7 +1,7 @@
 package es.uniovi.apuntesuniovi.servicies.impl.subjects
 
 import es.uniovi.apuntesuniovi.infrastructure.Command
-import es.uniovi.apuntesuniovi.log.LogService
+import es.uniovi.apuntesuniovi.infrastructure.log.LogService
 import es.uniovi.apuntesuniovi.repositories.SubjectRepository
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.SubjectDto
 import es.uniovi.apuntesuniovi.servicies.dtos.impl.SubjectDtoAssembler

@@ -1,6 +1,6 @@
 package es.uniovi.apuntesuniovi.servicies.security
 
-import es.uniovi.apuntesuniovi.log.LogService
+import es.uniovi.apuntesuniovi.infrastructure.log.LogService
 import es.uniovi.apuntesuniovi.repositories.RepositoryFactory
 import org.springframework.security.core.userdetails.User
 import org.springframework.security.core.userdetails.UserDetails

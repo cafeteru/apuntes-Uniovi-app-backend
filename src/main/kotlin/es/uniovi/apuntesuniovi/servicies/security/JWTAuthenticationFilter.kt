@@ -8,7 +8,7 @@ import es.uniovi.apuntesuniovi.infrastructure.constants.SecurityConstants.EXPIRA
 import es.uniovi.apuntesuniovi.infrastructure.constants.SecurityConstants.SECRET
 import es.uniovi.apuntesuniovi.infrastructure.constants.SecurityConstants.TOKEN_BEARER_PREFIX
 import es.uniovi.apuntesuniovi.infrastructure.exceptions.ExceptionWithOutStackTrace
-import es.uniovi.apuntesuniovi.log.LogService
+import es.uniovi.apuntesuniovi.infrastructure.log.LogService
 import es.uniovi.apuntesuniovi.servicies.UserService
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.InternalAuthenticationServiceException

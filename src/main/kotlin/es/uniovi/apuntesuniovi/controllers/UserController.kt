@@ -3,7 +3,7 @@ package es.uniovi.apuntesuniovi.controllers
 import es.uniovi.apuntesuniovi.controllers.commands.users.FindAllUsers
 import es.uniovi.apuntesuniovi.controllers.commands.users.SaveUser
 import es.uniovi.apuntesuniovi.infrastructure.constants.Urls
-import es.uniovi.apuntesuniovi.log.LogService
+import es.uniovi.apuntesuniovi.infrastructure.log.LogService
 import es.uniovi.apuntesuniovi.servicies.ServiceFactory
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.UserDto
 import org.springframework.beans.factory.annotation.Autowired

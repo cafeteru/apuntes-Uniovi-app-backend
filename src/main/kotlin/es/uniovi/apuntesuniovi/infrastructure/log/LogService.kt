@@ -1,4 +1,4 @@
-package es.uniovi.apuntesuniovi.log
+package es.uniovi.apuntesuniovi.infrastructure.log
 
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory

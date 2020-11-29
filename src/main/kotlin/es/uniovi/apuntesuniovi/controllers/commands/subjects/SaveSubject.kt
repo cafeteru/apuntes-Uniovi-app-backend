@@ -2,7 +2,7 @@ package es.uniovi.apuntesuniovi.controllers.commands.subjects
 
 import com.google.gson.Gson
 import es.uniovi.apuntesuniovi.infrastructure.Command
-import es.uniovi.apuntesuniovi.log.LogService
+import es.uniovi.apuntesuniovi.infrastructure.log.LogService
 import es.uniovi.apuntesuniovi.servicies.SubjectService
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.SubjectDto
 

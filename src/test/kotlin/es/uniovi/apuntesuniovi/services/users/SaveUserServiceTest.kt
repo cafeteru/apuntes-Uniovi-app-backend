@@ -1,7 +1,7 @@
 package es.uniovi.apuntesuniovi.services.users
 
 import es.uniovi.apuntesuniovi.entities.User
-import es.uniovi.apuntesuniovi.infrastructure.constants.ExceptionMessages
+import es.uniovi.apuntesuniovi.infrastructure.exceptions.messages.ExceptionMessagesUser
 import es.uniovi.apuntesuniovi.mocks.MockFactory
 import es.uniovi.apuntesuniovi.repositories.UserRepository
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.UserDto
@@ -64,7 +64,7 @@ class SaveUserServiceTest {
             saveUserService.execute()
             fail()
         } catch (e: IllegalArgumentException) {
-            assertEquals(e.message, ExceptionMessages.INVALID_DATA_USER)
+            assertEquals(e.message, ExceptionMessagesUser.INVALID_DATA_USER)
         }
     }
 
@@ -79,7 +79,7 @@ class SaveUserServiceTest {
             saveUserService.execute()
             fail("User already registered")
         } catch (e: IllegalArgumentException) {
-            assertEquals(e.message, ExceptionMessages.ALREADY_REGISTERED_USERNAME)
+            assertEquals(e.message, ExceptionMessagesUser.ALREADY_REGISTERED_USERNAME)
         }
     }
 
@@ -94,7 +94,7 @@ class SaveUserServiceTest {
             saveUserService.execute()
             fail("Username can´t be null")
         } catch (e: IllegalArgumentException) {
-            assertEquals(e.message, ExceptionMessages.INVALID_DATA_USER)
+            assertEquals(e.message, ExceptionMessagesUser.INVALID_DATA_USER)
         }
     }
 
@@ -109,7 +109,7 @@ class SaveUserServiceTest {
             saveUserService.execute()
             fail("Username can´t be empty")
         } catch (e: IllegalArgumentException) {
-            assertEquals(e.message, ExceptionMessages.INVALID_DATA_USER)
+            assertEquals(e.message, ExceptionMessagesUser.INVALID_DATA_USER)
         }
     }
 
@@ -124,7 +124,7 @@ class SaveUserServiceTest {
             saveUserService.execute()
             fail("Password can´t be null")
         } catch (e: IllegalArgumentException) {
-            assertEquals(e.message, ExceptionMessages.INVALID_DATA_USER)
+            assertEquals(e.message, ExceptionMessagesUser.INVALID_DATA_USER)
         }
     }
 
@@ -139,7 +139,7 @@ class SaveUserServiceTest {
             saveUserService.execute()
             fail("Password can´t be empty")
         } catch (e: IllegalArgumentException) {
-            assertEquals(e.message, ExceptionMessages.INVALID_DATA_USER)
+            assertEquals(e.message, ExceptionMessagesUser.INVALID_DATA_USER)
         }
     }
 }

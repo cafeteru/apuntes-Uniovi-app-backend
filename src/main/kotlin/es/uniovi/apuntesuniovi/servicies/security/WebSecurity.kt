@@ -1,7 +1,7 @@
 package es.uniovi.apuntesuniovi.servicies.security
 
 import es.uniovi.apuntesuniovi.infrastructure.constants.SecurityConstants.LOGIN_URL
-import es.uniovi.apuntesuniovi.log.LogService
+import es.uniovi.apuntesuniovi.infrastructure.log.LogService
 import es.uniovi.apuntesuniovi.servicies.UserService
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

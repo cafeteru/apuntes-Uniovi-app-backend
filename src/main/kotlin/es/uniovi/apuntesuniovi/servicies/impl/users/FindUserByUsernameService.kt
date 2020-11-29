@@ -2,8 +2,8 @@ package es.uniovi.apuntesuniovi.servicies.impl.users
 
 import es.uniovi.apuntesuniovi.entities.User
 import es.uniovi.apuntesuniovi.infrastructure.Command
-import es.uniovi.apuntesuniovi.infrastructure.constants.ExceptionMessages
-import es.uniovi.apuntesuniovi.log.LogService
+import es.uniovi.apuntesuniovi.infrastructure.exceptions.messages.ExceptionMessagesUser
+import es.uniovi.apuntesuniovi.infrastructure.log.LogService
 import es.uniovi.apuntesuniovi.repositories.UserRepository
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.UserDto
 import es.uniovi.apuntesuniovi.servicies.dtos.impl.UserDtoAssembler
@@ -20,7 +20,7 @@ class FindUserByUsernameService(
         logService.info("execute() - start")
         if (username.isNullOrBlank()) {
             logService.error("execute() - error")
-            throw IllegalArgumentException(ExceptionMessages.INVALID_USERNAME)
+            throw IllegalArgumentException(ExceptionMessagesUser.INVALID_USERNAME)
         }
         val optional: Optional<User> = userRepository.findByUsername(username)
         if (optional.isPresent) {
@@ -28,6 +28,6 @@ class FindUserByUsernameService(
             return userDtoAssembler.entityToDto(optional.get())
         }
         logService.error("execute() - error")
-        throw IllegalArgumentException(ExceptionMessages.NOT_FOUND_USERNAME)
+        throw IllegalArgumentException(ExceptionMessagesUser.NOT_FOUND_USERNAME)
     }
 }

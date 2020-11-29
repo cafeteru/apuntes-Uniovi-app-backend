@@ -1,6 +1,6 @@
 package es.uniovi.apuntesuniovi.servicies.dtos
 
-import es.uniovi.apuntesuniovi.log.LogService
+import es.uniovi.apuntesuniovi.infrastructure.log.LogService
 import java.util.*
 import java.util.function.Consumer
 

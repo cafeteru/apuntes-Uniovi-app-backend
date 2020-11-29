@@ -1,7 +1,7 @@
 package es.uniovi.apuntesuniovi.servicies.dtos.impl
 
 import es.uniovi.apuntesuniovi.entities.User
-import es.uniovi.apuntesuniovi.infrastructure.constants.ExceptionMessages
+import es.uniovi.apuntesuniovi.infrastructure.exceptions.messages.ExceptionMessagesUser
 import es.uniovi.apuntesuniovi.servicies.dtos.AbstractDtoAssembler
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.UserDto
 import org.springframework.stereotype.Service
@@ -29,7 +29,7 @@ class UserDtoAssembler : AbstractDtoAssembler<User, UserDto>() {
             logService.info("entityToDto(user: User) - end")
             return result
         }
-        throw IllegalArgumentException(ExceptionMessages.NULL_USER)
+        throw IllegalArgumentException(ExceptionMessagesUser.NULL_USER)
     }
 
     override fun dtoToEntity(dto: UserDto?): User {
@@ -52,6 +52,6 @@ class UserDtoAssembler : AbstractDtoAssembler<User, UserDto>() {
             logService.info("dtoToEntity(userDto: UserDto) - end")
             return result
         }
-        throw IllegalArgumentException(ExceptionMessages.NULL_USER)
+        throw IllegalArgumentException(ExceptionMessagesUser.NULL_USER)
     }
 }

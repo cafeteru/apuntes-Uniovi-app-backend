@@ -3,7 +3,7 @@ package es.uniovi.apuntesuniovi.controllers
 import es.uniovi.apuntesuniovi.controllers.commands.subjects.FindAllSubjects
 import es.uniovi.apuntesuniovi.controllers.commands.subjects.SaveSubject
 import es.uniovi.apuntesuniovi.infrastructure.constants.Urls
-import es.uniovi.apuntesuniovi.log.LogService
+import es.uniovi.apuntesuniovi.infrastructure.log.LogService
 import es.uniovi.apuntesuniovi.servicies.ServiceFactory
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.SubjectDto
 import org.springframework.beans.factory.annotation.Autowired

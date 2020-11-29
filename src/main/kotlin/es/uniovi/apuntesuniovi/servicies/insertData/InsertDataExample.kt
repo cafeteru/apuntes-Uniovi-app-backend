@@ -1,7 +1,7 @@
 package es.uniovi.apuntesuniovi.servicies.insertData
 
 import es.uniovi.apuntesuniovi.entities.types.RoleType
-import es.uniovi.apuntesuniovi.log.LogService
+import es.uniovi.apuntesuniovi.infrastructure.log.LogService
 import es.uniovi.apuntesuniovi.servicies.ServiceFactory
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.SubjectDto
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.UserDto

@@ -2,7 +2,7 @@ package es.uniovi.apuntesuniovi.entities.users
 
 import es.uniovi.apuntesuniovi.entities.User
 import es.uniovi.apuntesuniovi.entities.types.IdentificationType
-import es.uniovi.apuntesuniovi.infrastructure.constants.ExceptionMessages
+import es.uniovi.apuntesuniovi.infrastructure.exceptions.messages.ExceptionMessagesUser
 import es.uniovi.apuntesuniovi.mocks.MockFactory
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.fail
@@ -42,7 +42,7 @@ class IdentificationTypeTest {
             fail("IdentificationType is invalid")
         } catch (e: IllegalArgumentException) {
             assertEquals(IdentificationType.NIE, user.identificationType)
-            assertEquals(e.message, ExceptionMessages.INVALID_IDENTIFICATION_TYPE)
+            assertEquals(e.message, ExceptionMessagesUser.INVALID_IDENTIFICATION_TYPE)
         }
     }
 
@@ -56,7 +56,7 @@ class IdentificationTypeTest {
             fail("IdentificationType can´t be empty")
         } catch (e: IllegalArgumentException) {
             assertEquals(IdentificationType.NIE, user.identificationType)
-            assertEquals(e.message, ExceptionMessages.INVALID_IDENTIFICATION_TYPE)
+            assertEquals(e.message, ExceptionMessagesUser.INVALID_IDENTIFICATION_TYPE)
         }
     }
 
@@ -70,7 +70,7 @@ class IdentificationTypeTest {
             fail("IdentificationType can´t be null")
         } catch (e: IllegalArgumentException) {
             assertEquals(IdentificationType.NIE, user.identificationType)
-            assertEquals(e.message, ExceptionMessages.NULL_IDENTIFICATION_TYPE)
+            assertEquals(e.message, ExceptionMessagesUser.NULL_IDENTIFICATION_TYPE)
         }
     }
 }

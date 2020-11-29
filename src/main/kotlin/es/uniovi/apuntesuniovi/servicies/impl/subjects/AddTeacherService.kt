@@ -6,7 +6,7 @@ import es.uniovi.apuntesuniovi.entities.TeachSubjectRegistry
 import es.uniovi.apuntesuniovi.entities.User
 import es.uniovi.apuntesuniovi.entities.types.RoleType
 import es.uniovi.apuntesuniovi.infrastructure.Command
-import es.uniovi.apuntesuniovi.log.LogService
+import es.uniovi.apuntesuniovi.infrastructure.log.LogService
 import es.uniovi.apuntesuniovi.repositories.SubjectRepository
 import es.uniovi.apuntesuniovi.repositories.TeachSubjectRegistryRepository
 import es.uniovi.apuntesuniovi.repositories.TeachSubjectRepository
