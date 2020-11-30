@@ -6,8 +6,7 @@ import javax.persistence.*
 @Entity
 class Career {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long = 0
+    var id: Long? = null
 
     lateinit var name: String
     lateinit var code: String

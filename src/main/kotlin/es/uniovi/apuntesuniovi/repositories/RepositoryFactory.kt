@@ -5,6 +5,11 @@ package es.uniovi.apuntesuniovi.repositories
  */
 interface RepositoryFactory {
     /**
+     * Returns the address repository
+     */
+    fun getAddress(): AddressRepository
+
+    /**
      * Returns the subjects repository
      */
     fun getSubjects(): SubjectRepository

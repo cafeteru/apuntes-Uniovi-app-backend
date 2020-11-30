@@ -6,7 +6,7 @@ import javax.persistence.*
 class LearnSubjectRegistry {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long = 0
+    var id: Long? = null
 
     @ManyToOne
     lateinit var learnSubject: LearnSubject

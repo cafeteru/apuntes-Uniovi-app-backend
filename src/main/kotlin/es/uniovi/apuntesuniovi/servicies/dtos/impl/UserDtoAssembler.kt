@@ -5,7 +5,6 @@ import es.uniovi.apuntesuniovi.infrastructure.exceptions.messages.UserMessages
 import es.uniovi.apuntesuniovi.servicies.dtos.AbstractDtoAssembler
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.UserDto
 import org.springframework.stereotype.Service
-import java.lang.IllegalArgumentException
 
 @Service
 class UserDtoAssembler : AbstractDtoAssembler<User, UserDto>() {
@@ -25,7 +24,8 @@ class UserDtoAssembler : AbstractDtoAssembler<User, UserDto>() {
                     password = entity.password,
                     role = entity.role.toString(),
                     identificationType = entity.identificationType.toString(),
-                    numberIdentification = entity.numberIdentification)
+                    numberIdentification = entity.numberIdentification,
+                    address = entity.address)
             logService.info("entityToDto(user: User) - end")
             return result
         }
@@ -49,6 +49,7 @@ class UserDtoAssembler : AbstractDtoAssembler<User, UserDto>() {
             result.setIdentificationType(dto.identificationType)
             result.numberIdentification = dto.numberIdentification
             result.setRole(dto.role)
+            result.address = dto.address
             logService.info("dtoToEntity(userDto: UserDto) - end")
             return result
         }

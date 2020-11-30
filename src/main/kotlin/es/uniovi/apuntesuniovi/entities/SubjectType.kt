@@ -7,7 +7,7 @@ import javax.persistence.*
 class SubjectType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long = 0
+    var id: Long? = null
 
     lateinit var name: String
 

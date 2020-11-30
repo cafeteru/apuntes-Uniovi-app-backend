@@ -1,5 +1,6 @@
 package es.uniovi.apuntesuniovi.servicies.insertData
 
+import es.uniovi.apuntesuniovi.entities.Address
 import es.uniovi.apuntesuniovi.entities.types.RoleType
 import es.uniovi.apuntesuniovi.infrastructure.log.LogService
 import es.uniovi.apuntesuniovi.servicies.ServiceFactory
@@ -20,6 +21,12 @@ class InsertDataExample @Autowired constructor(
     @PostConstruct
     fun initData() {
         logService.info("initData() - start")
+        val address = Address()
+        address.city = "city"
+        address.country = "country"
+        address.postalCode = "postalCode"
+        address.street = "street"
+
         val academy = UniversityCenterDto(
                 id = null,
                 name = "Academy",
@@ -30,7 +37,7 @@ class InsertDataExample @Autowired constructor(
         var subjectDto = SubjectDto(id = null, name = "English")
         subjectDto = serviceFactory.getSubjects().create(subjectDto)[0]
         val admin = UserDto(
-                id = 0,
+                id = null,
                 name = "adminName",
                 surname = "adminSurname",
                 active = true,
@@ -42,7 +49,8 @@ class InsertDataExample @Autowired constructor(
                 password = "admin",
                 phone = "623548956",
                 username = "admin",
-                role = RoleType.ADMIN.toString()
+                role = RoleType.ADMIN.toString(),
+                address = address
         )
         serviceFactory.getUsers().create(admin)
         var teacher = UserDto(
@@ -58,7 +66,8 @@ class InsertDataExample @Autowired constructor(
                 username = "teacher",
                 password = "teacher",
                 phone = "623548956",
-                role = RoleType.TEACHER.toString()
+                role = RoleType.TEACHER.toString(),
+                address = address
         )
         teacher = serviceFactory.getUsers().create(teacher)[0]
         serviceFactory.getSubjects().addTeacher(subjectDto.id!!, teacher.id!!, LocalDate.now())
@@ -75,7 +84,8 @@ class InsertDataExample @Autowired constructor(
                 username = "student",
                 password = "student",
                 phone = "623548956",
-                role = RoleType.STUDENT.toString()
+                role = RoleType.STUDENT.toString(),
+                address = address
         )
         serviceFactory.getUsers().create(student)
         logService.info("initData() - end")

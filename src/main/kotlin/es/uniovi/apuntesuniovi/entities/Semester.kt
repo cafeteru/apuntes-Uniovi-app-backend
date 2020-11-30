@@ -7,7 +7,7 @@ import javax.persistence.*
 class Semester {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long = 0
+    var id: Long? = null
     var position = 0
 
     @ManyToOne

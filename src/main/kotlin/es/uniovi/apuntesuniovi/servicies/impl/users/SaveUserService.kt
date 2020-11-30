@@ -1,8 +1,10 @@
 package es.uniovi.apuntesuniovi.servicies.impl.users
 
+import es.uniovi.apuntesuniovi.entities.Address
 import es.uniovi.apuntesuniovi.infrastructure.Command
 import es.uniovi.apuntesuniovi.infrastructure.exceptions.messages.UserMessages
 import es.uniovi.apuntesuniovi.infrastructure.log.LogService
+import es.uniovi.apuntesuniovi.repositories.AddressRepository
 import es.uniovi.apuntesuniovi.repositories.UserRepository
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.UserDto
 import es.uniovi.apuntesuniovi.servicies.dtos.impl.UserDtoAssembler
@@ -14,6 +16,7 @@ import java.util.*
  */
 class SaveUserService(
         private val userRepository: UserRepository,
+        private val addressRepository: AddressRepository,
         private val userDtoAssembler: UserDtoAssembler,
         private val userDto: UserDto?
 ) : Command<List<UserDto>> {
@@ -24,10 +27,15 @@ class SaveUserService(
         logService.info("execute() - start")
         checkUniqueUsername()
         checkUniqueNumberIdentification()
-        val list = ArrayList<UserDto>()
         userDto?.password = bCryptPasswordEncoder.encode(userDto?.password)
-        val person = userDtoAssembler.dtoToEntity(userDto)
-        val result = userRepository.save(person)
+        val user = userDtoAssembler.dtoToEntity(userDto)
+        var address: Address? = null
+        user.address?.let {
+            address = addressRepository.save(it)
+        }
+        user.address = address
+        val result = userRepository.save(user)
+        val list = ArrayList<UserDto>()
         list.add(userDtoAssembler.entityToDto(result))
         logService.info("execute() - end")
         return list

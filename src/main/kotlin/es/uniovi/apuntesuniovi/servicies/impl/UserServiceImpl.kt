@@ -35,7 +35,8 @@ class UserServiceImpl @Autowired constructor(
     override fun create(userDto: UserDto): List<UserDto> {
         logService.info("create(userDto: UserDto) - start")
         val result = SaveUserService(
-                repositoryFactory.getUsers(), dtoFactory.getUsers(), userDto).execute()
+                repositoryFactory.getUsers(), repositoryFactory.getAddress(),
+                dtoFactory.getUsers(), userDto).execute()
         logService.info("create(userDto: UserDto) - end")
         return result
     }

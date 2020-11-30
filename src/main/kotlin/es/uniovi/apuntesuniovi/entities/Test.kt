@@ -7,7 +7,7 @@ import javax.persistence.*
 class Test {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long = 0
+    var id: Long? = null
 
     @ManyToMany
     val lessons: Set<Lesson> = HashSet()

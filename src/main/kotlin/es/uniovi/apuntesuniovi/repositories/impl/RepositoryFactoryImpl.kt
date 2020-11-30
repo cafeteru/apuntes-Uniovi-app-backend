@@ -9,12 +9,16 @@ import org.springframework.stereotype.Service
  */
 @Service
 class RepositoryFactoryImpl @Autowired constructor(
+        private val addressRepository: AddressRepository,
         private val subjectRepository: SubjectRepository,
         private val teachSubjectRegistryRepository: TeachSubjectRegistryRepository,
         private val teachSubjectRepository: TeachSubjectRepository,
         private val universityCenterRepository: UniversityCenterRepository,
         private val userRepository: UserRepository
 ) : RepositoryFactory {
+    override fun getAddress(): AddressRepository {
+        return addressRepository
+    }
 
     override fun getSubjects(): SubjectRepository {
         return subjectRepository

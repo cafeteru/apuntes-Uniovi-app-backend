@@ -7,7 +7,7 @@ import javax.persistence.*
 class OptionETCS {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long = 0
+    var id: Long? = null
 
     @ManyToOne
     lateinit var configurationECTS: ConfigurationECTS
