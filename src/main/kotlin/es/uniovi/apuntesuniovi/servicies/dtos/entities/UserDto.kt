@@ -6,7 +6,7 @@ import java.time.LocalDate
  * Dto of the users
  */
 data class UserDto(
-        var id: Long,
+        var id: Long?,
         var name: String?,
         var surname: String?,
         var email: String?,

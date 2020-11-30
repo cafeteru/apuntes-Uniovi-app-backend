@@ -30,10 +30,10 @@ abstract class AbstractDtoAssembler<Entity, Dto> {
      * @param entityList List of entities to convert
      */
     fun listToDto(entityList: List<Entity>): List<Dto> {
-        logService.info("listToDto(entityList: ${entityList}) - start")
+        logService.info("listToDto(entityList: entityList) - start")
         val dtoList: MutableList<Dto> = ArrayList()
         entityList.forEach(Consumer { entity -> dtoList.add(entityToDto(entity)) })
-        logService.info("listToDto(entityList: ${entityList}) - end")
+        logService.info("listToDto(entityList: entityList) - end")
         return dtoList
     }
 
@@ -43,10 +43,10 @@ abstract class AbstractDtoAssembler<Entity, Dto> {
      * @param dtoList List of dtos to convert
      */
     fun listToEntities(dtoList: List<Dto>): List<Entity> {
-        logService.info("listToEntities(dtoList: ${dtoList}) - start")
+        logService.info("listToEntities(dtoList: dtoList) - start")
         val entityList: MutableList<Entity> = ArrayList()
         dtoList.forEach(Consumer { dto -> entityList.add(dtoToEntity(dto)) })
-        logService.info("listToEntities(dtoList: ${dtoList}) - end")
+        logService.info("listToEntities(dtoList: dtoList) - end")
         return entityList
     }
 }

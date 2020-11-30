@@ -15,7 +15,7 @@ import javax.persistence.*
 open class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long = 0L
+    var id: Long? = null
 
     @Column(length = DatabaseLimits.USER_NAME)
     var name: String? = null
@@ -118,7 +118,7 @@ open class User {
         }
 
     @OneToOne
-    lateinit var address: Address
+    var address: Address? = null
 
     /**
      * Set identificationType according to a text

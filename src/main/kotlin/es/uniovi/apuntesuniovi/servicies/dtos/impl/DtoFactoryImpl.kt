@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service
 class DtoFactoryImpl @Autowired constructor(
         private val subjectDtoAssembler: SubjectDtoAssembler,
         private val teachSubjectDtoAssembler: TeachSubjectDtoAssembler,
+        private val universityCenterDtoAssembler: UniversityCenterDtoAssembler,
         private val userDtoAssembler: UserDtoAssembler,
 ) : DtoFactory {
     override fun getSubjects(): SubjectDtoAssembler {
@@ -16,6 +17,10 @@ class DtoFactoryImpl @Autowired constructor(
 
     override fun getTeachSubjects(): TeachSubjectDtoAssembler {
         return teachSubjectDtoAssembler
+    }
+
+    override fun getUniversityCenters(): UniversityCenterDtoAssembler {
+        return universityCenterDtoAssembler
     }
 
     override fun getUsers(): UserDtoAssembler {

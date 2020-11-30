@@ -7,13 +7,13 @@ import javax.persistence.*
 class UniversityCenter {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long = 0
+    var id: Long? = null
 
-    lateinit var name: String
+    var name: String? = null
 
     @OneToMany(mappedBy = "universityCenter", cascade = [(CascadeType.ALL)])
     val careers: Set<Career> = HashSet()
 
     @OneToOne
-    lateinit var address: Address
+    var address: Address? = null
 }

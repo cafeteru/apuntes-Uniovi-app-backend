@@ -16,9 +16,9 @@ class SaveSubjectService(
 
     override fun execute(): List<SubjectDto> {
         logService.info("execute() - start")
-        val list = ArrayList<SubjectDto>()
         val subject = subjectDtoAssembler.dtoToEntity(subjectDto)
         val result = subjectRepository.save(subject)
+        val list = ArrayList<SubjectDto>()
         list.add(subjectDtoAssembler.entityToDto(result))
         logService.info("execute() - end")
         return list

@@ -20,6 +20,11 @@ interface RepositoryFactory {
     fun getTeachSubjects(): TeachSubjectRepository
 
     /**
+     * Returns the UniversityCenter repository
+     */
+    fun getUniversityCenters(): UniversityCenterRepository
+
+    /**
      * Returns the users repository
      */
     fun getUsers(): UserRepository

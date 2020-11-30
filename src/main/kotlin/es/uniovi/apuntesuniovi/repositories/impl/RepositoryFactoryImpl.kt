@@ -12,6 +12,7 @@ class RepositoryFactoryImpl @Autowired constructor(
         private val subjectRepository: SubjectRepository,
         private val teachSubjectRegistryRepository: TeachSubjectRegistryRepository,
         private val teachSubjectRepository: TeachSubjectRepository,
+        private val universityCenterRepository: UniversityCenterRepository,
         private val userRepository: UserRepository
 ) : RepositoryFactory {
 
@@ -25,6 +26,10 @@ class RepositoryFactoryImpl @Autowired constructor(
 
     override fun getTeachSubjects(): TeachSubjectRepository {
         return teachSubjectRepository
+    }
+
+    override fun getUniversityCenters(): UniversityCenterRepository {
+        return universityCenterRepository
     }
 
     override fun getUsers(): UserRepository {
