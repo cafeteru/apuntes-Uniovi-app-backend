@@ -4,7 +4,7 @@ import java.util.*
 import javax.persistence.*
 
 @Entity
-class UniversityCenter {
+class Center {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null

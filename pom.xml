@@ -15,7 +15,7 @@
     <description>Final degree project to improve the use of the Uniovi virtual campus</description>
 
     <properties>
-        <java.version>14</java.version>
+        <java.version>11</java.version>
         <kotlin.version>1.4.20</kotlin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>

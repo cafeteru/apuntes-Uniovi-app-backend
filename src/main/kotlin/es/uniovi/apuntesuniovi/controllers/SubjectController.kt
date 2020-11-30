@@ -33,7 +33,7 @@ class SubjectController @Autowired constructor(private val serviceFactory: Servi
     /**
      * Add a new subject through a text string (JSON)
      */
-    @PostMapping(Urls.SAVE)
+    @PostMapping(Urls.CREATE)
     fun save(@RequestBody json: String): ResponseEntity<List<SubjectDto>> {
         logService.info("save(json: ${logService.formatJson(json)}) - start")
         val result = SaveSubject(serviceFactory.getSubjects(), json).execute()

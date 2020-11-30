@@ -1,21 +1,37 @@
 package es.uniovi.apuntesuniovi.servicies
 
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.stereotype.Service
+
 /**
  * Factory to manage the service classes
  */
-interface ServiceFactory {
+@Service
+class ServiceFactory @Autowired constructor(
+        private val subjectService: SubjectService,
+        private val universityCenterService: CenterService,
+        private val userService: UserService
+) {
+
     /**
      * Returns the subjects service
      */
-    fun getSubjects(): SubjectService
+    fun getSubjects(): SubjectService {
+        return subjectService
+    }
 
     /**
      * Returns the university centers service
      */
-    fun getUniversityCenters(): UniversityCenterService
+    fun getUniversityCenters(): CenterService {
+        return universityCenterService
+    }
 
     /**
      * Returns the users service
      */
-    fun getUsers(): UserService
+    fun getUsers(): UserService {
+        return userService
+    }
+
 }

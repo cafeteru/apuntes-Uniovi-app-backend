@@ -1,13 +1,13 @@
 package es.uniovi.apuntesuniovi.servicies.dtos.impl
 
-import es.uniovi.apuntesuniovi.entities.UniversityCenter
+import es.uniovi.apuntesuniovi.entities.Center
 import es.uniovi.apuntesuniovi.servicies.dtos.AbstractDtoAssembler
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.UniversityCenterDto
 import org.springframework.stereotype.Service
 
 @Service
-class UniversityCenterDtoAssembler : AbstractDtoAssembler<UniversityCenter, UniversityCenterDto>() {
-    override fun entityToDto(entity: UniversityCenter?): UniversityCenterDto {
+class UniversityCenterDtoAssembler : AbstractDtoAssembler<Center, UniversityCenterDto>() {
+    override fun entityToDto(entity: Center?): UniversityCenterDto {
         logService.info("entityToDto(entity: ${entity}) - start")
         entity?.let {
             val result = UniversityCenterDto(
@@ -21,10 +21,10 @@ class UniversityCenterDtoAssembler : AbstractDtoAssembler<UniversityCenter, Univ
         throw IllegalArgumentException()
     }
 
-    override fun dtoToEntity(dto: UniversityCenterDto?): UniversityCenter {
+    override fun dtoToEntity(dto: UniversityCenterDto?): Center {
         logService.info("dtoToEntity(dto: ${dto}) - start")
         dto?.let {
-            val result = UniversityCenter()
+            val result = Center()
             it.id?.let { id ->
                 result.id = id
             }

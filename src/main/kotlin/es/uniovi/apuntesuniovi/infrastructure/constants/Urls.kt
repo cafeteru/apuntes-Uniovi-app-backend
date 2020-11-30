@@ -8,5 +8,5 @@ object Urls {
     const val SUBJECT = "/subjects"
 
     const val FIND_ALL = ""
-    const val SAVE = "/save"
+    const val CREATE = "/create"
 }

@@ -27,7 +27,7 @@ interface RepositoryFactory {
     /**
      * Returns the UniversityCenter repository
      */
-    fun getUniversityCenters(): UniversityCenterRepository
+    fun getUniversityCenters(): CenterRepository
 
     /**
      * Returns the users repository

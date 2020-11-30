@@ -13,7 +13,7 @@ class RepositoryFactoryImpl @Autowired constructor(
         private val subjectRepository: SubjectRepository,
         private val teachSubjectRegistryRepository: TeachSubjectRegistryRepository,
         private val teachSubjectRepository: TeachSubjectRepository,
-        private val universityCenterRepository: UniversityCenterRepository,
+        private val universityCenterRepository: CenterRepository,
         private val userRepository: UserRepository
 ) : RepositoryFactory {
     override fun getAddress(): AddressRepository {
@@ -32,7 +32,7 @@ class RepositoryFactoryImpl @Autowired constructor(
         return teachSubjectRepository
     }
 
-    override fun getUniversityCenters(): UniversityCenterRepository {
+    override fun getUniversityCenters(): CenterRepository {
         return universityCenterRepository
     }
 

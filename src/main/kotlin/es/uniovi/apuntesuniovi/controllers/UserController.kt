@@ -33,7 +33,7 @@ class UserController @Autowired constructor(private val serviceFactory: ServiceF
     /**
      * Add a new user through a text string (JSON)
      */
-    @PostMapping(Urls.SAVE)
+    @PostMapping(Urls.CREATE)
     fun save(@RequestBody json: String): ResponseEntity<List<UserDto>> {
         logService.info("save(json: ${logService.formatJson(json)}) - start")
         val result = SaveUser(serviceFactory.getUsers(), json).execute()
