@@ -1,9 +1,10 @@
 package es.uniovi.apuntesuniovi.servicies
 
 import es.uniovi.apuntesuniovi.infrastructure.log.LogService
-import es.uniovi.apuntesuniovi.repositories.RepositoryFactory
-import es.uniovi.apuntesuniovi.servicies.dtos.DtoFactory
+import es.uniovi.apuntesuniovi.repositories.AddressRepository
+import es.uniovi.apuntesuniovi.repositories.UserRepository
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.UserDto
+import es.uniovi.apuntesuniovi.servicies.dtos.impl.UserDtoAssembler
 import es.uniovi.apuntesuniovi.servicies.impl.users.FindAllUsersService
 import es.uniovi.apuntesuniovi.servicies.impl.users.FindUserByUsernameService
 import es.uniovi.apuntesuniovi.servicies.impl.users.SaveUserService
@@ -15,8 +16,9 @@ import org.springframework.stereotype.Service
  */
 @Service
 class UserService @Autowired constructor(
-        private val repositoryFactory: RepositoryFactory,
-        private val dtoFactory: DtoFactory
+        private val userRepository: UserRepository,
+        private val addressRepository: AddressRepository,
+        private val userDtoAssembler: UserDtoAssembler
 ) {
     private val logService = LogService(this.javaClass)
 
@@ -25,7 +27,7 @@ class UserService @Autowired constructor(
      */
     fun findAll(): List<UserDto> {
         logService.info("findAll() - start")
-        val result = FindAllUsersService(repositoryFactory.getUsers(), dtoFactory.getUsers()).execute()
+        val result = FindAllUsersService(userRepository, userDtoAssembler).execute()
         logService.info("findAll() - end")
         return result
     }
@@ -37,7 +39,7 @@ class UserService @Autowired constructor(
      */
     fun findByUsername(username: String): UserDto {
         logService.info("findByUsername(username: ${username}) - start")
-        val result = FindUserByUsernameService(repositoryFactory.getUsers(), dtoFactory.getUsers(), username).execute()
+        val result = FindUserByUsernameService(userRepository, userDtoAssembler, username).execute()
         logService.info("findByUsername(username: ${username}) - end")
         return result
     }
@@ -49,9 +51,8 @@ class UserService @Autowired constructor(
      */
     fun create(userDto: UserDto): List<UserDto> {
         logService.info("create(userDto: UserDto) - start")
-        val result = SaveUserService(
-                repositoryFactory.getUsers(), repositoryFactory.getAddress(),
-                dtoFactory.getUsers(), userDto).execute()
+        val result = SaveUserService(userRepository, addressRepository,
+                userDtoAssembler, userDto).execute()
         logService.info("create(userDto: UserDto) - end")
         return result
     }

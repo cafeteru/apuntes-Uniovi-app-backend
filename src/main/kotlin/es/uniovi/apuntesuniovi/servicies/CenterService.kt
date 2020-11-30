@@ -1,9 +1,9 @@
 package es.uniovi.apuntesuniovi.servicies
 
 import es.uniovi.apuntesuniovi.infrastructure.log.LogService
-import es.uniovi.apuntesuniovi.repositories.RepositoryFactory
-import es.uniovi.apuntesuniovi.servicies.dtos.DtoFactory
+import es.uniovi.apuntesuniovi.repositories.CenterRepository
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.UniversityCenterDto
+import es.uniovi.apuntesuniovi.servicies.dtos.impl.UniversityCenterDtoAssembler
 import es.uniovi.apuntesuniovi.servicies.impl.centers.SaveCenterService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -13,8 +13,8 @@ import org.springframework.stereotype.Service
  */
 @Service
 class CenterService @Autowired constructor(
-        private val repositoryFactory: RepositoryFactory,
-        private val dtoFactory: DtoFactory
+        private val centerRepository: CenterRepository,
+        private val centerDtoAssembler: UniversityCenterDtoAssembler
 ) {
     private val logService = LogService(this.javaClass)
 
@@ -25,8 +25,8 @@ class CenterService @Autowired constructor(
      */
     fun create(universityCenterDto: UniversityCenterDto): List<UniversityCenterDto> {
         logService.info("create(universityCenterDto: UniversityCenterDto) - start")
-        val result = SaveCenterService(repositoryFactory.getUniversityCenters(),
-                dtoFactory.getUniversityCenters(), universityCenterDto).execute()
+        val result = SaveCenterService(centerRepository, centerDtoAssembler,
+                universityCenterDto).execute()
         logService.info("create(universityCenterDto: UniversityCenterDto) - end")
         return result
     }
