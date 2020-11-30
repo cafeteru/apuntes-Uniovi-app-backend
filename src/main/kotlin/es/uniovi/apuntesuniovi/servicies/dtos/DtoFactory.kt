@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service
  * Factory to handle the converters of entities to dtos
  */
 @Service
-class DtoFactoryImpl @Autowired constructor(
+class DtoFactory @Autowired constructor(
         private val subjectDtoAssembler: SubjectDtoAssembler,
         private val teachSubjectDtoAssembler: TeachSubjectDtoAssembler,
         private val universityCenterDtoAssembler: UniversityCenterDtoAssembler,
