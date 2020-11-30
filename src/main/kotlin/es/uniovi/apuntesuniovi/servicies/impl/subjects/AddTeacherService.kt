@@ -6,6 +6,8 @@ import es.uniovi.apuntesuniovi.entities.TeachSubjectRegistry
 import es.uniovi.apuntesuniovi.entities.User
 import es.uniovi.apuntesuniovi.entities.types.RoleType
 import es.uniovi.apuntesuniovi.infrastructure.Command
+import es.uniovi.apuntesuniovi.infrastructure.exceptions.messages.SubjectMessages
+import es.uniovi.apuntesuniovi.infrastructure.exceptions.messages.UserMessages
 import es.uniovi.apuntesuniovi.infrastructure.log.LogService
 import es.uniovi.apuntesuniovi.repositories.SubjectRepository
 import es.uniovi.apuntesuniovi.repositories.TeachSubjectRegistryRepository
@@ -47,8 +49,7 @@ class AddTeacherService(
     private fun getSubject(): Subject {
         val optional = subjectRepository.findById(subjectId)
         if (optional.isEmpty) {
-            // TODO Add exception message
-            throw IllegalArgumentException("")
+            throw IllegalArgumentException(SubjectMessages.NOT_EXISTS)
         }
         return optional.get()
     }
@@ -56,8 +57,7 @@ class AddTeacherService(
     private fun getTeacher(): User {
         val optional = userRepository.findById(teacherId)
         if (optional.isEmpty || optional.get().role != RoleType.TEACHER) {
-            // TODO Add exception message
-            throw IllegalArgumentException("")
+            throw IllegalArgumentException(UserMessages.NOT_EXISTS)
         }
         return optional.get()
     }

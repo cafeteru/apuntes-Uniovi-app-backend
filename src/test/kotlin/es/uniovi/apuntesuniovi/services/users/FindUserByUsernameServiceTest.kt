@@ -1,7 +1,7 @@
 package es.uniovi.apuntesuniovi.services.users
 
 import es.uniovi.apuntesuniovi.entities.User
-import es.uniovi.apuntesuniovi.infrastructure.exceptions.messages.ExceptionMessagesUser
+import es.uniovi.apuntesuniovi.infrastructure.exceptions.messages.UserMessages
 import es.uniovi.apuntesuniovi.mocks.MockFactory
 import es.uniovi.apuntesuniovi.repositories.UserRepository
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.UserDto
@@ -61,7 +61,7 @@ class FindUserByUsernameServiceTest {
             val findUserByUsernameService = FindUserByUsernameService(userRepository, userDtoAssembler, userDto.username + "1")
             findUserByUsernameService.execute()
         } catch (e: IllegalArgumentException) {
-            assertEquals(e.message, ExceptionMessagesUser.NOT_FOUND_USERNAME)
+            assertEquals(e.message, UserMessages.NOT_FOUND_USERNAME)
         }
     }
 
@@ -75,7 +75,7 @@ class FindUserByUsernameServiceTest {
             findUserByUsernameService.execute()
             fail("The username can´t be null")
         } catch (e: IllegalArgumentException) {
-            assertEquals(e.message, ExceptionMessagesUser.INVALID_USERNAME)
+            assertEquals(e.message, UserMessages.INVALID_USERNAME)
         }
     }
 
@@ -89,7 +89,7 @@ class FindUserByUsernameServiceTest {
             findUserByUsernameService.execute()
             fail("The username can´t be null")
         } catch (e: IllegalArgumentException) {
-            assertEquals(e.message, ExceptionMessagesUser.INVALID_USERNAME)
+            assertEquals(e.message, UserMessages.INVALID_USERNAME)
         }
     }
 }

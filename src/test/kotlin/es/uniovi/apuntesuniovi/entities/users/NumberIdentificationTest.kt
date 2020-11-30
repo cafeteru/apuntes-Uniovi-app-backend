@@ -1,7 +1,7 @@
 package es.uniovi.apuntesuniovi.entities.users
 
 import es.uniovi.apuntesuniovi.entities.User
-import es.uniovi.apuntesuniovi.infrastructure.exceptions.messages.ExceptionMessagesUser
+import es.uniovi.apuntesuniovi.infrastructure.exceptions.messages.UserMessages
 import es.uniovi.apuntesuniovi.mocks.MockFactory
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
@@ -42,7 +42,7 @@ class NumberIdentificationTest {
             fail("NumberIdentification isn´t valid")
         } catch (e: java.lang.IllegalArgumentException) {
             assertNotEquals(numberIdentification, user.numberIdentification)
-            assertEquals(e.message, ExceptionMessagesUser.INVALID_IDENTIFICATION_NUMBER)
+            assertEquals(e.message, UserMessages.INVALID_IDENTIFICATION_NUMBER)
         }
     }
 
@@ -64,7 +64,7 @@ class NumberIdentificationTest {
             user.numberIdentification = ""
             fail("NumberIdentification can´t be empty")
         } catch (e: IllegalArgumentException) {
-            assertEquals(e.message, ExceptionMessagesUser.INVALID_IDENTIFICATION_NUMBER)
+            assertEquals(e.message, UserMessages.INVALID_IDENTIFICATION_NUMBER)
         }
     }
 }

@@ -1,7 +1,7 @@
 package es.uniovi.apuntesuniovi.entities.users
 
 import es.uniovi.apuntesuniovi.entities.User
-import es.uniovi.apuntesuniovi.infrastructure.exceptions.messages.ExceptionMessagesUser
+import es.uniovi.apuntesuniovi.infrastructure.exceptions.messages.UserMessages
 import es.uniovi.apuntesuniovi.mocks.MockFactory
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
@@ -42,7 +42,7 @@ class PhoneTest {
             fail("Phone isn´t valid")
         } catch (e: IllegalArgumentException) {
             assertNotEquals(user.phone, phone)
-            assertEquals(e.message, ExceptionMessagesUser.INVALID_PHONE)
+            assertEquals(e.message, UserMessages.INVALID_PHONE)
         }
     }
 
@@ -65,7 +65,7 @@ class PhoneTest {
             fail("Phone isn´t empty")
         } catch (e: IllegalArgumentException) {
             assertNotEquals(user.phone, "")
-            assertEquals(e.message, ExceptionMessagesUser.INVALID_PHONE)
+            assertEquals(e.message, UserMessages.INVALID_PHONE)
         }
     }
 }

@@ -1,7 +1,7 @@
 package es.uniovi.apuntesuniovi.servicies.impl.users
 
 import es.uniovi.apuntesuniovi.infrastructure.Command
-import es.uniovi.apuntesuniovi.infrastructure.exceptions.messages.ExceptionMessagesUser
+import es.uniovi.apuntesuniovi.infrastructure.exceptions.messages.UserMessages
 import es.uniovi.apuntesuniovi.infrastructure.log.LogService
 import es.uniovi.apuntesuniovi.repositories.UserRepository
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.UserDto
@@ -37,12 +37,12 @@ class SaveUserService(
         logService.info("checkUniqueUsername() - start")
         if (userDto?.username.isNullOrEmpty() || userDto?.password.isNullOrBlank()) {
             logService.error("checkUniqueUsername() - error")
-            throw IllegalArgumentException(ExceptionMessagesUser.INVALID_DATA_USER)
+            throw IllegalArgumentException(UserMessages.INVALID_DATA_USER)
         }
         val optional = userDto?.username?.let { userRepository.findByUsername(it) }
         if (optional != null && optional.isPresent) {
             logService.error("checkUniqueUsername() - error")
-            throw IllegalArgumentException(ExceptionMessagesUser.ALREADY_REGISTERED_USERNAME)
+            throw IllegalArgumentException(UserMessages.ALREADY_REGISTERED_USERNAME)
         }
         logService.info("checkUniqueUsername() - end")
     }
@@ -52,7 +52,7 @@ class SaveUserService(
         val optional = userDto?.numberIdentification?.let { userRepository.findByNumberIdentification(it) }
         if (optional != null && optional.isPresent) {
             logService.error("checkUniqueNumberIdentification() - error")
-            throw IllegalArgumentException(ExceptionMessagesUser.ALREADY_REGISTERED_NUMBER_IDENTIFICATION)
+            throw IllegalArgumentException(UserMessages.ALREADY_REGISTERED_NUMBER_IDENTIFICATION)
         }
         logService.info("checkUniqueNumberIdentification() - end")
     }

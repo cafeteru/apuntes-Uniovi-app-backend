@@ -3,7 +3,7 @@ package es.uniovi.apuntesuniovi.entities
 import es.uniovi.apuntesuniovi.entities.types.IdentificationType
 import es.uniovi.apuntesuniovi.entities.types.RoleType
 import es.uniovi.apuntesuniovi.infrastructure.constants.DatabaseLimits
-import es.uniovi.apuntesuniovi.infrastructure.exceptions.messages.ExceptionMessagesUser
+import es.uniovi.apuntesuniovi.infrastructure.exceptions.messages.UserMessages
 import es.uniovi.apuntesuniovi.validators.impl.*
 import java.time.LocalDate
 import javax.persistence.*
@@ -23,7 +23,7 @@ open class User {
             if (ValidatorMaxLength(value, DatabaseLimits.USER_NAME).isValid()) {
                 field = value
             } else {
-                throw IllegalArgumentException(ExceptionMessagesUser.LIMIT_USER_NAME)
+                throw IllegalArgumentException(UserMessages.LIMIT_NAME)
             }
         }
 
@@ -33,7 +33,7 @@ open class User {
             if (ValidatorMaxLength(value, DatabaseLimits.USER_SURNAME).isValid()) {
                 field = value
             } else {
-                throw IllegalArgumentException(ExceptionMessagesUser.LIMIT_USER_SURNAME)
+                throw IllegalArgumentException(UserMessages.LIMIT_SURNAME)
             }
         }
 
@@ -46,7 +46,7 @@ open class User {
             if (validator.isValid()) {
                 field = value
             } else {
-                throw IllegalArgumentException(ExceptionMessagesUser.INVALID_EMAIL)
+                throw IllegalArgumentException(UserMessages.INVALID_EMAIL)
             }
         }
 
@@ -55,7 +55,7 @@ open class User {
             if (ValidatorPhone(value).isValid()) {
                 field = value
             } else {
-                throw IllegalArgumentException(ExceptionMessagesUser.INVALID_PHONE)
+                throw IllegalArgumentException(UserMessages.INVALID_PHONE)
             }
         }
 
@@ -66,7 +66,7 @@ open class User {
             if (ValidatorMaxLength(value, DatabaseLimits.USER_IMG).isValid()) {
                 field = value
             } else {
-                throw IllegalArgumentException(ExceptionMessagesUser.LIMIT_USER_IMG)
+                throw IllegalArgumentException(UserMessages.LIMIT_IMG)
             }
         }
 
@@ -75,7 +75,7 @@ open class User {
             if (ValidatorLaterDayToday(value).isValid()) {
                 field = value
             } else {
-                throw IllegalArgumentException(ExceptionMessagesUser.LIMIT_USER_BIRTH_DATE)
+                throw IllegalArgumentException(UserMessages.LIMIT_BIRTH_DATE)
             }
         }
 
@@ -85,7 +85,7 @@ open class User {
             if (ValidatorMaxLength(value, DatabaseLimits.USER_USERNAME).isValid()) {
                 field = value
             } else {
-                throw IllegalArgumentException(ExceptionMessagesUser.LIMIT_USER_USERNAME)
+                throw IllegalArgumentException(UserMessages.LIMIT_USERNAME)
             }
         }
 
@@ -95,7 +95,7 @@ open class User {
             if (ValidatorMaxLength(value, DatabaseLimits.USER_PASSWORD).isValid()) {
                 field = value
             } else {
-                throw IllegalArgumentException(ExceptionMessagesUser.LIMIT_USER_PASSWORD)
+                throw IllegalArgumentException(UserMessages.LIMIT_PASSWORD)
             }
         }
 
@@ -113,7 +113,7 @@ open class User {
             if (validator.isValid()) {
                 field = value
             } else {
-                throw IllegalArgumentException(ExceptionMessagesUser.INVALID_IDENTIFICATION_NUMBER)
+                throw IllegalArgumentException(UserMessages.INVALID_IDENTIFICATION_NUMBER)
             }
         }
 
@@ -128,12 +128,12 @@ open class User {
      */
     fun setIdentificationType(identificationType: String?) {
         if (identificationType == null) {
-            throw IllegalArgumentException(ExceptionMessagesUser.NULL_IDENTIFICATION_TYPE)
+            throw IllegalArgumentException(UserMessages.NULL_IDENTIFICATION_TYPE)
         }
         try {
             this.identificationType = IdentificationType.valueOf(identificationType.toUpperCase())
         } catch (e: IllegalArgumentException) {
-            throw IllegalArgumentException(ExceptionMessagesUser.INVALID_IDENTIFICATION_TYPE)
+            throw IllegalArgumentException(UserMessages.INVALID_IDENTIFICATION_TYPE)
         }
     }
 
@@ -145,12 +145,12 @@ open class User {
      */
     fun setRole(role: String?) {
         if (role == null) {
-            throw IllegalArgumentException(ExceptionMessagesUser.NULL_ROLE_TYPE)
+            throw IllegalArgumentException(UserMessages.NULL_ROLE_TYPE)
         }
         try {
             this.role = RoleType.valueOf(role.toUpperCase())
         } catch (e: IllegalArgumentException) {
-            throw IllegalArgumentException(ExceptionMessagesUser.INVALID_ROLE_TYPE)
+            throw IllegalArgumentException(UserMessages.INVALID_ROLE_TYPE)
         }
     }
 
