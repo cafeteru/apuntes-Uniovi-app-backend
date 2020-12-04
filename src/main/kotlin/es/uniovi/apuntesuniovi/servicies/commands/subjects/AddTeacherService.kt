@@ -1,4 +1,4 @@
-package es.uniovi.apuntesuniovi.servicies.impl.subjects
+package es.uniovi.apuntesuniovi.servicies.commands.subjects
 
 import es.uniovi.apuntesuniovi.entities.Subject
 import es.uniovi.apuntesuniovi.entities.TeachSubject

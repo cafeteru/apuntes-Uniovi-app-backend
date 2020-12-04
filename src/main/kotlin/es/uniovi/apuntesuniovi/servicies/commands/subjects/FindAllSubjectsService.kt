@@ -1,4 +1,4 @@
-package es.uniovi.apuntesuniovi.servicies.impl.subjects
+package es.uniovi.apuntesuniovi.servicies.commands.subjects
 
 import es.uniovi.apuntesuniovi.infrastructure.Command
 import es.uniovi.apuntesuniovi.infrastructure.log.LogService

@@ -1,4 +1,4 @@
-package es.uniovi.apuntesuniovi.servicies.impl.users
+package es.uniovi.apuntesuniovi.servicies.commands.users
 
 import es.uniovi.apuntesuniovi.infrastructure.Command
 import es.uniovi.apuntesuniovi.infrastructure.log.LogService

@@ -1,4 +1,4 @@
-package es.uniovi.apuntesuniovi.servicies.impl.centers
+package es.uniovi.apuntesuniovi.servicies.commands.centers
 
 import es.uniovi.apuntesuniovi.infrastructure.Command
 import es.uniovi.apuntesuniovi.infrastructure.log.LogService
