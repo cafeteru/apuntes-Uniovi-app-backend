@@ -7,7 +7,7 @@ import es.uniovi.apuntesuniovi.repositories.AddressRepository
 import es.uniovi.apuntesuniovi.repositories.UserRepository
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.UserDto
 import es.uniovi.apuntesuniovi.servicies.dtos.impl.UserDtoAssembler
-import es.uniovi.apuntesuniovi.servicies.impl.users.SaveUserService
+import es.uniovi.apuntesuniovi.servicies.commands.users.SaveUserService
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test

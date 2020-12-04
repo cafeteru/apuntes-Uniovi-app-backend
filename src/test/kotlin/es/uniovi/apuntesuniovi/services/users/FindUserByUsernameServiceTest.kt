@@ -6,7 +6,7 @@ import es.uniovi.apuntesuniovi.mocks.MockFactory
 import es.uniovi.apuntesuniovi.repositories.UserRepository
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.UserDto
 import es.uniovi.apuntesuniovi.servicies.dtos.impl.UserDtoAssembler
-import es.uniovi.apuntesuniovi.servicies.impl.users.FindUserByUsernameService
+import es.uniovi.apuntesuniovi.servicies.commands.users.FindUserByUsernameService
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test

@@ -3,9 +3,11 @@ package es.uniovi.apuntesuniovi.servicies.insertData
 import es.uniovi.apuntesuniovi.entities.Address
 import es.uniovi.apuntesuniovi.entities.types.RoleType
 import es.uniovi.apuntesuniovi.infrastructure.log.LogService
-import es.uniovi.apuntesuniovi.servicies.ServiceFactory
+import es.uniovi.apuntesuniovi.servicies.CenterService
+import es.uniovi.apuntesuniovi.servicies.SubjectService
+import es.uniovi.apuntesuniovi.servicies.UserService
+import es.uniovi.apuntesuniovi.servicies.dtos.entities.CenterDto
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.SubjectDto
-import es.uniovi.apuntesuniovi.servicies.dtos.entities.UniversityCenterDto
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.UserDto
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -14,7 +16,9 @@ import javax.annotation.PostConstruct
 
 @Service
 class InsertDataExample @Autowired constructor(
-        private val serviceFactory: ServiceFactory
+    private val userService: UserService,
+    private val subjectService: SubjectService,
+    private val centerService: CenterService
 ) {
     private val logService = LogService(this.javaClass)
 
@@ -27,67 +31,67 @@ class InsertDataExample @Autowired constructor(
         address.postalCode = "postalCode"
         address.street = "street"
 
-        val academy = UniversityCenterDto(
-                id = null,
-                name = "Academy",
-                address = null
+        val academy = CenterDto(
+            id = null,
+            name = "Academy",
+            address = null
         )
-        serviceFactory.getUniversityCenters().create(academy);
+        centerService.create(academy);
 
         var subjectDto = SubjectDto(id = null, name = "English")
-        subjectDto = serviceFactory.getSubjects().create(subjectDto)[0]
+        subjectDto = subjectService.create(subjectDto)[0]
         val admin = UserDto(
-                id = null,
-                name = "adminName",
-                surname = "adminSurname",
-                active = true,
-                birthDate = LocalDate.of(1990, 12, 22),
-                email = "admin@admin.com",
-                identificationType = "dni",
-                img = null,
-                numberIdentification = "72479503V",
-                password = "admin",
-                phone = "623548956",
-                username = "admin",
-                role = RoleType.ADMIN.toString(),
-                address = address
+            id = null,
+            name = "adminName",
+            surname = "adminSurname",
+            active = true,
+            birthDate = LocalDate.of(1990, 12, 22),
+            email = "admin@admin.com",
+            identificationType = "dni",
+            img = null,
+            numberIdentification = "72479503V",
+            password = "admin",
+            phone = "623548956",
+            username = "admin",
+            role = RoleType.ADMIN.toString(),
+            address = address
         )
-        serviceFactory.getUsers().create(admin)
+        userService.create(admin)
         var teacher = UserDto(
-                id = null,
-                name = "teacherName",
-                surname = "teacherSurname",
-                active = true,
-                birthDate = LocalDate.of(1957, 1, 19),
-                email = "teacher@teacher.com",
-                identificationType = "dni",
-                img = null,
-                numberIdentification = "93432683J",
-                username = "teacher",
-                password = "teacher",
-                phone = "623548956",
-                role = RoleType.TEACHER.toString(),
-                address = address
+            id = null,
+            name = "teacherName",
+            surname = "teacherSurname",
+            active = true,
+            birthDate = LocalDate.of(1957, 1, 19),
+            email = "teacher@teacher.com",
+            identificationType = "dni",
+            img = null,
+            numberIdentification = "93432683J",
+            username = "teacher",
+            password = "teacher",
+            phone = "623548956",
+            role = RoleType.TEACHER.toString(),
+            address = address
         )
-        teacher = serviceFactory.getUsers().create(teacher)[0]
-        serviceFactory.getSubjects().addTeacher(subjectDto.id!!, teacher.id!!, LocalDate.now())
+        teacher = userService.create(teacher)[0]
+        subjectService.addTeacher(subjectDto.id!!, teacher.id!!, LocalDate.now())
         val student = UserDto(
-                id = null,
-                name = "studentName",
-                surname = "studentSurname",
-                active = true,
-                birthDate = LocalDate.of(1990, 9, 9),
-                email = "student@student.com",
-                identificationType = "dni",
-                img = null,
-                numberIdentification = "66524869Z",
-                username = "student",
-                password = "student",
-                phone = "623548956",
-                role = RoleType.STUDENT.toString(),
-                address = address
+            id = null,
+            name = "studentName",
+            surname = "studentSurname",
+            active = true,
+            birthDate = LocalDate.of(1990, 9, 9),
+            email = "student@student.com",
+            identificationType = "dni",
+            img = null,
+            numberIdentification = "66524869Z",
+            username = "student",
+            password = "student",
+            phone = "623548956",
+            role = RoleType.STUDENT.toString(),
+            address = address
         )
-        serviceFactory.getUsers().create(student)
+        userService.create(student)
         logService.info("initData() - end")
     }
 }

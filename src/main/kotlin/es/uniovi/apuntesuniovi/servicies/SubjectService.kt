@@ -9,9 +9,9 @@ import es.uniovi.apuntesuniovi.servicies.dtos.entities.SubjectDto
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.TeachSubjectDto
 import es.uniovi.apuntesuniovi.servicies.dtos.impl.SubjectDtoAssembler
 import es.uniovi.apuntesuniovi.servicies.dtos.impl.TeachSubjectDtoAssembler
-import es.uniovi.apuntesuniovi.servicies.impl.subjects.AddTeacherService
-import es.uniovi.apuntesuniovi.servicies.impl.subjects.FindAllSubjectsService
-import es.uniovi.apuntesuniovi.servicies.impl.subjects.SaveSubjectService
+import es.uniovi.apuntesuniovi.servicies.commands.subjects.AddTeacherService
+import es.uniovi.apuntesuniovi.servicies.commands.subjects.FindAllSubjectsService
+import es.uniovi.apuntesuniovi.servicies.commands.subjects.SaveSubjectService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import java.time.LocalDate

@@ -4,7 +4,7 @@ import es.uniovi.apuntesuniovi.controllers.commands.subjects.FindAllSubjects
 import es.uniovi.apuntesuniovi.controllers.commands.subjects.SaveSubject
 import es.uniovi.apuntesuniovi.infrastructure.constants.Urls
 import es.uniovi.apuntesuniovi.infrastructure.log.LogService
-import es.uniovi.apuntesuniovi.servicies.ServiceFactory
+import es.uniovi.apuntesuniovi.servicies.SubjectService
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.SubjectDto
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.*
  */
 @RestController
 @RequestMapping(Urls.SUBJECT)
-class SubjectController @Autowired constructor(private val serviceFactory: ServiceFactory) {
+class SubjectController @Autowired constructor(
+    private val subjectService: SubjectService
+) {
     private val logService = LogService(this.javaClass)
 
     /**
@@ -25,7 +27,7 @@ class SubjectController @Autowired constructor(private val serviceFactory: Servi
     @GetMapping(Urls.FIND_ALL)
     fun findAll(): ResponseEntity<List<SubjectDto>> {
         logService.info("findAll() - start")
-        val result = FindAllSubjects(serviceFactory.getSubjects()).execute()
+        val result = FindAllSubjects(subjectService).execute()
         logService.info("findAll() - end")
         return ResponseEntity(result, HttpStatus.OK)
     }
@@ -36,7 +38,7 @@ class SubjectController @Autowired constructor(private val serviceFactory: Servi
     @PostMapping(Urls.CREATE)
     fun save(@RequestBody json: String): ResponseEntity<List<SubjectDto>> {
         logService.info("save(json: ${logService.formatJson(json)}) - start")
-        val result = SaveSubject(serviceFactory.getSubjects(), json).execute()
+        val result = SaveSubject(subjectService, json).execute()
         logService.info("save(json:${logService.formatJson(json)}) - end")
         return ResponseEntity(result, HttpStatus.OK)
     }

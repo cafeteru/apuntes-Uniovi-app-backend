@@ -5,9 +5,9 @@ import es.uniovi.apuntesuniovi.repositories.AddressRepository
 import es.uniovi.apuntesuniovi.repositories.UserRepository
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.UserDto
 import es.uniovi.apuntesuniovi.servicies.dtos.impl.UserDtoAssembler
-import es.uniovi.apuntesuniovi.servicies.impl.users.FindAllUsersService
-import es.uniovi.apuntesuniovi.servicies.impl.users.FindUserByUsernameService
-import es.uniovi.apuntesuniovi.servicies.impl.users.SaveUserService
+import es.uniovi.apuntesuniovi.servicies.commands.users.FindAllUsersService
+import es.uniovi.apuntesuniovi.servicies.commands.users.FindUserByUsernameService
+import es.uniovi.apuntesuniovi.servicies.commands.users.SaveUserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
