@@ -1,26 +1,26 @@
-package es.uniovi.apuntesuniovi.entities.users
+package es.uniovi.apuntesuniovi.entities.centers
 
-import es.uniovi.apuntesuniovi.entities.User
-import es.uniovi.apuntesuniovi.infrastructure.constants.database.UserLimits
-import es.uniovi.apuntesuniovi.infrastructure.exceptions.messages.UserMessages
-import es.uniovi.apuntesuniovi.mocks.entities.MockUserCreator
+import es.uniovi.apuntesuniovi.entities.Center
+import es.uniovi.apuntesuniovi.infrastructure.constants.database.CenterLimits
+import es.uniovi.apuntesuniovi.infrastructure.exceptions.messages.CenterMessages
+import es.uniovi.apuntesuniovi.mocks.entities.MockCenterCreator
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.fail
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 /**
- * Test the assignments to name of a user
+ * Test the assignments to name of a center
  */
 class NameTest {
-    private lateinit var user: User
+    private lateinit var center: Center
 
     /**
      * Create init data for the test
      */
     @BeforeEach
     fun initData() {
-        user = MockUserCreator().create()
+        center = MockCenterCreator().create()
     }
 
     /**
@@ -29,11 +29,11 @@ class NameTest {
     @Test
     fun limitName() {
         var name = ""
-        for (i in 0 until UserLimits.NAME) {
+        for (i in 0 until CenterLimits.NAME) {
             name += "1"
         }
-        user.name = name
-        assertEquals(name, user.name)
+        center.name = name
+        assertEquals(name, center.name)
     }
 
     /**
@@ -43,13 +43,13 @@ class NameTest {
     fun upLimitName() {
         try {
             var name = ""
-            for (i in 0..UserLimits.NAME) {
+            for (i in 0..CenterLimits.NAME) {
                 name += "1"
             }
-            user.name = name
+            center.name = name
             fail("Name is too big")
         } catch (e: IllegalArgumentException) {
-            assertEquals(e.message, UserMessages.LIMIT_NAME)
+            assertEquals(e.message, CenterMessages.LIMIT_NAME)
         }
     }
 
@@ -58,8 +58,8 @@ class NameTest {
      */
     @Test
     fun nullName() {
-        user.name = null
-        assertEquals(null, user.name)
+        center.name = null
+        assertEquals(null, center.name)
     }
 
     /**
@@ -68,10 +68,10 @@ class NameTest {
     @Test
     fun emptyName() {
         try {
-            user.name = ""
+            center.name = ""
             fail("Name can´t be empty")
         } catch (e: IllegalArgumentException) {
-            assertEquals(e.message, UserMessages.LIMIT_NAME)
+            assertEquals(e.message, CenterMessages.LIMIT_NAME)
         }
     }
 }

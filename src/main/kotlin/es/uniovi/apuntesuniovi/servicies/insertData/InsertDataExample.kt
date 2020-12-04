@@ -36,7 +36,14 @@ class InsertDataExample @Autowired constructor(
             name = "Academy",
             address = null
         )
-        centerService.create(academy);
+        centerService.create(academy)
+
+        val center = CenterDto(
+            id = null,
+            name = "center",
+            address = null
+        )
+        centerService.create(center)
 
         var subjectDto = SubjectDto(id = null, name = "English")
         subjectDto = subjectService.create(subjectDto)[0]

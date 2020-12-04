@@ -6,7 +6,7 @@ import es.uniovi.apuntesuniovi.servicies.dtos.entities.CenterDto
 import org.springframework.stereotype.Service
 
 @Service
-class UniversityCenterDtoAssembler : AbstractDtoAssembler<Center, CenterDto>() {
+class CenterDtoAssembler : AbstractDtoAssembler<Center, CenterDto>() {
     override fun entityToDto(entity: Center?): CenterDto {
         logService.info("entityToDto(entity: ${entity}) - start")
         entity?.let {

@@ -2,11 +2,11 @@ package es.uniovi.apuntesuniovi.services.users
 
 import es.uniovi.apuntesuniovi.entities.User
 import es.uniovi.apuntesuniovi.infrastructure.exceptions.messages.UserMessages
-import es.uniovi.apuntesuniovi.mocks.MockFactory
+import es.uniovi.apuntesuniovi.mocks.dtos.MockUserDtoCreator
 import es.uniovi.apuntesuniovi.repositories.UserRepository
+import es.uniovi.apuntesuniovi.servicies.commands.users.FindUserByUsernameService
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.UserDto
 import es.uniovi.apuntesuniovi.servicies.dtos.impl.UserDtoAssembler
-import es.uniovi.apuntesuniovi.servicies.commands.users.FindUserByUsernameService
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -34,8 +34,7 @@ class FindUserByUsernameServiceTest {
      */
     @BeforeEach
     fun initTest() {
-        val mockFactory = MockFactory()
-        userDto = mockFactory.getDtos().createUserDto()
+        userDto = MockUserDtoCreator().create()
         user = userDtoAssembler.dtoToEntity(userDto)
         username = userDto.username!!
     }
@@ -58,7 +57,8 @@ class FindUserByUsernameServiceTest {
     @Test
     fun invalidData() {
         try {
-            val findUserByUsernameService = FindUserByUsernameService(userRepository, userDtoAssembler, userDto.username + "1")
+            val findUserByUsernameService =
+                FindUserByUsernameService(userRepository, userDtoAssembler, userDto.username + "1")
             findUserByUsernameService.execute()
         } catch (e: IllegalArgumentException) {
             assertEquals(e.message, UserMessages.NOT_FOUND_USERNAME)

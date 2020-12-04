@@ -2,7 +2,7 @@ package es.uniovi.apuntesuniovi.entities.users
 
 import es.uniovi.apuntesuniovi.entities.User
 import es.uniovi.apuntesuniovi.infrastructure.exceptions.messages.UserMessages
-import es.uniovi.apuntesuniovi.mocks.MockFactory
+import es.uniovi.apuntesuniovi.mocks.entities.MockUserCreator
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -18,7 +18,7 @@ class NumberIdentificationTest {
      */
     @BeforeEach
     fun initData() {
-        user = MockFactory().getEntities().createUser()
+        user = MockUserCreator().create()
     }
 
     /**

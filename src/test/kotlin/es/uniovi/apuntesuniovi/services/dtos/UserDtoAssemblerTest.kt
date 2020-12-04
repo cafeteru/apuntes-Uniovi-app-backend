@@ -1,7 +1,8 @@
 package es.uniovi.apuntesuniovi.services.dtos
 
 import es.uniovi.apuntesuniovi.infrastructure.exceptions.messages.UserMessages
-import es.uniovi.apuntesuniovi.mocks.MockFactory
+import es.uniovi.apuntesuniovi.mocks.dtos.MockUserDtoCreator
+import es.uniovi.apuntesuniovi.mocks.entities.MockUserCreator
 import es.uniovi.apuntesuniovi.servicies.dtos.impl.UserDtoAssembler
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
@@ -12,14 +13,13 @@ import org.junit.jupiter.api.fail
  */
 class UserDtoAssemblerTest {
     private val userDtoAssembler = UserDtoAssembler()
-    private val mockFactory = MockFactory()
 
     /**
      * Checks the conversion with valid user
      */
     @Test
     fun validUser() {
-        val user = mockFactory.getEntities().createUser()
+        val user = MockUserCreator().create()
         val userDto = userDtoAssembler.entityToDto(user)
         assertEquals(user.id, userDto.id)
         assertEquals(user.name, userDto.name)
@@ -54,7 +54,7 @@ class UserDtoAssemblerTest {
      */
     @Test
     fun validUserDto() {
-        val userDto = mockFactory.getDtos().createUserDto()
+        val userDto = MockUserDtoCreator().create()
         val user = userDtoAssembler.dtoToEntity(userDto)
         assertEquals(user.id, userDto.id)
         assertEquals(user.name, userDto.name)

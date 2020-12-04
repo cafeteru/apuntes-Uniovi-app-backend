@@ -2,7 +2,7 @@ package es.uniovi.apuntesuniovi.entities
 
 import es.uniovi.apuntesuniovi.entities.types.IdentificationType
 import es.uniovi.apuntesuniovi.entities.types.RoleType
-import es.uniovi.apuntesuniovi.infrastructure.constants.DatabaseLimits
+import es.uniovi.apuntesuniovi.infrastructure.constants.database.UserLimits
 import es.uniovi.apuntesuniovi.infrastructure.exceptions.messages.UserMessages
 import es.uniovi.apuntesuniovi.validators.impl.*
 import java.time.LocalDate
@@ -17,32 +17,32 @@ open class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null
 
-    @Column(length = DatabaseLimits.USER_NAME)
+    @Column(length = UserLimits.NAME)
     var name: String? = null
         set(value) {
-            if (ValidatorMaxLength(value, DatabaseLimits.USER_NAME).isValid()) {
+            if (ValidatorMaxLength(value, UserLimits.NAME).isValid()) {
                 field = value
             } else {
                 throw IllegalArgumentException(UserMessages.LIMIT_NAME)
             }
         }
 
-    @Column(length = DatabaseLimits.USER_SURNAME)
+    @Column(length = UserLimits.SURNAME)
     var surname: String? = null
         set(value) {
-            if (ValidatorMaxLength(value, DatabaseLimits.USER_SURNAME).isValid()) {
+            if (ValidatorMaxLength(value, UserLimits.SURNAME).isValid()) {
                 field = value
             } else {
                 throw IllegalArgumentException(UserMessages.LIMIT_SURNAME)
             }
         }
 
-    @Column(length = DatabaseLimits.USER_EMAIL)
+    @Column(length = UserLimits.EMAIL)
     var email: String? = null
         set(value) {
             val validator = ValidatorCompositeAll()
             validator.add(ValidatorEmail(value))
-            validator.add(ValidatorMaxLength(value, DatabaseLimits.USER_EMAIL))
+            validator.add(ValidatorMaxLength(value, UserLimits.EMAIL))
             if (validator.isValid()) {
                 field = value
             } else {
@@ -63,7 +63,7 @@ open class User {
 
     var img: String? = null
         set(value) {
-            if (ValidatorMaxLength(value, DatabaseLimits.USER_IMG).isValid()) {
+            if (ValidatorMaxLength(value, UserLimits.IMG).isValid()) {
                 field = value
             } else {
                 throw IllegalArgumentException(UserMessages.LIMIT_IMG)
@@ -79,20 +79,20 @@ open class User {
             }
         }
 
-    @Column(unique = true, length = DatabaseLimits.USER_USERNAME)
+    @Column(unique = true, length = UserLimits.USERNAME)
     var username: String? = null
         set(value) {
-            if (ValidatorMaxLength(value, DatabaseLimits.USER_USERNAME).isValid()) {
+            if (ValidatorMaxLength(value, UserLimits.USERNAME).isValid()) {
                 field = value
             } else {
                 throw IllegalArgumentException(UserMessages.LIMIT_USERNAME)
             }
         }
 
-    @Column(length = DatabaseLimits.USER_PASSWORD)
+    @Column(length = UserLimits.PASSWORD)
     var password: String? = null
         set(value) {
-            if (ValidatorMaxLength(value, DatabaseLimits.USER_PASSWORD).isValid()) {
+            if (ValidatorMaxLength(value, UserLimits.PASSWORD).isValid()) {
                 field = value
             } else {
                 throw IllegalArgumentException(UserMessages.LIMIT_PASSWORD)

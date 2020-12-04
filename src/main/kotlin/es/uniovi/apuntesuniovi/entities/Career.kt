@@ -17,7 +17,7 @@ class Career {
     lateinit var languages: String
 
     @ManyToOne
-    lateinit var universityCenter: Center
+    lateinit var center: Center
 
     @ManyToOne
     lateinit var configurationECTS: ConfigurationECTS

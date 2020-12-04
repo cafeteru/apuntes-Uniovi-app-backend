@@ -1,9 +1,9 @@
 package es.uniovi.apuntesuniovi.entities.users
 
 import es.uniovi.apuntesuniovi.entities.User
-import es.uniovi.apuntesuniovi.infrastructure.constants.DatabaseLimits
+import es.uniovi.apuntesuniovi.infrastructure.constants.database.UserLimits
 import es.uniovi.apuntesuniovi.infrastructure.exceptions.messages.UserMessages
-import es.uniovi.apuntesuniovi.mocks.MockFactory
+import es.uniovi.apuntesuniovi.mocks.entities.MockUserCreator
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.fail
 import org.junit.jupiter.api.BeforeEach
@@ -20,7 +20,7 @@ class PasswordTest {
      */
     @BeforeEach
     fun initData() {
-        user = MockFactory().getEntities().createUser()
+        user = MockUserCreator().create()
     }
 
     /**
@@ -29,7 +29,7 @@ class PasswordTest {
     @Test
     fun limitPassword() {
         var password = ""
-        for (i in 0 until DatabaseLimits.USER_PASSWORD) {
+        for (i in 0 until UserLimits.PASSWORD) {
             password += "1"
         }
         user.password = password
@@ -43,7 +43,7 @@ class PasswordTest {
     fun upLimitPassword() {
         try {
             var password = ""
-            for (i in 0..DatabaseLimits.USER_PASSWORD) {
+            for (i in 0..UserLimits.PASSWORD) {
                 password += "1"
             }
             user.password = password
