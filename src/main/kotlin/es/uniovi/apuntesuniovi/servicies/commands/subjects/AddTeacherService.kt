@@ -17,7 +17,9 @@ import es.uniovi.apuntesuniovi.servicies.dtos.entities.TeachSubjectDto
 import es.uniovi.apuntesuniovi.servicies.dtos.impl.TeachSubjectDtoAssembler
 import java.time.LocalDate
 
-
+/**
+ * Add teacher to a subject in service layer
+ */
 class AddTeacherService(
     private val subjectRepository: SubjectRepository,
     private val userRepository: UserRepository,

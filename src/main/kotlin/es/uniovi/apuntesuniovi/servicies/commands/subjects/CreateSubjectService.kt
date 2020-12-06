@@ -8,7 +8,7 @@ import es.uniovi.apuntesuniovi.servicies.dtos.impl.SubjectDtoAssembler
 import java.util.*
 
 /**
- * Create a subject in repository layer
+ * Create a subject in service layer
  */
 class CreateSubjectService(
     private val subjectRepository: SubjectRepository,

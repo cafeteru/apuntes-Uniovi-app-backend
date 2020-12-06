@@ -16,7 +16,7 @@ class Center {
     var id: Long? = null
 
     @Column(length = CenterLimits.NAME)
-    var name: String? = null
+    var name: String = ""
         set(value) {
             if (ValidatorMaxLength(value, CenterLimits.NAME).isValid()) {
                 field = value

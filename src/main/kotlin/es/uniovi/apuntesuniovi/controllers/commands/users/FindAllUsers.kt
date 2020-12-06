@@ -6,7 +6,7 @@ import es.uniovi.apuntesuniovi.servicies.UserService
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.UserDto
 
 /**
- * Return all users since service layer
+ * Return all users in controller layer
  */
 class FindAllUsers(
     private val userService: UserService

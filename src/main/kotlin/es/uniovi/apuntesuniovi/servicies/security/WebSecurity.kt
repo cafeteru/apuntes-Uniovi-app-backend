@@ -16,6 +16,9 @@ import org.springframework.web.cors.CorsConfigurationSource
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 import javax.inject.Inject
 
+/**
+ * Define user permissions on endpoints
+ */
 @Configuration
 @EnableWebSecurity
 class WebSecurity @Inject constructor(

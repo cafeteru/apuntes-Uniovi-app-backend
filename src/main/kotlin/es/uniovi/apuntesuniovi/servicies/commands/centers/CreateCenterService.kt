@@ -8,7 +8,7 @@ import es.uniovi.apuntesuniovi.servicies.dtos.impl.CenterDtoAssembler
 import java.util.*
 
 /**
- * Create a center in repository layer
+ * Create a center in service layer
  */
 class CreateCenterService(
     private val centerRepository: CenterRepository,

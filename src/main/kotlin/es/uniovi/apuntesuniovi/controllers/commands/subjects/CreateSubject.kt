@@ -7,7 +7,7 @@ import es.uniovi.apuntesuniovi.servicies.SubjectService
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.SubjectDto
 
 /**
- * Save a subject in service layer
+ * Save a subject in controller layer
  */
 class CreateSubject(
     private val subjectService: SubjectService,

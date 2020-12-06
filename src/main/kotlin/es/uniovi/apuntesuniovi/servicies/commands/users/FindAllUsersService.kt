@@ -7,7 +7,7 @@ import es.uniovi.apuntesuniovi.servicies.dtos.entities.UserDto
 import es.uniovi.apuntesuniovi.servicies.dtos.impl.UserDtoAssembler
 
 /**
- * Return all users since repository layer
+ * Return all users in service layer
  */
 class FindAllUsersService(
     private val userRepository: UserRepository,

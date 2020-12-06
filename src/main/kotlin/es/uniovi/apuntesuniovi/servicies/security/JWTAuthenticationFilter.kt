@@ -22,7 +22,9 @@ import javax.servlet.FilterChain
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
-
+/**
+ * Service to authenticate users and create their token
+ */
 class JWTAuthenticationFilter(
     authenticationManager: AuthenticationManager,
     userService: UserService

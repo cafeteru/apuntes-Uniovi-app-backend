@@ -7,7 +7,7 @@ import es.uniovi.apuntesuniovi.servicies.dtos.entities.SubjectDto
 import es.uniovi.apuntesuniovi.servicies.dtos.impl.SubjectDtoAssembler
 
 /**
- * Return all subjects since repository layer
+ * Return all subjects in service layer
  */
 class FindAllSubjectsService(
     private val subjectRepository: SubjectRepository,

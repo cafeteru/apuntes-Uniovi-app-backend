@@ -6,7 +6,7 @@ import es.uniovi.apuntesuniovi.servicies.CenterService
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.CenterDto
 
 /**
- * Return all centers since service layer
+ * Return all centers in controller layer
  */
 class FindAllCenters(
     private val centerService: CenterService

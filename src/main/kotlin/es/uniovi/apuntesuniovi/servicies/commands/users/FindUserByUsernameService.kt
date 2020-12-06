@@ -9,6 +9,9 @@ import es.uniovi.apuntesuniovi.servicies.dtos.entities.UserDto
 import es.uniovi.apuntesuniovi.servicies.dtos.impl.UserDtoAssembler
 import java.util.*
 
+/**
+ * Find user by username in service layer
+ */
 class FindUserByUsernameService(
     private val userRepository: UserRepository,
     private val userDtoAssembler: UserDtoAssembler,

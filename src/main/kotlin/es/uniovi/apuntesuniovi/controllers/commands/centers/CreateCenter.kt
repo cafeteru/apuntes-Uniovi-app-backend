@@ -7,7 +7,7 @@ import es.uniovi.apuntesuniovi.servicies.CenterService
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.CenterDto
 
 /**
- * Create a center in service layer
+ * Create a center in controller layer
  */
 class CreateCenter(
     private val centerService: CenterService,

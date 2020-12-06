@@ -7,7 +7,7 @@ import es.uniovi.apuntesuniovi.servicies.dtos.entities.UserDto
 import es.uniovi.apuntesuniovi.servicies.UserService
 
 /**
- * Save a user in service layer
+ * Save a user in controller layer
  */
 class CreateUser(
     private val userService: UserService,

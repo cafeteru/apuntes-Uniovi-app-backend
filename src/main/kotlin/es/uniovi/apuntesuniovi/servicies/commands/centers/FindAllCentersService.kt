@@ -7,7 +7,7 @@ import es.uniovi.apuntesuniovi.servicies.dtos.entities.CenterDto
 import es.uniovi.apuntesuniovi.servicies.dtos.impl.CenterDtoAssembler
 
 /**
- * Return all centers since repository layer
+ * Return all centers in service layer
  */
 class FindAllCentersService(
     private val centerRepository: CenterRepository,

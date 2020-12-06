@@ -54,15 +54,6 @@ class NameTest {
     }
 
     /**
-     * Checks the assignment to null
-     */
-    @Test
-    fun nullName() {
-        center.name = null
-        assertEquals(null, center.name)
-    }
-
-    /**
      * Checks the assignment to empty
      */
     @Test

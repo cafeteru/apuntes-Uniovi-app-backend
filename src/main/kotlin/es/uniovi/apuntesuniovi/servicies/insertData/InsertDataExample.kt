@@ -14,6 +14,9 @@ import org.springframework.stereotype.Service
 import java.time.LocalDate
 import javax.annotation.PostConstruct
 
+/**
+ * Service to create test data
+ */
 @Service
 class InsertDataExample @Autowired constructor(
     private val userService: UserService,
@@ -22,6 +25,9 @@ class InsertDataExample @Autowired constructor(
 ) {
     private val logService = LogService(this.javaClass)
 
+    /**
+     * Create initial data test
+     */
     @PostConstruct
     fun initData() {
         logService.info("initData() - start")
@@ -76,7 +82,7 @@ class InsertDataExample @Autowired constructor(
             numberIdentification = "93432683J",
             username = "teacher",
             password = "teacher",
-            phone = "623548956",
+            phone = "623568956",
             role = RoleType.TEACHER.toString(),
             address = address
         )
@@ -94,7 +100,7 @@ class InsertDataExample @Autowired constructor(
             numberIdentification = "66524869Z",
             username = "student",
             password = "student",
-            phone = "623548956",
+            phone = "623549956",
             role = RoleType.STUDENT.toString(),
             address = address
         )
