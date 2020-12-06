@@ -2,9 +2,10 @@ package es.uniovi.apuntesuniovi.servicies
 
 import es.uniovi.apuntesuniovi.infrastructure.log.LogService
 import es.uniovi.apuntesuniovi.repositories.CenterRepository
+import es.uniovi.apuntesuniovi.servicies.commands.centers.FindAllCentersService
+import es.uniovi.apuntesuniovi.servicies.commands.centers.SaveCenterService
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.CenterDto
 import es.uniovi.apuntesuniovi.servicies.dtos.impl.CenterDtoAssembler
-import es.uniovi.apuntesuniovi.servicies.commands.centers.SaveCenterService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
@@ -13,8 +14,8 @@ import org.springframework.stereotype.Service
  */
 @Service
 class CenterService @Autowired constructor(
-        private val centerRepository: CenterRepository,
-        private val centerDtoAssembler: CenterDtoAssembler
+    private val centerRepository: CenterRepository,
+    private val centerDtoAssembler: CenterDtoAssembler
 ) {
     private val logService = LogService(this.javaClass)
 
@@ -25,9 +26,21 @@ class CenterService @Autowired constructor(
      */
     fun create(centerDto: CenterDto): List<CenterDto> {
         logService.info("create(centerDto: centerDto) - start")
-        val result = SaveCenterService(centerRepository, centerDtoAssembler,
-                centerDto).execute()
+        val result = SaveCenterService(
+            centerRepository, centerDtoAssembler,
+            centerDto
+        ).execute()
         logService.info("create(centerDto: centerDto) - end")
+        return result
+    }
+
+    /**
+     * Returns all subjects
+     */
+    fun findAll(): List<CenterDto> {
+        logService.info("findAll() - start")
+        val result = FindAllCentersService(centerRepository, centerDtoAssembler).execute()
+        logService.info("findAll() - end")
         return result
     }
 }

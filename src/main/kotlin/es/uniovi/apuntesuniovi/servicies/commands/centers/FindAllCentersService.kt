@@ -5,25 +5,21 @@ import es.uniovi.apuntesuniovi.infrastructure.log.LogService
 import es.uniovi.apuntesuniovi.repositories.CenterRepository
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.CenterDto
 import es.uniovi.apuntesuniovi.servicies.dtos.impl.CenterDtoAssembler
-import java.util.*
 
 /**
- * Save a center in repository layer
+ * Return all centers since repository layer
  */
-class SaveCenterService(
+class FindAllCentersService(
     private val centerRepository: CenterRepository,
-    private val centerDtoAssembler: CenterDtoAssembler,
-    private val centerDto: CenterDto
+    private val centerDtoAssembler: CenterDtoAssembler
 ) : Command<List<CenterDto>> {
     private val logService = LogService(this.javaClass)
 
     override fun execute(): List<CenterDto> {
         logService.info("execute() - start")
-        val subject = centerDtoAssembler.dtoToEntity(centerDto)
-        val result = centerRepository.save(subject)
-        val list = ArrayList<CenterDto>()
-        list.add(centerDtoAssembler.entityToDto(result))
+        val list = centerRepository.findAll()
+        val result = centerDtoAssembler.listToDto(list)
         logService.info("execute() - end")
-        return list
+        return result
     }
 }
