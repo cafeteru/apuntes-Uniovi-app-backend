@@ -6,9 +6,12 @@ import es.uniovi.apuntesuniovi.repositories.UserRepository
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.UserDto
 import es.uniovi.apuntesuniovi.servicies.dtos.impl.UserDtoAssembler
 
+/**
+ * Return all users since repository layer
+ */
 class FindAllUsersService(
-        private val userRepository: UserRepository,
-        private val userDtoAssembler: UserDtoAssembler
+    private val userRepository: UserRepository,
+    private val userDtoAssembler: UserDtoAssembler
 ) : Command<List<UserDto>> {
     private val logService = LogService(this.javaClass)
 

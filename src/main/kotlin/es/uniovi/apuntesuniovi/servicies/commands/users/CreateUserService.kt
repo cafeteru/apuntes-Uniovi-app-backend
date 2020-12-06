@@ -12,13 +12,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import java.util.*
 
 /**
- * Service class used to add a user
+ * Create a user in repository layer
  */
-class SaveUserService(
-        private val userRepository: UserRepository,
-        private val addressRepository: AddressRepository,
-        private val userDtoAssembler: UserDtoAssembler,
-        private val userDto: UserDto?
+class CreateUserService(
+    private val userRepository: UserRepository,
+    private val addressRepository: AddressRepository,
+    private val userDtoAssembler: UserDtoAssembler,
+    private val userDto: UserDto?
 ) : Command<List<UserDto>> {
     private val logService = LogService(this.javaClass)
     private val bCryptPasswordEncoder = BCryptPasswordEncoder()

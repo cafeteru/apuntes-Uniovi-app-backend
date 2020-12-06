@@ -5,8 +5,11 @@ import es.uniovi.apuntesuniovi.infrastructure.log.LogService
 import es.uniovi.apuntesuniovi.servicies.SubjectService
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.SubjectDto
 
+/**
+ * Return all subjects since service layer
+ */
 class FindAllSubjects(
-        private val subjectService: SubjectService
+    private val subjectService: SubjectService
 ) : Command<List<SubjectDto>> {
     private val logService = LogService(this.javaClass)
 

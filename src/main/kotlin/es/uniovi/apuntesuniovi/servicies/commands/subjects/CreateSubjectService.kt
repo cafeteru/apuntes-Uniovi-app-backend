@@ -7,10 +7,13 @@ import es.uniovi.apuntesuniovi.servicies.dtos.entities.SubjectDto
 import es.uniovi.apuntesuniovi.servicies.dtos.impl.SubjectDtoAssembler
 import java.util.*
 
-class SaveSubjectService(
-        private val subjectRepository: SubjectRepository,
-        private val subjectDtoAssembler: SubjectDtoAssembler,
-        private val subjectDto: SubjectDto
+/**
+ * Create a subject in repository layer
+ */
+class CreateSubjectService(
+    private val subjectRepository: SubjectRepository,
+    private val subjectDtoAssembler: SubjectDtoAssembler,
+    private val subjectDto: SubjectDto
 ) : Command<List<SubjectDto>> {
     private val logService = LogService(this.javaClass)
 

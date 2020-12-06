@@ -12,20 +12,21 @@ class UserDtoAssembler : AbstractDtoAssembler<User, UserDto>() {
         logService.info("entityToDto(user: User) - start")
         entity?.let {
             val result = UserDto(
-                    id = it.id,
-                    name = entity.name,
-                    surname = entity.surname,
-                    email = entity.email,
-                    phone = entity.phone,
-                    active = entity.active,
-                    img = entity.img,
-                    birthDate = entity.birthDate,
-                    username = entity.username,
-                    password = entity.password,
-                    role = entity.role.toString(),
-                    identificationType = entity.identificationType.toString(),
-                    numberIdentification = entity.numberIdentification,
-                    address = entity.address)
+                id = it.id,
+                name = entity.name,
+                surname = entity.surname,
+                email = entity.email,
+                phone = entity.phone,
+                active = entity.active,
+                img = entity.img,
+                birthDate = entity.birthDate,
+                username = entity.username,
+                password = entity.password,
+                role = entity.role.toString(),
+                identificationType = entity.identificationType.toString(),
+                numberIdentification = entity.numberIdentification,
+                address = entity.address
+            )
             logService.info("entityToDto(user: User) - end")
             return result
         }

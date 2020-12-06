@@ -1,7 +1,7 @@
 package es.uniovi.apuntesuniovi.controllers
 
 import es.uniovi.apuntesuniovi.controllers.commands.users.FindAllUsers
-import es.uniovi.apuntesuniovi.controllers.commands.users.SaveUser
+import es.uniovi.apuntesuniovi.controllers.commands.users.CreateUser
 import es.uniovi.apuntesuniovi.infrastructure.log.LogService
 import es.uniovi.apuntesuniovi.servicies.UserService
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.UserDto
@@ -37,7 +37,7 @@ class UserController @Autowired constructor(
     @PostMapping("/create")
     fun save(@RequestBody json: String): ResponseEntity<List<UserDto>> {
         logService.info("save(json: ${logService.formatJson(json)}) - start")
-        val result = SaveUser(userService, json).execute()
+        val result = CreateUser(userService, json).execute()
         logService.info("save(json:${logService.formatJson(json)}) - end")
         return ResponseEntity(result, HttpStatus.OK)
     }

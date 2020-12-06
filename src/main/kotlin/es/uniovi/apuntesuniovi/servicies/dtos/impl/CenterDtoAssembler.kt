@@ -11,9 +11,10 @@ class CenterDtoAssembler : AbstractDtoAssembler<Center, CenterDto>() {
         logService.info("entityToDto(entity: ${entity}) - start")
         entity?.let {
             val result = CenterDto(
-                    id = it.id,
-                    name = it.name,
-                    address = it.address)
+                id = it.id,
+                name = it.name,
+                address = it.address
+            )
             logService.info("entityToDto(entity: ${entity}) - end")
             return result
         }

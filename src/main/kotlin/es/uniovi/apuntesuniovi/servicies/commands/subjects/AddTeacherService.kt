@@ -19,14 +19,14 @@ import java.time.LocalDate
 
 
 class AddTeacherService(
-        private val subjectRepository: SubjectRepository,
-        private val userRepository: UserRepository,
-        private val teachSubjectRepository: TeachSubjectRepository,
-        private val teachSubjectRegistryRepository: TeachSubjectRegistryRepository,
-        private val teachSubjectDtoAssembler: TeachSubjectDtoAssembler,
-        private val subjectId: Long,
-        private val teacherId: Long,
-        private val date: LocalDate
+    private val subjectRepository: SubjectRepository,
+    private val userRepository: UserRepository,
+    private val teachSubjectRepository: TeachSubjectRepository,
+    private val teachSubjectRegistryRepository: TeachSubjectRegistryRepository,
+    private val teachSubjectDtoAssembler: TeachSubjectDtoAssembler,
+    private val subjectId: Long,
+    private val teacherId: Long,
+    private val date: LocalDate
 ) : Command<List<TeachSubjectDto>> {
     private val logService = LogService(this.javaClass)
 

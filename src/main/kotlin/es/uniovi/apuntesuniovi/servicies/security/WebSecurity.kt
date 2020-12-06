@@ -19,21 +19,21 @@ import javax.inject.Inject
 @Configuration
 @EnableWebSecurity
 class WebSecurity @Inject constructor(
-        private var userDetailsService: UserDetailsServiceImpl,
-        private var userService: UserService
+    private var userDetailsService: UserDetailsServiceImpl,
+    private var userService: UserService
 ) : WebSecurityConfigurerAdapter() {
     private val logService = LogService(this.javaClass)
 
     override fun configure(http: HttpSecurity) {
         logService.info("configure(httpSecurity: HttpSecurity) - start")
         http.cors().and().csrf().disable().authorizeRequests()
-                .antMatchers(LOGIN_URL).permitAll().anyRequest()
-                .authenticated().and()
-                .addFilter(JWTAuthenticationFilter(authenticationManager(), userService))
-                .addFilter(JWTAuthorizationFilter(authenticationManager()))
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .logout().permitAll()
+            .antMatchers(LOGIN_URL).permitAll().anyRequest()
+            .authenticated().and()
+            .addFilter(JWTAuthenticationFilter(authenticationManager(), userService))
+            .addFilter(JWTAuthorizationFilter(authenticationManager()))
+            .sessionManagement()
+            .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+            .logout().permitAll()
         logService.info("configure(httpSecurity: HttpSecurity) - end")
     }
 

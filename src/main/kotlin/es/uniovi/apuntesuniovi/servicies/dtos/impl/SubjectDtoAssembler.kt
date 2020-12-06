@@ -2,7 +2,6 @@ package es.uniovi.apuntesuniovi.servicies.dtos.impl
 
 import es.uniovi.apuntesuniovi.entities.Subject
 import es.uniovi.apuntesuniovi.infrastructure.exceptions.messages.SubjectMessages
-import es.uniovi.apuntesuniovi.infrastructure.exceptions.messages.UserMessages
 import es.uniovi.apuntesuniovi.servicies.dtos.AbstractDtoAssembler
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.SubjectDto
 import org.springframework.stereotype.Service
@@ -13,8 +12,9 @@ class SubjectDtoAssembler : AbstractDtoAssembler<Subject, SubjectDto>() {
         logService.info("entityToDto(entity: ${entity}) - start")
         entity?.let {
             val result = SubjectDto(
-                    id = it.id,
-                    name = it.name)
+                id = it.id,
+                name = it.name
+            )
             logService.info("entityToDto(entity: ${entity}) - end")
             return result
         }

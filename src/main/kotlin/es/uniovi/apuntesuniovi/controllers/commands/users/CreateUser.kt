@@ -6,9 +6,12 @@ import es.uniovi.apuntesuniovi.infrastructure.log.LogService
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.UserDto
 import es.uniovi.apuntesuniovi.servicies.UserService
 
-class SaveUser(
-        private val userService: UserService,
-        private val json: String
+/**
+ * Save a user in service layer
+ */
+class CreateUser(
+    private val userService: UserService,
+    private val json: String
 ) : Command<List<UserDto>> {
     private val logService = LogService(this.javaClass)
 

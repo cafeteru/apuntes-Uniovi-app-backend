@@ -10,9 +10,9 @@ import es.uniovi.apuntesuniovi.servicies.dtos.impl.UserDtoAssembler
 import java.util.*
 
 class FindUserByUsernameService(
-        private val userRepository: UserRepository,
-        private val userDtoAssembler: UserDtoAssembler,
-        private val username: String?
+    private val userRepository: UserRepository,
+    private val userDtoAssembler: UserDtoAssembler,
+    private val username: String?
 ) : Command<UserDto> {
     private val logService = LogService(this.javaClass)
 

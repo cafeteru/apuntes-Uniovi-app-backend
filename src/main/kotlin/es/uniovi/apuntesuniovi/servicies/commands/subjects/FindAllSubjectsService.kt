@@ -6,9 +6,12 @@ import es.uniovi.apuntesuniovi.repositories.SubjectRepository
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.SubjectDto
 import es.uniovi.apuntesuniovi.servicies.dtos.impl.SubjectDtoAssembler
 
+/**
+ * Return all subjects since repository layer
+ */
 class FindAllSubjectsService(
-        private val subjectRepository: SubjectRepository,
-        private val subjectDtoAssembler: SubjectDtoAssembler
+    private val subjectRepository: SubjectRepository,
+    private val subjectDtoAssembler: SubjectDtoAssembler
 ) : Command<List<SubjectDto>> {
     private val logService = LogService(this.javaClass)
 

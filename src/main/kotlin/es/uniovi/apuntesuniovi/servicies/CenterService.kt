@@ -2,8 +2,8 @@ package es.uniovi.apuntesuniovi.servicies
 
 import es.uniovi.apuntesuniovi.infrastructure.log.LogService
 import es.uniovi.apuntesuniovi.repositories.CenterRepository
+import es.uniovi.apuntesuniovi.servicies.commands.centers.CreateCenterService
 import es.uniovi.apuntesuniovi.servicies.commands.centers.FindAllCentersService
-import es.uniovi.apuntesuniovi.servicies.commands.centers.SaveCenterService
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.CenterDto
 import es.uniovi.apuntesuniovi.servicies.dtos.impl.CenterDtoAssembler
 import org.springframework.beans.factory.annotation.Autowired
@@ -20,13 +20,13 @@ class CenterService @Autowired constructor(
     private val logService = LogService(this.javaClass)
 
     /**
-     * Saves the subject
+     * Create a center
      *
      * @param centerDto center to save
      */
     fun create(centerDto: CenterDto): List<CenterDto> {
         logService.info("create(centerDto: centerDto) - start")
-        val result = SaveCenterService(
+        val result = CreateCenterService(
             centerRepository, centerDtoAssembler,
             centerDto
         ).execute()

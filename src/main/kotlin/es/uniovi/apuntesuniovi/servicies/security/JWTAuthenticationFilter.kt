@@ -24,8 +24,8 @@ import javax.servlet.http.HttpServletResponse
 
 
 class JWTAuthenticationFilter(
-        authenticationManager: AuthenticationManager,
-        userService: UserService
+    authenticationManager: AuthenticationManager,
+    userService: UserService
 ) : UsernamePasswordAuthenticationFilter() {
     private val logService = LogService(this.javaClass)
     private var userService: UserService
@@ -39,8 +39,11 @@ class JWTAuthenticationFilter(
         logService.info("attemptAuthentication(req: HttpServletRequest, res: HttpServletResponse) - start")
         try {
             val user = ObjectMapper().readValue(req.inputStream, es.uniovi.apuntesuniovi.entities.User::class.java)
-            val result = authenticationManager.authenticate(UsernamePasswordAuthenticationToken(
-                    user.username, user.password, ArrayList()))
+            val result = authenticationManager.authenticate(
+                UsernamePasswordAuthenticationToken(
+                    user.username, user.password, ArrayList()
+                )
+            )
             logService.info("attemptAuthentication(req: $req, response: $res) - end")
             return result
         } catch (e: IOException) {
@@ -53,16 +56,20 @@ class JWTAuthenticationFilter(
     }
 
     override fun successfulAuthentication(
-            request: HttpServletRequest, response: HttpServletResponse,
-            chain: FilterChain, auth: Authentication
+        request: HttpServletRequest, response: HttpServletResponse,
+        chain: FilterChain, auth: Authentication
     ) {
-        logService.info("successfulAuthentication(request: HttpServletRequest, " +
-                "response: HttpServletResponse, chain: FilterChain, auth: Authentication) - start")
+        logService.info(
+            "successfulAuthentication(request: HttpServletRequest, " +
+                    "response: HttpServletResponse, chain: FilterChain, auth: Authentication) - start"
+        )
         val token = createToken(auth)
         response.contentType = "application/json;charset=UTF-8"
         response.writer.print("{ \"$AUTHORIZATION_HEADER\" : \"$TOKEN_BEARER_PREFIX$token\" }")
-        logService.info("successfulAuthentication(request: HttpServletRequest, " +
-                "response: HttpServletResponse, chain: FilterChain, auth: Authentication) - end")
+        logService.info(
+            "successfulAuthentication(request: HttpServletRequest, " +
+                    "response: HttpServletResponse, chain: FilterChain, auth: Authentication) - end"
+        )
     }
 
     private fun createToken(auth: Authentication): String {
@@ -70,11 +77,11 @@ class JWTAuthenticationFilter(
         val username = (auth.principal as User).username
         val user = userService.findByUsername(username)
         val token = JWT.create()
-                .withClaim("username", user.username)
-                .withClaim("role", user.role)
-                .withClaim("id", user.id)
-                .withExpiresAt(Date(System.currentTimeMillis() + EXPIRATION_TIME))
-                .sign(HMAC512(SECRET))
+            .withClaim("username", user.username)
+            .withClaim("role", user.role)
+            .withClaim("id", user.id)
+            .withExpiresAt(Date(System.currentTimeMillis() + EXPIRATION_TIME))
+            .sign(HMAC512(SECRET))
         logService.info("createToken(auth: Authentication) - end")
         return token
     }

@@ -11,7 +11,7 @@ class ValidatorPhone(private var phone: String?) : Validator {
     override fun isValid(): Boolean {
         phone?.let {
             val pattern: Pattern = Pattern
-                    .compile("^[679][0-9]{8}$")
+                .compile("^[679][0-9]{8}$")
             val mather: Matcher = pattern.matcher(it)
             return mather.find()
         }

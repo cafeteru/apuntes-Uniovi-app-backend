@@ -10,17 +10,18 @@ import org.springframework.stereotype.Service
 
 @Service
 class TeachSubjectDtoAssembler @Autowired constructor(
-        private val subjectRepository: SubjectRepository,
-        private val userRepository: UserRepository
+    private val subjectRepository: SubjectRepository,
+    private val userRepository: UserRepository
 ) : AbstractDtoAssembler<TeachSubject, TeachSubjectDto>() {
     override fun entityToDto(entity: TeachSubject?): TeachSubjectDto {
         logService.info("entityToDto(entity: ${entity}) - start")
         entity?.let {
             val result = TeachSubjectDto(
-                    id = it.id,
-                    isCoordinator = it.isCoordinator,
-                    subjectId = it.subject.id,
-                    teacherId = it.teacher.id)
+                id = it.id,
+                isCoordinator = it.isCoordinator,
+                subjectId = it.subject.id,
+                teacherId = it.teacher.id
+            )
             logService.info("entityToDto(entity: ${entity}) - end")
             return result
         }

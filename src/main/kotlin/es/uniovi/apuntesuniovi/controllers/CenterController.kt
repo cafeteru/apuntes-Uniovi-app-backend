@@ -1,7 +1,7 @@
 package es.uniovi.apuntesuniovi.controllers
 
 import es.uniovi.apuntesuniovi.controllers.commands.centers.FindAllCenters
-import es.uniovi.apuntesuniovi.controllers.commands.centers.SaveCenter
+import es.uniovi.apuntesuniovi.controllers.commands.centers.CreateCenter
 import es.uniovi.apuntesuniovi.infrastructure.log.LogService
 import es.uniovi.apuntesuniovi.servicies.CenterService
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.CenterDto
@@ -26,7 +26,7 @@ class CenterController @Autowired constructor(
     @PostMapping("/create")
     fun create(@RequestBody json: String): ResponseEntity<List<CenterDto>> {
         logService.info("save(json: ${logService.formatJson(json)}) - start")
-        val result = SaveCenter(centerService, json).execute()
+        val result = CreateCenter(centerService, json).execute()
         logService.info("save(json:${logService.formatJson(json)}) - end")
         return ResponseEntity(result, HttpStatus.OK)
     }

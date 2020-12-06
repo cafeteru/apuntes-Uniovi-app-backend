@@ -7,9 +7,9 @@ import es.uniovi.apuntesuniovi.servicies.CenterService
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.CenterDto
 
 /**
- * Save a center in service layer
+ * Create a center in service layer
  */
-class SaveCenter(
+class CreateCenter(
     private val centerService: CenterService,
     private val json: String
 ) : Command<List<CenterDto>> {

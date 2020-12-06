@@ -1,7 +1,7 @@
 package es.uniovi.apuntesuniovi.controllers
 
 import es.uniovi.apuntesuniovi.controllers.commands.subjects.FindAllSubjects
-import es.uniovi.apuntesuniovi.controllers.commands.subjects.SaveSubject
+import es.uniovi.apuntesuniovi.controllers.commands.subjects.CreateSubject
 import es.uniovi.apuntesuniovi.infrastructure.log.LogService
 import es.uniovi.apuntesuniovi.servicies.SubjectService
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.SubjectDto
@@ -37,7 +37,7 @@ class SubjectController @Autowired constructor(
     @PostMapping("/create")
     fun save(@RequestBody json: String): ResponseEntity<List<SubjectDto>> {
         logService.info("save(json: ${logService.formatJson(json)}) - start")
-        val result = SaveSubject(subjectService, json).execute()
+        val result = CreateSubject(subjectService, json).execute()
         logService.info("save(json:${logService.formatJson(json)}) - end")
         return ResponseEntity(result, HttpStatus.OK)
     }

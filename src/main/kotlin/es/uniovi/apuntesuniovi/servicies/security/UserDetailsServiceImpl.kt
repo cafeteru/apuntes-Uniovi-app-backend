@@ -13,7 +13,7 @@ import javax.inject.Inject
  */
 @Service
 class UserDetailsServiceImpl @Inject constructor(
-        private val userRepository: UserRepository
+    private val userRepository: UserRepository
 ) : UserDetailsService {
     private val logService = LogService(this.javaClass)
 

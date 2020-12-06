@@ -6,9 +6,12 @@ import es.uniovi.apuntesuniovi.infrastructure.log.LogService
 import es.uniovi.apuntesuniovi.servicies.SubjectService
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.SubjectDto
 
-class SaveSubject(
-        private val subjectService: SubjectService,
-        private val json: String
+/**
+ * Save a subject in service layer
+ */
+class CreateSubject(
+    private val subjectService: SubjectService,
+    private val json: String
 ) : Command<List<SubjectDto>> {
     private val logService = LogService(this.javaClass)
 
