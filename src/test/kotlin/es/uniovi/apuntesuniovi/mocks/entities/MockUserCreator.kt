@@ -21,6 +21,7 @@ class MockUserCreator: MockCreator<User> {
         user.identificationType = IdentificationType.NIE
         user.numberIdentification = "03203911B"
         user.username = "test"
+        user.password = "testPassword"
         user.role = RoleType.STUDENT
         user.phone = "623548956"
         return user

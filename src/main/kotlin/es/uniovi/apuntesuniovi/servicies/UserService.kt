@@ -29,12 +29,10 @@ class UserService @Autowired constructor(
      */
     fun create(userDto: UserDto): List<UserDto> {
         logService.info("create(userDto: UserDto) - start")
-        val result = CreateUserService(
-            userRepository, addressRepository,
-            userDtoAssembler, userDto
-        ).execute()
+        val user = userDtoAssembler.dtoToEntity(userDto)
+        val result = CreateUserService(userRepository, addressRepository, user).execute()
         logService.info("create(userDto: UserDto) - end")
-        return result
+        return userDtoAssembler.listToDto(result)
     }
 
     /**
@@ -42,9 +40,9 @@ class UserService @Autowired constructor(
      */
     fun findAll(): List<UserDto> {
         logService.info("findAll() - start")
-        val result = FindAllUsersService(userRepository, userDtoAssembler).execute()
+        val result = FindAllUsersService(userRepository).execute()
         logService.info("findAll() - end")
-        return result
+        return userDtoAssembler.listToDto(result)
     }
 
     /**
@@ -54,8 +52,8 @@ class UserService @Autowired constructor(
      */
     fun findByUsername(username: String): UserDto {
         logService.info("findByUsername(username: ${username}) - start")
-        val result = FindUserByUsernameService(userRepository, userDtoAssembler, username).execute()
+        val result = FindUserByUsernameService(userRepository, username).execute()
         logService.info("findByUsername(username: ${username}) - end")
-        return result
+        return userDtoAssembler.entityToDto(result)
     }
 }

@@ -40,6 +40,9 @@ class WebSecurity @Inject constructor(
         logService.info("configure(httpSecurity: HttpSecurity) - end")
     }
 
+    /**
+     * Add encryptor for passwords
+     */
     @Inject
     fun configureGlobal(auth: AuthenticationManagerBuilder) {
         logService.info("configureGlobal(auth: AuthenticationManagerBuilder) - start")
@@ -47,12 +50,15 @@ class WebSecurity @Inject constructor(
         logService.info("configureGlobal(auth: AuthenticationManagerBuilder) - start")
     }
 
+    /**
+     * Indicates the types of requests allowed
+     */
     @Bean
     fun corsConfigurationSource(): CorsConfigurationSource {
         logService.info("corsConfigurationSource() - start")
         val source = UrlBasedCorsConfigurationSource()
         val cors = CorsConfiguration()
-        cors.allowedMethods = listOf("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
+        cors.allowedMethods = listOf("GET", "POST", "PUT", "HEAD", "PATCH", "DELETE", "OPTIONS")
         cors.allowedHeaders = listOf("authorization", "content-type", "x-auth-token")
         source.registerCorsConfiguration("/**", cors.applyPermitDefaultValues())
         logService.info("corsConfigurationSource() - end")

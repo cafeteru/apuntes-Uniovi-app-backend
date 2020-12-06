@@ -7,8 +7,10 @@ object UserMessages {
     const val ALREADY_REGISTERED_USERNAME = "error.already.registered.username"
     const val ALREADY_REGISTERED_NUMBER_IDENTIFICATION = "error.already.registered.number.identification"
     const val EXPIRED_TOKEN = "error.expired.token"
+    const val LOGIN_SYSTEM = "error.login.system"
     const val INVALID_DATA_USER = "error.invalid.data.user"
     const val INVALID_EMAIL = "error.invalid.email"
+    const val INVALID_ID = "error.invalid.id"
     const val INVALID_IDENTIFICATION_NUMBER = "error.invalid.identification.number"
     const val INVALID_IDENTIFICATION_TYPE = "error.invalid.identification.type"
     const val INVALID_PHONE = "error.invalid.phone"
@@ -23,7 +25,5 @@ object UserMessages {
     const val LIMIT_USERNAME = "error.limit.user.username"
     const val NOT_EXISTS = "error.user.not.exists"
     const val NOT_FOUND_USERNAME = "error.not.found.username"
-    const val NULL_IDENTIFICATION_TYPE = "error.null.identification.type"
-    const val NULL_ROLE_TYPE = "error.null.role.type"
     const val NULL_USER = "error.null.user"
 }

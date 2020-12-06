@@ -16,5 +16,5 @@ class TeachSubjectRegistry {
     lateinit var teachSubject: TeachSubject
 
     lateinit var initDay: LocalDate
-    lateinit var finishDay: LocalDate
+    var finishDay: LocalDate? = null
 }

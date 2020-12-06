@@ -26,12 +26,10 @@ class CenterService @Autowired constructor(
      */
     fun create(centerDto: CenterDto): List<CenterDto> {
         logService.info("create(centerDto: centerDto) - start")
-        val result = CreateCenterService(
-            centerRepository, centerDtoAssembler,
-            centerDto
-        ).execute()
+        val center = centerDtoAssembler.dtoToEntity(centerDto)
+        val result = CreateCenterService(centerRepository, center).execute()
         logService.info("create(centerDto: centerDto) - end")
-        return result
+        return centerDtoAssembler.listToDto(result)
     }
 
     /**
@@ -39,8 +37,8 @@ class CenterService @Autowired constructor(
      */
     fun findAll(): List<CenterDto> {
         logService.info("findAll() - start")
-        val result = FindAllCentersService(centerRepository, centerDtoAssembler).execute()
+        val result = FindAllCentersService(centerRepository).execute()
         logService.info("findAll() - end")
-        return result
+        return centerDtoAssembler.listToDto(result)
     }
 }

@@ -5,13 +5,16 @@ import es.uniovi.apuntesuniovi.repositories.SubjectRepository
 import es.uniovi.apuntesuniovi.repositories.TeachSubjectRegistryRepository
 import es.uniovi.apuntesuniovi.repositories.TeachSubjectRepository
 import es.uniovi.apuntesuniovi.repositories.UserRepository
+import es.uniovi.apuntesuniovi.servicies.commands.subjects.AddTeacherService
+import es.uniovi.apuntesuniovi.servicies.commands.subjects.CreateSubjectService
+import es.uniovi.apuntesuniovi.servicies.commands.subjects.FindAllSubjectsService
+import es.uniovi.apuntesuniovi.servicies.commands.subjects.FindSubjectByIdService
+import es.uniovi.apuntesuniovi.servicies.commands.teachSubjectRegistry.CreateTeachSubjectRegistryService
+import es.uniovi.apuntesuniovi.servicies.commands.users.FindUserByIdService
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.SubjectDto
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.TeachSubjectDto
 import es.uniovi.apuntesuniovi.servicies.dtos.impl.SubjectDtoAssembler
 import es.uniovi.apuntesuniovi.servicies.dtos.impl.TeachSubjectDtoAssembler
-import es.uniovi.apuntesuniovi.servicies.commands.subjects.AddTeacherService
-import es.uniovi.apuntesuniovi.servicies.commands.subjects.FindAllSubjectsService
-import es.uniovi.apuntesuniovi.servicies.commands.subjects.CreateSubjectService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import java.time.LocalDate
@@ -39,13 +42,12 @@ class SubjectService @Autowired constructor(
      */
     fun addTeacher(subjectId: Long, teacherId: Long, date: LocalDate): List<TeachSubjectDto> {
         logService.info("addTeacher(subjectId: $subjectId, teacherId: $teacherId) - start")
-        val result = AddTeacherService(
-            subjectRepository, userRepository,
-            teachSubjectRepository, teachSubjectRegistryRepository,
-            teachSubjectDtoAssembler, subjectId, teacherId, date
-        ).execute()
+        val subject = FindSubjectByIdService(subjectRepository, teacherId).execute()[0]
+        val teacher = FindUserByIdService(userRepository, teacherId).execute()[0]
+        val teachSubject = AddTeacherService(teachSubjectRepository, subject, teacher).execute()[0]
+        CreateTeachSubjectRegistryService(teachSubjectRegistryRepository, teachSubject, date).execute()
         logService.info("addTeacher(subjectId: $subjectId, teacherId: $teacherId) - end")
-        return result
+        return teachSubjectDtoAssembler.listToDto(listOf(teachSubject))
     }
 
     /**
@@ -55,9 +57,10 @@ class SubjectService @Autowired constructor(
      */
     fun create(subjectDto: SubjectDto): List<SubjectDto> {
         logService.info("create(subjectDto: SubjectDto) - start")
-        val result = CreateSubjectService(subjectRepository, subjectDtoAssembler, subjectDto).execute()
+        val subject = subjectDtoAssembler.dtoToEntity(subjectDto)
+        val result = CreateSubjectService(subjectRepository, subject).execute()
         logService.info("create(subjectDto: SubjectDto) - end")
-        return result
+        return subjectDtoAssembler.listToDto(result)
     }
 
     /**
@@ -65,8 +68,8 @@ class SubjectService @Autowired constructor(
      */
     fun findAll(): List<SubjectDto> {
         logService.info("findAll() - start")
-        val result = FindAllSubjectsService(subjectRepository, subjectDtoAssembler).execute()
+        val result = FindAllSubjectsService(subjectRepository).execute()
         logService.info("findAll() - end")
-        return result
+        return subjectDtoAssembler.listToDto(result)
     }
 }

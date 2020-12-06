@@ -2,12 +2,10 @@ package es.uniovi.apuntesuniovi.services.users
 
 import es.uniovi.apuntesuniovi.entities.User
 import es.uniovi.apuntesuniovi.infrastructure.exceptions.messages.UserMessages
-import es.uniovi.apuntesuniovi.mocks.dtos.MockUserDtoCreator
+import es.uniovi.apuntesuniovi.mocks.entities.MockUserCreator
 import es.uniovi.apuntesuniovi.repositories.AddressRepository
 import es.uniovi.apuntesuniovi.repositories.UserRepository
 import es.uniovi.apuntesuniovi.servicies.commands.users.CreateUserService
-import es.uniovi.apuntesuniovi.servicies.dtos.entities.UserDto
-import es.uniovi.apuntesuniovi.servicies.dtos.impl.UserDtoAssembler
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -24,7 +22,6 @@ import java.util.*
 @ExtendWith(MockitoExtension::class)
 class SaveUserServiceTest {
     private lateinit var user: User
-    private lateinit var userDto: UserDto
     private val encoder = BCryptPasswordEncoder()
 
     @Mock
@@ -32,15 +29,13 @@ class SaveUserServiceTest {
 
     @Mock
     private lateinit var addressRepository: AddressRepository
-    private val userDtoAssembler = UserDtoAssembler()
 
     /**
      * Create init data for the test
      */
     @BeforeEach
     fun initTest() {
-        userDto = MockUserDtoCreator().create()
-        user = userDtoAssembler.dtoToEntity(userDto)
+        user = MockUserCreator().create()
         user.password = encoder.encode(user.password)
     }
 
@@ -50,25 +45,11 @@ class SaveUserServiceTest {
     @Test
     fun validUser() {
         Mockito.`when`(userRepository.save(Mockito.any(User::class.java))).thenReturn(user)
-        val saveUserService = CreateUserService(userRepository, addressRepository, userDtoAssembler, userDto)
+        val saveUserService = CreateUserService(userRepository, addressRepository, user)
         val result = saveUserService.execute()
         assertNotNull(result)
         assertEquals(result.size, 1)
-        assertNotEquals(result[0].password, userDto.password)
-    }
-
-    /**
-     * Checks the functionality with null user
-     */
-    @Test
-    fun nullUser() {
-        try {
-            val saveUserService = CreateUserService(userRepository, addressRepository, userDtoAssembler, null)
-            saveUserService.execute()
-            fail()
-        } catch (e: IllegalArgumentException) {
-            assertEquals(e.message, UserMessages.INVALID_DATA_USER)
-        }
+        assertEquals(result[0].password, user.password)
     }
 
     /**
@@ -76,9 +57,9 @@ class SaveUserServiceTest {
      */
     @Test
     fun existedUser() {
-        Mockito.`when`(userRepository.findByUsername(userDto.username!!)).thenReturn(Optional.of(user))
+        Mockito.`when`(userRepository.findByUsername(user.username!!)).thenReturn(Optional.of(user))
         try {
-            val saveUserService = CreateUserService(userRepository, addressRepository, userDtoAssembler, userDto)
+            val saveUserService = CreateUserService(userRepository, addressRepository, user)
             saveUserService.execute()
             fail("User already registered")
         } catch (e: IllegalArgumentException) {
@@ -92,8 +73,8 @@ class SaveUserServiceTest {
     @Test
     fun nullUsername() {
         try {
-            userDto.username = null
-            val saveUserService = CreateUserService(userRepository, addressRepository, userDtoAssembler, userDto)
+            user.username = null
+            val saveUserService = CreateUserService(userRepository, addressRepository, user)
             saveUserService.execute()
             fail("Username can´t be null")
         } catch (e: IllegalArgumentException) {
@@ -107,12 +88,12 @@ class SaveUserServiceTest {
     @Test
     fun emptyUsername() {
         try {
-            userDto.username = ""
-            val saveUserService = CreateUserService(userRepository, addressRepository, userDtoAssembler, userDto)
+            user.username = ""
+            val saveUserService = CreateUserService(userRepository, addressRepository, user)
             saveUserService.execute()
             fail("Username can´t be empty")
         } catch (e: IllegalArgumentException) {
-            assertEquals(e.message, UserMessages.INVALID_DATA_USER)
+            assertEquals(e.message, UserMessages.LIMIT_USERNAME)
         }
     }
 
@@ -122,8 +103,8 @@ class SaveUserServiceTest {
     @Test
     fun nullPassword() {
         try {
-            userDto.password = null
-            val saveUserService = CreateUserService(userRepository, addressRepository, userDtoAssembler, userDto)
+            user.password = null
+            val saveUserService = CreateUserService(userRepository, addressRepository, user)
             saveUserService.execute()
             fail("Password can´t be null")
         } catch (e: IllegalArgumentException) {
@@ -137,12 +118,12 @@ class SaveUserServiceTest {
     @Test
     fun emptyPassword() {
         try {
-            userDto.password = ""
-            val saveUserService = CreateUserService(userRepository, addressRepository, userDtoAssembler, userDto)
+            user.password = ""
+            val saveUserService = CreateUserService(userRepository, addressRepository, user)
             saveUserService.execute()
             fail("Password can´t be empty")
         } catch (e: IllegalArgumentException) {
-            assertEquals(e.message, UserMessages.INVALID_DATA_USER)
+            assertEquals(e.message, UserMessages.LIMIT_PASSWORD)
         }
     }
 }

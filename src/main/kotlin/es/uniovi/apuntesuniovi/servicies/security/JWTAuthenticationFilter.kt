@@ -8,6 +8,7 @@ import es.uniovi.apuntesuniovi.infrastructure.constants.SecurityConstants.EXPIRA
 import es.uniovi.apuntesuniovi.infrastructure.constants.SecurityConstants.SECRET
 import es.uniovi.apuntesuniovi.infrastructure.constants.SecurityConstants.TOKEN_BEARER_PREFIX
 import es.uniovi.apuntesuniovi.infrastructure.exceptions.ExceptionWithOutStackTrace
+import es.uniovi.apuntesuniovi.infrastructure.exceptions.messages.UserMessages
 import es.uniovi.apuntesuniovi.infrastructure.log.LogService
 import es.uniovi.apuntesuniovi.servicies.UserService
 import org.springframework.security.authentication.AuthenticationManager
@@ -50,10 +51,10 @@ class JWTAuthenticationFilter(
             return result
         } catch (e: IOException) {
             logService.error("attemptAuthentication(req: HttpServletRequest, res: HttpServletResponse) - error")
-            throw RuntimeException(e)
+            throw IllegalArgumentException(UserMessages.LOGIN_SYSTEM)
         } catch (e: InternalAuthenticationServiceException) {
             logService.error("\"attemptAuthentication(req: HttpServletRequest, res: HttpServletResponse) - error")
-            throw ExceptionWithOutStackTrace("User doesn't exist")
+            throw ExceptionWithOutStackTrace(UserMessages.NOT_EXISTS)
         }
     }
 

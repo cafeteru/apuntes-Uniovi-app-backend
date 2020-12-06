@@ -1,25 +1,22 @@
 package es.uniovi.apuntesuniovi.servicies.commands.users
 
+import es.uniovi.apuntesuniovi.entities.User
 import es.uniovi.apuntesuniovi.infrastructure.Command
 import es.uniovi.apuntesuniovi.infrastructure.log.LogService
 import es.uniovi.apuntesuniovi.repositories.UserRepository
-import es.uniovi.apuntesuniovi.servicies.dtos.entities.UserDto
-import es.uniovi.apuntesuniovi.servicies.dtos.impl.UserDtoAssembler
 
 /**
  * Return all users in service layer
  */
 class FindAllUsersService(
-    private val userRepository: UserRepository,
-    private val userDtoAssembler: UserDtoAssembler
-) : Command<List<UserDto>> {
+    private val userRepository: UserRepository
+) : Command<List<User>> {
     private val logService = LogService(this.javaClass)
 
-    override fun execute(): List<UserDto> {
+    override fun execute(): List<User> {
         logService.info("execute() - start")
         val list = userRepository.findAll()
-        val result = userDtoAssembler.listToDto(list)
         logService.info("execute() - end")
-        return result
+        return list
     }
 }

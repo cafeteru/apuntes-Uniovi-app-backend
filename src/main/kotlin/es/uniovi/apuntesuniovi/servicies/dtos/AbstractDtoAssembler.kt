@@ -31,7 +31,7 @@ abstract class AbstractDtoAssembler<Entity, Dto> {
      */
     fun listToDto(entityList: List<Entity>): List<Dto> {
         logService.info("listToDto(entityList: entityList) - start")
-        val dtoList: MutableList<Dto> = ArrayList()
+        val dtoList = ArrayList<Dto>()
         entityList.forEach(Consumer { entity -> dtoList.add(entityToDto(entity)) })
         logService.info("listToDto(entityList: entityList) - end")
         return dtoList
@@ -44,7 +44,7 @@ abstract class AbstractDtoAssembler<Entity, Dto> {
      */
     fun listToEntities(dtoList: List<Dto>): List<Entity> {
         logService.info("listToEntities(dtoList: dtoList) - start")
-        val entityList: MutableList<Entity> = ArrayList()
+        val entityList = ArrayList<Entity>()
         dtoList.forEach(Consumer { dto -> entityList.add(dtoToEntity(dto)) })
         logService.info("listToEntities(dtoList: dtoList) - end")
         return entityList

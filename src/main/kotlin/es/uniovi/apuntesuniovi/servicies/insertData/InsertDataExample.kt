@@ -24,6 +24,54 @@ class InsertDataExample @Autowired constructor(
     private val centerService: CenterService
 ) {
     private val logService = LogService(this.javaClass)
+    private var admin = UserDto(
+        id = null,
+        name = "adminName",
+        surname = "adminSurname",
+        active = true,
+        birthDate = LocalDate.of(1990, 12, 22),
+        email = "admin@admin.com",
+        identificationType = "dni",
+        img = null,
+        numberIdentification = "72479503V",
+        password = "admin",
+        phone = "623548956",
+        username = "admin",
+        role = RoleType.ADMIN.toString(),
+        address = null
+    )
+    private var teacher = UserDto(
+        id = null,
+        name = "teacherName",
+        surname = "teacherSurname",
+        active = true,
+        birthDate = LocalDate.of(1957, 1, 19),
+        email = "teacher@teacher.com",
+        identificationType = "dni",
+        img = null,
+        numberIdentification = "93432683J",
+        username = "teacher",
+        password = "teacher",
+        phone = "623568956",
+        role = RoleType.TEACHER.toString(),
+        address = null
+    )
+    private var student = UserDto(
+        id = null,
+        name = "studentName",
+        surname = "studentSurname",
+        active = true,
+        birthDate = LocalDate.of(1990, 9, 9),
+        email = "student@student.com",
+        identificationType = "dni",
+        img = null,
+        numberIdentification = "66524869Z",
+        username = "student",
+        password = "student",
+        phone = "623549956",
+        role = RoleType.STUDENT.toString(),
+        address = null
+    )
 
     /**
      * Create initial data test
@@ -31,80 +79,42 @@ class InsertDataExample @Autowired constructor(
     @PostConstruct
     fun initData() {
         logService.info("initData() - start")
+        createAddress()
+        createCenter("Academy")
+        createCenter("Center")
+        val subjectDto = createSubject("English")
+        createSubject("TFG")
+        createUsers()
+        subjectService.addTeacher(subjectDto.id!!, teacher.id!!, LocalDate.now())
+        logService.info("initData() - end")
+    }
+
+    private fun createUsers() {
+        admin = userService.create(admin)[0]
+        teacher = userService.create(teacher)[0]
+        student = userService.create(student)[0]
+    }
+
+    private fun createAddress(): Address {
         val address = Address()
         address.city = "city"
         address.country = "country"
         address.postalCode = "postalCode"
         address.street = "street"
+        return address
+    }
 
+    private fun createCenter(name: String): CenterDto {
         val academy = CenterDto(
             id = null,
-            name = "Academy",
+            name = name,
             address = null
         )
-        centerService.create(academy)
+        return centerService.create(academy)[0]
+    }
 
-        val center = CenterDto(
-            id = null,
-            name = "center",
-            address = null
-        )
-        centerService.create(center)
-
-        var subjectDto = SubjectDto(id = null, name = "English")
-        subjectDto = subjectService.create(subjectDto)[0]
-        val admin = UserDto(
-            id = null,
-            name = "adminName",
-            surname = "adminSurname",
-            active = true,
-            birthDate = LocalDate.of(1990, 12, 22),
-            email = "admin@admin.com",
-            identificationType = "dni",
-            img = null,
-            numberIdentification = "72479503V",
-            password = "admin",
-            phone = "623548956",
-            username = "admin",
-            role = RoleType.ADMIN.toString(),
-            address = address
-        )
-        userService.create(admin)
-        var teacher = UserDto(
-            id = null,
-            name = "teacherName",
-            surname = "teacherSurname",
-            active = true,
-            birthDate = LocalDate.of(1957, 1, 19),
-            email = "teacher@teacher.com",
-            identificationType = "dni",
-            img = null,
-            numberIdentification = "93432683J",
-            username = "teacher",
-            password = "teacher",
-            phone = "623568956",
-            role = RoleType.TEACHER.toString(),
-            address = address
-        )
-        teacher = userService.create(teacher)[0]
-        subjectService.addTeacher(subjectDto.id!!, teacher.id!!, LocalDate.now())
-        val student = UserDto(
-            id = null,
-            name = "studentName",
-            surname = "studentSurname",
-            active = true,
-            birthDate = LocalDate.of(1990, 9, 9),
-            email = "student@student.com",
-            identificationType = "dni",
-            img = null,
-            numberIdentification = "66524869Z",
-            username = "student",
-            password = "student",
-            phone = "623549956",
-            role = RoleType.STUDENT.toString(),
-            address = address
-        )
-        userService.create(student)
-        logService.info("initData() - end")
+    private fun createSubject(name: String): SubjectDto {
+        val subjectDto = SubjectDto(null, name)
+        return subjectService.create(subjectDto)[0]
     }
 }
