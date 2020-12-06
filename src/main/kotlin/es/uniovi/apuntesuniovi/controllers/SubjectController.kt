@@ -2,7 +2,6 @@ package es.uniovi.apuntesuniovi.controllers
 
 import es.uniovi.apuntesuniovi.controllers.commands.subjects.FindAllSubjects
 import es.uniovi.apuntesuniovi.controllers.commands.subjects.SaveSubject
-import es.uniovi.apuntesuniovi.infrastructure.constants.Urls
 import es.uniovi.apuntesuniovi.infrastructure.log.LogService
 import es.uniovi.apuntesuniovi.servicies.SubjectService
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.SubjectDto
@@ -15,7 +14,7 @@ import org.springframework.web.bind.annotation.*
  * Define subject endpoints
  */
 @RestController
-@RequestMapping(Urls.SUBJECT)
+@RequestMapping("/subjects")
 class SubjectController @Autowired constructor(
     private val subjectService: SubjectService
 ) {
@@ -24,7 +23,7 @@ class SubjectController @Autowired constructor(
     /**
      * Returns all subjects registered in the system
      */
-    @GetMapping(Urls.FIND_ALL)
+    @GetMapping("")
     fun findAll(): ResponseEntity<List<SubjectDto>> {
         logService.info("findAll() - start")
         val result = FindAllSubjects(subjectService).execute()
@@ -35,7 +34,7 @@ class SubjectController @Autowired constructor(
     /**
      * Add a new subject through a text string (JSON)
      */
-    @PostMapping(Urls.CREATE)
+    @PostMapping("/create")
     fun save(@RequestBody json: String): ResponseEntity<List<SubjectDto>> {
         logService.info("save(json: ${logService.formatJson(json)}) - start")
         val result = SaveSubject(subjectService, json).execute()

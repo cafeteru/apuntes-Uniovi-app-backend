@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.fail
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import kotlin.test.assertNull
 
 /**
  * Test the assignments to identificationType of a user
@@ -65,12 +66,7 @@ class IdentificationTypeTest {
      */
     @Test
     fun nullIdentificationType() {
-        try {
-            user.setIdentificationType(null)
-            fail("IdentificationType can´t be null")
-        } catch (e: IllegalArgumentException) {
-            assertEquals(IdentificationType.NIE, user.identificationType)
-            assertEquals(e.message, UserMessages.NULL_IDENTIFICATION_TYPE)
-        }
+        user.setIdentificationType(null)
+        assertNull(user.identificationType)
     }
 }

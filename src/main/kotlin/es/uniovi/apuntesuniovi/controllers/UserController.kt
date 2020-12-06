@@ -2,7 +2,6 @@ package es.uniovi.apuntesuniovi.controllers
 
 import es.uniovi.apuntesuniovi.controllers.commands.users.FindAllUsers
 import es.uniovi.apuntesuniovi.controllers.commands.users.SaveUser
-import es.uniovi.apuntesuniovi.infrastructure.constants.Urls
 import es.uniovi.apuntesuniovi.infrastructure.log.LogService
 import es.uniovi.apuntesuniovi.servicies.UserService
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.UserDto
@@ -15,7 +14,7 @@ import org.springframework.web.bind.annotation.*
  * Define user endpoints
  */
 @RestController
-@RequestMapping(Urls.USERS)
+@RequestMapping("/users")
 class UserController @Autowired constructor(
     private val userService: UserService
 ) {
@@ -24,7 +23,7 @@ class UserController @Autowired constructor(
     /**
      * Returns all registered users in the system
      */
-    @GetMapping(Urls.FIND_ALL)
+    @GetMapping("")
     fun findAll(): ResponseEntity<List<UserDto>> {
         logService.info("findAll() - start")
         val result = FindAllUsers(userService).execute()
@@ -35,7 +34,7 @@ class UserController @Autowired constructor(
     /**
      * Add a new user through a text string (JSON)
      */
-    @PostMapping(Urls.CREATE)
+    @PostMapping("/create")
     fun save(@RequestBody json: String): ResponseEntity<List<UserDto>> {
         logService.info("save(json: ${logService.formatJson(json)}) - start")
         val result = SaveUser(userService, json).execute()

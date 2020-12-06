@@ -100,10 +100,10 @@ open class User {
         }
 
     @Enumerated(EnumType.STRING)
-    var role: RoleType = RoleType.STUDENT
+    var role: RoleType? = null
 
     @Enumerated(EnumType.STRING)
-    var identificationType: IdentificationType = IdentificationType.DNI
+    var identificationType: IdentificationType? = null
 
     var numberIdentification: String? = null
         set(value) {
@@ -127,13 +127,16 @@ open class User {
      * @throws IllegalArgumentException Invalid text
      */
     fun setIdentificationType(identificationType: String?) {
-        if (identificationType == null) {
-            throw IllegalArgumentException(UserMessages.NULL_IDENTIFICATION_TYPE)
-        }
-        try {
-            this.identificationType = IdentificationType.valueOf(identificationType.toUpperCase())
-        } catch (e: IllegalArgumentException) {
-            throw IllegalArgumentException(UserMessages.INVALID_IDENTIFICATION_TYPE)
+        if (identificationType != null) {
+            try {
+                this.identificationType = IdentificationType.valueOf(
+                    identificationType.toUpperCase()
+                )
+            } catch (e: IllegalArgumentException) {
+                throw IllegalArgumentException(UserMessages.INVALID_IDENTIFICATION_TYPE)
+            }
+        } else {
+            this.identificationType = null
         }
     }
 
@@ -144,13 +147,14 @@ open class User {
      * @throws IllegalArgumentException Invalid text
      */
     fun setRole(role: String?) {
-        if (role == null) {
-            throw IllegalArgumentException(UserMessages.NULL_ROLE_TYPE)
-        }
-        try {
-            this.role = RoleType.valueOf(role.toUpperCase())
-        } catch (e: IllegalArgumentException) {
-            throw IllegalArgumentException(UserMessages.INVALID_ROLE_TYPE)
+        if (role != null) {
+            try {
+                this.role = RoleType.valueOf(role.toUpperCase())
+            } catch (e: IllegalArgumentException) {
+                throw IllegalArgumentException(UserMessages.INVALID_ROLE_TYPE)
+            }
+        } else {
+            this.role = null
         }
     }
 

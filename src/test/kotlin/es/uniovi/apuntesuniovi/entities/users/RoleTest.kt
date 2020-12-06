@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.fail
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import kotlin.test.assertNull
 
 /**
  * Test the assignments to role of a user
@@ -51,13 +52,8 @@ class RoleTest {
      */
     @Test
     fun nullRole() {
-        try {
-            user.setRole(null)
-            fail("RoleType can´t be null")
-        } catch (e: IllegalArgumentException) {
-            assertEquals(RoleType.STUDENT, user.role)
-            assertEquals(e.message, UserMessages.NULL_ROLE_TYPE)
-        }
+        user.setRole(null)
+        assertNull(user.role)
     }
 
     /**
