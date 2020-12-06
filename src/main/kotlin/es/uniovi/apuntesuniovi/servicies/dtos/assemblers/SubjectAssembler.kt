@@ -1,8 +1,7 @@
-package es.uniovi.apuntesuniovi.servicies.dtos.impl
+package es.uniovi.apuntesuniovi.servicies.dtos.assemblers
 
 import es.uniovi.apuntesuniovi.entities.Subject
 import es.uniovi.apuntesuniovi.infrastructure.messages.SubjectMessages
-import es.uniovi.apuntesuniovi.servicies.dtos.AbstractDtoAssembler
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.SubjectDto
 import org.springframework.stereotype.Service
 
@@ -10,7 +9,7 @@ import org.springframework.stereotype.Service
  * Define the entity and dto conversion methods of subjects
  */
 @Service
-class SubjectDtoAssembler : AbstractDtoAssembler<Subject, SubjectDto>() {
+class SubjectAssembler : AbstractDtoAssembler<Subject, SubjectDto>() {
     override fun entityToDto(entity: Subject?): SubjectDto {
         logService.info("entityToDto(entity: ${entity}) - start")
         entity?.let {

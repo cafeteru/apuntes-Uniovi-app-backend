@@ -1,7 +1,6 @@
-package es.uniovi.apuntesuniovi.servicies.dtos.impl
+package es.uniovi.apuntesuniovi.servicies.dtos.assemblers
 
 import es.uniovi.apuntesuniovi.entities.TeachSubjectRegistry
-import es.uniovi.apuntesuniovi.servicies.dtos.AbstractDtoAssembler
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.TeachSubjectRegistryDto
 
 /**

@@ -9,21 +9,22 @@ import javax.persistence.*
 @Entity
 class Career {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null
 
     lateinit var name: String
-    lateinit var code: String
-    lateinit var yearImplantation: String
-    lateinit var typeTeaching: String
-    lateinit var ISCED: String
-    var ECTS: Int = 0
-    lateinit var languages: String
+    var code: String? = null
+    var yearImplantation: String? = null
+    var typeTeaching: String? = null
+    var ISCED: String? = null
+    var ECTS: Int? = null
+    var languages: String? = null
 
     @ManyToOne
-    lateinit var center: Center
+    var center: Center? = null
 
     @ManyToOne
-    lateinit var configurationECTS: ConfigurationECTS
+    var configurationECTS: ConfigurationECTS? = null
 
     @OneToMany(mappedBy = "career", cascade = [(CascadeType.ALL)])
     val courses: Set<Course> = HashSet()

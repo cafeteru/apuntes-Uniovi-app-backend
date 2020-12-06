@@ -50,10 +50,15 @@ class JWTAuthenticationFilter(
             return result
         } catch (e: IOException) {
             logService.error(UserMessages.LOGIN_SYSTEM)
-            logService.error("attemptAuthentication(req: HttpServletRequest, res: HttpServletResponse) - error")
+            logService.error(
+                "attemptAuthentication(req: HttpServletRequest, res: HttpServletResponse) - " +
+                        UserMessages.LOGIN_SYSTEM
+            )
         } catch (e: InternalAuthenticationServiceException) {
-            logService.error(UserMessages.NOT_EXISTS)
-            logService.error("attemptAuthentication(req: HttpServletRequest, res: HttpServletResponse) - error")
+            logService.error(
+                "attemptAuthentication(req: HttpServletRequest, res: HttpServletResponse) - " +
+                        UserMessages.NOT_EXISTS
+            )
         }
         return null
     }

@@ -7,7 +7,7 @@ import es.uniovi.apuntesuniovi.servicies.commands.users.CreateUserService
 import es.uniovi.apuntesuniovi.servicies.commands.users.FindAllUsersService
 import es.uniovi.apuntesuniovi.servicies.commands.users.FindUserByUsernameService
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.UserDto
-import es.uniovi.apuntesuniovi.servicies.dtos.impl.UserDtoAssembler
+import es.uniovi.apuntesuniovi.servicies.dtos.assemblers.UserAssembler
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service
 class UserService @Autowired constructor(
     private val userRepository: UserRepository,
     private val addressRepository: AddressRepository,
-    private val userDtoAssembler: UserDtoAssembler
+    private val userDtoAssembler: UserAssembler
 ) {
     private val logService = LogService(this.javaClass)
 

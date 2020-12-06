@@ -1,7 +1,7 @@
 package es.uniovi.apuntesuniovi.servicies.commands
 
 import es.uniovi.apuntesuniovi.infrastructure.AbstractCommand
-import es.uniovi.apuntesuniovi.infrastructure.messages.SubjectMessages
+import es.uniovi.apuntesuniovi.infrastructure.messages.GenericMessages
 import es.uniovi.apuntesuniovi.validators.impl.ValidatorId
 import org.springframework.data.jpa.repository.JpaRepository
 
@@ -21,9 +21,9 @@ abstract class AbstractFindById<Entity>(
                 return listOf(optional.get())
             }
             logService.error("execute() - error")
-            throw IllegalArgumentException(SubjectMessages.NOT_EXISTS)
+            throw IllegalArgumentException(GenericMessages.NOT_EXISTS)
         }
         logService.error("execute() - error")
-        throw IllegalArgumentException(SubjectMessages.INVALID_ID)
+        throw IllegalArgumentException(GenericMessages.INVALID_ID)
     }
 }

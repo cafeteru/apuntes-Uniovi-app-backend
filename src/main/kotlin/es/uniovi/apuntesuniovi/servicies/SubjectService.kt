@@ -13,8 +13,8 @@ import es.uniovi.apuntesuniovi.servicies.commands.teachSubjectRegistry.CreateTea
 import es.uniovi.apuntesuniovi.servicies.commands.users.FindUserByIdService
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.SubjectDto
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.TeachSubjectDto
-import es.uniovi.apuntesuniovi.servicies.dtos.impl.SubjectDtoAssembler
-import es.uniovi.apuntesuniovi.servicies.dtos.impl.TeachSubjectDtoAssembler
+import es.uniovi.apuntesuniovi.servicies.dtos.assemblers.SubjectAssembler
+import es.uniovi.apuntesuniovi.servicies.dtos.assemblers.TeachSubjectAssembler
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import java.time.LocalDate
@@ -28,8 +28,8 @@ class SubjectService @Autowired constructor(
     private val userRepository: UserRepository,
     private val teachSubjectRepository: TeachSubjectRepository,
     private val teachSubjectRegistryRepository: TeachSubjectRegistryRepository,
-    private val subjectDtoAssembler: SubjectDtoAssembler,
-    private val teachSubjectDtoAssembler: TeachSubjectDtoAssembler
+    private val subjectDtoAssembler: SubjectAssembler,
+    private val teachSubjectDtoAssembler: TeachSubjectAssembler
 ) {
     private val logService = LogService(this.javaClass)
 

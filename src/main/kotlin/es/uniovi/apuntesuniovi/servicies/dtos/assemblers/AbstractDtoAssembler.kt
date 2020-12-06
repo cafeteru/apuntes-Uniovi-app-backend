@@ -1,4 +1,4 @@
-package es.uniovi.apuntesuniovi.servicies.dtos
+package es.uniovi.apuntesuniovi.servicies.dtos.assemblers
 
 import es.uniovi.apuntesuniovi.infrastructure.log.LogService
 import java.util.*

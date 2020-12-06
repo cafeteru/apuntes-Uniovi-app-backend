@@ -5,7 +5,7 @@ import es.uniovi.apuntesuniovi.repositories.CenterRepository
 import es.uniovi.apuntesuniovi.servicies.commands.centers.CreateCenterService
 import es.uniovi.apuntesuniovi.servicies.commands.centers.FindAllCentersService
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.CenterDto
-import es.uniovi.apuntesuniovi.servicies.dtos.impl.CenterDtoAssembler
+import es.uniovi.apuntesuniovi.servicies.dtos.assemblers.CenterAssembler
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service
 @Service
 class CenterService @Autowired constructor(
     private val centerRepository: CenterRepository,
-    private val centerDtoAssembler: CenterDtoAssembler
+    private val centerDtoAssembler: CenterAssembler
 ) {
     private val logService = LogService(this.javaClass)
 

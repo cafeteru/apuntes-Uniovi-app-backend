@@ -3,9 +3,11 @@ package es.uniovi.apuntesuniovi.servicies.insertData
 import es.uniovi.apuntesuniovi.entities.Address
 import es.uniovi.apuntesuniovi.entities.types.RoleType
 import es.uniovi.apuntesuniovi.infrastructure.log.LogService
+import es.uniovi.apuntesuniovi.servicies.CareerService
 import es.uniovi.apuntesuniovi.servicies.CenterService
 import es.uniovi.apuntesuniovi.servicies.SubjectService
 import es.uniovi.apuntesuniovi.servicies.UserService
+import es.uniovi.apuntesuniovi.servicies.dtos.entities.CareerDto
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.CenterDto
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.SubjectDto
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.UserDto
@@ -21,7 +23,8 @@ import javax.annotation.PostConstruct
 class InsertDataExample @Autowired constructor(
     private val userService: UserService,
     private val subjectService: SubjectService,
-    private val centerService: CenterService
+    private val centerService: CenterService,
+    private val careerService: CareerService
 ) {
     private val logService = LogService(this.javaClass)
     private var admin = UserDto(
@@ -80,19 +83,14 @@ class InsertDataExample @Autowired constructor(
     fun initData() {
         logService.info("initData() - start")
         createAddress()
-        createCenter("Academy")
+        val academy = createCenter("Academy")
+        createCareer(academy)
         createCenter("Center")
         val subjectDto = createSubject("English")
         createSubject("TFG")
         createUsers()
         subjectService.addTeacher(subjectDto.id!!, teacher.id!!, LocalDate.now())
         logService.info("initData() - end")
-    }
-
-    private fun createUsers() {
-        admin = userService.create(admin)[0]
-        teacher = userService.create(teacher)[0]
-        student = userService.create(student)[0]
     }
 
     private fun createAddress(): Address {
@@ -113,8 +111,23 @@ class InsertDataExample @Autowired constructor(
         return centerService.create(academy)[0]
     }
 
+    private fun createCareer(centerDto: CenterDto): CareerDto {
+        val careerDto = CareerDto(
+            id = 1,
+            name = "career",
+            centerId = centerDto.id
+        )
+        return careerService.create(careerDto)[0]
+    }
+
     private fun createSubject(name: String): SubjectDto {
         val subjectDto = SubjectDto(null, name)
         return subjectService.create(subjectDto)[0]
+    }
+
+    private fun createUsers() {
+        admin = userService.create(admin)[0]
+        teacher = userService.create(teacher)[0]
+        student = userService.create(student)[0]
     }
 }

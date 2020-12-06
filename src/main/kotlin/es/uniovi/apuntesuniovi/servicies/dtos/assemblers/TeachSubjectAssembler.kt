@@ -1,9 +1,8 @@
-package es.uniovi.apuntesuniovi.servicies.dtos.impl
+package es.uniovi.apuntesuniovi.servicies.dtos.assemblers
 
 import es.uniovi.apuntesuniovi.entities.TeachSubject
 import es.uniovi.apuntesuniovi.repositories.SubjectRepository
 import es.uniovi.apuntesuniovi.repositories.UserRepository
-import es.uniovi.apuntesuniovi.servicies.dtos.AbstractDtoAssembler
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.TeachSubjectDto
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -12,7 +11,7 @@ import org.springframework.stereotype.Service
  * Define the entity and dto conversion methods of teachSubjects
  */
 @Service
-class TeachSubjectDtoAssembler @Autowired constructor(
+class TeachSubjectAssembler @Autowired constructor(
     private val subjectRepository: SubjectRepository,
     private val userRepository: UserRepository
 ) : AbstractDtoAssembler<TeachSubject, TeachSubjectDto>() {

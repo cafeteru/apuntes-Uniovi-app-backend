@@ -10,7 +10,6 @@ object UserMessages {
     const val LOGIN_SYSTEM = "error.login.system"
     const val INVALID_DATA_USER = "error.invalid.data.user"
     const val INVALID_EMAIL = "error.invalid.email"
-    const val INVALID_ID = "error.invalid.id"
     const val INVALID_IDENTIFICATION_NUMBER = "error.invalid.identification.number"
     const val INVALID_IDENTIFICATION_TYPE = "error.invalid.identification.type"
     const val INVALID_PHONE = "error.invalid.phone"

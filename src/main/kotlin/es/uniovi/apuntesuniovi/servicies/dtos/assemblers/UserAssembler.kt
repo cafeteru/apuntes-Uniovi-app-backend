@@ -1,8 +1,7 @@
-package es.uniovi.apuntesuniovi.servicies.dtos.impl
+package es.uniovi.apuntesuniovi.servicies.dtos.assemblers
 
 import es.uniovi.apuntesuniovi.entities.User
 import es.uniovi.apuntesuniovi.infrastructure.messages.UserMessages
-import es.uniovi.apuntesuniovi.servicies.dtos.AbstractDtoAssembler
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.UserDto
 import org.springframework.stereotype.Service
 
@@ -10,7 +9,7 @@ import org.springframework.stereotype.Service
  * Define the entity and dto conversion methods of users
  */
 @Service
-class UserDtoAssembler : AbstractDtoAssembler<User, UserDto>() {
+class UserAssembler : AbstractDtoAssembler<User, UserDto>() {
     override fun entityToDto(entity: User?): UserDto {
         logService.info("entityToDto(user: User) - start")
         entity?.let {
@@ -33,6 +32,7 @@ class UserDtoAssembler : AbstractDtoAssembler<User, UserDto>() {
             logService.info("entityToDto(user: User) - end")
             return result
         }
+        logService.error("entityToDto(user: User) - error")
         throw IllegalArgumentException(UserMessages.NULL_USER)
     }
 
@@ -57,6 +57,7 @@ class UserDtoAssembler : AbstractDtoAssembler<User, UserDto>() {
             logService.info("dtoToEntity(userDto: UserDto) - end")
             return result
         }
+        logService.info("dtoToEntity(userDto: UserDto) - error")
         throw IllegalArgumentException(UserMessages.NULL_USER)
     }
 }
