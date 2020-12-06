@@ -2,7 +2,7 @@ package es.uniovi.apuntesuniovi.servicies.commands.users
 
 import es.uniovi.apuntesuniovi.entities.User
 import es.uniovi.apuntesuniovi.infrastructure.AbstractCommand
-import es.uniovi.apuntesuniovi.infrastructure.exceptions.messages.UserMessages
+import es.uniovi.apuntesuniovi.infrastructure.messages.UserMessages
 import es.uniovi.apuntesuniovi.repositories.UserRepository
 import java.util.*
 

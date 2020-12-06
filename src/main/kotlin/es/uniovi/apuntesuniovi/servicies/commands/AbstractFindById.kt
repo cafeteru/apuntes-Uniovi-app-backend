@@ -1,7 +1,7 @@
 package es.uniovi.apuntesuniovi.servicies.commands
 
 import es.uniovi.apuntesuniovi.infrastructure.AbstractCommand
-import es.uniovi.apuntesuniovi.infrastructure.exceptions.messages.SubjectMessages
+import es.uniovi.apuntesuniovi.infrastructure.messages.SubjectMessages
 import es.uniovi.apuntesuniovi.validators.impl.ValidatorId
 import org.springframework.data.jpa.repository.JpaRepository
 

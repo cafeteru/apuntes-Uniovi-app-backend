@@ -2,7 +2,7 @@ package es.uniovi.apuntesuniovi.entities.centers
 
 import es.uniovi.apuntesuniovi.entities.Center
 import es.uniovi.apuntesuniovi.infrastructure.constants.database.CenterLimits
-import es.uniovi.apuntesuniovi.infrastructure.exceptions.messages.CenterMessages
+import es.uniovi.apuntesuniovi.infrastructure.messages.CenterMessages
 import es.uniovi.apuntesuniovi.mocks.entities.MockCenterCreator
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.fail

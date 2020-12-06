@@ -3,7 +3,7 @@ package es.uniovi.apuntesuniovi.servicies.commands.users
 import es.uniovi.apuntesuniovi.entities.Address
 import es.uniovi.apuntesuniovi.entities.User
 import es.uniovi.apuntesuniovi.infrastructure.AbstractCommand
-import es.uniovi.apuntesuniovi.infrastructure.exceptions.messages.UserMessages
+import es.uniovi.apuntesuniovi.infrastructure.messages.UserMessages
 import es.uniovi.apuntesuniovi.repositories.AddressRepository
 import es.uniovi.apuntesuniovi.repositories.UserRepository
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder

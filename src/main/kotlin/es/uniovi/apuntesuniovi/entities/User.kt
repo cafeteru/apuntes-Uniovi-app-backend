@@ -3,7 +3,7 @@ package es.uniovi.apuntesuniovi.entities
 import es.uniovi.apuntesuniovi.entities.types.IdentificationType
 import es.uniovi.apuntesuniovi.entities.types.RoleType
 import es.uniovi.apuntesuniovi.infrastructure.constants.database.UserLimits
-import es.uniovi.apuntesuniovi.infrastructure.exceptions.messages.UserMessages
+import es.uniovi.apuntesuniovi.infrastructure.messages.UserMessages
 import es.uniovi.apuntesuniovi.validators.impl.*
 import java.time.LocalDate
 import javax.persistence.*

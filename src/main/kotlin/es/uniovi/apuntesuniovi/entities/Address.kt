@@ -1,7 +1,7 @@
 package es.uniovi.apuntesuniovi.entities
 
 import es.uniovi.apuntesuniovi.infrastructure.constants.database.AddressLimits
-import es.uniovi.apuntesuniovi.infrastructure.exceptions.messages.AddressMessages
+import es.uniovi.apuntesuniovi.infrastructure.messages.AddressMessages
 import es.uniovi.apuntesuniovi.validators.impl.ValidatorMaxLength
 import javax.persistence.*
 

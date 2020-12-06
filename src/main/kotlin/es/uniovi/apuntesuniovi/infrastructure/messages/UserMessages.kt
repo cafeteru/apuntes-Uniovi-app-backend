@@ -1,4 +1,4 @@
-package es.uniovi.apuntesuniovi.infrastructure.exceptions.messages
+package es.uniovi.apuntesuniovi.infrastructure.messages
 
 /**
  * Defines the messages that the users exceptions return

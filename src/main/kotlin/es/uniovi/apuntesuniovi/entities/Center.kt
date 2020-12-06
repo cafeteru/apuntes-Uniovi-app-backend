@@ -1,7 +1,7 @@
 package es.uniovi.apuntesuniovi.entities
 
 import es.uniovi.apuntesuniovi.infrastructure.constants.database.CenterLimits
-import es.uniovi.apuntesuniovi.infrastructure.exceptions.messages.CenterMessages
+import es.uniovi.apuntesuniovi.infrastructure.messages.CenterMessages
 import es.uniovi.apuntesuniovi.validators.impl.ValidatorMaxLength
 import java.util.*
 import javax.persistence.*

@@ -7,9 +7,8 @@ import es.uniovi.apuntesuniovi.infrastructure.constants.SecurityConstants.AUTHOR
 import es.uniovi.apuntesuniovi.infrastructure.constants.SecurityConstants.EXPIRATION_TIME
 import es.uniovi.apuntesuniovi.infrastructure.constants.SecurityConstants.SECRET
 import es.uniovi.apuntesuniovi.infrastructure.constants.SecurityConstants.TOKEN_BEARER_PREFIX
-import es.uniovi.apuntesuniovi.infrastructure.exceptions.ExceptionWithOutStackTrace
-import es.uniovi.apuntesuniovi.infrastructure.exceptions.messages.UserMessages
 import es.uniovi.apuntesuniovi.infrastructure.log.LogService
+import es.uniovi.apuntesuniovi.infrastructure.messages.UserMessages
 import es.uniovi.apuntesuniovi.servicies.UserService
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.InternalAuthenticationServiceException
@@ -38,24 +37,25 @@ class JWTAuthenticationFilter(
         this.userService = userService
     }
 
-    override fun attemptAuthentication(req: HttpServletRequest, res: HttpServletResponse): Authentication {
+    override fun attemptAuthentication(req: HttpServletRequest, res: HttpServletResponse): Authentication? {
         logService.info("attemptAuthentication(req: HttpServletRequest, res: HttpServletResponse) - start")
         try {
             val user = ObjectMapper().readValue(req.inputStream, es.uniovi.apuntesuniovi.entities.User::class.java)
             val result = authenticationManager.authenticate(
                 UsernamePasswordAuthenticationToken(
-                    user.username, user.password, ArrayList()
+                    user.username, user.password, listOf()
                 )
             )
             logService.info("attemptAuthentication(req: $req, response: $res) - end")
             return result
         } catch (e: IOException) {
+            logService.error(UserMessages.LOGIN_SYSTEM)
             logService.error("attemptAuthentication(req: HttpServletRequest, res: HttpServletResponse) - error")
-            throw IllegalArgumentException(UserMessages.LOGIN_SYSTEM)
         } catch (e: InternalAuthenticationServiceException) {
-            logService.error("\"attemptAuthentication(req: HttpServletRequest, res: HttpServletResponse) - error")
-            throw ExceptionWithOutStackTrace(UserMessages.NOT_EXISTS)
+            logService.error(UserMessages.NOT_EXISTS)
+            logService.error("attemptAuthentication(req: HttpServletRequest, res: HttpServletResponse) - error")
         }
+        return null
     }
 
     override fun successfulAuthentication(

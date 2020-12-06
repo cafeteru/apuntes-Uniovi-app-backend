@@ -5,7 +5,7 @@ import es.uniovi.apuntesuniovi.entities.TeachSubject
 import es.uniovi.apuntesuniovi.entities.User
 import es.uniovi.apuntesuniovi.entities.types.RoleType
 import es.uniovi.apuntesuniovi.infrastructure.AbstractCommand
-import es.uniovi.apuntesuniovi.infrastructure.exceptions.messages.UserMessages
+import es.uniovi.apuntesuniovi.infrastructure.messages.UserMessages
 import es.uniovi.apuntesuniovi.repositories.TeachSubjectRepository
 
 /**
@@ -18,18 +18,14 @@ class AddTeacherService(
 ) : AbstractCommand<List<TeachSubject>>() {
     override fun execute(): List<TeachSubject> {
         logService.info("execute() - start")
+        if (teacher.role != RoleType.TEACHER) {
+            throw IllegalArgumentException(UserMessages.INVALID_DATA_USER)
+        }
         var teachSubject = TeachSubject()
         teachSubject.subject = subject
-        teachSubject.teacher = getTeacher()
+        teachSubject.teacher = teacher
         teachSubject = teachSubjectRepository.save(teachSubject)
         logService.info("execute() - end")
         return listOf(teachSubject)
-    }
-
-    private fun getTeacher(): User {
-        if (teacher.role != RoleType.TEACHER) {
-            throw IllegalArgumentException(UserMessages.NOT_EXISTS)
-        }
-        return teacher
     }
 }

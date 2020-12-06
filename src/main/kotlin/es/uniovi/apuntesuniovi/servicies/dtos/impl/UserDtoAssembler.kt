@@ -1,7 +1,7 @@
 package es.uniovi.apuntesuniovi.servicies.dtos.impl
 
 import es.uniovi.apuntesuniovi.entities.User
-import es.uniovi.apuntesuniovi.infrastructure.exceptions.messages.UserMessages
+import es.uniovi.apuntesuniovi.infrastructure.messages.UserMessages
 import es.uniovi.apuntesuniovi.servicies.dtos.AbstractDtoAssembler
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.UserDto
 import org.springframework.stereotype.Service

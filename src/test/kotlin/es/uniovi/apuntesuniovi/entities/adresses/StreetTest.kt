@@ -2,7 +2,7 @@ package es.uniovi.apuntesuniovi.entities.adresses
 
 import es.uniovi.apuntesuniovi.entities.Address
 import es.uniovi.apuntesuniovi.infrastructure.constants.database.AddressLimits
-import es.uniovi.apuntesuniovi.infrastructure.exceptions.messages.AddressMessages
+import es.uniovi.apuntesuniovi.infrastructure.messages.AddressMessages
 import es.uniovi.apuntesuniovi.mocks.entities.MockAddressCreator
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.fail

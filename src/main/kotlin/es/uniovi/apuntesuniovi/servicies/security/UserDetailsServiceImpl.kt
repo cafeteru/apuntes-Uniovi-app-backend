@@ -23,7 +23,7 @@ class UserDetailsServiceImpl @Inject constructor(
         if (optional.isPresent) {
             val employee = optional.get()
             logService.info("loadUserByUsername(username: $username) - end")
-            return User(employee.username, employee.password, emptyList())
+            return User(employee.username, employee.password, listOf())
         } else {
             logService.error("loadUserByUsername(username: $username) - error")
             throw IllegalArgumentException(username)

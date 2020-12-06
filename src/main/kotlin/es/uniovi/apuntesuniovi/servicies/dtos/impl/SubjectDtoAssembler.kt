@@ -1,7 +1,7 @@
 package es.uniovi.apuntesuniovi.servicies.dtos.impl
 
 import es.uniovi.apuntesuniovi.entities.Subject
-import es.uniovi.apuntesuniovi.infrastructure.exceptions.messages.SubjectMessages
+import es.uniovi.apuntesuniovi.infrastructure.messages.SubjectMessages
 import es.uniovi.apuntesuniovi.servicies.dtos.AbstractDtoAssembler
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.SubjectDto
 import org.springframework.stereotype.Service
