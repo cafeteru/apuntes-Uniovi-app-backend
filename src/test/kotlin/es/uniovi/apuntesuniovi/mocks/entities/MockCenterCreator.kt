@@ -1,6 +1,6 @@
 package es.uniovi.apuntesuniovi.mocks.entities
 
-import es.uniovi.apuntesuniovi.entities.Center
+import es.uniovi.apuntesuniovi.models.Center
 import es.uniovi.apuntesuniovi.mocks.MockCreator
 
 /**

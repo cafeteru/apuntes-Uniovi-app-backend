@@ -1,6 +1,6 @@
 package es.uniovi.apuntesuniovi.repositories
 
-import es.uniovi.apuntesuniovi.entities.Career
+import es.uniovi.apuntesuniovi.models.Career
 import org.springframework.data.jpa.repository.JpaRepository
 
 /**

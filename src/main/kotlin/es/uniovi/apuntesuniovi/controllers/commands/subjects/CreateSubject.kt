@@ -2,8 +2,8 @@ package es.uniovi.apuntesuniovi.controllers.commands.subjects
 
 import com.google.gson.Gson
 import es.uniovi.apuntesuniovi.infrastructure.AbstractCommand
-import es.uniovi.apuntesuniovi.servicies.SubjectService
-import es.uniovi.apuntesuniovi.servicies.dtos.entities.SubjectDto
+import es.uniovi.apuntesuniovi.services.SubjectService
+import es.uniovi.apuntesuniovi.services.dtos.entities.SubjectDto
 
 /**
  * Save a subject in controller layer

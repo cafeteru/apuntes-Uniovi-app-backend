@@ -2,8 +2,8 @@ package es.uniovi.apuntesuniovi.controllers.commands.users
 
 import com.google.gson.Gson
 import es.uniovi.apuntesuniovi.infrastructure.AbstractCommand
-import es.uniovi.apuntesuniovi.servicies.UserService
-import es.uniovi.apuntesuniovi.servicies.dtos.entities.UserDto
+import es.uniovi.apuntesuniovi.services.UserService
+import es.uniovi.apuntesuniovi.services.dtos.entities.UserDto
 
 /**
  * Save a user in controller layer

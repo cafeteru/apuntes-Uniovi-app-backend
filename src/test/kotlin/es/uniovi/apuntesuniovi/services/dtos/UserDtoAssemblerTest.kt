@@ -3,7 +3,7 @@ package es.uniovi.apuntesuniovi.services.dtos
 import es.uniovi.apuntesuniovi.infrastructure.messages.UserMessages
 import es.uniovi.apuntesuniovi.mocks.dtos.MockUserDtoCreator
 import es.uniovi.apuntesuniovi.mocks.entities.MockUserCreator
-import es.uniovi.apuntesuniovi.servicies.dtos.assemblers.UserAssembler
+import es.uniovi.apuntesuniovi.services.dtos.assemblers.UserAssembler
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.fail

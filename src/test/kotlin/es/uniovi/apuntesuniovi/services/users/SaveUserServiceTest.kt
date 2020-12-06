@@ -1,11 +1,11 @@
 package es.uniovi.apuntesuniovi.services.users
 
-import es.uniovi.apuntesuniovi.entities.User
+import es.uniovi.apuntesuniovi.models.User
 import es.uniovi.apuntesuniovi.infrastructure.messages.UserMessages
 import es.uniovi.apuntesuniovi.mocks.entities.MockUserCreator
 import es.uniovi.apuntesuniovi.repositories.AddressRepository
 import es.uniovi.apuntesuniovi.repositories.UserRepository
-import es.uniovi.apuntesuniovi.servicies.commands.users.CreateUserService
+import es.uniovi.apuntesuniovi.services.commands.users.CreateUserService
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test

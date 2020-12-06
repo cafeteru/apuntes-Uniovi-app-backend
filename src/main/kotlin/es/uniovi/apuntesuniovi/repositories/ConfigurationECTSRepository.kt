@@ -1,6 +1,6 @@
 package es.uniovi.apuntesuniovi.repositories
 
-import es.uniovi.apuntesuniovi.entities.ConfigurationECTS
+import es.uniovi.apuntesuniovi.models.ConfigurationECTS
 import org.springframework.data.jpa.repository.JpaRepository
 
 /**

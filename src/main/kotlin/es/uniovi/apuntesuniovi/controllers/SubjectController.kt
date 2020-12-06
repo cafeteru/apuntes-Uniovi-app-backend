@@ -3,8 +3,8 @@ package es.uniovi.apuntesuniovi.controllers
 import es.uniovi.apuntesuniovi.controllers.commands.subjects.FindAllSubjects
 import es.uniovi.apuntesuniovi.controllers.commands.subjects.CreateSubject
 import es.uniovi.apuntesuniovi.infrastructure.log.LogService
-import es.uniovi.apuntesuniovi.servicies.SubjectService
-import es.uniovi.apuntesuniovi.servicies.dtos.entities.SubjectDto
+import es.uniovi.apuntesuniovi.services.SubjectService
+import es.uniovi.apuntesuniovi.services.dtos.entities.SubjectDto
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity

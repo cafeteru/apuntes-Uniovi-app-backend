@@ -2,8 +2,8 @@ package es.uniovi.apuntesuniovi.controllers.commands.careers
 
 import com.google.gson.Gson
 import es.uniovi.apuntesuniovi.infrastructure.AbstractCommand
-import es.uniovi.apuntesuniovi.servicies.CareerService
-import es.uniovi.apuntesuniovi.servicies.dtos.entities.CareerDto
+import es.uniovi.apuntesuniovi.services.CareerService
+import es.uniovi.apuntesuniovi.services.dtos.entities.CareerDto
 
 /**
  * Create a center in controller layer

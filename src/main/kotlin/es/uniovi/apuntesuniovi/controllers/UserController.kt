@@ -3,8 +3,8 @@ package es.uniovi.apuntesuniovi.controllers
 import es.uniovi.apuntesuniovi.controllers.commands.users.FindAllUsers
 import es.uniovi.apuntesuniovi.controllers.commands.users.CreateUser
 import es.uniovi.apuntesuniovi.infrastructure.log.LogService
-import es.uniovi.apuntesuniovi.servicies.UserService
-import es.uniovi.apuntesuniovi.servicies.dtos.entities.UserDto
+import es.uniovi.apuntesuniovi.services.UserService
+import es.uniovi.apuntesuniovi.services.dtos.entities.UserDto
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity

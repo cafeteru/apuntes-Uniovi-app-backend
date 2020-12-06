@@ -3,8 +3,8 @@ package es.uniovi.apuntesuniovi.controllers
 import es.uniovi.apuntesuniovi.controllers.commands.centers.FindAllCenters
 import es.uniovi.apuntesuniovi.controllers.commands.centers.CreateCenter
 import es.uniovi.apuntesuniovi.infrastructure.log.LogService
-import es.uniovi.apuntesuniovi.servicies.CenterService
-import es.uniovi.apuntesuniovi.servicies.dtos.entities.CenterDto
+import es.uniovi.apuntesuniovi.services.CenterService
+import es.uniovi.apuntesuniovi.services.dtos.entities.CenterDto
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity

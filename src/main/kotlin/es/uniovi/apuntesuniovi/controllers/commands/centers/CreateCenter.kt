@@ -2,8 +2,8 @@ package es.uniovi.apuntesuniovi.controllers.commands.centers
 
 import com.google.gson.Gson
 import es.uniovi.apuntesuniovi.infrastructure.AbstractCommand
-import es.uniovi.apuntesuniovi.servicies.CenterService
-import es.uniovi.apuntesuniovi.servicies.dtos.entities.CenterDto
+import es.uniovi.apuntesuniovi.services.CenterService
+import es.uniovi.apuntesuniovi.services.dtos.entities.CenterDto
 
 /**
  * Create a center in controller layer

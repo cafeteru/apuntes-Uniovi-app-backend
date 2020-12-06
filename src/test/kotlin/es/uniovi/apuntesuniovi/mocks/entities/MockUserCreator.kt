@@ -1,8 +1,8 @@
 package es.uniovi.apuntesuniovi.mocks.entities
 
-import es.uniovi.apuntesuniovi.entities.User
-import es.uniovi.apuntesuniovi.entities.types.IdentificationType
-import es.uniovi.apuntesuniovi.entities.types.RoleType
+import es.uniovi.apuntesuniovi.models.User
+import es.uniovi.apuntesuniovi.models.types.IdentificationType
+import es.uniovi.apuntesuniovi.models.types.RoleType
 import es.uniovi.apuntesuniovi.mocks.MockCreator
 import java.time.LocalDate
 

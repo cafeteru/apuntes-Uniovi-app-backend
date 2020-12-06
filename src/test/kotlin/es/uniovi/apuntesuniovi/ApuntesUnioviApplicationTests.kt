@@ -1,6 +1,6 @@
 package es.uniovi.apuntesuniovi
 
-import es.uniovi.apuntesuniovi.entities.User
+import es.uniovi.apuntesuniovi.models.User
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
