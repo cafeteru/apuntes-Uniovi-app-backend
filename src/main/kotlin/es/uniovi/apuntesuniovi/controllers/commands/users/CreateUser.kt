@@ -1,10 +1,9 @@
 package es.uniovi.apuntesuniovi.controllers.commands.users
 
 import com.google.gson.Gson
-import es.uniovi.apuntesuniovi.infrastructure.Command
-import es.uniovi.apuntesuniovi.infrastructure.log.LogService
-import es.uniovi.apuntesuniovi.servicies.dtos.entities.UserDto
+import es.uniovi.apuntesuniovi.infrastructure.AbstractCommand
 import es.uniovi.apuntesuniovi.servicies.UserService
+import es.uniovi.apuntesuniovi.servicies.dtos.entities.UserDto
 
 /**
  * Save a user in controller layer
@@ -12,9 +11,7 @@ import es.uniovi.apuntesuniovi.servicies.UserService
 class CreateUser(
     private val userService: UserService,
     private val json: String
-) : Command<List<UserDto>> {
-    private val logService = LogService(this.javaClass)
-
+) : AbstractCommand<List<UserDto>>() {
     override fun execute(): List<UserDto> {
         logService.info("execute() - start")
         val userDto = Gson().fromJson(json, UserDto::class.java)
@@ -22,5 +19,4 @@ class CreateUser(
         logService.info("execute() - end")
         return result
     }
-
 }

@@ -1,9 +1,8 @@
 package es.uniovi.apuntesuniovi.servicies.commands.users
 
 import es.uniovi.apuntesuniovi.entities.User
-import es.uniovi.apuntesuniovi.infrastructure.Command
+import es.uniovi.apuntesuniovi.infrastructure.AbstractCommand
 import es.uniovi.apuntesuniovi.infrastructure.exceptions.messages.UserMessages
-import es.uniovi.apuntesuniovi.infrastructure.log.LogService
 import es.uniovi.apuntesuniovi.repositories.UserRepository
 import java.util.*
 
@@ -13,9 +12,7 @@ import java.util.*
 class FindUserByUsernameService(
     private val userRepository: UserRepository,
     private val username: String?
-) : Command<User> {
-    private val logService = LogService(this.javaClass)
-
+) : AbstractCommand<User>() {
     override fun execute(): User {
         logService.info("execute() - start")
         if (username.isNullOrBlank()) {

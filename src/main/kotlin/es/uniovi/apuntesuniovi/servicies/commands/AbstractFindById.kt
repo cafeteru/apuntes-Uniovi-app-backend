@@ -1,8 +1,7 @@
 package es.uniovi.apuntesuniovi.servicies.commands
 
-import es.uniovi.apuntesuniovi.infrastructure.Command
+import es.uniovi.apuntesuniovi.infrastructure.AbstractCommand
 import es.uniovi.apuntesuniovi.infrastructure.exceptions.messages.SubjectMessages
-import es.uniovi.apuntesuniovi.infrastructure.log.LogService
 import es.uniovi.apuntesuniovi.validators.impl.ValidatorId
 import org.springframework.data.jpa.repository.JpaRepository
 
@@ -12,9 +11,7 @@ import org.springframework.data.jpa.repository.JpaRepository
 abstract class AbstractFindById<Entity>(
     private val repository: JpaRepository<Entity, Long>,
     private val id: Long
-) : Command<List<Entity>> {
-    private val logService = LogService(this.javaClass)
-
+) : AbstractCommand<List<Entity>>() {
     override fun execute(): List<Entity> {
         logService.info("execute() - start")
         if (ValidatorId(id).isValid()) {

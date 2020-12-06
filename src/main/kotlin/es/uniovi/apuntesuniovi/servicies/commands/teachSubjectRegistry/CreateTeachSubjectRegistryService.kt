@@ -2,8 +2,7 @@ package es.uniovi.apuntesuniovi.servicies.commands.teachSubjectRegistry
 
 import es.uniovi.apuntesuniovi.entities.TeachSubject
 import es.uniovi.apuntesuniovi.entities.TeachSubjectRegistry
-import es.uniovi.apuntesuniovi.infrastructure.Command
-import es.uniovi.apuntesuniovi.infrastructure.log.LogService
+import es.uniovi.apuntesuniovi.infrastructure.AbstractCommand
 import es.uniovi.apuntesuniovi.repositories.TeachSubjectRegistryRepository
 import java.time.LocalDate
 
@@ -14,9 +13,7 @@ class CreateTeachSubjectRegistryService(
     private val teachSubjectRegistryRepository: TeachSubjectRegistryRepository,
     private val teachSubject: TeachSubject,
     private val date: LocalDate
-) : Command<List<TeachSubjectRegistry>> {
-    private val logService = LogService(this.javaClass)
-
+) : AbstractCommand<List<TeachSubjectRegistry>>() {
     override fun execute(): List<TeachSubjectRegistry> {
         logService.info("execute() - start")
         var teachSubjectRegistry = TeachSubjectRegistry()

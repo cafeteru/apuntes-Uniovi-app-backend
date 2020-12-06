@@ -1,8 +1,7 @@
 package es.uniovi.apuntesuniovi.servicies.commands.subjects
 
 import es.uniovi.apuntesuniovi.entities.Subject
-import es.uniovi.apuntesuniovi.infrastructure.Command
-import es.uniovi.apuntesuniovi.infrastructure.log.LogService
+import es.uniovi.apuntesuniovi.infrastructure.AbstractCommand
 import es.uniovi.apuntesuniovi.repositories.SubjectRepository
 
 /**
@@ -11,9 +10,7 @@ import es.uniovi.apuntesuniovi.repositories.SubjectRepository
 class CreateSubjectService(
     private val subjectRepository: SubjectRepository,
     private val subject: Subject
-) : Command<List<Subject>> {
-    private val logService = LogService(this.javaClass)
-
+) : AbstractCommand<List<Subject>>() {
     override fun execute(): List<Subject> {
         logService.info("execute() - start")
         val result = subjectRepository.save(subject)

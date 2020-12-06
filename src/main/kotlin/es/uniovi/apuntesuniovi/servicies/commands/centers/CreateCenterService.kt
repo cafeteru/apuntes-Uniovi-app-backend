@@ -1,8 +1,7 @@
 package es.uniovi.apuntesuniovi.servicies.commands.centers
 
 import es.uniovi.apuntesuniovi.entities.Center
-import es.uniovi.apuntesuniovi.infrastructure.Command
-import es.uniovi.apuntesuniovi.infrastructure.log.LogService
+import es.uniovi.apuntesuniovi.infrastructure.AbstractCommand
 import es.uniovi.apuntesuniovi.repositories.CenterRepository
 
 /**
@@ -11,9 +10,7 @@ import es.uniovi.apuntesuniovi.repositories.CenterRepository
 class CreateCenterService(
     private val centerRepository: CenterRepository,
     private val center: Center
-) : Command<List<Center>> {
-    private val logService = LogService(this.javaClass)
-
+) : AbstractCommand<List<Center>>() {
     override fun execute(): List<Center> {
         logService.info("execute() - start")
         val result = centerRepository.save(center)
