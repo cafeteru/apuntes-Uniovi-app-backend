@@ -36,9 +36,9 @@ class SubjectController @Autowired constructor(
      */
     @PostMapping("/create")
     fun save(@RequestBody json: String): ResponseEntity<List<SubjectDto>> {
-        logService.info("save(json: ${logService.formatJson(json)}) - start")
+        logService.info("save(json: String) - start")
         val result = CreateSubject(subjectService, json).execute()
-        logService.info("save(json:${logService.formatJson(json)}) - end")
+        logService.info("save(json: String) - end")
         return ResponseEntity(result, HttpStatus.OK)
     }
 }

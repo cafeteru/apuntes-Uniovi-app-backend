@@ -25,9 +25,9 @@ class CenterController @Autowired constructor(
      */
     @PostMapping("/create")
     fun create(@RequestBody json: String): ResponseEntity<List<CenterDto>> {
-        logService.info("save(json: ${logService.formatJson(json)}) - start")
+        logService.info("save(json: String) - start")
         val result = CreateCenter(centerService, json).execute()
-        logService.info("save(json:${logService.formatJson(json)}) - end")
+        logService.info("save(json: String) - end")
         return ResponseEntity(result, HttpStatus.OK)
     }
 

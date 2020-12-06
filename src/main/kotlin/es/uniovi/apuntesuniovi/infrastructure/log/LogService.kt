@@ -26,16 +26,4 @@ class LogService(controller: Class<Any>) {
     fun error(message: String?) {
         log.error(message)
     }
-
-    /**
-     * Format a json to show it in the log
-     *
-     * @param json Json to modify
-     */
-    fun formatJson(json: String?): String {
-        if (json.isNullOrEmpty()) {
-            return ""
-        }
-        return json.replace("\n", "").replace("\r", "")
-    }
 }
