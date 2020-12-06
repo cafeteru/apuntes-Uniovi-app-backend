@@ -3,6 +3,9 @@ package es.uniovi.apuntesuniovi.entities
 import java.util.HashSet
 import javax.persistence.*
 
+/**
+ * Represents semesters
+ */
 @Entity
 class Semester {
     @Id

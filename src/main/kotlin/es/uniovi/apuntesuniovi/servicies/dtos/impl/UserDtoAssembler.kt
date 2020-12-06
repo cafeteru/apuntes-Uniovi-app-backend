@@ -6,6 +6,9 @@ import es.uniovi.apuntesuniovi.servicies.dtos.AbstractDtoAssembler
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.UserDto
 import org.springframework.stereotype.Service
 
+/**
+ * Define the entity and dto conversion methods of users
+ */
 @Service
 class UserDtoAssembler : AbstractDtoAssembler<User, UserDto>() {
     override fun entityToDto(entity: User?): UserDto {

@@ -2,6 +2,9 @@ package es.uniovi.apuntesuniovi.entities
 
 import javax.persistence.*
 
+/**
+ * Represents relationship between students and subjects
+ */
 @Entity
 class LearnSubject {
     @Id

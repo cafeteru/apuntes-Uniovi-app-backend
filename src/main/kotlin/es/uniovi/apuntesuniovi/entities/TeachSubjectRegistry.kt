@@ -3,6 +3,9 @@ package es.uniovi.apuntesuniovi.entities
 import java.time.LocalDate
 import javax.persistence.*
 
+/**
+ * Represents registries of teachSubject
+ */
 @Entity
 class TeachSubjectRegistry {
     @Id

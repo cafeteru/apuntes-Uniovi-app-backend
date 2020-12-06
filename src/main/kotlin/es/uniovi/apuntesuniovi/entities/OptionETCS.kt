@@ -3,6 +3,9 @@ package es.uniovi.apuntesuniovi.entities
 import java.util.*
 import javax.persistence.*
 
+/**
+ * Represents option ETCS
+ */
 @Entity
 class OptionETCS {
     @Id

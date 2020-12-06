@@ -1,7 +1,7 @@
 package es.uniovi.apuntesuniovi.infrastructure.exceptions.messages
 
 /**
- * Defines the messages that the exceptions return
+ * Defines the messages that the users exceptions return
  */
 object UserMessages {
     const val ALREADY_REGISTERED_USERNAME = "error.already.registered.username"

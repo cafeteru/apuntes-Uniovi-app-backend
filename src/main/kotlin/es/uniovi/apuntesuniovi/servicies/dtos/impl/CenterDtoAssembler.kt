@@ -5,6 +5,9 @@ import es.uniovi.apuntesuniovi.servicies.dtos.AbstractDtoAssembler
 import es.uniovi.apuntesuniovi.servicies.dtos.entities.CenterDto
 import org.springframework.stereotype.Service
 
+/**
+ * Define the entity and dto conversion methods of centers
+ */
 @Service
 class CenterDtoAssembler : AbstractDtoAssembler<Center, CenterDto>() {
     override fun entityToDto(entity: Center?): CenterDto {

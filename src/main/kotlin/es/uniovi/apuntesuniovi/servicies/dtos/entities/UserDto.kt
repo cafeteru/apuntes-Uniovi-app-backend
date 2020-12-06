@@ -4,7 +4,7 @@ import es.uniovi.apuntesuniovi.entities.Address
 import java.time.LocalDate
 
 /**
- * Dto of the users
+ * Data Transfer Object of users
  */
 data class UserDto(
     var id: Long?,

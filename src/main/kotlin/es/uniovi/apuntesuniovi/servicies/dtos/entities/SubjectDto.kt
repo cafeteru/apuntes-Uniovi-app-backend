@@ -1,7 +1,7 @@
 package es.uniovi.apuntesuniovi.servicies.dtos.entities
 
 /**
- * Dto of the subjects
+ * Data Transfer Object of subjects
  */
 data class SubjectDto(
     var id: Long?,

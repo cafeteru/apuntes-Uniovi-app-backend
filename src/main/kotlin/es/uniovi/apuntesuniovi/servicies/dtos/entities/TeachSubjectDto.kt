@@ -1,5 +1,8 @@
 package es.uniovi.apuntesuniovi.servicies.dtos.entities
 
+/**
+ * Data Transfer Object of relationship between users and subjects
+ */
 data class TeachSubjectDto(
     var id: Long?,
     var isCoordinator: Boolean,

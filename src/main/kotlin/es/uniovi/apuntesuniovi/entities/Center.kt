@@ -6,6 +6,9 @@ import es.uniovi.apuntesuniovi.validators.impl.ValidatorMaxLength
 import java.util.*
 import javax.persistence.*
 
+/**
+ * Represents centers
+ */
 @Entity
 class Center {
     @Id

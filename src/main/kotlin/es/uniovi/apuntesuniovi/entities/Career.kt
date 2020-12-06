@@ -3,6 +3,9 @@ package es.uniovi.apuntesuniovi.entities
 import java.util.*
 import javax.persistence.*
 
+/**
+ * Represents careers
+ */
 @Entity
 class Career {
     @Id

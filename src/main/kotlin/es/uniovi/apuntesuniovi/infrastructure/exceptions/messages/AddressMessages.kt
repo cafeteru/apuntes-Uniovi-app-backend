@@ -1,5 +1,8 @@
 package es.uniovi.apuntesuniovi.infrastructure.exceptions.messages
 
+/**
+ * Defines the messages that the address exceptions return
+ */
 object AddressMessages {
     const val LIMIT_STREET = "error.limit.address.street"
     const val LIMIT_CITY = "error.limit.address.city"

@@ -3,6 +3,9 @@ package es.uniovi.apuntesuniovi.entities
 import java.util.*
 import javax.persistence.*
 
+/**
+ * Represents types of subjects
+ */
 @Entity
 class SubjectType {
     @Id

@@ -5,6 +5,9 @@ import es.uniovi.apuntesuniovi.infrastructure.exceptions.messages.AddressMessage
 import es.uniovi.apuntesuniovi.validators.impl.ValidatorMaxLength
 import javax.persistence.*
 
+/**
+ * Represents addresses
+ */
 @Entity
 class Address {
     @Id

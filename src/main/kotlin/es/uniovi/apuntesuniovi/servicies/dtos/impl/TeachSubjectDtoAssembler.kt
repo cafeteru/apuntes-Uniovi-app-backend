@@ -8,6 +8,9 @@ import es.uniovi.apuntesuniovi.servicies.dtos.entities.TeachSubjectDto
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
+/**
+ * Define the entity and dto conversion methods of teachSubjects
+ */
 @Service
 class TeachSubjectDtoAssembler @Autowired constructor(
     private val subjectRepository: SubjectRepository,
