@@ -1,13 +1,13 @@
 package es.uniovi.apuntesuniovi.controllers.commands
 
 import es.uniovi.apuntesuniovi.infrastructure.AbstractCommand
-import es.uniovi.apuntesuniovi.services.AbstractService
+import es.uniovi.apuntesuniovi.services.BaseService
 
 /**
  * Save a user in controller layer
  */
-abstract class AbstractCreate<Dto>(
-    private val service: AbstractService<Dto>,
+abstract class BaseCreate<Dto>(
+    private val service: BaseService<Dto>,
     private val json: String
 ) : AbstractCommand<List<Dto>>() {
 

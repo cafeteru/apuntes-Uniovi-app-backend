@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service
 class CourseService @Autowired constructor(
     private val courseRepository: CourseRepository,
     private val courseAssembler: CourseAssembler
-) : AbstractService<CourseDto>() {
+) : BaseService<CourseDto>() {
 
     override fun create(dto: CourseDto): List<CourseDto> {
         logService.info("create(dto: CareerDto) - start")

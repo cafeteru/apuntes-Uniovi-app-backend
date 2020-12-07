@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository
 /**
  * Find entity by id
  */
-abstract class AbstractFindById<Entity>(
+abstract class BaseFindByIdService<Entity>(
     private val repository: JpaRepository<Entity, Long>,
     private val id: Long
 ) : AbstractCommand<List<Entity>>() {

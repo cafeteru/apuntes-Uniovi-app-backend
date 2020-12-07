@@ -5,7 +5,7 @@ import es.uniovi.apuntesuniovi.infrastructure.log.LogService
 /**
  * Abstract service to define
  */
-abstract class AbstractService<Dto> {
+abstract class BaseService<Dto> {
     protected val logService = LogService(this.javaClass)
 
     /**

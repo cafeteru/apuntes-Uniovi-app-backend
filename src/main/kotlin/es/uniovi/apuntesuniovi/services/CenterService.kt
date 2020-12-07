@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service
 class CenterService @Autowired constructor(
     private val centerRepository: CenterRepository,
     private val centerDtoAssembler: CenterAssembler
-) : AbstractService<CenterDto>() {
+) : BaseService<CenterDto>() {
 
     override fun create(dto: CenterDto): List<CenterDto> {
         logService.info("create(dto: centerDto) - start")

@@ -1,10 +1,10 @@
 package es.uniovi.apuntesuniovi.services.dtos.entities
 
 /**
- * Data Transfer Object of courses
+ * Data Transfer Object of semesters
  */
-data class CourseDto(
+data class SemesterDto(
     var id: Long?,
     var position: Int?,
-    var careerId: Long?,
+    var courseId: Long?,
 )

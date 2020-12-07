@@ -1,13 +1,13 @@
 package es.uniovi.apuntesuniovi.controllers.commands
 
 import es.uniovi.apuntesuniovi.infrastructure.AbstractCommand
-import es.uniovi.apuntesuniovi.services.AbstractService
+import es.uniovi.apuntesuniovi.services.BaseService
 
 /**
  * Return all entities in controller layer
  */
-abstract class AbstractFindAll<Dto>(
-    private val service: AbstractService<Dto>
+abstract class BaseFindAll<Dto>(
+    private val service: BaseService<Dto>
 ) : AbstractCommand<List<Dto>>() {
     override fun execute(): List<Dto> {
         logService.info("execute() - start")

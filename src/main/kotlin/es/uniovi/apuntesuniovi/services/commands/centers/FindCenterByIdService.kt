@@ -2,7 +2,7 @@ package es.uniovi.apuntesuniovi.services.commands.centers
 
 import es.uniovi.apuntesuniovi.models.Center
 import es.uniovi.apuntesuniovi.repositories.CenterRepository
-import es.uniovi.apuntesuniovi.services.commands.AbstractFindById
+import es.uniovi.apuntesuniovi.services.commands.BaseFindByIdService
 
 /**
  * Return center by id in service layer
@@ -10,4 +10,4 @@ import es.uniovi.apuntesuniovi.services.commands.AbstractFindById
 class FindCenterByIdService(
     centerRepository: CenterRepository,
     id: Long
-) : AbstractFindById<Center>(centerRepository, id)
+) : BaseFindByIdService<Center>(centerRepository, id)

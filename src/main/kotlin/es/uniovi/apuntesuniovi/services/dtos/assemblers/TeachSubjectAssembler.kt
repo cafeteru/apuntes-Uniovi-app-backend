@@ -18,7 +18,7 @@ class TeachSubjectAssembler @Autowired constructor(
     private val userRepository: UserRepository
 ) : AbstractAssembler<TeachSubject, TeachSubjectDto>() {
     override fun entityToDto(entity: TeachSubject?): TeachSubjectDto {
-        logService.info("entityToDto(entity: ${entity}) - start")
+        logService.info("entityToDto(entity: TeachSubject) - start")
         entity?.let {
             val result = TeachSubjectDto(
                 id = it.id,
@@ -26,15 +26,15 @@ class TeachSubjectAssembler @Autowired constructor(
                 subjectId = it.subject.id,
                 teacherId = it.teacher.id
             )
-            logService.info("entityToDto(entity: ${entity}) - end")
+            logService.info("entityToDto(entity: TeachSubject) - end")
             return result
         }
-        logService.error("entityToDto(entity: ${entity}) - error")
+        logService.error("entityToDto(entity: TeachSubject) - error")
         throw IllegalArgumentException()
     }
 
     override fun dtoToEntity(dto: TeachSubjectDto?): TeachSubject {
-        logService.info("dtoToEntity(dto: ${dto}) - start")
+        logService.info("dtoToEntity(dto: TeachSubjectDto) - start")
         dto?.let {
             val result = TeachSubject()
             result.id = it.id
@@ -45,10 +45,10 @@ class TeachSubjectAssembler @Autowired constructor(
             it.teacherId?.let { id ->
                 result.teacher = FindUserByIdService(userRepository, id).execute()[0]
             }
-            logService.info("dtoToEntity(dto: ${dto}) - end")
+            logService.info("dtoToEntity(dto: TeachSubjectDto) - end")
             return result
         }
-        logService.error("dtoToEntity(dto: ${dto}) - error")
+        logService.error("dtoToEntity(dto: TeachSubjectDto) - error")
         throw IllegalArgumentException()
     }
 }

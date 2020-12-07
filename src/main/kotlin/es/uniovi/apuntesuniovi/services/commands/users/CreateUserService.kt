@@ -1,9 +1,8 @@
 package es.uniovi.apuntesuniovi.services.commands.users
 
-import es.uniovi.apuntesuniovi.models.Address
-import es.uniovi.apuntesuniovi.models.User
 import es.uniovi.apuntesuniovi.infrastructure.AbstractCommand
 import es.uniovi.apuntesuniovi.infrastructure.messages.UserMessages
+import es.uniovi.apuntesuniovi.models.User
 import es.uniovi.apuntesuniovi.repositories.AddressRepository
 import es.uniovi.apuntesuniovi.repositories.UserRepository
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
@@ -21,11 +20,9 @@ class CreateUserService(
         checkUniqueUsername()
         checkUniqueNumberIdentification()
         user.password = BCryptPasswordEncoder().encode(user.password)
-        var address: Address? = null
         user.address?.let {
-            address = addressRepository.save(it)
+            user.address = addressRepository.save(it)
         }
-        user.address = address
         val result = userRepository.save(user)
         logService.info("execute() - end")
         return listOf(result)

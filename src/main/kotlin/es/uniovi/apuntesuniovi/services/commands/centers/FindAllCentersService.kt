@@ -1,19 +1,10 @@
 package es.uniovi.apuntesuniovi.services.commands.centers
 
 import es.uniovi.apuntesuniovi.models.Center
-import es.uniovi.apuntesuniovi.infrastructure.AbstractCommand
 import es.uniovi.apuntesuniovi.repositories.CenterRepository
+import es.uniovi.apuntesuniovi.services.commands.BaseFindAllService
 
 /**
  * Return all centers in service layer
  */
-class FindAllCentersService(
-    private val centerRepository: CenterRepository
-) : AbstractCommand<List<Center>>() {
-    override fun execute(): List<Center> {
-        logService.info("execute() - start")
-        val list = centerRepository.findAll()
-        logService.info("execute() - end")
-        return list
-    }
-}
+class FindAllCentersService(centerRepository: CenterRepository) : BaseFindAllService<Center>(centerRepository)

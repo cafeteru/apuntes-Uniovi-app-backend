@@ -1,8 +1,8 @@
 package es.uniovi.apuntesuniovi.services.insertData
 
+import es.uniovi.apuntesuniovi.infrastructure.log.LogService
 import es.uniovi.apuntesuniovi.models.Address
 import es.uniovi.apuntesuniovi.models.types.RoleType
-import es.uniovi.apuntesuniovi.infrastructure.log.LogService
 import es.uniovi.apuntesuniovi.services.CareerService
 import es.uniovi.apuntesuniovi.services.CenterService
 import es.uniovi.apuntesuniovi.services.SubjectService

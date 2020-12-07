@@ -2,7 +2,7 @@ package es.uniovi.apuntesuniovi.services.commands.subjects
 
 import es.uniovi.apuntesuniovi.models.Subject
 import es.uniovi.apuntesuniovi.repositories.SubjectRepository
-import es.uniovi.apuntesuniovi.services.commands.AbstractFindById
+import es.uniovi.apuntesuniovi.services.commands.BaseFindByIdService
 
 /**
  * Return subject by id in service layer
@@ -10,4 +10,4 @@ import es.uniovi.apuntesuniovi.services.commands.AbstractFindById
 class FindSubjectByIdService(
     subjectRepository: SubjectRepository,
     id: Long
-) : AbstractFindById<Subject>(subjectRepository, id)
+) : BaseFindByIdService<Subject>(subjectRepository, id)

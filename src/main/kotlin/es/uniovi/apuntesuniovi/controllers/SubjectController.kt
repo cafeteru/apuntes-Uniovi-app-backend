@@ -1,14 +1,14 @@
 package es.uniovi.apuntesuniovi.controllers
 
-import es.uniovi.apuntesuniovi.controllers.commands.subjects.FindAllSubjects
 import es.uniovi.apuntesuniovi.controllers.commands.subjects.CreateSubject
-import es.uniovi.apuntesuniovi.infrastructure.log.LogService
+import es.uniovi.apuntesuniovi.controllers.commands.subjects.FindAllSubjects
+import es.uniovi.apuntesuniovi.infrastructure.AbstractCommand
+import es.uniovi.apuntesuniovi.services.BaseService
 import es.uniovi.apuntesuniovi.services.SubjectService
 import es.uniovi.apuntesuniovi.services.dtos.entities.SubjectDto
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.http.HttpStatus
-import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RestController
 
 /**
  * Define subject endpoints
@@ -17,28 +17,16 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/subjects")
 class SubjectController @Autowired constructor(
     private val subjectService: SubjectService
-) {
-    private val logService = LogService(this.javaClass)
+) : BaseController<SubjectDto>(subjectService) {
 
-    /**
-     * Returns all subjects registered in the system
-     */
-    @GetMapping("")
-    fun findAll(): ResponseEntity<List<SubjectDto>> {
-        logService.info("findAll() - start")
-        val result = FindAllSubjects(subjectService).execute()
-        logService.info("findAll() - end")
-        return ResponseEntity(result, HttpStatus.OK)
+    override fun getCreateCommand(
+        baseService: BaseService<SubjectDto>,
+        json: String
+    ): AbstractCommand<List<SubjectDto>> {
+        return CreateSubject(subjectService, json)
     }
 
-    /**
-     * Add a new subject through a text string (JSON)
-     */
-    @PostMapping("/create")
-    fun save(@RequestBody json: String): ResponseEntity<List<SubjectDto>> {
-        logService.info("save(json: String) - start")
-        val result = CreateSubject(subjectService, json).execute()
-        logService.info("save(json: String) - end")
-        return ResponseEntity(result, HttpStatus.OK)
+    override fun getFindAllCommand(baseService: BaseService<SubjectDto>): AbstractCommand<List<SubjectDto>> {
+        return FindAllSubjects(subjectService)
     }
 }

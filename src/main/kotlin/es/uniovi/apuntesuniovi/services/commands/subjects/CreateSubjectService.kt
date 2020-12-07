@@ -1,20 +1,11 @@
 package es.uniovi.apuntesuniovi.services.commands.subjects
 
 import es.uniovi.apuntesuniovi.models.Subject
-import es.uniovi.apuntesuniovi.infrastructure.AbstractCommand
 import es.uniovi.apuntesuniovi.repositories.SubjectRepository
+import es.uniovi.apuntesuniovi.services.commands.BaseCreateService
 
 /**
  * Create a subject in service layer
  */
-class CreateSubjectService(
-    private val subjectRepository: SubjectRepository,
-    private val subject: Subject
-) : AbstractCommand<List<Subject>>() {
-    override fun execute(): List<Subject> {
-        logService.info("execute() - start")
-        val result = subjectRepository.save(subject)
-        logService.info("execute() - end")
-        return listOf(result)
-    }
-}
+class CreateSubjectService(subjectRepository: SubjectRepository, subject: Subject) :
+    BaseCreateService<Subject>(subjectRepository, subject)

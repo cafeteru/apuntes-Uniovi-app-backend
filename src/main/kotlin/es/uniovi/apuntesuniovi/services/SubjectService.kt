@@ -29,7 +29,7 @@ class SubjectService @Autowired constructor(
     private val teachSubjectRegistryRepository: TeachSubjectRegistryRepository,
     private val subjectDtoAssembler: SubjectAssembler,
     private val teachSubjectDtoAssembler: TeachSubjectAssembler
-) : AbstractService<SubjectDto>() {
+) : BaseService<SubjectDto>() {
 
     /**
      * Add a teacher into the subject

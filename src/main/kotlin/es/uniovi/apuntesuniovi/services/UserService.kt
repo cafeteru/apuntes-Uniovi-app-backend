@@ -18,7 +18,7 @@ class UserService @Autowired constructor(
     private val userRepository: UserRepository,
     private val addressRepository: AddressRepository,
     private val userDtoAssembler: UserAssembler
-) : AbstractService<UserDto>() {
+) : BaseService<UserDto>() {
 
     override fun create(dto: UserDto): List<UserDto> {
         logService.info("create(dto: UserDto) - start")

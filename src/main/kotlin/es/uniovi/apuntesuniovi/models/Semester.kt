@@ -1,6 +1,6 @@
 package es.uniovi.apuntesuniovi.models
 
-import java.util.HashSet
+import java.util.*
 import javax.persistence.*
 
 /**
@@ -11,10 +11,10 @@ class Semester {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null
-    var position = 0
+    var position: Int? = null
 
     @ManyToOne
-    lateinit var course: Course
+    var course: Course? = null
 
     @OneToMany(mappedBy = "semester", cascade = [(CascadeType.ALL)])
     val subjects: Set<Subject> = HashSet()
