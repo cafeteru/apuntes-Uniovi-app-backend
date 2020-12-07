@@ -24,5 +24,5 @@ object UserMessages {
     const val LIMIT_USERNAME = "error.limit.user.username"
     const val NOT_EXISTS = "error.user.not.exists"
     const val NOT_FOUND_USERNAME = "error.not.found.username"
-    const val NULL_USER = "error.null.user"
+    const val NULL = "error.null.user"
 }

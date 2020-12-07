@@ -7,7 +7,7 @@ import java.time.LocalDate
  */
 data class TeachSubjectRegistryDto(
     var id: Long?,
-    var teachSubjectId: Long,
+    var teachSubjectId: Long?,
     var initDay: LocalDate,
     var finishDay: LocalDate?,
 )

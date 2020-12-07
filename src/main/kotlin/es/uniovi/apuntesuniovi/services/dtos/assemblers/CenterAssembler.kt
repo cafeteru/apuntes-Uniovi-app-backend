@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service
  * Define the entity and dto conversion methods of centers
  */
 @Service
-class CenterAssembler : AbstractDtoAssembler<Center, CenterDto>() {
+class CenterAssembler : AbstractAssembler<Center, CenterDto>() {
     override fun entityToDto(entity: Center?): CenterDto {
         logService.info("entityToDto(entity: ${entity}) - start")
         entity?.let {
@@ -28,9 +28,7 @@ class CenterAssembler : AbstractDtoAssembler<Center, CenterDto>() {
         logService.info("dtoToEntity(dto: ${dto}) - start")
         dto?.let {
             val result = Center()
-            it.id?.let { id ->
-                result.id = id
-            }
+            result.id = it.id
             result.name = it.name
             result.address = it.address
             logService.info("dtoToEntity(dto: ${dto}) - end")

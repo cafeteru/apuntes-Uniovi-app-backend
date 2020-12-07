@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service
  * Define the entity and dto conversion methods of subjects
  */
 @Service
-class SubjectAssembler : AbstractDtoAssembler<Subject, SubjectDto>() {
+class SubjectAssembler : AbstractAssembler<Subject, SubjectDto>() {
     override fun entityToDto(entity: Subject?): SubjectDto {
         logService.info("entityToDto(entity: ${entity}) - start")
         entity?.let {

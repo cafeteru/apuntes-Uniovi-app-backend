@@ -1,7 +1,7 @@
 package es.uniovi.apuntesuniovi.controllers.commands.subjects
 
 import com.google.gson.Gson
-import es.uniovi.apuntesuniovi.infrastructure.AbstractCommand
+import es.uniovi.apuntesuniovi.controllers.commands.AbstractCreate
 import es.uniovi.apuntesuniovi.services.SubjectService
 import es.uniovi.apuntesuniovi.services.dtos.entities.SubjectDto
 
@@ -9,14 +9,14 @@ import es.uniovi.apuntesuniovi.services.dtos.entities.SubjectDto
  * Save a subject in controller layer
  */
 class CreateSubject(
-    private val subjectService: SubjectService,
-    private val json: String
-) : AbstractCommand<List<SubjectDto>>() {
-    override fun execute(): List<SubjectDto> {
-        logService.info("execute() - start")
-        val subject: SubjectDto = Gson().fromJson(json, SubjectDto::class.java)
-        val result = subjectService.create(subject)
-        logService.info("execute() - end")
-        return result
+    subjectService: SubjectService,
+    json: String
+) : AbstractCreate<SubjectDto>(subjectService, json) {
+
+    override fun getEntityFromJson(json: String): SubjectDto {
+        logService.info("getEntityFromJson(json: String) - start")
+        val dto = Gson().fromJson(json, SubjectDto::class.java)
+        logService.info("getEntityFromJson(json: String) - end")
+        return dto
     }
 }

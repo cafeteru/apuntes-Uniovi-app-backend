@@ -45,7 +45,7 @@ class UserDtoAssemblerTest {
             userDtoAssembler.entityToDto(null)
             fail("User can´t be null")
         } catch (e: IllegalArgumentException) {
-            assertEquals(e.message, UserMessages.NULL_USER)
+            assertEquals(e.message, UserMessages.NULL)
         }
     }
 
@@ -80,7 +80,7 @@ class UserDtoAssemblerTest {
             userDtoAssembler.dtoToEntity(null)
             fail("UserDto can´t be null")
         } catch (e: IllegalArgumentException) {
-            assertEquals(e.message, UserMessages.NULL_USER)
+            assertEquals(e.message, UserMessages.NULL)
         }
     }
 }

@@ -1,9 +1,11 @@
 package es.uniovi.apuntesuniovi.services.dtos.assemblers
 
-import es.uniovi.apuntesuniovi.models.Career
 import es.uniovi.apuntesuniovi.infrastructure.messages.CareerMessages
+import es.uniovi.apuntesuniovi.models.Career
 import es.uniovi.apuntesuniovi.repositories.CenterRepository
 import es.uniovi.apuntesuniovi.repositories.ConfigurationECTSRepository
+import es.uniovi.apuntesuniovi.services.commands.centers.FindCenterByIdService
+import es.uniovi.apuntesuniovi.services.commands.configurationsECTS.FindConfigurationECTSByIdService
 import es.uniovi.apuntesuniovi.services.dtos.entities.CareerDto
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -15,7 +17,7 @@ import org.springframework.stereotype.Service
 class CareerAssembler @Autowired constructor(
     private val centerRepository: CenterRepository,
     private val configurationECTSRepository: ConfigurationECTSRepository
-) : AbstractDtoAssembler<Career, CareerDto>() {
+) : AbstractAssembler<Career, CareerDto>() {
     override fun entityToDto(entity: Career?): CareerDto {
         logService.info("entityToDto(entity: Career) - start")
         entity?.let {
@@ -35,7 +37,7 @@ class CareerAssembler @Autowired constructor(
             return dto
         }
         logService.error("entityToDto(entity: Career) - error")
-        throw IllegalArgumentException(CareerMessages.NULL_CAREER)
+        throw IllegalArgumentException(CareerMessages.NULL)
     }
 
     override fun dtoToEntity(dto: CareerDto?): Career {
@@ -51,15 +53,16 @@ class CareerAssembler @Autowired constructor(
             entity.ECTS = it.ECTS
             entity.languages = it.languages
             it.centerId?.let { id ->
-                entity.center = centerRepository.getOne(id)
+                entity.center = FindCenterByIdService(centerRepository, id).execute()[0]
             }
             it.configurationECTSId?.let { id ->
-                entity.configurationECTS = configurationECTSRepository.getOne(id)
+                entity.configurationECTS =
+                    FindConfigurationECTSByIdService(configurationECTSRepository, id).execute()[0]
             }
             logService.info("dtoToEntity(dto: CareerDto) - end")
             return entity
         }
         logService.info("dtoToEntity(dto: CareerDto) - error")
-        throw IllegalArgumentException(CareerMessages.NULL_CAREER)
+        throw IllegalArgumentException(CareerMessages.NULL)
     }
 }

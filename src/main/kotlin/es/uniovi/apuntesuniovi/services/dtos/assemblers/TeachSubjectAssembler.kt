@@ -3,6 +3,8 @@ package es.uniovi.apuntesuniovi.services.dtos.assemblers
 import es.uniovi.apuntesuniovi.models.TeachSubject
 import es.uniovi.apuntesuniovi.repositories.SubjectRepository
 import es.uniovi.apuntesuniovi.repositories.UserRepository
+import es.uniovi.apuntesuniovi.services.commands.subjects.FindSubjectByIdService
+import es.uniovi.apuntesuniovi.services.commands.users.FindUserByIdService
 import es.uniovi.apuntesuniovi.services.dtos.entities.TeachSubjectDto
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -14,7 +16,7 @@ import org.springframework.stereotype.Service
 class TeachSubjectAssembler @Autowired constructor(
     private val subjectRepository: SubjectRepository,
     private val userRepository: UserRepository
-) : AbstractDtoAssembler<TeachSubject, TeachSubjectDto>() {
+) : AbstractAssembler<TeachSubject, TeachSubjectDto>() {
     override fun entityToDto(entity: TeachSubject?): TeachSubjectDto {
         logService.info("entityToDto(entity: ${entity}) - start")
         entity?.let {
@@ -38,10 +40,10 @@ class TeachSubjectAssembler @Autowired constructor(
             result.id = it.id
             result.isCoordinator = it.isCoordinator
             it.subjectId?.let { id ->
-                result.subject = subjectRepository.findById(id).get()
+                result.subject = FindSubjectByIdService(subjectRepository, id).execute()[0]
             }
             it.teacherId?.let { id ->
-                result.teacher = userRepository.findById(id).get()
+                result.teacher = FindUserByIdService(userRepository, id).execute()[0]
             }
             logService.info("dtoToEntity(dto: ${dto}) - end")
             return result

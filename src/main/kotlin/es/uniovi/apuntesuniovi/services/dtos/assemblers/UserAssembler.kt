@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service
  * Define the entity and dto conversion methods of users
  */
 @Service
-class UserAssembler : AbstractDtoAssembler<User, UserDto>() {
+class UserAssembler : AbstractAssembler<User, UserDto>() {
     override fun entityToDto(entity: User?): UserDto {
         logService.info("entityToDto(user: User) - start")
         entity?.let {
@@ -33,7 +33,7 @@ class UserAssembler : AbstractDtoAssembler<User, UserDto>() {
             return result
         }
         logService.error("entityToDto(user: User) - error")
-        throw IllegalArgumentException(UserMessages.NULL_USER)
+        throw IllegalArgumentException(UserMessages.NULL)
     }
 
     override fun dtoToEntity(dto: UserDto?): User {
@@ -58,6 +58,6 @@ class UserAssembler : AbstractDtoAssembler<User, UserDto>() {
             return result
         }
         logService.info("dtoToEntity(userDto: UserDto) - error")
-        throw IllegalArgumentException(UserMessages.NULL_USER)
+        throw IllegalArgumentException(UserMessages.NULL)
     }
 }

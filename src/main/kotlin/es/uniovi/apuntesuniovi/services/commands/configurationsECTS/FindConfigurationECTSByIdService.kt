@@ -1,4 +1,4 @@
-package es.uniovi.apuntesuniovi.services.commands.configurationECTS
+package es.uniovi.apuntesuniovi.services.commands.configurationsECTS
 
 import es.uniovi.apuntesuniovi.models.ConfigurationECTS
 import es.uniovi.apuntesuniovi.repositories.ConfigurationECTSRepository

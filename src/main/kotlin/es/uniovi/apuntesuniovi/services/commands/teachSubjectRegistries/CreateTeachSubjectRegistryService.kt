@@ -1,4 +1,4 @@
-package es.uniovi.apuntesuniovi.services.commands.teachSubjectRegistry
+package es.uniovi.apuntesuniovi.services.commands.teachSubjectRegistries
 
 import es.uniovi.apuntesuniovi.models.TeachSubject
 import es.uniovi.apuntesuniovi.models.TeachSubjectRegistry

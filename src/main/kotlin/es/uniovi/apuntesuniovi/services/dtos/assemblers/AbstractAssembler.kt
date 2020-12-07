@@ -7,7 +7,7 @@ import java.util.function.Consumer
 /**
  * Abstract class to define the entity and dto conversion methods
  */
-abstract class AbstractDtoAssembler<Entity, Dto> {
+abstract class AbstractAssembler<Entity, Dto> {
     protected val logService = LogService(this.javaClass)
 
     /**
