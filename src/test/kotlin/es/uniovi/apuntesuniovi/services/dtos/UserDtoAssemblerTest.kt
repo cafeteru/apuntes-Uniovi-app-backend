@@ -1,8 +1,9 @@
 package es.uniovi.apuntesuniovi.services.dtos
 
-import es.uniovi.apuntesuniovi.infrastructure.constants.ExceptionMessages
-import es.uniovi.apuntesuniovi.mocks.MockFactory
-import es.uniovi.apuntesuniovi.servicies.dtos.impl.UserDtoAssembler
+import es.uniovi.apuntesuniovi.infrastructure.messages.UserMessages
+import es.uniovi.apuntesuniovi.mocks.dtos.MockUserDtoCreator
+import es.uniovi.apuntesuniovi.mocks.entities.MockUserCreator
+import es.uniovi.apuntesuniovi.services.dtos.assemblers.UserAssembler
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.fail
@@ -11,15 +12,14 @@ import org.junit.jupiter.api.fail
  * Check class UserDtoAssembler
  */
 class UserDtoAssemblerTest {
-    private val userDtoAssembler = UserDtoAssembler()
-    private val mockFactory = MockFactory()
+    private val userDtoAssembler = UserAssembler()
 
     /**
      * Checks the conversion with valid user
      */
     @Test
     fun validUser() {
-        val user = mockFactory.getEntities().createUser()
+        val user = MockUserCreator().create()
         val userDto = userDtoAssembler.entityToDto(user)
         assertEquals(user.id, userDto.id)
         assertEquals(user.name, userDto.name)
@@ -45,7 +45,7 @@ class UserDtoAssemblerTest {
             userDtoAssembler.entityToDto(null)
             fail("User can´t be null")
         } catch (e: IllegalArgumentException) {
-            assertEquals(e.message, ExceptionMessages.NULL_USER)
+            assertEquals(e.message, UserMessages.NULL)
         }
     }
 
@@ -54,7 +54,7 @@ class UserDtoAssemblerTest {
      */
     @Test
     fun validUserDto() {
-        val userDto = mockFactory.getDtos().createUserDto()
+        val userDto = MockUserDtoCreator().create()
         val user = userDtoAssembler.dtoToEntity(userDto)
         assertEquals(user.id, userDto.id)
         assertEquals(user.name, userDto.name)
@@ -80,7 +80,7 @@ class UserDtoAssemblerTest {
             userDtoAssembler.dtoToEntity(null)
             fail("UserDto can´t be null")
         } catch (e: IllegalArgumentException) {
-            assertEquals(e.message, ExceptionMessages.NULL_USER)
+            assertEquals(e.message, UserMessages.NULL)
         }
     }
 }

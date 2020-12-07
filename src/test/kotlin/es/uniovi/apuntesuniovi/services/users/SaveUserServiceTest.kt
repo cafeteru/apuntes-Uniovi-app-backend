@@ -1,12 +1,11 @@
 package es.uniovi.apuntesuniovi.services.users
 
-import es.uniovi.apuntesuniovi.entities.User
-import es.uniovi.apuntesuniovi.infrastructure.constants.ExceptionMessages
-import es.uniovi.apuntesuniovi.mocks.MockFactory
+import es.uniovi.apuntesuniovi.models.User
+import es.uniovi.apuntesuniovi.infrastructure.messages.UserMessages
+import es.uniovi.apuntesuniovi.mocks.entities.MockUserCreator
+import es.uniovi.apuntesuniovi.repositories.AddressRepository
 import es.uniovi.apuntesuniovi.repositories.UserRepository
-import es.uniovi.apuntesuniovi.servicies.dtos.entities.UserDto
-import es.uniovi.apuntesuniovi.servicies.dtos.impl.UserDtoAssembler
-import es.uniovi.apuntesuniovi.servicies.impl.users.SaveUserService
+import es.uniovi.apuntesuniovi.services.commands.users.CreateUserService
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -23,21 +22,20 @@ import java.util.*
 @ExtendWith(MockitoExtension::class)
 class SaveUserServiceTest {
     private lateinit var user: User
-    private lateinit var userDto: UserDto
     private val encoder = BCryptPasswordEncoder()
 
     @Mock
     private lateinit var userRepository: UserRepository
-    private val userDtoAssembler = UserDtoAssembler()
+
+    @Mock
+    private lateinit var addressRepository: AddressRepository
 
     /**
      * Create init data for the test
      */
     @BeforeEach
     fun initTest() {
-        val mockFactory = MockFactory()
-        userDto = mockFactory.getDtos().createUserDto()
-        user = userDtoAssembler.dtoToEntity(userDto)
+        user = MockUserCreator().create()
         user.password = encoder.encode(user.password)
     }
 
@@ -47,25 +45,11 @@ class SaveUserServiceTest {
     @Test
     fun validUser() {
         Mockito.`when`(userRepository.save(Mockito.any(User::class.java))).thenReturn(user)
-        val saveUserService = SaveUserService(userRepository, userDtoAssembler, userDto)
+        val saveUserService = CreateUserService(userRepository, addressRepository, user)
         val result = saveUserService.execute()
         assertNotNull(result)
         assertEquals(result.size, 1)
-        assertNotEquals(result[0].password, userDto.password)
-    }
-
-    /**
-     * Checks the functionality with null user
-     */
-    @Test
-    fun nullUser() {
-        try {
-            val saveUserService = SaveUserService(userRepository, userDtoAssembler, null)
-            saveUserService.execute()
-            fail()
-        } catch (e: IllegalArgumentException) {
-            assertEquals(e.message, ExceptionMessages.INVALID_DATA_USER)
-        }
+        assertEquals(result[0].password, user.password)
     }
 
     /**
@@ -73,13 +57,13 @@ class SaveUserServiceTest {
      */
     @Test
     fun existedUser() {
-        Mockito.`when`(userRepository.findByUsername(userDto.username!!)).thenReturn(Optional.of(user))
+        Mockito.`when`(userRepository.findByUsername(user.username!!)).thenReturn(Optional.of(user))
         try {
-            val saveUserService = SaveUserService(userRepository, userDtoAssembler, userDto)
+            val saveUserService = CreateUserService(userRepository, addressRepository, user)
             saveUserService.execute()
             fail("User already registered")
         } catch (e: IllegalArgumentException) {
-            assertEquals(e.message, ExceptionMessages.ALREADY_REGISTERED_USERNAME)
+            assertEquals(e.message, UserMessages.ALREADY_REGISTERED_USERNAME)
         }
     }
 
@@ -89,12 +73,12 @@ class SaveUserServiceTest {
     @Test
     fun nullUsername() {
         try {
-            userDto.username = null
-            val saveUserService = SaveUserService(userRepository, userDtoAssembler, userDto)
+            user.username = null
+            val saveUserService = CreateUserService(userRepository, addressRepository, user)
             saveUserService.execute()
             fail("Username can´t be null")
         } catch (e: IllegalArgumentException) {
-            assertEquals(e.message, ExceptionMessages.INVALID_DATA_USER)
+            assertEquals(e.message, UserMessages.INVALID_DATA_USER)
         }
     }
 
@@ -104,12 +88,12 @@ class SaveUserServiceTest {
     @Test
     fun emptyUsername() {
         try {
-            userDto.username = ""
-            val saveUserService = SaveUserService(userRepository, userDtoAssembler, userDto)
+            user.username = ""
+            val saveUserService = CreateUserService(userRepository, addressRepository, user)
             saveUserService.execute()
             fail("Username can´t be empty")
         } catch (e: IllegalArgumentException) {
-            assertEquals(e.message, ExceptionMessages.INVALID_DATA_USER)
+            assertEquals(e.message, UserMessages.LIMIT_USERNAME)
         }
     }
 
@@ -119,12 +103,12 @@ class SaveUserServiceTest {
     @Test
     fun nullPassword() {
         try {
-            userDto.password = null
-            val saveUserService = SaveUserService(userRepository, userDtoAssembler, userDto)
+            user.password = null
+            val saveUserService = CreateUserService(userRepository, addressRepository, user)
             saveUserService.execute()
             fail("Password can´t be null")
         } catch (e: IllegalArgumentException) {
-            assertEquals(e.message, ExceptionMessages.INVALID_DATA_USER)
+            assertEquals(e.message, UserMessages.INVALID_DATA_USER)
         }
     }
 
@@ -134,12 +118,12 @@ class SaveUserServiceTest {
     @Test
     fun emptyPassword() {
         try {
-            userDto.password = ""
-            val saveUserService = SaveUserService(userRepository, userDtoAssembler, userDto)
+            user.password = ""
+            val saveUserService = CreateUserService(userRepository, addressRepository, user)
             saveUserService.execute()
             fail("Password can´t be empty")
         } catch (e: IllegalArgumentException) {
-            assertEquals(e.message, ExceptionMessages.INVALID_DATA_USER)
+            assertEquals(e.message, UserMessages.LIMIT_PASSWORD)
         }
     }
 }

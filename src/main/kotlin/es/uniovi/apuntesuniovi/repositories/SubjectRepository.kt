@@ -1,6 +1,6 @@
 package es.uniovi.apuntesuniovi.repositories
 
-import es.uniovi.apuntesuniovi.entities.Subject
+import es.uniovi.apuntesuniovi.models.Subject
 import org.springframework.data.jpa.repository.JpaRepository
 import java.util.*
 

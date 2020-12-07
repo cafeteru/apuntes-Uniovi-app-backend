@@ -1,0 +1,19 @@
+package es.uniovi.apuntesuniovi.controllers.commands.users
+
+import com.google.gson.Gson
+import es.uniovi.apuntesuniovi.controllers.commands.BaseCreate
+import es.uniovi.apuntesuniovi.services.UserService
+import es.uniovi.apuntesuniovi.services.dtos.entities.UserDto
+
+/**
+ * Save a user in controller layer
+ */
+class CreateUser(
+    userService: UserService,
+    json: String
+) : BaseCreate<UserDto>(userService, json) {
+
+    override fun getEntityFromJson(json: String): UserDto {
+        return Gson().fromJson(json, UserDto::class.java)
+    }
+}

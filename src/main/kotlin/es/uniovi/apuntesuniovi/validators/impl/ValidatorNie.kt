@@ -8,7 +8,7 @@ import es.uniovi.apuntesuniovi.validators.Validator
 class ValidatorNie(private var nie: String?) : Validator {
     override fun isValid(): Boolean {
         nie?.let {
-            if(it.isNotEmpty()) {
+            if (it.isNotEmpty()) {
                 var aux = checkFirstLetter(it, 'X', 0)
                 aux = checkFirstLetter(aux, 'Y', 1)
                 aux = checkFirstLetter(aux, 'Z', 2)

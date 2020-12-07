@@ -1,6 +1,6 @@
 package es.uniovi.apuntesuniovi.repositories
 
-import es.uniovi.apuntesuniovi.entities.User
+import es.uniovi.apuntesuniovi.models.User
 import org.springframework.data.jpa.repository.JpaRepository
 import java.util.*
 
@@ -9,8 +9,13 @@ import java.util.*
  */
 interface UserRepository : JpaRepository<User, Long> {
     /**
-     * Find subject by username
+     * Find user by username
      */
     fun findByUsername(userName: String): Optional<User>
+
+    /**
+     * Find user by numberIdentification
+     */
+    fun findByNumberIdentification(numberIdentification: String): Optional<User>
 
 }
