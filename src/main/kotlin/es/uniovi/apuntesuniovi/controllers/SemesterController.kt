@@ -7,6 +7,8 @@ import es.uniovi.apuntesuniovi.services.BaseService
 import es.uniovi.apuntesuniovi.services.SemesterService
 import es.uniovi.apuntesuniovi.services.dtos.entities.SemesterDto
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
@@ -23,7 +25,7 @@ class SemesterController @Autowired constructor(
         return CreateSemester(semesterService, json).execute()
     }
 
-    override fun findAll(baseService: BaseService<Semester, SemesterDto>): List<SemesterDto> {
-        return FindAllSemesters(semesterService).execute()
+    override fun findAll(baseService: BaseService<Semester, SemesterDto>, pageable: Pageable): Page<SemesterDto> {
+        return FindAllSemesters(semesterService, pageable).execute()
     }
 }

@@ -7,6 +7,8 @@ import es.uniovi.apuntesuniovi.services.BaseService
 import es.uniovi.apuntesuniovi.services.UserService
 import es.uniovi.apuntesuniovi.services.dtos.entities.UserDto
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
@@ -23,7 +25,7 @@ class UserController @Autowired constructor(
         return CreateUser(userService, json).execute()
     }
 
-    override fun findAll(baseService: BaseService<User, UserDto>): List<UserDto> {
-        return FindAllUsers(userService).execute()
+    override fun findAll(baseService: BaseService<User, UserDto>, pageable: Pageable): Page<UserDto> {
+        return FindAllUsers(userService, pageable).execute()
     }
 }

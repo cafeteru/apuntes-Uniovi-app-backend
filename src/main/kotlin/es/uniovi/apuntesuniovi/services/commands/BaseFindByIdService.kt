@@ -2,14 +2,14 @@ package es.uniovi.apuntesuniovi.services.commands
 
 import es.uniovi.apuntesuniovi.infrastructure.AbstractCommand
 import es.uniovi.apuntesuniovi.infrastructure.messages.GenericMessages
+import es.uniovi.apuntesuniovi.repositories.PageableRepository
 import es.uniovi.apuntesuniovi.validators.impl.ValidatorId
-import org.springframework.data.jpa.repository.JpaRepository
 
 /**
  * Find entity by id
  */
 abstract class BaseFindByIdService<Entity>(
-    private val repository: JpaRepository<Entity, Long>,
+    private val repository: PageableRepository<Entity>,
     private val id: Long
 ) : AbstractCommand<List<Entity>>() {
     override fun execute(): List<Entity> {

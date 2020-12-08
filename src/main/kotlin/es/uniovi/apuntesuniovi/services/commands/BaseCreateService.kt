@@ -1,13 +1,13 @@
 package es.uniovi.apuntesuniovi.services.commands
 
 import es.uniovi.apuntesuniovi.infrastructure.AbstractCommand
-import org.springframework.data.jpa.repository.JpaRepository
+import es.uniovi.apuntesuniovi.repositories.PageableRepository
 
 /**
  * Create a entity in service layer
  */
 abstract class BaseCreateService<Entity>(
-    private val repository: JpaRepository<Entity, Long>,
+    private val repository: PageableRepository<Entity>,
     private val entity: Entity,
 ) : AbstractCommand<List<Entity>>() {
 

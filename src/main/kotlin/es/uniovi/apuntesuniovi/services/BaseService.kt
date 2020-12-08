@@ -1,14 +1,16 @@
 package es.uniovi.apuntesuniovi.services
 
 import es.uniovi.apuntesuniovi.infrastructure.log.LogService
+import es.uniovi.apuntesuniovi.repositories.PageableRepository
 import es.uniovi.apuntesuniovi.services.dtos.assemblers.AbstractAssembler
-import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 
 /**
  * Abstract service to define
  */
 abstract class BaseService<Entity, Dto>(
-    private val repository: JpaRepository<Entity, Long>,
+    private val repository: PageableRepository<Entity>,
     private val assembler: AbstractAssembler<Entity, Dto>
 ) {
     protected val logService = LogService(this.javaClass)
@@ -20,23 +22,29 @@ abstract class BaseService<Entity, Dto>(
      */
     fun create(dto: Dto): List<Dto> {
         logService.info("create(dto: UserDto) - start")
-        val entity = assembler.dtoToEntity(dto)
-        val result = create(repository, entity)
+        val value = assembler.dtoToEntity(dto)
+        val result = create(repository, value)
         logService.info("create(dto: UserDto) - end")
-        return assembler.listToDto(result)
+        return result.map { entity -> assembler.entityToDto(entity) }
     }
 
-    protected abstract fun create(repository: JpaRepository<Entity, Long>, entity: Entity): List<Entity>
+    protected abstract fun create(
+        repository: PageableRepository<Entity>,
+        entity: Entity
+    ): List<Entity>
 
     /**
      * Returns all elements
      */
-    fun findAll(): List<Dto> {
+    fun findAll(pageable: Pageable): Page<Dto> {
         logService.info("findAll() - start")
-        val result = findAll(repository)
+        val result = findAll(repository, pageable)
         logService.info("findAll() - end")
-        return assembler.listToDto(result)
+        return result.map { entity -> assembler.entityToDto(entity) }
     }
 
-    protected abstract fun findAll(repository: JpaRepository<Entity, Long>): List<Entity>
+    protected abstract fun findAll(
+        repository: PageableRepository<Entity>,
+        pageable: Pageable
+    ): Page<Entity>
 }

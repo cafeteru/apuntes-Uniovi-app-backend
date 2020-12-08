@@ -7,6 +7,8 @@ import es.uniovi.apuntesuniovi.services.BaseService
 import es.uniovi.apuntesuniovi.services.CenterService
 import es.uniovi.apuntesuniovi.services.dtos.entities.CenterDto
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
@@ -23,7 +25,7 @@ class CenterController @Autowired constructor(
         return CreateCenter(centerService, json).execute()
     }
 
-    override fun findAll(baseService: BaseService<Center, CenterDto>): List<CenterDto> {
-        return FindAllCenters(centerService).execute()
+    override fun findAll(baseService: BaseService<Center, CenterDto>, pageable: Pageable): Page<CenterDto> {
+        return FindAllCenters(centerService, pageable).execute()
     }
 }

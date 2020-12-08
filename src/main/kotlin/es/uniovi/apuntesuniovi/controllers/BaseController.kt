@@ -2,6 +2,8 @@ package es.uniovi.apuntesuniovi.controllers
 
 import es.uniovi.apuntesuniovi.infrastructure.log.LogService
 import es.uniovi.apuntesuniovi.services.BaseService
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
@@ -27,18 +29,27 @@ abstract class BaseController<Entity, Dto> constructor(
         return ResponseEntity(result, HttpStatus.OK)
     }
 
+    /**
+     * Return the controller command to execute create
+     */
     protected abstract fun create(baseService: BaseService<Entity, Dto>, json: String): List<Dto>
 
     /**
      * Returns all registered in the system
      */
     @GetMapping("")
-    fun findAll(): ResponseEntity<List<Dto>> {
+    fun findAll(pageable: Pageable): ResponseEntity<Page<Dto>> {
         logService.info("findAll() - start")
-        val result = findAll(baseService)
+        val result = findAll(baseService, pageable)
         logService.info("findAll() - end")
         return ResponseEntity(result, HttpStatus.OK)
     }
 
-    protected abstract fun findAll(baseService: BaseService<Entity, Dto>): List<Dto>
+    /**
+     * Return the controller command to execute findAll
+     */
+    protected abstract fun findAll(
+        baseService: BaseService<Entity, Dto>,
+        pageable: Pageable
+    ): Page<Dto>
 }

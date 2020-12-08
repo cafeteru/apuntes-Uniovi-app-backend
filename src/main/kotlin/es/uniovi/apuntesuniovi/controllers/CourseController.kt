@@ -7,6 +7,8 @@ import es.uniovi.apuntesuniovi.services.BaseService
 import es.uniovi.apuntesuniovi.services.CourseService
 import es.uniovi.apuntesuniovi.services.dtos.entities.CourseDto
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
@@ -23,7 +25,7 @@ class CourseController @Autowired constructor(
         return CreateCourse(courseService, json).execute()
     }
 
-    override fun findAll(baseService: BaseService<Course, CourseDto>): List<CourseDto> {
-        return FindAllCourses(courseService).execute()
+    override fun findAll(baseService: BaseService<Course, CourseDto>, pageable: Pageable): Page<CourseDto> {
+        return FindAllCourses(courseService, pageable).execute()
     }
 }
