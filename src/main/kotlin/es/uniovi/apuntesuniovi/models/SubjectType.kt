@@ -12,6 +12,7 @@ class SubjectType {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null
 
+    // TODO ADD LIMIT AND ADD IN TEST DATABASE
     lateinit var name: String
 
     @OneToMany(mappedBy = "subjectType", cascade = [(CascadeType.ALL)])

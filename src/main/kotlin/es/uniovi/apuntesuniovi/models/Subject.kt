@@ -1,5 +1,8 @@
 package es.uniovi.apuntesuniovi.models
 
+import es.uniovi.apuntesuniovi.infrastructure.constants.database.CenterLimits
+import es.uniovi.apuntesuniovi.infrastructure.messages.CenterMessages
+import es.uniovi.apuntesuniovi.validators.impl.ValidatorMaxLength
 import java.util.*
 import javax.persistence.*
 
@@ -12,13 +15,21 @@ class Subject {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null
 
-    lateinit var name: String
+    @Column(length = CenterLimits.NAME)
+    var name: String = ""
+        set(value) {
+            if (ValidatorMaxLength(value, CenterLimits.NAME).isValid()) {
+                field = value
+            } else {
+                throw IllegalArgumentException(CenterMessages.LIMIT_NAME)
+            }
+        }
 
     @ManyToOne
-    lateinit var semester: Semester
+    var semester: Semester? = null
 
     @ManyToOne
-    lateinit var subjectType: SubjectType
+    var subjectType: SubjectType? = null
 
     @OneToMany(mappedBy = "subject", cascade = [(CascadeType.ALL)])
     val teachSubjects: Set<TeachSubject> = HashSet()

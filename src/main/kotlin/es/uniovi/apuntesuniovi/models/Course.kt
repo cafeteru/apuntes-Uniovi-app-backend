@@ -12,10 +12,11 @@ class Course {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null
 
+    // TODO ADD LIMIT
     var position: Int? = null
 
     @ManyToOne
-    var career: Career? = null
+    lateinit var career: Career
 
     @OneToMany(mappedBy = "course", cascade = [(CascadeType.ALL)])
     val semesters: Set<Semester> = HashSet()

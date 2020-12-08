@@ -8,7 +8,6 @@ data class CareerDto(
     var name: String,
     var code: String? = null,
     var yearImplantation: Int? = null,
-    var typeTeaching: String? = null,
     var ISCED: String? = null,
     var ECTS: Int? = null,
     var languages: String? = null,
