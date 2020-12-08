@@ -73,9 +73,8 @@ class Career {
     @ManyToOne
     var center: Center? = null
 
-    // TODO review
-    @ManyToOne
-    var configurationECTS: ConfigurationECTS? = null
+    @OneToMany(mappedBy = "career", cascade = [(CascadeType.ALL)])
+    var optionETCS: Set<OptionETCS> = HashSet()
 
     @OneToMany(mappedBy = "career", cascade = [(CascadeType.ALL)])
     val courses: Set<Course> = HashSet()

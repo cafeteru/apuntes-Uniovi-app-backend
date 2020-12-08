@@ -21,7 +21,7 @@ class CourseAssembler @Autowired constructor(
             val dto = CourseDto(
                 id = it.id,
                 position = it.position,
-                careerId = it.career?.id
+                careerId = it.career.id
             )
             logService.info("entityToDto(entity: Course) - end")
             return dto

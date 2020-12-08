@@ -3,9 +3,7 @@ package es.uniovi.apuntesuniovi.services.dtos.assemblers
 import es.uniovi.apuntesuniovi.infrastructure.messages.CareerMessages
 import es.uniovi.apuntesuniovi.models.Career
 import es.uniovi.apuntesuniovi.repositories.CenterRepository
-import es.uniovi.apuntesuniovi.repositories.ConfigurationECTSRepository
 import es.uniovi.apuntesuniovi.services.commands.centers.FindCenterByIdService
-import es.uniovi.apuntesuniovi.services.commands.configurationsECTS.FindConfigurationECTSByIdService
 import es.uniovi.apuntesuniovi.services.dtos.entities.CareerDto
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -15,8 +13,7 @@ import org.springframework.stereotype.Service
  */
 @Service
 class CareerAssembler @Autowired constructor(
-    private val centerRepository: CenterRepository,
-    private val configurationECTSRepository: ConfigurationECTSRepository
+    private val centerRepository: CenterRepository
 ) : AbstractAssembler<Career, CareerDto>() {
     override fun entityToDto(entity: Career?): CareerDto {
         logService.info("entityToDto(entity: Career) - start")
@@ -29,7 +26,6 @@ class CareerAssembler @Autowired constructor(
                 ECTS = it.ECTS,
                 languages = it.languages.toString(),
                 centerId = it.center?.id,
-                configurationECTSId = it.configurationECTS?.id
             )
             logService.info("entityToDto(entity: Career) - end")
             return dto
@@ -50,10 +46,6 @@ class CareerAssembler @Autowired constructor(
 //            entity.languages = it.languages
             it.centerId?.let { id ->
                 entity.center = FindCenterByIdService(centerRepository, id).execute()[0]
-            }
-            it.configurationECTSId?.let { id ->
-                entity.configurationECTS =
-                    FindConfigurationECTSByIdService(configurationECTSRepository, id).execute()[0]
             }
             logService.info("dtoToEntity(dto: CareerDto) - end")
             return entity

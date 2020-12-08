@@ -11,5 +11,4 @@ data class CareerDto(
     var ECTS: Int? = null,
     var languages: String? = null,
     var centerId: Long? = null,
-    var configurationECTSId: Long? = null
 )

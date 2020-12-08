@@ -2,6 +2,7 @@ package es.uniovi.apuntesuniovi.models
 
 import es.uniovi.apuntesuniovi.infrastructure.constants.database.CenterLimits
 import es.uniovi.apuntesuniovi.infrastructure.messages.CenterMessages
+import es.uniovi.apuntesuniovi.models.types.SubjectType
 import es.uniovi.apuntesuniovi.validators.impl.ValidatorMaxLength
 import java.util.*
 import javax.persistence.*
@@ -25,11 +26,10 @@ class Subject {
             }
         }
 
-    @ManyToOne
-    var semester: Semester? = null
+    var subjectType: SubjectType? = null
 
     @ManyToOne
-    var subjectType: SubjectType? = null
+    var semester: Semester? = null
 
     @OneToMany(mappedBy = "subject", cascade = [(CascadeType.ALL)])
     val teachSubjects: Set<TeachSubject> = HashSet()

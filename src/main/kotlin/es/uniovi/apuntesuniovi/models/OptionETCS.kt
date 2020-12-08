@@ -1,6 +1,6 @@
 package es.uniovi.apuntesuniovi.models
 
-import java.util.*
+import es.uniovi.apuntesuniovi.models.types.SubjectType
 import javax.persistence.*
 
 /**
@@ -15,9 +15,9 @@ class OptionETCS {
     // TODO ADD LIMIT AND ALL ENTITY
     var etcs: Int = 0
 
-    @ManyToOne
-    lateinit var configurationECTS: ConfigurationECTS
+    // TODO CHECK
+    var subjectType: SubjectType? = null
 
-    @ManyToMany
-    var subjectTypes: Set<SubjectType> = HashSet()
+    @ManyToOne
+    var career: Career? = null
 }
