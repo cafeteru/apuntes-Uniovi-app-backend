@@ -1,5 +1,6 @@
 package es.uniovi.apuntesuniovi.services
 
+import es.uniovi.apuntesuniovi.models.Subject
 import es.uniovi.apuntesuniovi.repositories.SubjectRepository
 import es.uniovi.apuntesuniovi.repositories.TeachSubjectRegistryRepository
 import es.uniovi.apuntesuniovi.repositories.TeachSubjectRepository
@@ -15,6 +16,7 @@ import es.uniovi.apuntesuniovi.services.dtos.assemblers.TeachSubjectAssembler
 import es.uniovi.apuntesuniovi.services.dtos.entities.SubjectDto
 import es.uniovi.apuntesuniovi.services.dtos.entities.TeachSubjectDto
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Service
 import java.time.LocalDate
 
@@ -27,9 +29,9 @@ class SubjectService @Autowired constructor(
     private val userRepository: UserRepository,
     private val teachSubjectRepository: TeachSubjectRepository,
     private val teachSubjectRegistryRepository: TeachSubjectRegistryRepository,
-    private val subjectDtoAssembler: SubjectAssembler,
+    private val subjectAssembler: SubjectAssembler,
     private val teachSubjectDtoAssembler: TeachSubjectAssembler
-) : BaseService<SubjectDto>() {
+) : BaseService<Subject, SubjectDto>(subjectRepository, subjectAssembler) {
 
     /**
      * Add a teacher into the subject
@@ -48,18 +50,11 @@ class SubjectService @Autowired constructor(
         return teachSubjectDtoAssembler.listToDto(listOf(teachSubject))
     }
 
-    override fun create(dto: SubjectDto): List<SubjectDto> {
-        logService.info("create(dto: SubjectDto) - start")
-        val subject = subjectDtoAssembler.dtoToEntity(dto)
-        val result = CreateSubjectService(subjectRepository, subject).execute()
-        logService.info("create(dto: SubjectDto) - end")
-        return subjectDtoAssembler.listToDto(result)
+    override fun create(repository: JpaRepository<Subject, Long>, entity: Subject): List<Subject> {
+        return CreateSubjectService(subjectRepository, entity).execute()
     }
 
-    override fun findAll(): List<SubjectDto> {
-        logService.info("findAll() - start")
-        val result = FindAllSubjectsService(subjectRepository).execute()
-        logService.info("findAll() - end")
-        return subjectDtoAssembler.listToDto(result)
+    override fun findAll(repository: JpaRepository<Subject, Long>): List<Subject> {
+        return FindAllSubjectsService(subjectRepository).execute()
     }
 }

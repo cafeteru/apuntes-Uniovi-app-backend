@@ -29,10 +29,10 @@ class ECTSTest {
      */
     @Test
     fun limitECTS() {
-        career.ECTS = CareerLimits.ECTS_MIN
-        assertEquals(CareerLimits.ECTS_MIN, career.ECTS)
-        career.ECTS = CareerLimits.ECTS_MAX
-        assertEquals(CareerLimits.ECTS_MAX, career.ECTS)
+        career.etcs = CareerLimits.ECTS_MIN
+        assertEquals(CareerLimits.ECTS_MIN, career.etcs)
+        career.etcs = CareerLimits.ECTS_MAX
+        assertEquals(CareerLimits.ECTS_MAX, career.etcs)
     }
 
     /**
@@ -41,7 +41,7 @@ class ECTSTest {
     @Test
     fun downLimitECTS() {
         try {
-            career.ECTS = CareerLimits.ECTS_MIN - 1
+            career.etcs = CareerLimits.ECTS_MIN - 1
             fail("ECTS is too small")
         } catch (e: IllegalArgumentException) {
             assertEquals(e.message, CareerMessages.LIMIT_ETCS_MIN)
@@ -54,7 +54,7 @@ class ECTSTest {
     @Test
     fun upLimitECTS() {
         try {
-            career.ECTS = CareerLimits.ECTS_MAX + 1
+            career.etcs = CareerLimits.ECTS_MAX + 1
             fail("ECTS is too big")
         } catch (e: IllegalArgumentException) {
             assertEquals(e.message, CareerMessages.LIMIT_ETCS_MAX)
@@ -66,7 +66,7 @@ class ECTSTest {
      */
     @Test
     fun nullETCS() {
-        career.ECTS = null
-        assertNull(career.ECTS)
+        career.etcs = null
+        assertNull(career.etcs)
     }
 }

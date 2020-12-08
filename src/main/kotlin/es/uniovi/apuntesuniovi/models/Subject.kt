@@ -2,6 +2,7 @@ package es.uniovi.apuntesuniovi.models
 
 import es.uniovi.apuntesuniovi.infrastructure.constants.database.CenterLimits
 import es.uniovi.apuntesuniovi.infrastructure.messages.CenterMessages
+import es.uniovi.apuntesuniovi.infrastructure.messages.SubjectMessages
 import es.uniovi.apuntesuniovi.models.types.SubjectType
 import es.uniovi.apuntesuniovi.validators.impl.ValidatorMaxLength
 import java.util.*
@@ -26,6 +27,7 @@ class Subject {
             }
         }
 
+    @Enumerated(EnumType.STRING)
     var subjectType: SubjectType? = null
 
     @ManyToOne
@@ -39,4 +41,24 @@ class Subject {
 
     @OneToMany(mappedBy = "subject", cascade = [(CascadeType.ALL)])
     val lessons: Set<Lesson> = HashSet()
+
+    /**
+     * Set subjectType according to a text
+     *
+     * @param subjectType Text
+     * @throws IllegalArgumentException Invalid text
+     */
+    fun setSubjectType(subjectType: String?) {
+        if (subjectType != null) {
+            try {
+                this.subjectType = SubjectType.valueOf(
+                    subjectType.toUpperCase()
+                )
+            } catch (e: IllegalArgumentException) {
+                throw IllegalArgumentException(SubjectMessages.INVALID_SUBJECT_TYPE)
+            }
+        } else {
+            this.subjectType = null
+        }
+    }
 }

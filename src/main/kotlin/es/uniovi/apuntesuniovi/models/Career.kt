@@ -2,7 +2,6 @@ package es.uniovi.apuntesuniovi.models
 
 import es.uniovi.apuntesuniovi.infrastructure.constants.database.CareerLimits
 import es.uniovi.apuntesuniovi.infrastructure.messages.CareerMessages
-import es.uniovi.apuntesuniovi.infrastructure.messages.UserMessages
 import es.uniovi.apuntesuniovi.models.types.LanguageType
 import es.uniovi.apuntesuniovi.validators.impl.ValidatorMaxLength
 import es.uniovi.apuntesuniovi.validators.impl.ValidatorMaxValue
@@ -11,6 +10,7 @@ import java.util.*
 import javax.persistence.*
 import javax.validation.constraints.Max
 import javax.validation.constraints.Min
+
 
 /**
  * Represents careers
@@ -54,7 +54,7 @@ class Career {
 
     @Min(CareerLimits.ECTS_MIN.toLong())
     @Max(CareerLimits.ECTS_MAX.toLong())
-    var ECTS: Int? = null
+    var etcs: Int? = null
         set(value) {
             value?.let {
                 if (!ValidatorMinValue(it, CareerLimits.ECTS_MIN).isValid()) {
@@ -67,8 +67,8 @@ class Career {
             field = value
         }
 
-    // TODO CHANGE TO LIST
-    var languages: LanguageType? = null
+    @ElementCollection
+    var languages: MutableSet<LanguageType> = HashSet()
 
     @ManyToOne
     var center: Center? = null
@@ -80,22 +80,21 @@ class Career {
     val courses: Set<Course> = HashSet()
 
     /**
-     * Set identificationType according to a text
+     * Add language according to a text
      *
-     * @param identificationType Text
+     * @param language Text
      * @throws IllegalArgumentException Invalid text
      */
-    fun setIdentificationType(identificationType: String?) {
-        if (identificationType != null) {
+    fun addLanguage(language: String?) {
+        if (language != null) {
             try {
-                this.languages = LanguageType.valueOf(
-                    identificationType.toUpperCase()
-                )
+                val value = LanguageType.valueOf(language.toUpperCase())
+                languages.add(value)
             } catch (e: IllegalArgumentException) {
-                throw IllegalArgumentException(UserMessages.INVALID_IDENTIFICATION_TYPE)
+                throw IllegalArgumentException(CareerMessages.INVALID_LANGUAGE)
             }
         } else {
-            this.languages = null
+            throw IllegalArgumentException(CareerMessages.INVALID_LANGUAGE)
         }
     }
 }

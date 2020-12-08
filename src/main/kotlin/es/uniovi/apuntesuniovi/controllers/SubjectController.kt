@@ -2,7 +2,7 @@ package es.uniovi.apuntesuniovi.controllers
 
 import es.uniovi.apuntesuniovi.controllers.commands.subjects.CreateSubject
 import es.uniovi.apuntesuniovi.controllers.commands.subjects.FindAllSubjects
-import es.uniovi.apuntesuniovi.infrastructure.AbstractCommand
+import es.uniovi.apuntesuniovi.models.Subject
 import es.uniovi.apuntesuniovi.services.BaseService
 import es.uniovi.apuntesuniovi.services.SubjectService
 import es.uniovi.apuntesuniovi.services.dtos.entities.SubjectDto
@@ -17,16 +17,13 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/subjects")
 class SubjectController @Autowired constructor(
     private val subjectService: SubjectService
-) : BaseController<SubjectDto>(subjectService) {
+) : BaseController<Subject, SubjectDto>(subjectService) {
 
-    override fun getCreateCommand(
-        baseService: BaseService<SubjectDto>,
-        json: String
-    ): AbstractCommand<List<SubjectDto>> {
-        return CreateSubject(subjectService, json)
+    override fun create(baseService: BaseService<Subject, SubjectDto>, json: String): List<SubjectDto> {
+        return CreateSubject(subjectService, json).execute()
     }
 
-    override fun getFindAllCommand(baseService: BaseService<SubjectDto>): AbstractCommand<List<SubjectDto>> {
-        return FindAllSubjects(subjectService)
+    override fun findAll(baseService: BaseService<Subject, SubjectDto>): List<SubjectDto> {
+        return FindAllSubjects(subjectService).execute()
     }
 }

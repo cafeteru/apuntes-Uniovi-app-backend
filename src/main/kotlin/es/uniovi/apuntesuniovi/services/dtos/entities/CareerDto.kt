@@ -9,6 +9,6 @@ data class CareerDto(
     var code: String? = null,
     var yearImplantation: Int? = null,
     var ECTS: Int? = null,
-    var languages: String? = null,
+    val languages: List<String> = ArrayList(),
     var centerId: Long? = null,
 )

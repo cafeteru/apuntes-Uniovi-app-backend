@@ -3,6 +3,7 @@ package es.uniovi.apuntesuniovi.services.insertData
 import es.uniovi.apuntesuniovi.infrastructure.log.LogService
 import es.uniovi.apuntesuniovi.models.Address
 import es.uniovi.apuntesuniovi.models.types.RoleType
+import es.uniovi.apuntesuniovi.models.types.SubjectType
 import es.uniovi.apuntesuniovi.services.CareerService
 import es.uniovi.apuntesuniovi.services.CenterService
 import es.uniovi.apuntesuniovi.services.SubjectService
@@ -121,7 +122,7 @@ class InsertDataExample @Autowired constructor(
     }
 
     private fun createSubject(name: String): SubjectDto {
-        val subjectDto = SubjectDto(null, name)
+        val subjectDto = SubjectDto(null, name, SubjectType.BASIC.toString())
         return subjectService.create(subjectDto)[0]
     }
 

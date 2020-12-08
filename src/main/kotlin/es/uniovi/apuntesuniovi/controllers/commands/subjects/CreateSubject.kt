@@ -2,6 +2,7 @@ package es.uniovi.apuntesuniovi.controllers.commands.subjects
 
 import com.google.gson.Gson
 import es.uniovi.apuntesuniovi.controllers.commands.BaseCreate
+import es.uniovi.apuntesuniovi.models.Subject
 import es.uniovi.apuntesuniovi.services.SubjectService
 import es.uniovi.apuntesuniovi.services.dtos.entities.SubjectDto
 
@@ -11,7 +12,7 @@ import es.uniovi.apuntesuniovi.services.dtos.entities.SubjectDto
 class CreateSubject(
     subjectService: SubjectService,
     json: String
-) : BaseCreate<SubjectDto>(subjectService, json) {
+) : BaseCreate<Subject, SubjectDto>(subjectService, json) {
 
     override fun getEntityFromJson(json: String): SubjectDto {
         return Gson().fromJson(json, SubjectDto::class.java)

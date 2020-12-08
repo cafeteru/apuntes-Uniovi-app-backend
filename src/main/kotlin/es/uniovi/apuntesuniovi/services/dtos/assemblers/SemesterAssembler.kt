@@ -21,7 +21,7 @@ class SemesterAssembler @Autowired constructor(
             val dto = SemesterDto(
                 id = it.id,
                 position = it.position,
-                courseId = it.course.id
+                courseId = it.course?.id
             )
             logService.info("entityToDto(entity: Course) - end")
             return dto

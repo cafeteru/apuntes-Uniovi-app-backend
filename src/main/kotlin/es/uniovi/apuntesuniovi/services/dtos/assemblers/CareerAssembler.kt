@@ -23,8 +23,8 @@ class CareerAssembler @Autowired constructor(
                 name = it.name,
                 code = it.code,
                 yearImplantation = it.yearImplantation,
-                ECTS = it.ECTS,
-                languages = it.languages.toString(),
+                ECTS = it.etcs,
+                languages = it.languages.map { language -> language.toString() },
                 centerId = it.center?.id,
             )
             logService.info("entityToDto(entity: Career) - end")
@@ -42,8 +42,8 @@ class CareerAssembler @Autowired constructor(
             entity.name = it.name
             entity.code = it.code
             entity.yearImplantation = it.yearImplantation
-            entity.ECTS = it.ECTS
-//            entity.languages = it.languages
+            entity.etcs = it.ECTS
+            it.languages.forEach { language -> entity.addLanguage(language) }
             it.centerId?.let { id ->
                 entity.center = FindCenterByIdService(centerRepository, id).execute()[0]
             }
