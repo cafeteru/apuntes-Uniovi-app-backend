@@ -1,15 +1,15 @@
 package es.uniovi.apuntesuniovi.services.commands
 
 import es.uniovi.apuntesuniovi.infrastructure.AbstractCommand
-import es.uniovi.apuntesuniovi.repositories.PageableRepository
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
+import org.springframework.data.repository.PagingAndSortingRepository
 
 /**
  * Return all entities in service layer
  */
 abstract class BaseFindAllService<Entity>(
-    private val repository: PageableRepository<Entity>,
+    private val repository: PagingAndSortingRepository<Entity, Long>,
     private val pageable: Pageable
 ) : AbstractCommand<Page<Entity>>() {
 

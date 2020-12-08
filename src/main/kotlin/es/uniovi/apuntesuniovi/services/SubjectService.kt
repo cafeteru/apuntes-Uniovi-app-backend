@@ -1,7 +1,10 @@
 package es.uniovi.apuntesuniovi.services
 
 import es.uniovi.apuntesuniovi.models.Subject
-import es.uniovi.apuntesuniovi.repositories.*
+import es.uniovi.apuntesuniovi.repositories.SubjectRepository
+import es.uniovi.apuntesuniovi.repositories.TeachSubjectRegistryRepository
+import es.uniovi.apuntesuniovi.repositories.TeachSubjectRepository
+import es.uniovi.apuntesuniovi.repositories.UserRepository
 import es.uniovi.apuntesuniovi.services.commands.subjects.AddTeacherService
 import es.uniovi.apuntesuniovi.services.commands.subjects.CreateSubjectService
 import es.uniovi.apuntesuniovi.services.commands.subjects.FindAllSubjectsService
@@ -15,6 +18,7 @@ import es.uniovi.apuntesuniovi.services.dtos.entities.TeachSubjectDto
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
+import org.springframework.data.repository.PagingAndSortingRepository
 import org.springframework.stereotype.Service
 import java.time.LocalDate
 
@@ -49,14 +53,14 @@ class SubjectService @Autowired constructor(
     }
 
     override fun create(
-        repository: PageableRepository<Subject>,
+        repository: PagingAndSortingRepository<Subject, Long>,
         entity: Subject
     ): List<Subject> {
         return CreateSubjectService(subjectRepository, entity).execute()
     }
 
     override fun findAll(
-        repository: PageableRepository<Subject>,
+        repository: PagingAndSortingRepository<Subject, Long>,
         pageable: Pageable
     ): Page<Subject> {
         return FindAllSubjectsService(subjectRepository, pageable).execute()

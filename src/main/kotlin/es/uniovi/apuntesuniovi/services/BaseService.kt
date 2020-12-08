@@ -1,16 +1,16 @@
 package es.uniovi.apuntesuniovi.services
 
 import es.uniovi.apuntesuniovi.infrastructure.log.LogService
-import es.uniovi.apuntesuniovi.repositories.PageableRepository
 import es.uniovi.apuntesuniovi.services.dtos.assemblers.AbstractAssembler
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
+import org.springframework.data.repository.PagingAndSortingRepository
 
 /**
  * Abstract service to define
  */
 abstract class BaseService<Entity, Dto>(
-    private val repository: PageableRepository<Entity>,
+    private val repository: PagingAndSortingRepository<Entity, Long>,
     private val assembler: AbstractAssembler<Entity, Dto>
 ) {
     protected val logService = LogService(this.javaClass)
@@ -29,7 +29,7 @@ abstract class BaseService<Entity, Dto>(
     }
 
     protected abstract fun create(
-        repository: PageableRepository<Entity>,
+        repository: PagingAndSortingRepository<Entity, Long>,
         entity: Entity
     ): List<Entity>
 
@@ -44,7 +44,7 @@ abstract class BaseService<Entity, Dto>(
     }
 
     protected abstract fun findAll(
-        repository: PageableRepository<Entity>,
+        repository: PagingAndSortingRepository<Entity, Long>,
         pageable: Pageable
     ): Page<Entity>
 }
