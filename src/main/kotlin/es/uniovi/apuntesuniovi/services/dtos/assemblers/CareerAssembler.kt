@@ -26,7 +26,6 @@ class CareerAssembler @Autowired constructor(
                 name = it.name,
                 code = it.code,
                 yearImplantation = it.yearImplantation,
-                ISCED = it.ISCED,
                 ECTS = it.ECTS,
                 languages = it.languages.toString(),
                 centerId = it.center?.id,
@@ -47,7 +46,6 @@ class CareerAssembler @Autowired constructor(
             entity.name = it.name
             entity.code = it.code
             entity.yearImplantation = it.yearImplantation
-            entity.ISCED = it.ISCED
             entity.ECTS = it.ECTS
 //            entity.languages = it.languages
             it.centerId?.let { id ->
