@@ -1,7 +1,6 @@
 package es.uniovi.apuntesuniovi.models
 
-import es.uniovi.apuntesuniovi.infrastructure.constants.database.CenterLimits
-import es.uniovi.apuntesuniovi.infrastructure.messages.CenterMessages
+import es.uniovi.apuntesuniovi.infrastructure.constants.database.SubjectLimits
 import es.uniovi.apuntesuniovi.infrastructure.messages.SubjectMessages
 import es.uniovi.apuntesuniovi.models.types.SubjectType
 import es.uniovi.apuntesuniovi.validators.impl.ValidatorMaxLength
@@ -17,13 +16,13 @@ class Subject {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null
 
-    @Column(length = CenterLimits.NAME)
+    @Column(length = SubjectLimits.NAME)
     var name: String = ""
         set(value) {
-            if (ValidatorMaxLength(value, CenterLimits.NAME).isValid()) {
+            if (ValidatorMaxLength(value, SubjectLimits.NAME).isValid()) {
                 field = value
             } else {
-                throw IllegalArgumentException(CenterMessages.LIMIT_NAME)
+                throw IllegalArgumentException(SubjectMessages.LIMIT_NAME)
             }
         }
 

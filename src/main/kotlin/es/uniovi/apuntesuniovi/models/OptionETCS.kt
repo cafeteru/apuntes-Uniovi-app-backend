@@ -20,7 +20,7 @@ class OptionETCS {
 
     @Min(OptionETCSLimits.ECTS_MIN.toLong())
     @Max(OptionETCSLimits.ECTS_MAX.toLong())
-    var etcs: Int = 0
+    var etcs: Int = OptionETCSLimits.ECTS_MIN
         set(value) {
             if (!ValidatorMinValue(value, OptionETCSLimits.ECTS_MIN).isValid()) {
                 throw IllegalArgumentException(OptionETCSMessages.LIMIT_ETCS_MIN)
@@ -46,9 +46,7 @@ class OptionETCS {
     fun setSubjectType(subjectType: String?) {
         if (subjectType != null) {
             try {
-                this.subjectType = SubjectType.valueOf(
-                    subjectType.toUpperCase()
-                )
+                this.subjectType = SubjectType.valueOf(subjectType.toUpperCase())
             } catch (e: IllegalArgumentException) {
                 throw IllegalArgumentException(OptionETCSMessages.INVALID_SUBJECT_TYPE)
             }
