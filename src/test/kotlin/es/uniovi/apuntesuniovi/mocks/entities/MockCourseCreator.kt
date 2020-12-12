@@ -11,6 +11,7 @@ class MockCourseCreator : MockCreator<Course> {
         val course = Course()
         course.id = 1
         course.position = 1
+        course.career = MockCareerCreator().create()
         return course
     }
 }

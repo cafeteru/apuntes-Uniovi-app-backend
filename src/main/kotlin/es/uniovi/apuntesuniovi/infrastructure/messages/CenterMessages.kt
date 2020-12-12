@@ -5,4 +5,5 @@ package es.uniovi.apuntesuniovi.infrastructure.messages
  */
 object CenterMessages {
     const val LIMIT_NAME = "error.center.limit.name"
+    const val NULL = "error.center.null"
 }

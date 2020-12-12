@@ -1,5 +1,6 @@
 package es.uniovi.apuntesuniovi.services.dtos.assemblers
 
+import es.uniovi.apuntesuniovi.infrastructure.messages.CenterMessages
 import es.uniovi.apuntesuniovi.models.Center
 import es.uniovi.apuntesuniovi.services.dtos.entities.CenterDto
 import org.springframework.stereotype.Service
@@ -21,7 +22,7 @@ class CenterAssembler : AbstractAssembler<Center, CenterDto>() {
             return result
         }
         logService.error("entityToDto(entity: Center) - error")
-        throw IllegalArgumentException()
+        throw IllegalArgumentException(CenterMessages.NULL)
     }
 
     override fun dtoToEntity(dto: CenterDto?): Center {
@@ -35,6 +36,6 @@ class CenterAssembler : AbstractAssembler<Center, CenterDto>() {
             return result
         }
         logService.error("dtoToEntity(dto:CenterDto) - error")
-        throw IllegalArgumentException()
+        throw IllegalArgumentException(CenterMessages.NULL)
     }
 }
