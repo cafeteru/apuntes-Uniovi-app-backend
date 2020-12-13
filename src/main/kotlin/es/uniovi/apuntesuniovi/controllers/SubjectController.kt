@@ -21,11 +21,17 @@ class SubjectController @Autowired constructor(
     private val subjectService: SubjectService
 ) : BaseController<Subject, SubjectDto>(subjectService) {
 
-    override fun create(baseService: BaseService<Subject, SubjectDto>, json: String): List<SubjectDto> {
+    override fun create(
+        baseService: BaseService<Subject, SubjectDto>,
+        json: String
+    ): SubjectDto {
         return CreateSubject(subjectService, json).execute()
     }
 
-    override fun findAll(baseService: BaseService<Subject, SubjectDto>, pageable: Pageable): Page<SubjectDto> {
+    override fun findAll(
+        baseService: BaseService<Subject, SubjectDto>,
+        pageable: Pageable
+    ): Page<SubjectDto> {
         return FindAllSubjects(subjectService, pageable).execute()
     }
 }

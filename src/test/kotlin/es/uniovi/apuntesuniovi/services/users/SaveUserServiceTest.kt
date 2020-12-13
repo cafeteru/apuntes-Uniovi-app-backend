@@ -48,8 +48,7 @@ class SaveUserServiceTest {
         val saveUserService = CreateUserService(userRepository, addressRepository, user)
         val result = saveUserService.execute()
         assertNotNull(result)
-        assertEquals(result.size, 1)
-        assertEquals(result[0].password, user.password)
+        assertEquals(result.password, user.password)
     }
 
     /**

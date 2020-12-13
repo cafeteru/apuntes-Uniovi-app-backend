@@ -12,7 +12,7 @@ class CreateTeachSubjectService(
     private val teachSubjectRepository: TeachSubjectRepository,
     private val teachSubject: TeachSubject
 ) : BaseCreateService<TeachSubject>(teachSubjectRepository, teachSubject) {
-    override fun execute(): List<TeachSubject> {
+    override fun execute(): TeachSubject {
         val teacherId = teachSubject.teacher.id
         val subjectId = teachSubject.subject.id
         if (teacherId != null && subjectId != null) {

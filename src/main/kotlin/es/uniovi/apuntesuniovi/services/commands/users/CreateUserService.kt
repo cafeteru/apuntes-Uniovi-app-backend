@@ -1,10 +1,10 @@
 package es.uniovi.apuntesuniovi.services.commands.users
 
-import es.uniovi.apuntesuniovi.infrastructure.AbstractCommand
 import es.uniovi.apuntesuniovi.infrastructure.messages.UserMessages
 import es.uniovi.apuntesuniovi.models.User
 import es.uniovi.apuntesuniovi.repositories.AddressRepository
 import es.uniovi.apuntesuniovi.repositories.UserRepository
+import es.uniovi.apuntesuniovi.services.commands.BaseCreateService
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 
 /**
@@ -14,8 +14,8 @@ class CreateUserService(
     private val userRepository: UserRepository,
     private val addressRepository: AddressRepository,
     private val user: User
-) : AbstractCommand<List<User>>() {
-    override fun execute(): List<User> {
+) : BaseCreateService<User>(userRepository, user) {
+    override fun execute(): User {
         logService.info("execute() - start")
         checkUniqueUsername()
         checkUniqueNumberIdentification()
@@ -23,9 +23,7 @@ class CreateUserService(
         user.address?.let {
             user.address = addressRepository.save(it)
         }
-        val result = userRepository.save(user)
-        logService.info("execute() - end")
-        return listOf(result)
+        return super.execute()
     }
 
     private fun checkUniqueUsername() {

@@ -24,7 +24,7 @@ class CenterService @Autowired constructor(
     override fun create(
         repository: PagingAndSortingRepository<Center, Long>,
         entity: Center
-    ): List<Center> {
+    ): Center {
         return CreateCenterService(centerRepository, entity).execute()
     }
 

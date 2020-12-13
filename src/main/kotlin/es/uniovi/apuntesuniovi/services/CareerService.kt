@@ -24,7 +24,7 @@ class CareerService @Autowired constructor(
     override fun create(
         repository: PagingAndSortingRepository<Career, Long>,
         entity: Career
-    ): List<Career> {
+    ): Career {
         return CreateCareerService(careerRepository, entity).execute()
     }
 

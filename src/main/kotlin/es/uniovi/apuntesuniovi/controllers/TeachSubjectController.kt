@@ -24,7 +24,7 @@ class TeachSubjectController @Autowired constructor(
     override fun create(
         baseService: BaseService<TeachSubject, TeachSubjectDto>,
         json: String
-    ): List<TeachSubjectDto> {
+    ): TeachSubjectDto {
         return CreateTeachSubject(TeachSubjectService, json).execute()
     }
 

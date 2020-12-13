@@ -27,7 +27,7 @@ class UserService @Autowired constructor(
     override fun create(
         repository: PagingAndSortingRepository<User, Long>,
         entity: User
-    ): List<User> {
+    ): User {
         return CreateUserService(userRepository, addressRepository, entity).execute()
     }
 

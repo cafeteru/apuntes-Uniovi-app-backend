@@ -24,7 +24,7 @@ class CourseService @Autowired constructor(
     override fun create(
         repository: PagingAndSortingRepository<Course, Long>,
         entity: Course
-    ): List<Course> {
+    ): Course {
         return CreateCourseService(courseRepository, entity).execute()
     }
 

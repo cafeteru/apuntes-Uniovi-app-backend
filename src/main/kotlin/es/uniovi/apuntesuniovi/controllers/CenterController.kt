@@ -21,11 +21,17 @@ class CenterController @Autowired constructor(
     private val centerService: CenterService
 ) : BaseController<Center, CenterDto>(centerService) {
 
-    override fun create(baseService: BaseService<Center, CenterDto>, json: String): List<CenterDto> {
+    override fun create(
+        baseService: BaseService<Center, CenterDto>,
+        json: String
+    ): CenterDto {
         return CreateCenter(centerService, json).execute()
     }
 
-    override fun findAll(baseService: BaseService<Center, CenterDto>, pageable: Pageable): Page<CenterDto> {
+    override fun findAll(
+        baseService: BaseService<Center, CenterDto>,
+        pageable: Pageable
+    ): Page<CenterDto> {
         return FindAllCenters(centerService, pageable).execute()
     }
 }

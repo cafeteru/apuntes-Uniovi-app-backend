@@ -24,7 +24,7 @@ class SemesterService @Autowired constructor(
     override fun create(
         repository: PagingAndSortingRepository<Semester, Long>,
         entity: Semester
-    ): List<Semester> {
+    ): Semester {
         return CreateSemesterService(semesterRepository, entity).execute()
     }
 

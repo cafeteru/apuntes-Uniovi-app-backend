@@ -24,7 +24,7 @@ class SubjectService @Autowired constructor(
     override fun create(
         repository: PagingAndSortingRepository<Subject, Long>,
         entity: Subject
-    ): List<Subject> {
+    ): Subject {
         return CreateSubjectService(subjectRepository, entity).execute()
     }
 

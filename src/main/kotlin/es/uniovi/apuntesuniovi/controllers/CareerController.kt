@@ -21,7 +21,7 @@ class CareerController @Autowired constructor(
     private val careerService: CareerService
 ) : BaseController<Career, CareerDto>(careerService) {
 
-    override fun create(baseService: BaseService<Career, CareerDto>, json: String): List<CareerDto> {
+    override fun create(baseService: BaseService<Career, CareerDto>, json: String): CareerDto {
         return CreateCareer(careerService, json).execute()
     }
 

@@ -20,18 +20,18 @@ abstract class BaseService<Entity, Dto>(
      *
      * @param dto Element to create
      */
-    fun create(dto: Dto): List<Dto> {
+    fun create(dto: Dto): Dto {
         logService.info("create(dto: UserDto) - start")
         val value = assembler.dtoToEntity(dto)
         val result = create(repository, value)
         logService.info("create(dto: UserDto) - end")
-        return result.map { entity -> assembler.entityToDto(entity) }
+        return assembler.entityToDto(result)
     }
 
     protected abstract fun create(
         repository: PagingAndSortingRepository<Entity, Long>,
         entity: Entity
-    ): List<Entity>
+    ): Entity
 
     /**
      * Returns all elements

@@ -10,9 +10,9 @@ import es.uniovi.apuntesuniovi.services.BaseService
 abstract class BaseCreate<Entity, Dto>(
     private val service: BaseService<Entity, Dto>,
     private val json: String
-) : AbstractCommand<List<Dto>>() {
+) : AbstractCommand<Dto>() {
 
-    override fun execute(): List<Dto> {
+    override fun execute(): Dto {
         logService.info("execute() - start")
         try {
             val dto = getEntityFromJson(json)

@@ -12,7 +12,6 @@ abstract class BaseFindAllService<Entity>(
     private val repository: PagingAndSortingRepository<Entity, Long>,
     private val pageable: Pageable
 ) : AbstractCommand<Page<Entity>>() {
-
     override fun execute(): Page<Entity> {
         logService.info("execute() - start")
         val list = repository.findAll(pageable)

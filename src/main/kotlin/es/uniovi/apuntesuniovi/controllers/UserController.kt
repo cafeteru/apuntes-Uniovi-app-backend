@@ -21,11 +21,17 @@ class UserController @Autowired constructor(
     private val userService: UserService
 ) : BaseController<User, UserDto>(userService) {
 
-    override fun create(baseService: BaseService<User, UserDto>, json: String): List<UserDto> {
+    override fun create(
+        baseService: BaseService<User, UserDto>,
+        json: String
+    ): UserDto {
         return CreateUser(userService, json).execute()
     }
 
-    override fun findAll(baseService: BaseService<User, UserDto>, pageable: Pageable): Page<UserDto> {
+    override fun findAll(
+        baseService: BaseService<User, UserDto>,
+        pageable: Pageable
+    ): Page<UserDto> {
         return FindAllUsers(userService, pageable).execute()
     }
 }
