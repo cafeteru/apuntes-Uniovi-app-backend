@@ -26,7 +26,13 @@ abstract class BaseFindByIdService<Entity>(
         throw IllegalArgumentException(getMessageInvalidId())
     }
 
+    /**
+     * Return message if not found entity
+     */
     abstract fun getMessageNotFound(): String
 
+    /**
+     * Return message if id is invalid
+     */
     abstract fun getMessageInvalidId(): String
 }

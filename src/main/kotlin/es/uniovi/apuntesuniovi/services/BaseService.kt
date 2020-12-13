@@ -28,6 +28,9 @@ abstract class BaseService<Entity, Dto>(
         return assembler.entityToDto(result)
     }
 
+    /**
+     * Indicates the command that will create the element
+     */
     protected abstract fun create(
         repository: PagingAndSortingRepository<Entity, Long>,
         entity: Entity
@@ -43,6 +46,9 @@ abstract class BaseService<Entity, Dto>(
         return result.map { entity -> assembler.entityToDto(entity) }
     }
 
+    /**
+     * Indicates the command that will returns all elements
+     */
     protected abstract fun findAll(
         repository: PagingAndSortingRepository<Entity, Long>,
         pageable: Pageable
