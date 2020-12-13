@@ -83,16 +83,13 @@ class CareerAssemblerTest {
         assertEquals(career.etcs, dto.etcs)
         assertEquals(career.languages.size, dto.languages.size)
         assertEquals(career.center?.id, dto.centerId)
-
-        dto.centerId = null
-        assertNull(careerAssembler.dtoToEntity(dto).center)
     }
 
     /**
-     * Checks the conversion with valid CareerDto without null centerId
+     * Checks the conversion with valid CareerDto without Center
      */
     @Test
-    fun validCareerDtoNullCenterId() {
+    fun validCareerDtoCenterNull() {
         val dto = MockCareerDtoCreator().create()
         dto.centerId = null
         val career = careerAssembler.dtoToEntity(dto)
@@ -105,6 +102,7 @@ class CareerAssemblerTest {
         assertNull(career.center)
         assertNull(dto.centerId)
     }
+
 
     /**
      * Checks the conversion with null CareerDto

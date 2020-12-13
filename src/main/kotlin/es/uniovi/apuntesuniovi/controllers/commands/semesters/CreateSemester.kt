@@ -2,6 +2,8 @@ package es.uniovi.apuntesuniovi.controllers.commands.semesters
 
 import com.google.gson.Gson
 import es.uniovi.apuntesuniovi.controllers.commands.BaseCreate
+import es.uniovi.apuntesuniovi.infrastructure.messages.SemesterMessages
+import es.uniovi.apuntesuniovi.infrastructure.messages.TeachSubjectMessages
 import es.uniovi.apuntesuniovi.models.Semester
 import es.uniovi.apuntesuniovi.services.SemesterService
 import es.uniovi.apuntesuniovi.services.dtos.entities.SemesterDto
@@ -16,5 +18,9 @@ class CreateSemester(
 
     override fun getEntityFromJson(json: String): SemesterDto {
         return Gson().fromJson(json, SemesterDto::class.java)
+    }
+
+    override fun getMessageInvalidJson(): String {
+        return SemesterMessages.INVALID_JSON
     }
 }

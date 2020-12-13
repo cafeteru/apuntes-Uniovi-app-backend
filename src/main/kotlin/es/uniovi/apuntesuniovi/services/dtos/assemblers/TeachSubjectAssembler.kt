@@ -1,6 +1,8 @@
 package es.uniovi.apuntesuniovi.services.dtos.assemblers
 
+import es.uniovi.apuntesuniovi.infrastructure.messages.TeachSubjectMessages
 import es.uniovi.apuntesuniovi.models.TeachSubject
+import es.uniovi.apuntesuniovi.models.types.RoleType
 import es.uniovi.apuntesuniovi.repositories.SubjectRepository
 import es.uniovi.apuntesuniovi.repositories.UserRepository
 import es.uniovi.apuntesuniovi.services.commands.subjects.FindSubjectByIdService
@@ -23,14 +25,14 @@ class TeachSubjectAssembler @Autowired constructor(
             val result = TeachSubjectDto(
                 id = it.id,
                 isCoordinator = it.isCoordinator,
-                subjectId = it.subject.id,
-                teacherId = it.teacher.id
+                subjectId = it.subject.id!!,
+                teacherId = it.teacher.id!!
             )
             logService.info("entityToDto(entity: TeachSubject) - end")
             return result
         }
         logService.error("entityToDto(entity: TeachSubject) - error")
-        throw IllegalArgumentException()
+        throw IllegalArgumentException(TeachSubjectMessages.NULL)
     }
 
     override fun dtoToEntity(dto: TeachSubjectDto?): TeachSubject {
@@ -39,16 +41,16 @@ class TeachSubjectAssembler @Autowired constructor(
             val result = TeachSubject()
             result.id = it.id
             result.isCoordinator = it.isCoordinator
-            it.subjectId?.let { id ->
-                result.subject = FindSubjectByIdService(subjectRepository, id).execute()[0]
-            }
-            it.teacherId?.let { id ->
-                result.teacher = FindUserByIdService(userRepository, id).execute()[0]
+            result.subject = FindSubjectByIdService(subjectRepository, it.subjectId).execute()[0]
+            result.teacher = FindUserByIdService(userRepository, it.teacherId).execute()[0]
+            if (result.teacher.role != RoleType.TEACHER) {
+                logService.error("dtoToEntity(dto: TeachSubjectDto) - error")
+                throw IllegalArgumentException(TeachSubjectMessages.INVALID_USER_ROLE)
             }
             logService.info("dtoToEntity(dto: TeachSubjectDto) - end")
             return result
         }
         logService.error("dtoToEntity(dto: TeachSubjectDto) - error")
-        throw IllegalArgumentException()
+        throw IllegalArgumentException(TeachSubjectMessages.NULL)
     }
 }

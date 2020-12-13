@@ -13,6 +13,7 @@ class MockSubjectCreator : MockCreator<Subject> {
         subject.id = 1
         subject.name = "subject"
         subject.subjectType = SubjectType.BASIC
+        subject.semester = MockSemesterCreator().create()
         return subject
     }
 }

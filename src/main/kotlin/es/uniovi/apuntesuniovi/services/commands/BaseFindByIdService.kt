@@ -1,7 +1,6 @@
 package es.uniovi.apuntesuniovi.services.commands
 
 import es.uniovi.apuntesuniovi.infrastructure.AbstractCommand
-import es.uniovi.apuntesuniovi.infrastructure.messages.GenericMessages
 import es.uniovi.apuntesuniovi.validators.impl.ValidatorId
 import org.springframework.data.repository.PagingAndSortingRepository
 
@@ -21,9 +20,13 @@ abstract class BaseFindByIdService<Entity>(
                 return listOf(optional.get())
             }
             logService.error("execute() - error")
-            throw IllegalArgumentException(GenericMessages.NOT_EXISTS)
+            throw IllegalArgumentException(getMessageNotFound())
         }
         logService.error("execute() - error")
-        throw IllegalArgumentException(GenericMessages.INVALID_ID)
+        throw IllegalArgumentException(getMessageInvalidId())
     }
+
+    abstract fun getMessageNotFound(): String
+
+    abstract fun getMessageInvalidId(): String
 }

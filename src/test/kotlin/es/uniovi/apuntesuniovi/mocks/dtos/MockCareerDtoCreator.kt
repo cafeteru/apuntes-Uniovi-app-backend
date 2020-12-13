@@ -2,6 +2,7 @@ package es.uniovi.apuntesuniovi.mocks.dtos
 
 import es.uniovi.apuntesuniovi.infrastructure.constants.database.CareerLimits
 import es.uniovi.apuntesuniovi.mocks.MockCreator
+import es.uniovi.apuntesuniovi.mocks.entities.MockCenterCreator
 import es.uniovi.apuntesuniovi.models.types.LanguageType
 import es.uniovi.apuntesuniovi.services.dtos.entities.CareerDto
 
@@ -16,7 +17,7 @@ class MockCareerDtoCreator : MockCreator<CareerDto> {
             code = "code",
             yearImplantation = 1990,
             etcs = CareerLimits.ECTS_MIN,
-            centerId = 1,
+            centerId = MockCenterCreator().create().id,
             languages = listOf(LanguageType.SPANISH.toString(), LanguageType.ENGLISH.toString())
         )
     }

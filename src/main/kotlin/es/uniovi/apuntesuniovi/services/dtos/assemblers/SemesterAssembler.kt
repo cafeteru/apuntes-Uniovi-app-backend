@@ -1,6 +1,6 @@
 package es.uniovi.apuntesuniovi.services.dtos.assemblers
 
-import es.uniovi.apuntesuniovi.infrastructure.messages.CourseMessages
+import es.uniovi.apuntesuniovi.infrastructure.messages.SemesterMessages
 import es.uniovi.apuntesuniovi.models.Semester
 import es.uniovi.apuntesuniovi.repositories.CourseRepository
 import es.uniovi.apuntesuniovi.services.commands.courses.FindCourseByIdService
@@ -27,7 +27,7 @@ class SemesterAssembler @Autowired constructor(
             return dto
         }
         logService.error("entityToDto(entity: Course) - error")
-        throw IllegalArgumentException(CourseMessages.NULL)
+        throw IllegalArgumentException(SemesterMessages.NULL)
     }
 
     override fun dtoToEntity(dto: SemesterDto?): Semester {
@@ -43,6 +43,6 @@ class SemesterAssembler @Autowired constructor(
             return entity
         }
         logService.info("dtoToEntity(dto: CourseDto) - error")
-        throw IllegalArgumentException(CourseMessages.NULL)
+        throw IllegalArgumentException(SemesterMessages.NULL)
     }
 }

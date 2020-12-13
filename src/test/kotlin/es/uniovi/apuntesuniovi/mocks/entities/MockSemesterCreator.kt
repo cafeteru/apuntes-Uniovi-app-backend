@@ -11,6 +11,7 @@ class MockSemesterCreator : MockCreator<Semester> {
         val semester = Semester()
         semester.id = 1
         semester.position = 1
+        semester.course = MockCourseCreator().create()
         return semester
     }
 }
