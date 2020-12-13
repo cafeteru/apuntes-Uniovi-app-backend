@@ -17,7 +17,7 @@ class TeachSubjectRegistryAssembler @Autowired constructor(
     override fun entityToDto(entity: TeachSubjectRegistry?): TeachSubjectRegistryDto {
         logService.info("entityToDto(entity: TeachSubjectRegistry) - start")
         entity?.let {
-            it.teachSubject?.id?.let { id ->
+            it.teachSubject.id?.let { id ->
                 val result = TeachSubjectRegistryDto(
                     id = it.id,
                     teachSubjectId = id,

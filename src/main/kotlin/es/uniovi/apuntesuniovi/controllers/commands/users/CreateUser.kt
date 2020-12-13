@@ -2,6 +2,9 @@ package es.uniovi.apuntesuniovi.controllers.commands.users
 
 import com.google.gson.Gson
 import es.uniovi.apuntesuniovi.controllers.commands.BaseCreate
+import es.uniovi.apuntesuniovi.infrastructure.messages.TeachSubjectMessages
+import es.uniovi.apuntesuniovi.infrastructure.messages.UserMessages
+import es.uniovi.apuntesuniovi.models.User
 import es.uniovi.apuntesuniovi.services.UserService
 import es.uniovi.apuntesuniovi.services.dtos.entities.UserDto
 
@@ -11,9 +14,13 @@ import es.uniovi.apuntesuniovi.services.dtos.entities.UserDto
 class CreateUser(
     userService: UserService,
     json: String
-) : BaseCreate<UserDto>(userService, json) {
+) : BaseCreate<User, UserDto>(userService, json) {
 
     override fun getEntityFromJson(json: String): UserDto {
         return Gson().fromJson(json, UserDto::class.java)
+    }
+
+    override fun getMessageInvalidJson(): String {
+        return UserMessages.INVALID_JSON
     }
 }

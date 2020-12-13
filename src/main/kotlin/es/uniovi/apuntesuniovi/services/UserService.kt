@@ -1,5 +1,6 @@
 package es.uniovi.apuntesuniovi.services
 
+import es.uniovi.apuntesuniovi.models.User
 import es.uniovi.apuntesuniovi.repositories.AddressRepository
 import es.uniovi.apuntesuniovi.repositories.UserRepository
 import es.uniovi.apuntesuniovi.services.commands.users.CreateUserService
@@ -8,6 +9,9 @@ import es.uniovi.apuntesuniovi.services.commands.users.FindUserByUsernameService
 import es.uniovi.apuntesuniovi.services.dtos.assemblers.UserAssembler
 import es.uniovi.apuntesuniovi.services.dtos.entities.UserDto
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
+import org.springframework.data.repository.PagingAndSortingRepository
 import org.springframework.stereotype.Service
 
 /**
@@ -17,22 +21,21 @@ import org.springframework.stereotype.Service
 class UserService @Autowired constructor(
     private val userRepository: UserRepository,
     private val addressRepository: AddressRepository,
-    private val userDtoAssembler: UserAssembler
-) : BaseService<UserDto>() {
+    private val userAssembler: UserAssembler
+) : BaseService<User, UserDto>(userRepository, userAssembler) {
 
-    override fun create(dto: UserDto): List<UserDto> {
-        logService.info("create(dto: UserDto) - start")
-        val user = userDtoAssembler.dtoToEntity(dto)
-        val result = CreateUserService(userRepository, addressRepository, user).execute()
-        logService.info("create(dto: UserDto) - end")
-        return userDtoAssembler.listToDto(result)
+    override fun create(
+        repository: PagingAndSortingRepository<User, Long>,
+        entity: User
+    ): User {
+        return CreateUserService(userRepository, addressRepository, entity).execute()
     }
 
-    override fun findAll(): List<UserDto> {
-        logService.info("findAll() - start")
-        val result = FindAllUsersService(userRepository).execute()
-        logService.info("findAll() - end")
-        return userDtoAssembler.listToDto(result)
+    override fun findAll(
+        repository: PagingAndSortingRepository<User, Long>,
+        pageable: Pageable
+    ): Page<User> {
+        return FindAllUsersService(userRepository, pageable).execute()
     }
 
     /**
@@ -44,6 +47,6 @@ class UserService @Autowired constructor(
         logService.info("findByUsername(username: ${username}) - start")
         val result = FindUserByUsernameService(userRepository, username).execute()
         logService.info("findByUsername(username: ${username}) - end")
-        return userDtoAssembler.entityToDto(result)
+        return userAssembler.entityToDto(result)
     }
 }

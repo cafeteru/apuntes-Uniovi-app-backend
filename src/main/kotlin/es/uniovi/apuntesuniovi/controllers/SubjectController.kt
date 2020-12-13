@@ -2,11 +2,13 @@ package es.uniovi.apuntesuniovi.controllers
 
 import es.uniovi.apuntesuniovi.controllers.commands.subjects.CreateSubject
 import es.uniovi.apuntesuniovi.controllers.commands.subjects.FindAllSubjects
-import es.uniovi.apuntesuniovi.infrastructure.AbstractCommand
+import es.uniovi.apuntesuniovi.models.Subject
 import es.uniovi.apuntesuniovi.services.BaseService
 import es.uniovi.apuntesuniovi.services.SubjectService
 import es.uniovi.apuntesuniovi.services.dtos.entities.SubjectDto
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
@@ -17,16 +19,19 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/subjects")
 class SubjectController @Autowired constructor(
     private val subjectService: SubjectService
-) : BaseController<SubjectDto>(subjectService) {
+) : BaseController<Subject, SubjectDto>(subjectService) {
 
-    override fun getCreateCommand(
-        baseService: BaseService<SubjectDto>,
+    override fun create(
+        baseService: BaseService<Subject, SubjectDto>,
         json: String
-    ): AbstractCommand<List<SubjectDto>> {
-        return CreateSubject(subjectService, json)
+    ): SubjectDto {
+        return CreateSubject(subjectService, json).execute()
     }
 
-    override fun getFindAllCommand(baseService: BaseService<SubjectDto>): AbstractCommand<List<SubjectDto>> {
-        return FindAllSubjects(subjectService)
+    override fun findAll(
+        baseService: BaseService<Subject, SubjectDto>,
+        pageable: Pageable
+    ): Page<SubjectDto> {
+        return FindAllSubjects(subjectService, pageable).execute()
     }
 }

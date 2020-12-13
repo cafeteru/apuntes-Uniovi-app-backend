@@ -11,7 +11,7 @@ import org.junit.jupiter.api.fail
 /**
  * Check class UserDtoAssembler
  */
-class UserDtoAssemblerTest {
+class UserAssemblerTest {
     private val userDtoAssembler = UserAssembler()
 
     /**

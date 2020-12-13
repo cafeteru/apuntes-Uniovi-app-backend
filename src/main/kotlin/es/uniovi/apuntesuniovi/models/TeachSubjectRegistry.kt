@@ -13,7 +13,7 @@ class TeachSubjectRegistry {
     var id: Long? = null
 
     @ManyToOne
-    var teachSubject: TeachSubject? = null
+    lateinit var teachSubject: TeachSubject
 
     lateinit var initDay: LocalDate
     var finishDay: LocalDate? = null

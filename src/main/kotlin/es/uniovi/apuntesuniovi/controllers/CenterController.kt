@@ -2,11 +2,13 @@ package es.uniovi.apuntesuniovi.controllers
 
 import es.uniovi.apuntesuniovi.controllers.commands.centers.CreateCenter
 import es.uniovi.apuntesuniovi.controllers.commands.centers.FindAllCenters
-import es.uniovi.apuntesuniovi.infrastructure.AbstractCommand
+import es.uniovi.apuntesuniovi.models.Center
 import es.uniovi.apuntesuniovi.services.BaseService
 import es.uniovi.apuntesuniovi.services.CenterService
 import es.uniovi.apuntesuniovi.services.dtos.entities.CenterDto
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
@@ -17,13 +19,19 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/centers")
 class CenterController @Autowired constructor(
     private val centerService: CenterService
-) : BaseController<CenterDto>(centerService) {
+) : BaseController<Center, CenterDto>(centerService) {
 
-    override fun getCreateCommand(baseService: BaseService<CenterDto>, json: String): AbstractCommand<List<CenterDto>> {
-        return CreateCenter(centerService, json)
+    override fun create(
+        baseService: BaseService<Center, CenterDto>,
+        json: String
+    ): CenterDto {
+        return CreateCenter(centerService, json).execute()
     }
 
-    override fun getFindAllCommand(baseService: BaseService<CenterDto>): AbstractCommand<List<CenterDto>> {
-        return FindAllCenters(centerService)
+    override fun findAll(
+        baseService: BaseService<Center, CenterDto>,
+        pageable: Pageable
+    ): Page<CenterDto> {
+        return FindAllCenters(centerService, pageable).execute()
     }
 }

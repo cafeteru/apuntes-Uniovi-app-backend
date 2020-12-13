@@ -1,15 +1,14 @@
 package es.uniovi.apuntesuniovi.services.commands
 
 import es.uniovi.apuntesuniovi.infrastructure.AbstractCommand
-import es.uniovi.apuntesuniovi.infrastructure.messages.GenericMessages
 import es.uniovi.apuntesuniovi.validators.impl.ValidatorId
-import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.data.repository.PagingAndSortingRepository
 
 /**
  * Find entity by id
  */
 abstract class BaseFindByIdService<Entity>(
-    private val repository: JpaRepository<Entity, Long>,
+    private val repository: PagingAndSortingRepository<Entity, Long>,
     private val id: Long
 ) : AbstractCommand<List<Entity>>() {
     override fun execute(): List<Entity> {
@@ -21,9 +20,19 @@ abstract class BaseFindByIdService<Entity>(
                 return listOf(optional.get())
             }
             logService.error("execute() - error")
-            throw IllegalArgumentException(GenericMessages.NOT_EXISTS)
+            throw IllegalArgumentException(getMessageNotFound())
         }
         logService.error("execute() - error")
-        throw IllegalArgumentException(GenericMessages.INVALID_ID)
+        throw IllegalArgumentException(getMessageInvalidId())
     }
+
+    /**
+     * Return message if not found entity
+     */
+    abstract fun getMessageNotFound(): String
+
+    /**
+     * Return message if id is invalid
+     */
+    abstract fun getMessageInvalidId(): String
 }

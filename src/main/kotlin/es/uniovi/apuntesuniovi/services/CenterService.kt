@@ -1,11 +1,15 @@
 package es.uniovi.apuntesuniovi.services
 
+import es.uniovi.apuntesuniovi.models.Center
 import es.uniovi.apuntesuniovi.repositories.CenterRepository
 import es.uniovi.apuntesuniovi.services.commands.centers.CreateCenterService
 import es.uniovi.apuntesuniovi.services.commands.centers.FindAllCentersService
 import es.uniovi.apuntesuniovi.services.dtos.assemblers.CenterAssembler
 import es.uniovi.apuntesuniovi.services.dtos.entities.CenterDto
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
+import org.springframework.data.repository.PagingAndSortingRepository
 import org.springframework.stereotype.Service
 
 /**
@@ -14,21 +18,20 @@ import org.springframework.stereotype.Service
 @Service
 class CenterService @Autowired constructor(
     private val centerRepository: CenterRepository,
-    private val centerDtoAssembler: CenterAssembler
-) : BaseService<CenterDto>() {
+    centerAssembler: CenterAssembler
+) : BaseService<Center, CenterDto>(centerRepository, centerAssembler) {
 
-    override fun create(dto: CenterDto): List<CenterDto> {
-        logService.info("create(dto: centerDto) - start")
-        val center = centerDtoAssembler.dtoToEntity(dto)
-        val result = CreateCenterService(centerRepository, center).execute()
-        logService.info("create(dto: centerDto) - end")
-        return centerDtoAssembler.listToDto(result)
+    override fun create(
+        repository: PagingAndSortingRepository<Center, Long>,
+        entity: Center
+    ): Center {
+        return CreateCenterService(centerRepository, entity).execute()
     }
 
-    override fun findAll(): List<CenterDto> {
-        logService.info("findAll() - start")
-        val result = FindAllCentersService(centerRepository).execute()
-        logService.info("findAll() - end")
-        return centerDtoAssembler.listToDto(result)
+    override fun findAll(
+        repository: PagingAndSortingRepository<Center, Long>,
+        pageable: Pageable
+    ): Page<Center> {
+        return FindAllCentersService(centerRepository, pageable).execute()
     }
 }

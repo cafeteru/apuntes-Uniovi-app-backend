@@ -1,11 +1,10 @@
-package es.uniovi.apuntesuniovi.services.users
+package es.uniovi.apuntesuniovi.services.commands.users
 
 import es.uniovi.apuntesuniovi.models.User
 import es.uniovi.apuntesuniovi.infrastructure.messages.UserMessages
 import es.uniovi.apuntesuniovi.mocks.entities.MockUserCreator
 import es.uniovi.apuntesuniovi.repositories.AddressRepository
 import es.uniovi.apuntesuniovi.repositories.UserRepository
-import es.uniovi.apuntesuniovi.services.commands.users.CreateUserService
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -48,8 +47,7 @@ class SaveUserServiceTest {
         val saveUserService = CreateUserService(userRepository, addressRepository, user)
         val result = saveUserService.execute()
         assertNotNull(result)
-        assertEquals(result.size, 1)
-        assertEquals(result[0].password, user.password)
+        assertEquals(result.password, user.password)
     }
 
     /**

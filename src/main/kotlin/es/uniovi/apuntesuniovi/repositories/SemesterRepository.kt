@@ -1,9 +1,9 @@
 package es.uniovi.apuntesuniovi.repositories
 
 import es.uniovi.apuntesuniovi.models.Semester
-import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.data.repository.PagingAndSortingRepository
 
 /**
  * Manage the Semester table
  */
-interface SemesterRepository : JpaRepository<Semester, Long>
+interface SemesterRepository : PagingAndSortingRepository<Semester, Long>

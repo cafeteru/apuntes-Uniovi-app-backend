@@ -5,5 +5,6 @@ package es.uniovi.apuntesuniovi.services.dtos.entities
  */
 data class SubjectDto(
     var id: Long?,
-    var name: String
+    var name: String,
+    var subjectType: String?
 )

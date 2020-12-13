@@ -1,9 +1,9 @@
 package es.uniovi.apuntesuniovi.repositories
 
 import es.uniovi.apuntesuniovi.models.Center
-import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.data.repository.PagingAndSortingRepository
 
 /**
  * Manage the Center table
  */
-interface CenterRepository : JpaRepository<Center, Long>
+interface CenterRepository : PagingAndSortingRepository<Center, Long>

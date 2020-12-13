@@ -1,9 +1,9 @@
 package es.uniovi.apuntesuniovi.models.users
 
-import es.uniovi.apuntesuniovi.models.User
-import es.uniovi.apuntesuniovi.models.types.RoleType
 import es.uniovi.apuntesuniovi.infrastructure.messages.UserMessages
 import es.uniovi.apuntesuniovi.mocks.entities.MockUserCreator
+import es.uniovi.apuntesuniovi.models.User
+import es.uniovi.apuntesuniovi.models.types.RoleType
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.fail
 import org.junit.jupiter.api.BeforeEach
@@ -38,11 +38,12 @@ class RoleTest {
      */
     @Test
     fun invalidRole() {
+        val role = user.role
         try {
             user.setRole("No exists")
             fail("RoleType is invalid")
         } catch (e: IllegalArgumentException) {
-            assertEquals(RoleType.STUDENT, user.role)
+            assertEquals(role, user.role)
             assertEquals(e.message, UserMessages.INVALID_ROLE_TYPE)
         }
     }
@@ -61,11 +62,12 @@ class RoleTest {
      */
     @Test
     fun emptyRole() {
+        val role = user.role
         try {
             user.setRole("")
             fail("RoleType can´t be empty")
         } catch (e: IllegalArgumentException) {
-            assertEquals(RoleType.STUDENT, user.role)
+            assertEquals(role, user.role)
             assertEquals(e.message, UserMessages.INVALID_ROLE_TYPE)
         }
     }

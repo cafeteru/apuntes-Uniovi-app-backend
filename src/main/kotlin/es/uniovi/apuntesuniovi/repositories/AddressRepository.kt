@@ -1,9 +1,9 @@
 package es.uniovi.apuntesuniovi.repositories
 
 import es.uniovi.apuntesuniovi.models.Address
-import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.data.repository.PagingAndSortingRepository
 
 /**
  * Manage the Address table
  */
-interface AddressRepository : JpaRepository<Address, Long>
+interface AddressRepository : PagingAndSortingRepository<Address, Long>
