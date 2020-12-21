@@ -37,7 +37,7 @@ class CourseAssembler @Autowired constructor(
             entity.id = it.id
             entity.position = it.position
             it.careerId?.let { id ->
-                entity.career = FindCareerByIdService(careerRepository, id).execute()[0]
+                entity.career = FindCareerByIdService(careerRepository, id).execute()
             }
             logService.info("dtoToEntity(dto: CourseDto) - end")
             return entity

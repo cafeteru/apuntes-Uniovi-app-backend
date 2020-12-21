@@ -13,7 +13,7 @@ class Test {
     var id: Long? = null
 
     @ManyToMany
-    val lessons: Set<Lesson> = HashSet()
+    val units: Set<UnitSubject> = HashSet()
 
     @ManyToMany(mappedBy = "tests", fetch = FetchType.LAZY, cascade = [(CascadeType.ALL)])
     val questions: Set<Question> = HashSet()

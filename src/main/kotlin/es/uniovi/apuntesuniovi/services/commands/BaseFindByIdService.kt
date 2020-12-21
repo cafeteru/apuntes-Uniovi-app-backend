@@ -10,14 +10,14 @@ import org.springframework.data.repository.PagingAndSortingRepository
 abstract class BaseFindByIdService<Entity>(
     private val repository: PagingAndSortingRepository<Entity, Long>,
     private val id: Long
-) : AbstractCommand<List<Entity>>() {
-    override fun execute(): List<Entity> {
+) : AbstractCommand<Entity>() {
+    override fun execute(): Entity {
         logService.info("execute() - start")
         if (ValidatorId(id).isValid()) {
             val optional = repository.findById(id)
             if (optional.isPresent) {
                 logService.info("execute() - end")
-                return listOf(optional.get())
+                return optional.get()
             }
             logService.error("execute() - error")
             throw IllegalArgumentException(getMessageNotFound())

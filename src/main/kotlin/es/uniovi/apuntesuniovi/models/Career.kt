@@ -68,6 +68,7 @@ class Career {
         }
 
     @ElementCollection
+    @Enumerated(EnumType.STRING)
     var languages: MutableSet<LanguageType> = HashSet()
 
     @ManyToOne

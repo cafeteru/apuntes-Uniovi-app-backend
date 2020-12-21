@@ -41,8 +41,8 @@ class TeachSubjectAssembler @Autowired constructor(
             val result = TeachSubject()
             result.id = it.id
             result.isCoordinator = it.isCoordinator
-            result.subject = FindSubjectByIdService(subjectRepository, it.subjectId).execute()[0]
-            result.teacher = FindUserByIdService(userRepository, it.teacherId).execute()[0]
+            result.subject = FindSubjectByIdService(subjectRepository, it.subjectId).execute()
+            result.teacher = FindUserByIdService(userRepository, it.teacherId).execute()
             if (result.teacher.role != RoleType.TEACHER) {
                 logService.error("dtoToEntity(dto: TeachSubjectDto) - error")
                 throw IllegalArgumentException(TeachSubjectMessages.INVALID_USER_ROLE)

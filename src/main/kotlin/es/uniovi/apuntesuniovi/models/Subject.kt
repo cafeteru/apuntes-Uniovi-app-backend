@@ -39,7 +39,7 @@ class Subject {
     val learnSubject: Set<LearnSubject> = HashSet()
 
     @OneToMany(mappedBy = "subject", cascade = [(CascadeType.ALL)])
-    val lessons: Set<Lesson> = HashSet()
+    val lessons: Set<UnitSubject> = HashSet()
 
     /**
      * Set subjectType according to a text
