@@ -4,7 +4,7 @@ env:
   - CODACY_PROJECT_TOKEN="c2be9f43ccaf4cff9ff05739ef073a6c"
 
 jdk:
-  - openjdk14
+  - openjdk11
 
 install:
   - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
