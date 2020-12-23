@@ -52,7 +52,7 @@ class UnitSubjectAssemblerTest {
      * Checks the conversion with valid UnitSubject without subject
      */
     @Test
-    fun validUnitSubjectNullsubject() {
+    fun validUnitSubjectNullSubject() {
         val unitSubject = MockUnitSubjectCreator().create()
         unitSubject.subject = null
         val dto = assembler.entityToDto(unitSubject)
@@ -89,20 +89,6 @@ class UnitSubjectAssemblerTest {
         assertEquals(unitSubject.name, dto.name)
         assertEquals(unitSubject.position, dto.position)
         assertEquals(unitSubject.subject?.id, dto.subjectId)
-    }
-
-    /**
-     * Checks the conversion with valid subjectDto without subjectId
-     */
-    @Test
-    fun validUnitSubjectDtoNullSubjectId() {
-        val dto = MockUnitSubjectDtoCreator().create()
-        dto.subjectId = null
-        val unitSubject = assembler.dtoToEntity(dto)
-        assertEquals(unitSubject.id, dto.id)
-        assertEquals(unitSubject.position, dto.position)
-        assertNull(unitSubject.subject)
-        assertNull(dto.subjectId)
     }
 
     /**
