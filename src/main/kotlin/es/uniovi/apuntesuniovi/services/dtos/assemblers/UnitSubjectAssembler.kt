@@ -36,10 +36,20 @@ class UnitSubjectAssembler @Autowired constructor(
         dto?.let {
             val entity = UnitSubject()
             entity.id = it.id
-            entity.position = it.position
-            entity.name = it.name
+            if (it.name == null) {
+                throw IllegalArgumentException(UnitSubjectMessages.NULL_NAME)
+            } else {
+                entity.name = it.name
+            }
+            if (it.position == null) {
+                throw IllegalArgumentException(UnitSubjectMessages.NULL_POSITION)
+            } else {
+                entity.position = it.position
+            }
             it.subjectId?.let { id ->
                 entity.subject = FindSubjectByIdService(subjectRepository, id).execute()
+            } ?: run {
+                throw IllegalArgumentException(UnitSubjectMessages.NULL_SUBJECT)
             }
             logService.info("dtoToEntity(dto: UnitSubjectDto) - end")
             return entity
