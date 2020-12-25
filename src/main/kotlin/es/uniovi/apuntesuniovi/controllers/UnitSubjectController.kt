@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController
  */
 @RestController
 @RequestMapping("/unitSubjects")
-class UnitUnitSubjectController @Autowired constructor(
+class UnitSubjectController @Autowired constructor(
     private val UnitSubjectService: UnitSubjectService
 ) : BaseController<UnitSubject, UnitSubjectDto>(UnitSubjectService) {
 

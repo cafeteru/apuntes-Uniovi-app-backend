@@ -41,6 +41,9 @@ class UnitSubject {
             field = value
         }
 
+    @OneToMany(mappedBy = "unitSubject", cascade = [(CascadeType.ALL)])
+    val partUnits: Set<PartUnitSubject> = HashSet()
+
     @ManyToMany(mappedBy = "units", fetch = FetchType.LAZY, cascade = [(CascadeType.ALL)])
     val tests: Set<Test> = HashSet()
 }
