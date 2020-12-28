@@ -16,7 +16,7 @@ class CreateTeachSubjectService(
         val teacherId = teachSubject.teacher.id
         val subjectId = teachSubject.subject.id
         if (teacherId != null && subjectId != null) {
-            if (teachSubjectRepository.findBySubjectIdAndTeacherId(subjectId, teacherId).isPresent) {
+            if (teachSubjectRepository.existsBySubjectIdAndTeacherId(subjectId, teacherId)) {
                 throw IllegalArgumentException(TeachSubjectMessages.ALREADY_CREATE)
             }
             return super.execute()

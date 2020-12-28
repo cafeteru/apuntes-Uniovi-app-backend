@@ -1,5 +1,6 @@
 package es.uniovi.apuntesuniovi.services.dtos.assemblers
 
+import es.uniovi.apuntesuniovi.infrastructure.messages.TeachSubjectRegistryMessages
 import es.uniovi.apuntesuniovi.models.TeachSubjectRegistry
 import es.uniovi.apuntesuniovi.repositories.TeachSubjectRepository
 import es.uniovi.apuntesuniovi.services.commands.teachSubjects.FindTeachSubjectByIdService
@@ -29,7 +30,7 @@ class TeachSubjectRegistryAssembler @Autowired constructor(
             }
         }
         logService.error("entityToDto(entity: TeachSubjectRegistry) - error")
-        throw IllegalArgumentException()
+        throw IllegalArgumentException(TeachSubjectRegistryMessages.NULL)
     }
 
     override fun dtoToEntity(dto: TeachSubjectRegistryDto?): TeachSubjectRegistry {
@@ -38,13 +39,13 @@ class TeachSubjectRegistryAssembler @Autowired constructor(
             val entity = TeachSubjectRegistry()
             entity.id = it.id
             it.teachSubjectId?.let { id ->
-                entity.teachSubject = FindTeachSubjectByIdService(teachSubjectRepository, id).execute()[0]
+                entity.teachSubject = FindTeachSubjectByIdService(teachSubjectRepository, id).execute()
             }
             entity.initDay = it.initDay
             entity.finishDay = it.finishDay
             return entity
         }
         logService.error("dtoToEntity(dto: TeachSubjectRegistryDto) - error")
-        throw IllegalArgumentException()
+        throw IllegalArgumentException(TeachSubjectRegistryMessages.NULL)
     }
 }

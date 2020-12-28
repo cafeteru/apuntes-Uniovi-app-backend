@@ -45,7 +45,7 @@ class CareerAssembler @Autowired constructor(
             entity.etcs = it.etcs
             it.languages.forEach { language -> entity.addLanguage(language) }
             it.centerId?.let { id ->
-                entity.center = FindCenterByIdService(centerRepository, id).execute()[0]
+                entity.center = FindCenterByIdService(centerRepository, id).execute()
             }
             logService.info("dtoToEntity(dto: CareerDto) - end")
             return entity
