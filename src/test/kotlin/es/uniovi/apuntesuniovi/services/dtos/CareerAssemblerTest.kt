@@ -8,6 +8,7 @@ import es.uniovi.apuntesuniovi.models.types.LanguageType
 import es.uniovi.apuntesuniovi.repositories.CenterRepository
 import es.uniovi.apuntesuniovi.services.dtos.assemblers.CareerAssembler
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -16,7 +17,6 @@ import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.junit.jupiter.MockitoExtension
 import java.util.*
-import kotlin.test.assertNull
 
 /**
  * Check class CareerAssembler
