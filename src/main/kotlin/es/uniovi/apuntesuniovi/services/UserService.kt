@@ -35,11 +35,13 @@ class UserService @Autowired constructor(
         repository: PagingAndSortingRepository<User, Long>,
         pageable: Pageable
     ): Page<User> {
-        return FindAllUsersService(userRepository, pageable).execute().map {
-            it.img = null
-            it.password = null
-            return@map it
-        }
+        return FindAllUsersService(userRepository, pageable).execute().map { deleteImgPassword(it) }
+    }
+
+    private fun deleteImgPassword(user: User): User {
+        user.img = null
+        user.password = null
+        return user
     }
 
     /**
