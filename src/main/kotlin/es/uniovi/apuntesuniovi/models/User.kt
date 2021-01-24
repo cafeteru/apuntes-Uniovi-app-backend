@@ -61,6 +61,7 @@ open class User {
 
     var active: Boolean = true
 
+    @Column(length = UserLimits.IMG)
     var img: String? = null
         set(value) {
             if (ValidatorMaxLength(value, UserLimits.IMG).isValid()) {
