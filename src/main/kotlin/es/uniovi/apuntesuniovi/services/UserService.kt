@@ -28,7 +28,7 @@ class UserService @Autowired constructor(
         repository: PagingAndSortingRepository<User, Long>,
         entity: User
     ): User {
-        return CreateUserService(userRepository, addressRepository, entity).execute()
+        return deleteImgPassword(CreateUserService(userRepository, addressRepository, entity).execute())
     }
 
     override fun findAll(
