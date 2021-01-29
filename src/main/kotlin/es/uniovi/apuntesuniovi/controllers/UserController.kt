@@ -2,15 +2,16 @@ package es.uniovi.apuntesuniovi.controllers
 
 import es.uniovi.apuntesuniovi.controllers.commands.users.CreateUser
 import es.uniovi.apuntesuniovi.controllers.commands.users.FindAllUsers
-import es.uniovi.apuntesuniovi.models.User
-import es.uniovi.apuntesuniovi.services.BaseService
+import es.uniovi.apuntesuniovi.controllers.commands.users.FindUserById
+import es.uniovi.apuntesuniovi.infrastructure.log.LogService
 import es.uniovi.apuntesuniovi.services.UserService
 import es.uniovi.apuntesuniovi.services.dtos.entities.UserDto
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.*
 
 /**
  * Define user endpoints
@@ -18,20 +19,37 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/users")
 class UserController @Autowired constructor(
-    private val userService: UserService
-) : BaseController<User, UserDto>(userService) {
+  private val userService: UserService
+) {
+  private val logService = LogService(this.javaClass)
 
-    override fun create(
-        baseService: BaseService<User, UserDto>,
-        json: String
-    ): UserDto {
-        return CreateUser(userService, json).execute()
-    }
+  /**
+   * Add a new user through a text string (JSON)
+   */
+  @PostMapping("/create")
+  fun create(@RequestBody json: String): ResponseEntity<UserDto> {
+    logService.info("save(json: String) - start")
+    val result = CreateUser(userService, json).execute()
+    logService.info("save(json: String) - end")
+    return ResponseEntity(result, HttpStatus.OK)
+  }
 
-    override fun findAll(
-        baseService: BaseService<User, UserDto>,
-        pageable: Pageable
-    ): Page<UserDto> {
-        return FindAllUsers(userService, pageable).execute()
-    }
+  /**
+   * Returns all registered users
+   */
+  @GetMapping("")
+  fun findAll(pageable: Pageable): ResponseEntity<Page<UserDto>> {
+    logService.info("findAll() - start")
+    val result = FindAllUsers(userService, pageable).execute()
+    logService.info("findAll() - end")
+    return ResponseEntity(result, HttpStatus.OK)
+  }
+
+  @GetMapping("/{id}")
+  fun findById(@PathVariable id: Long): ResponseEntity<UserDto> {
+    logService.info("findById(id: ${id}) - start")
+    val result = FindUserById(userService, id).execute()
+    logService.info("findById(id: ${id}) - end")
+    return ResponseEntity(result, HttpStatus.OK)
+  }
 }

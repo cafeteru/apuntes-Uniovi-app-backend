@@ -3,19 +3,14 @@ package es.uniovi.apuntesuniovi.controllers.commands.users
 import es.uniovi.apuntesuniovi.infrastructure.AbstractCommand
 import es.uniovi.apuntesuniovi.services.UserService
 import es.uniovi.apuntesuniovi.services.dtos.entities.UserDto
-import org.springframework.data.domain.Page
-import org.springframework.data.domain.Pageable
 
-/**
- * Return all users in controller layer
- */
-class FindAllUsers(
+class FindUserById(
   private val userService: UserService,
-  private val pageable: Pageable
-) : AbstractCommand<Page<UserDto>>() {
-  override fun execute(): Page<UserDto> {
+  private val id: Long
+) : AbstractCommand<UserDto>() {
+  override fun execute(): UserDto {
     logService.info("execute() - start")
-    val result = userService.findAll(pageable)
+    val result = userService.findById(id)
     logService.info("execute() - end")
     return result
   }
