@@ -9,14 +9,14 @@ import es.uniovi.apuntesuniovi.services.commands.BaseFindByIdService
  * Return course by id in service layer
  */
 class FindCourseByIdService(
-    courseRepository: CourseRepository,
-    id: Long
+  courseRepository: CourseRepository,
+  id: Long
 ) : BaseFindByIdService<Course>(courseRepository, id) {
-    override fun getMessageNotFound(): String {
-        return CourseMessages.NOT_FOUND
-    }
+  override fun getMessageNotFound(): String {
+    return CourseMessages.NOT_FOUND
+  }
 
-    override fun getMessageInvalidId(): String {
-        return CourseMessages.INVALID_ID
-    }
+  override fun getMessageInvalidId(): String {
+    return CourseMessages.INVALID_ID
+  }
 }

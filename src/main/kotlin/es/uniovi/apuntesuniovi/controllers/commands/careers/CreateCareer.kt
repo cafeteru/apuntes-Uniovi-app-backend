@@ -11,15 +11,15 @@ import es.uniovi.apuntesuniovi.services.dtos.entities.CareerDto
  * Create a career in controller layer
  */
 class CreateCareer(
-    careerService: CareerService,
-    json: String
+  careerService: CareerService,
+  json: String
 ) : BaseCreate<Career, CareerDto>(careerService, json) {
 
-    override fun getEntityFromJson(json: String): CareerDto {
-        return Gson().fromJson(json, CareerDto::class.java)
-    }
+  override fun getEntityFromJson(json: String): CareerDto {
+    return Gson().fromJson(json, CareerDto::class.java)
+  }
 
-    override fun getMessageInvalidJson(): String {
-        return CareerMessages.INVALID_JSON
-    }
+  override fun getMessageInvalidJson(): String {
+    return CareerMessages.INVALID_JSON
+  }
 }

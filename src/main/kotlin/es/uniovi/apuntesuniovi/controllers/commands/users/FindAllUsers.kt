@@ -10,6 +10,6 @@ import org.springframework.data.domain.Pageable
  * Return all users in controller layer
  */
 class FindAllUsers(
-    userService: UserService,
-    pageable: Pageable
+  userService: UserService,
+  pageable: Pageable
 ) : BaseFindAll<User, UserDto>(userService, pageable)

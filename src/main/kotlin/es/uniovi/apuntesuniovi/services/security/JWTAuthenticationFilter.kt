@@ -26,71 +26,71 @@ import javax.servlet.http.HttpServletResponse
  * Service to authenticate users and create their token
  */
 class JWTAuthenticationFilter(
-    authenticationManager: AuthenticationManager,
-    userService: UserService
+  authenticationManager: AuthenticationManager,
+  userService: UserService
 ) : UsernamePasswordAuthenticationFilter() {
-    private val logService = LogService(this.javaClass)
-    private var userService: UserService
+  private val logService = LogService(this.javaClass)
+  private var userService: UserService
 
-    init {
-        this.authenticationManager = authenticationManager
-        this.userService = userService
-    }
+  init {
+    this.authenticationManager = authenticationManager
+    this.userService = userService
+  }
 
-    override fun attemptAuthentication(req: HttpServletRequest, res: HttpServletResponse): Authentication? {
-        logService.info("attemptAuthentication(req: HttpServletRequest, res: HttpServletResponse) - start")
-        try {
-            val user = ObjectMapper().readValue(req.inputStream, es.uniovi.apuntesuniovi.models.User::class.java)
-            val result = authenticationManager.authenticate(
-                UsernamePasswordAuthenticationToken(
-                    user.username, user.password, listOf()
-                )
-            )
-            logService.info("attemptAuthentication(req: $req, response: $res) - end")
-            return result
-        } catch (e: IOException) {
-            logService.error(UserMessages.LOGIN_SYSTEM)
-            logService.error(
-                "attemptAuthentication(req: HttpServletRequest, res: HttpServletResponse) - " +
-                        UserMessages.LOGIN_SYSTEM
-            )
-        } catch (e: InternalAuthenticationServiceException) {
-            logService.error(
-                "attemptAuthentication(req: HttpServletRequest, res: HttpServletResponse) - " +
-                        UserMessages.NOT_EXISTS
-            )
-        }
-        return null
-    }
-
-    override fun successfulAuthentication(
-        request: HttpServletRequest, response: HttpServletResponse,
-        chain: FilterChain, auth: Authentication
-    ) {
-        logService.info(
-            "successfulAuthentication(request: HttpServletRequest, " +
-                    "response: HttpServletResponse, chain: FilterChain, auth: Authentication) - start"
+  override fun attemptAuthentication(req: HttpServletRequest, res: HttpServletResponse): Authentication? {
+    logService.info("attemptAuthentication(req: HttpServletRequest, res: HttpServletResponse) - start")
+    try {
+      val user = ObjectMapper().readValue(req.inputStream, es.uniovi.apuntesuniovi.models.User::class.java)
+      val result = authenticationManager.authenticate(
+        UsernamePasswordAuthenticationToken(
+          user.username, user.password, listOf()
         )
-        val token = createToken(auth)
-        response.contentType = "application/json;charset=UTF-8"
-        response.writer.print("{ \"$AUTHORIZATION_HEADER\" : \"$TOKEN_BEARER_PREFIX$token\" }")
-        logService.info(
-            "successfulAuthentication(request: HttpServletRequest, " +
-                    "response: HttpServletResponse, chain: FilterChain, auth: Authentication) - end"
-        )
+      )
+      logService.info("attemptAuthentication(req: $req, response: $res) - end")
+      return result
+    } catch (e: IOException) {
+      logService.error(UserMessages.LOGIN_SYSTEM)
+      logService.error(
+        "attemptAuthentication(req: HttpServletRequest, res: HttpServletResponse) - " +
+            UserMessages.LOGIN_SYSTEM
+      )
+    } catch (e: InternalAuthenticationServiceException) {
+      logService.error(
+        "attemptAuthentication(req: HttpServletRequest, res: HttpServletResponse) - " +
+            UserMessages.NOT_EXISTS
+      )
     }
+    return null
+  }
 
-    private fun createToken(auth: Authentication): String {
-        logService.info("createToken(auth: Authentication) - start")
-        val username = (auth.principal as User).username
-        val user = userService.findByUsername(username)
-        val token = JWT.create()
-            .withClaim("username", user.username)
-            .withClaim("role", user.role)
-            .withClaim("id", user.id)
-            .withExpiresAt(Date(System.currentTimeMillis() + EXPIRATION_TIME))
-            .sign(HMAC512(SECRET))
-        logService.info("createToken(auth: Authentication) - end")
-        return token
-    }
+  override fun successfulAuthentication(
+    request: HttpServletRequest, response: HttpServletResponse,
+    chain: FilterChain, auth: Authentication
+  ) {
+    logService.info(
+      "successfulAuthentication(request: HttpServletRequest, " +
+          "response: HttpServletResponse, chain: FilterChain, auth: Authentication) - start"
+    )
+    val token = createToken(auth)
+    response.contentType = "application/json;charset=UTF-8"
+    response.writer.print("{ \"$AUTHORIZATION_HEADER\" : \"$TOKEN_BEARER_PREFIX$token\" }")
+    logService.info(
+      "successfulAuthentication(request: HttpServletRequest, " +
+          "response: HttpServletResponse, chain: FilterChain, auth: Authentication) - end"
+    )
+  }
+
+  private fun createToken(auth: Authentication): String {
+    logService.info("createToken(auth: Authentication) - start")
+    val username = (auth.principal as User).username
+    val user = userService.findByUsername(username)
+    val token = JWT.create()
+      .withClaim("username", user.username)
+      .withClaim("role", user.role)
+      .withClaim("id", user.id)
+      .withExpiresAt(Date(System.currentTimeMillis() + EXPIRATION_TIME))
+      .sign(HMAC512(SECRET))
+    logService.info("createToken(auth: Authentication) - end")
+    return token
+  }
 }

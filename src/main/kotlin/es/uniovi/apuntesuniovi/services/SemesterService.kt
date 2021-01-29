@@ -17,21 +17,21 @@ import org.springframework.stereotype.Service
  */
 @Service
 class SemesterService @Autowired constructor(
-    private val semesterRepository: SemesterRepository,
-    semesterAssembler: SemesterAssembler
+  private val semesterRepository: SemesterRepository,
+  semesterAssembler: SemesterAssembler
 ) : BaseService<Semester, SemesterDto>(semesterRepository, semesterAssembler) {
 
-    override fun create(
-        repository: PagingAndSortingRepository<Semester, Long>,
-        entity: Semester
-    ): Semester {
-        return CreateSemesterService(semesterRepository, entity).execute()
-    }
+  override fun create(
+    repository: PagingAndSortingRepository<Semester, Long>,
+    entity: Semester
+  ): Semester {
+    return CreateSemesterService(semesterRepository, entity).execute()
+  }
 
-    override fun findAll(
-        repository: PagingAndSortingRepository<Semester, Long>,
-        pageable: Pageable
-    ): Page<Semester> {
-        return FindAllSemestersService(semesterRepository, pageable).execute()
-    }
+  override fun findAll(
+    repository: PagingAndSortingRepository<Semester, Long>,
+    pageable: Pageable
+  ): Page<Semester> {
+    return FindAllSemestersService(semesterRepository, pageable).execute()
+  }
 }

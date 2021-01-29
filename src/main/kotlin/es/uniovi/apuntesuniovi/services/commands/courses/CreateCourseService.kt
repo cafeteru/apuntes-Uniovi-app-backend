@@ -8,4 +8,4 @@ import es.uniovi.apuntesuniovi.services.commands.BaseCreateService
  * Create a course in service layer
  */
 class CreateCourseService(courseRepository: CourseRepository, course: Course) :
-    BaseCreateService<Course>(courseRepository, course)
+  BaseCreateService<Course>(courseRepository, course)

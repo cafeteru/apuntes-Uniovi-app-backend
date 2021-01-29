@@ -9,14 +9,14 @@ import es.uniovi.apuntesuniovi.services.commands.BaseFindByIdService
  * Return center by id in service layer
  */
 class FindCenterByIdService(
-    centerRepository: CenterRepository,
-    id: Long
+  centerRepository: CenterRepository,
+  id: Long
 ) : BaseFindByIdService<Center>(centerRepository, id) {
-    override fun getMessageNotFound(): String {
-        return CenterMessages.NOT_FOUND
-    }
+  override fun getMessageNotFound(): String {
+    return CenterMessages.NOT_FOUND
+  }
 
-    override fun getMessageInvalidId(): String {
-        return CenterMessages.INVALID_ID
-    }
+  override fun getMessageInvalidId(): String {
+    return CenterMessages.INVALID_ID
+  }
 }

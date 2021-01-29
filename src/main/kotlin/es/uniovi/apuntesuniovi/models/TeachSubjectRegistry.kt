@@ -8,13 +8,13 @@ import javax.persistence.*
  */
 @Entity
 class TeachSubjectRegistry {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long? = null
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  var id: Long? = null
 
-    @ManyToOne
-    lateinit var teachSubject: TeachSubject
+  @ManyToOne
+  lateinit var teachSubject: TeachSubject
 
-    lateinit var initDay: LocalDate
-    var finishDay: LocalDate? = null
+  lateinit var initDay: LocalDate
+  var finishDay: LocalDate? = null
 }

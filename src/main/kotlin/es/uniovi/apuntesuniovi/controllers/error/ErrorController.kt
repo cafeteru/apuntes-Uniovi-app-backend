@@ -12,22 +12,22 @@ import java.util.*
  */
 @ControllerAdvice
 class ErrorController {
-    private val logService = LogService(this.javaClass)
+  private val logService = LogService(this.javaClass)
 
-    /**
-     * Returns a Json with the error occurred
-     */
-    @ExceptionHandler(value = [IllegalArgumentException::class])
-    fun responseException(e: IllegalArgumentException): ResponseEntity<Map<String, String?>>? {
-        logService.error(e.message)
-        return ResponseEntity(createJsonError(e.message), HttpStatus.BAD_REQUEST)
-    }
+  /**
+   * Returns a Json with the error occurred
+   */
+  @ExceptionHandler(value = [IllegalArgumentException::class])
+  fun responseException(e: IllegalArgumentException): ResponseEntity<Map<String, String?>>? {
+    logService.error(e.message)
+    return ResponseEntity(createJsonError(e.message), HttpStatus.BAD_REQUEST)
+  }
 
-    private fun createJsonError(message: String?): Map<String, String?> {
-        logService.info("createJsonError(message: ${message}) - start")
-        val map = HashMap<String, String?>()
-        map["error"] = message
-        logService.info("createJsonError(message: ${message}) - end")
-        return map
-    }
+  private fun createJsonError(message: String?): Map<String, String?> {
+    logService.info("createJsonError(message: ${message}) - start")
+    val map = HashMap<String, String?>()
+    map["error"] = message
+    logService.info("createJsonError(message: ${message}) - end")
+    return map
+  }
 }

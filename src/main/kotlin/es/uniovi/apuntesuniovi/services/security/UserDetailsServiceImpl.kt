@@ -13,20 +13,20 @@ import javax.inject.Inject
  */
 @Service
 class UserDetailsServiceImpl @Inject constructor(
-    private val userRepository: UserRepository
+  private val userRepository: UserRepository
 ) : UserDetailsService {
-    private val logService = LogService(this.javaClass)
+  private val logService = LogService(this.javaClass)
 
-    override fun loadUserByUsername(username: String): UserDetails {
-        logService.info("loadUserByUsername(username: $username) - start")
-        val optional = userRepository.findByUsername(username)
-        if (optional.isPresent) {
-            val employee = optional.get()
-            logService.info("loadUserByUsername(username: $username) - end")
-            return User(employee.username, employee.password, listOf())
-        } else {
-            logService.error("loadUserByUsername(username: $username) - error")
-            throw IllegalArgumentException(username)
-        }
+  override fun loadUserByUsername(username: String): UserDetails {
+    logService.info("loadUserByUsername(username: $username) - start")
+    val optional = userRepository.findByUsername(username)
+    if (optional.isPresent) {
+      val employee = optional.get()
+      logService.info("loadUserByUsername(username: $username) - end")
+      return User(employee.username, employee.password, listOf())
+    } else {
+      logService.error("loadUserByUsername(username: $username) - error")
+      throw IllegalArgumentException(username)
     }
+  }
 }

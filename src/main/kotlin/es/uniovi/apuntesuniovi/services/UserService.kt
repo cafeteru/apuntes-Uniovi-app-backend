@@ -19,40 +19,40 @@ import org.springframework.stereotype.Service
  */
 @Service
 class UserService @Autowired constructor(
-    private val userRepository: UserRepository,
-    private val addressRepository: AddressRepository,
-    private val userAssembler: UserAssembler
+  private val userRepository: UserRepository,
+  private val addressRepository: AddressRepository,
+  private val userAssembler: UserAssembler
 ) : BaseService<User, UserDto>(userRepository, userAssembler) {
 
-    override fun create(
-        repository: PagingAndSortingRepository<User, Long>,
-        entity: User
-    ): User {
-        return deleteImgPassword(CreateUserService(userRepository, addressRepository, entity).execute())
-    }
+  override fun create(
+    repository: PagingAndSortingRepository<User, Long>,
+    entity: User
+  ): User {
+    return deleteImgPassword(CreateUserService(userRepository, addressRepository, entity).execute())
+  }
 
-    override fun findAll(
-        repository: PagingAndSortingRepository<User, Long>,
-        pageable: Pageable
-    ): Page<User> {
-        return FindAllUsersService(userRepository, pageable).execute().map { deleteImgPassword(it) }
-    }
+  override fun findAll(
+    repository: PagingAndSortingRepository<User, Long>,
+    pageable: Pageable
+  ): Page<User> {
+    return FindAllUsersService(userRepository, pageable).execute().map { deleteImgPassword(it) }
+  }
 
-    private fun deleteImgPassword(user: User): User {
-        user.img = null
-        user.password = null
-        return user
-    }
+  private fun deleteImgPassword(user: User): User {
+    user.img = null
+    user.password = null
+    return user
+  }
 
-    /**
-     * Returns the user whose username matches
-     *
-     * @param username User identifier
-     */
-    fun findByUsername(username: String): UserDto {
-        logService.info("findByUsername(username: ${username}) - start")
-        val result = FindUserByUsernameService(userRepository, username).execute()
-        logService.info("findByUsername(username: ${username}) - end")
-        return userAssembler.entityToDto(result)
-    }
+  /**
+   * Returns the user whose username matches
+   *
+   * @param username User identifier
+   */
+  fun findByUsername(username: String): UserDto {
+    logService.info("findByUsername(username: ${username}) - start")
+    val result = FindUserByUsernameService(userRepository, username).execute()
+    logService.info("findByUsername(username: ${username}) - end")
+    return userAssembler.entityToDto(result)
+  }
 }

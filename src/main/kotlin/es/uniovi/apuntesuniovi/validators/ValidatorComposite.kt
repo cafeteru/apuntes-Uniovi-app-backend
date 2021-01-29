@@ -6,12 +6,12 @@ import java.util.*
  * Check a list of validators
  */
 abstract class ValidatorComposite : Validator {
-    protected val validators = ArrayList<Validator>()
+  protected val validators = ArrayList<Validator>()
 
-    /**
-     * Add validator to the list
-     */
-    fun add(validator: Validator) {
-        this.validators.add(validator)
-    }
+  /**
+   * Add validator to the list
+   */
+  fun add(validator: Validator) {
+    this.validators.add(validator)
+  }
 }
