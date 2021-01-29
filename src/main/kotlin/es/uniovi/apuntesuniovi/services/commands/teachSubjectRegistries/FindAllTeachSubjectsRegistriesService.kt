@@ -9,6 +9,6 @@ import org.springframework.data.domain.Pageable
  * Return all TeachSubjectRegistry in service layer
  */
 class FindAllTeachSubjectsRegistriesService(
-    repository: TeachSubjectRegistryRepository,
-    pageable: Pageable
+  repository: TeachSubjectRegistryRepository,
+  pageable: Pageable
 ) : BaseFindAllService<TeachSubjectRegistry>(repository, pageable)

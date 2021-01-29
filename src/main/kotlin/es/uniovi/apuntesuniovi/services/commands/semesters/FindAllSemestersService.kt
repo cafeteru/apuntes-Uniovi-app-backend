@@ -9,6 +9,6 @@ import org.springframework.data.domain.Pageable
  * Return all careers in service layer
  */
 class FindAllSemestersService(
-    semesterRepository: SemesterRepository,
-    pageable: Pageable
+  semesterRepository: SemesterRepository,
+  pageable: Pageable
 ) : BaseFindAllService<Semester>(semesterRepository, pageable)

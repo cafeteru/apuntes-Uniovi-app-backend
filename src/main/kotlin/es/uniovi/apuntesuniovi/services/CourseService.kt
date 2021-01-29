@@ -17,21 +17,21 @@ import org.springframework.stereotype.Service
  */
 @Service
 class CourseService @Autowired constructor(
-    private val courseRepository: CourseRepository,
-    courseAssembler: CourseAssembler
+  private val courseRepository: CourseRepository,
+  courseAssembler: CourseAssembler
 ) : BaseService<Course, CourseDto>(courseRepository, courseAssembler) {
 
-    override fun create(
-        repository: PagingAndSortingRepository<Course, Long>,
-        entity: Course
-    ): Course {
-        return CreateCourseService(courseRepository, entity).execute()
-    }
+  override fun create(
+    repository: PagingAndSortingRepository<Course, Long>,
+    entity: Course
+  ): Course {
+    return CreateCourseService(courseRepository, entity).execute()
+  }
 
-    override fun findAll(
-        repository: PagingAndSortingRepository<Course, Long>,
-        pageable: Pageable
-    ): Page<Course> {
-        return FindAllCoursesService(courseRepository, pageable).execute()
-    }
+  override fun findAll(
+    repository: PagingAndSortingRepository<Course, Long>,
+    pageable: Pageable
+  ): Page<Course> {
+    return FindAllCoursesService(courseRepository, pageable).execute()
+  }
 }

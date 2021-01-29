@@ -11,39 +11,39 @@ import javax.persistence.*
  */
 @Entity
 class PartUnitSubject {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long? = null
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  var id: Long? = null
 
-    @Column(length = PartUnitSubjectLimits.NAME)
-    var name: String? = null
-        set(value) {
-            if (ValidatorMaxLength(value, PartUnitSubjectLimits.NAME).isValid()) {
-                field = value
-            } else {
-                throw IllegalArgumentException(PartUnitSubjectMessages.LIMIT_NAME)
-            }
-        }
+  @Column(length = PartUnitSubjectLimits.NAME)
+  var name: String? = null
+    set(value) {
+      if (ValidatorMaxLength(value, PartUnitSubjectLimits.NAME).isValid()) {
+        field = value
+      } else {
+        throw IllegalArgumentException(PartUnitSubjectMessages.LIMIT_NAME)
+      }
+    }
 
-    @Column(length = PartUnitSubjectLimits.DESCRIPTION)
-    var description: String? = null
-        set(value) {
-            if (ValidatorMaxLength(value, PartUnitSubjectLimits.DESCRIPTION).isValid()) {
-                field = value
-            } else {
-                throw IllegalArgumentException(PartUnitSubjectMessages.LIMIT_DESCRIPTION)
-            }
-        }
+  @Column(length = PartUnitSubjectLimits.DESCRIPTION)
+  var description: String? = null
+    set(value) {
+      if (ValidatorMaxLength(value, PartUnitSubjectLimits.DESCRIPTION).isValid()) {
+        field = value
+      } else {
+        throw IllegalArgumentException(PartUnitSubjectMessages.LIMIT_DESCRIPTION)
+      }
+    }
 
-    @ManyToOne
-    var unitSubject: UnitSubject? = null
+  @ManyToOne
+  var unitSubject: UnitSubject? = null
 
-    @ManyToOne
-    var father: PartUnitSubject? = null
+  @ManyToOne
+  var father: PartUnitSubject? = null
 
-    @OneToMany(mappedBy = "father", cascade = [(CascadeType.ALL)])
-    val children: Set<PartUnitSubject> = HashSet()
+  @OneToMany(mappedBy = "father", cascade = [(CascadeType.ALL)])
+  val children: Set<PartUnitSubject> = HashSet()
 
-    @OneToMany(mappedBy = "partUnitSubject", cascade = [(CascadeType.ALL)])
-    val files: Set<FilePartUnitSubject> = HashSet()
+  @OneToMany(mappedBy = "partUnitSubject", cascade = [(CascadeType.ALL)])
+  val files: Set<FilePartUnitSubject> = HashSet()
 }

@@ -9,18 +9,18 @@ import es.uniovi.apuntesuniovi.services.commands.BaseCreateService
  * Create a TeachSubject in service layer
  */
 class CreateTeachSubjectService(
-    private val teachSubjectRepository: TeachSubjectRepository,
-    private val teachSubject: TeachSubject
+  private val teachSubjectRepository: TeachSubjectRepository,
+  private val teachSubject: TeachSubject
 ) : BaseCreateService<TeachSubject>(teachSubjectRepository, teachSubject) {
-    override fun execute(): TeachSubject {
-        val teacherId = teachSubject.teacher.id
-        val subjectId = teachSubject.subject.id
-        if (teacherId != null && subjectId != null) {
-            if (teachSubjectRepository.existsBySubjectIdAndTeacherId(subjectId, teacherId)) {
-                throw IllegalArgumentException(TeachSubjectMessages.ALREADY_CREATE)
-            }
-            return super.execute()
-        }
-        throw IllegalArgumentException(TeachSubjectMessages.INVALID_CREATE_DATA)
+  override fun execute(): TeachSubject {
+    val teacherId = teachSubject.teacher.id
+    val subjectId = teachSubject.subject.id
+    if (teacherId != null && subjectId != null) {
+      if (teachSubjectRepository.existsBySubjectIdAndTeacherId(subjectId, teacherId)) {
+        throw IllegalArgumentException(TeachSubjectMessages.ALREADY_CREATE)
+      }
+      return super.execute()
     }
+    throw IllegalArgumentException(TeachSubjectMessages.INVALID_CREATE_DATA)
+  }
 }

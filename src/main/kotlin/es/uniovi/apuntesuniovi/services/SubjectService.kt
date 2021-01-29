@@ -17,21 +17,21 @@ import org.springframework.stereotype.Service
  */
 @Service
 class SubjectService @Autowired constructor(
-    private val subjectRepository: SubjectRepository,
-    subjectAssembler: SubjectAssembler,
+  private val subjectRepository: SubjectRepository,
+  subjectAssembler: SubjectAssembler,
 ) : BaseService<Subject, SubjectDto>(subjectRepository, subjectAssembler) {
 
-    override fun create(
-        repository: PagingAndSortingRepository<Subject, Long>,
-        entity: Subject
-    ): Subject {
-        return CreateSubjectService(subjectRepository, entity).execute()
-    }
+  override fun create(
+    repository: PagingAndSortingRepository<Subject, Long>,
+    entity: Subject
+  ): Subject {
+    return CreateSubjectService(subjectRepository, entity).execute()
+  }
 
-    override fun findAll(
-        repository: PagingAndSortingRepository<Subject, Long>,
-        pageable: Pageable
-    ): Page<Subject> {
-        return FindAllSubjectsService(subjectRepository, pageable).execute()
-    }
+  override fun findAll(
+    repository: PagingAndSortingRepository<Subject, Long>,
+    pageable: Pageable
+  ): Page<Subject> {
+    return FindAllSubjectsService(subjectRepository, pageable).execute()
+  }
 }

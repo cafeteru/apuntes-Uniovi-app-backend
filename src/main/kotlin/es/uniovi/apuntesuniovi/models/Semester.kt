@@ -12,24 +12,24 @@ import javax.validation.constraints.Min
  */
 @Entity
 class Semester {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long? = null
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  var id: Long? = null
 
-    @Min(SemesterLimits.POSITION_MIN.toLong())
-    var position: Int? = null
-        set(value) {
-            value?.let {
-                if (!ValidatorMinValue(it, SemesterLimits.POSITION_MIN).isValid()) {
-                    throw IllegalArgumentException(SemesterMessages.LIMIT_POSITION_MIN)
-                }
-            }
-            field = value
+  @Min(SemesterLimits.POSITION_MIN.toLong())
+  var position: Int? = null
+    set(value) {
+      value?.let {
+        if (!ValidatorMinValue(it, SemesterLimits.POSITION_MIN).isValid()) {
+          throw IllegalArgumentException(SemesterMessages.LIMIT_POSITION_MIN)
         }
+      }
+      field = value
+    }
 
-    @ManyToOne
-    var course: Course? = null
+  @ManyToOne
+  var course: Course? = null
 
-    @OneToMany(mappedBy = "semester", cascade = [(CascadeType.ALL)])
-    val subjects: Set<Subject> = HashSet()
+  @OneToMany(mappedBy = "semester", cascade = [(CascadeType.ALL)])
+  val subjects: Set<Subject> = HashSet()
 }

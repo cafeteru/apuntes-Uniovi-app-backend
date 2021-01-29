@@ -13,36 +13,36 @@ import org.springframework.stereotype.Service
  */
 @Service
 class CourseAssembler @Autowired constructor(
-    private val careerRepository: CareerRepository
+  private val careerRepository: CareerRepository
 ) : AbstractAssembler<Course, CourseDto>() {
-    override fun entityToDto(entity: Course?): CourseDto {
-        logService.info("entityToDto(entity: Course) - start")
-        entity?.let {
-            val dto = CourseDto(
-                id = it.id,
-                position = it.position,
-                careerId = it.career?.id
-            )
-            logService.info("entityToDto(entity: Course) - end")
-            return dto
-        }
-        logService.error("entityToDto(entity: Course) - error")
-        throw IllegalArgumentException(CourseMessages.NULL)
+  override fun entityToDto(entity: Course?): CourseDto {
+    logService.info("entityToDto(entity: Course) - start")
+    entity?.let {
+      val dto = CourseDto(
+        id = it.id,
+        position = it.position,
+        careerId = it.career?.id
+      )
+      logService.info("entityToDto(entity: Course) - end")
+      return dto
     }
+    logService.error("entityToDto(entity: Course) - error")
+    throw IllegalArgumentException(CourseMessages.NULL)
+  }
 
-    override fun dtoToEntity(dto: CourseDto?): Course {
-        logService.info("dtoToEntity(dto: CourseDto) - start")
-        dto?.let {
-            val entity = Course()
-            entity.id = it.id
-            entity.position = it.position
-            it.careerId?.let { id ->
-                entity.career = FindCareerByIdService(careerRepository, id).execute()
-            }
-            logService.info("dtoToEntity(dto: CourseDto) - end")
-            return entity
-        }
-        logService.info("dtoToEntity(dto: CourseDto) - error")
-        throw IllegalArgumentException(CourseMessages.NULL)
+  override fun dtoToEntity(dto: CourseDto?): Course {
+    logService.info("dtoToEntity(dto: CourseDto) - start")
+    dto?.let {
+      val entity = Course()
+      entity.id = it.id
+      entity.position = it.position
+      it.careerId?.let { id ->
+        entity.career = FindCareerByIdService(careerRepository, id).execute()
+      }
+      logService.info("dtoToEntity(dto: CourseDto) - end")
+      return entity
     }
+    logService.info("dtoToEntity(dto: CourseDto) - error")
+    throw IllegalArgumentException(CourseMessages.NULL)
+  }
 }

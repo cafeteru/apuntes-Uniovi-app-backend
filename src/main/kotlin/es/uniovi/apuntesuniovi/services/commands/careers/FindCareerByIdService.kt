@@ -9,14 +9,14 @@ import es.uniovi.apuntesuniovi.services.commands.BaseFindByIdService
  * Return career by id in service layer
  */
 class FindCareerByIdService(
-    careerRepository: CareerRepository,
-    id: Long
+  careerRepository: CareerRepository,
+  id: Long
 ) : BaseFindByIdService<Career>(careerRepository, id) {
-    override fun getMessageNotFound(): String {
-        return CareerMessages.NOT_FOUND
-    }
+  override fun getMessageNotFound(): String {
+    return CareerMessages.NOT_FOUND
+  }
 
-    override fun getMessageInvalidId(): String {
-        return CareerMessages.INVALID_ID
-    }
+  override fun getMessageInvalidId(): String {
+    return CareerMessages.INVALID_ID
+  }
 }

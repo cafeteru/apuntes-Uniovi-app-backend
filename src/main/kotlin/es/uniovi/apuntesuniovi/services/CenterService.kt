@@ -17,21 +17,21 @@ import org.springframework.stereotype.Service
  */
 @Service
 class CenterService @Autowired constructor(
-    private val centerRepository: CenterRepository,
-    centerAssembler: CenterAssembler
+  private val centerRepository: CenterRepository,
+  centerAssembler: CenterAssembler
 ) : BaseService<Center, CenterDto>(centerRepository, centerAssembler) {
 
-    override fun create(
-        repository: PagingAndSortingRepository<Center, Long>,
-        entity: Center
-    ): Center {
-        return CreateCenterService(centerRepository, entity).execute()
-    }
+  override fun create(
+    repository: PagingAndSortingRepository<Center, Long>,
+    entity: Center
+  ): Center {
+    return CreateCenterService(centerRepository, entity).execute()
+  }
 
-    override fun findAll(
-        repository: PagingAndSortingRepository<Center, Long>,
-        pageable: Pageable
-    ): Page<Center> {
-        return FindAllCentersService(centerRepository, pageable).execute()
-    }
+  override fun findAll(
+    repository: PagingAndSortingRepository<Center, Long>,
+    pageable: Pageable
+  ): Page<Center> {
+    return FindAllCentersService(centerRepository, pageable).execute()
+  }
 }

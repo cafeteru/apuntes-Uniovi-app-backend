@@ -7,16 +7,16 @@ import javax.persistence.*
  */
 @Entity
 class LearnSubjectRegistry {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long? = null
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  var id: Long? = null
 
-    @ManyToOne
-    lateinit var learnSubject: LearnSubject
+  @ManyToOne
+  lateinit var learnSubject: LearnSubject
 
-    @ManyToOne
-    lateinit var academicCourse: AcademicCourse
+  @ManyToOne
+  lateinit var academicCourse: AcademicCourse
 
-    var mark: Float = 0f
-    var number: Int = 0
+  var mark: Float = 0f
+  var number: Int = 0
 }

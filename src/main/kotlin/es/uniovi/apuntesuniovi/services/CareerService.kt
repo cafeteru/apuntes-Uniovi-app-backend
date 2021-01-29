@@ -17,21 +17,21 @@ import org.springframework.stereotype.Service
  */
 @Service
 class CareerService @Autowired constructor(
-    private val careerRepository: CareerRepository,
-    careerAssembler: CareerAssembler
+  private val careerRepository: CareerRepository,
+  careerAssembler: CareerAssembler
 ) : BaseService<Career, CareerDto>(careerRepository, careerAssembler) {
 
-    override fun create(
-        repository: PagingAndSortingRepository<Career, Long>,
-        entity: Career
-    ): Career {
-        return CreateCareerService(careerRepository, entity).execute()
-    }
+  override fun create(
+    repository: PagingAndSortingRepository<Career, Long>,
+    entity: Career
+  ): Career {
+    return CreateCareerService(careerRepository, entity).execute()
+  }
 
-    override fun findAll(
-        repository: PagingAndSortingRepository<Career, Long>,
-        pageable: Pageable
-    ): Page<Career> {
-        return FindAllCareersService(careerRepository, pageable).execute()
-    }
+  override fun findAll(
+    repository: PagingAndSortingRepository<Career, Long>,
+    pageable: Pageable
+  ): Page<Career> {
+    return FindAllCareersService(careerRepository, pageable).execute()
+  }
 }

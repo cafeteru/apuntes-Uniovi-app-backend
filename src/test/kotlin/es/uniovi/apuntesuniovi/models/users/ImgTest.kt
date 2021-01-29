@@ -24,36 +24,6 @@ class ImgTest {
     }
 
     /**
-     * Checks the assignment under the limit
-     */
-    @Test
-    fun limitImg() {
-        var img = ""
-        for (i in 0 until UserLimits.IMG) {
-            img += "1"
-        }
-        user.img = img
-        assertEquals(img, user.img)
-    }
-
-    /**
-     * Checks the assignment over the limit
-     */
-    @Test
-    fun upLimitImg() {
-        try {
-            var img = ""
-            for (i in 0..UserLimits.IMG) {
-                img += "1"
-            }
-            user.img = img
-            fail("Img is too big")
-        } catch (e: IllegalArgumentException) {
-            assertEquals(e.message, UserMessages.LIMIT_IMG)
-        }
-    }
-
-    /**
      * Checks the assignment to null
      */
     @Test

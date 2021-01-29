@@ -14,33 +14,33 @@ import javax.annotation.PostConstruct
  */
 @Service
 class InsertDataExample @Autowired constructor(
-    private val userService: UserService
+  private val userService: UserService
 ) {
-    private val logService = LogService(this.javaClass)
-    private var admin = UserDto(
-        id = null,
-        name = "adminName",
-        surname = "adminSurname",
-        active = true,
-        birthDate = LocalDate.of(1990, 12, 22),
-        email = "admin@admin.com",
-        identificationType = "dni",
-        img = null,
-        numberIdentification = "72479503V",
-        password = "admin",
-        phone = "623548956",
-        username = "admin",
-        role = RoleType.ADMIN.toString(),
-        address = null
-    )
+  private val logService = LogService(this.javaClass)
+  private var admin = UserDto(
+    id = null,
+    name = "adminName",
+    surname = "adminSurname",
+    active = true,
+    birthDate = LocalDate.of(1990, 12, 22),
+    email = "admin@admin.com",
+    identificationType = "dni",
+    img = null,
+    numberIdentification = "72479503V",
+    password = "admin",
+    phone = "623548956",
+    username = "admin",
+    role = RoleType.ADMIN.toString(),
+    address = null
+  )
 
-    /**
-     * Create initial data test
-     */
-    @PostConstruct
-    fun initData() {
-        logService.info("initData() - start")
-        userService.create(admin)
-        logService.info("initData() - end")
-    }
+  /**
+   * Create initial data test
+   */
+  @PostConstruct
+  fun initData() {
+    logService.info("initData() - start")
+    userService.create(admin)
+    logService.info("initData() - end")
+  }
 }

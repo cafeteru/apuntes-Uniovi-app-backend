@@ -8,13 +8,13 @@ import javax.persistence.*
  */
 @Entity
 class AcademicCourse {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long? = null
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  var id: Long? = null
 
-    @OneToMany(mappedBy = "student", cascade = [(CascadeType.ALL)])
-    val learnSubject: Set<LearnSubject> = HashSet()
+  @OneToMany(mappedBy = "student", cascade = [(CascadeType.ALL)])
+  val learnSubject: Set<LearnSubject> = HashSet()
 
-    lateinit var initDay: Date
-    lateinit var finishDay: Date
+  lateinit var initDay: Date
+  lateinit var finishDay: Date
 }

@@ -9,6 +9,6 @@ import org.springframework.data.domain.Pageable
  * Return all centers in service layer
  */
 class FindAllCentersService(
-    centerRepository: CenterRepository,
-    pageable: Pageable
+  centerRepository: CenterRepository,
+  pageable: Pageable
 ) : BaseFindAllService<Center>(centerRepository, pageable)

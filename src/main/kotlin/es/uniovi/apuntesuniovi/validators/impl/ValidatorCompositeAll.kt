@@ -7,12 +7,12 @@ import es.uniovi.apuntesuniovi.validators.ValidatorComposite
  */
 class ValidatorCompositeAll : ValidatorComposite() {
 
-    override fun isValid(): Boolean {
-        for (validator in validators) {
-            if (!validator.isValid()) {
-                return false
-            }
-        }
-        return true
+  override fun isValid(): Boolean {
+    for (validator in validators) {
+      if (!validator.isValid()) {
+        return false
+      }
     }
+    return true
+  }
 }
