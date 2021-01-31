@@ -36,24 +36,31 @@ class UserService @Autowired constructor(
     val entity = userAssembler.dtoToEntity(dto)
     val result = CreateUserService(userRepository, addressRepository, entity).execute()
     logService.info("create(dto: UserDto) - end")
-    return userAssembler.entityToDto(deleteImgPassword(result))
+    return convertToDto(result)
   }
 
   /**
    * Returns all elements
+   *
+   * @param pageable Pageable
    */
   fun findAll(pageable: Pageable): Page<UserDto> {
     logService.info("findAll() - start")
     val result = FindAllUsersService(userRepository, pageable).execute()
     logService.info("findAll() - end")
-    return result.map { entity -> userAssembler.entityToDto(deleteImgPassword(entity)) }
+    return result.map { entity -> convertToDto(entity) }
   }
 
+  /**
+   * Returns the user whose id matches
+   *
+   * @param id User id
+   */
   fun findById(id: Long): UserDto {
     logService.info("findById() - start")
     val result = FindUserByIdService(userRepository, id).execute()
     logService.info("findById() - end")
-    return userAssembler.entityToDto(deleteImgPassword(result))
+    return userAssembler.entityToDto(result)
   }
 
   /**
@@ -65,12 +72,12 @@ class UserService @Autowired constructor(
     logService.info("findByUsername(username: ${username}) - start")
     val result = FindUserByUsernameService(userRepository, username).execute()
     logService.info("findByUsername(username: ${username}) - end")
-    return userAssembler.entityToDto(result)
+    return convertToDto(result)
   }
 
-  private fun deleteImgPassword(user: User): User {
+  private fun convertToDto(user: User): UserDto {
     user.img = null
     user.password = null
-    return user
+    return userAssembler.entityToDto(user)
   }
 }

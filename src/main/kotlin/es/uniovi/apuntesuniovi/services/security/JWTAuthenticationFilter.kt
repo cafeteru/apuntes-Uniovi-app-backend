@@ -41,11 +41,8 @@ class JWTAuthenticationFilter(
     logService.info("attemptAuthentication(req: HttpServletRequest, res: HttpServletResponse) - start")
     try {
       val user = ObjectMapper().readValue(req.inputStream, es.uniovi.apuntesuniovi.models.User::class.java)
-      val result = authenticationManager.authenticate(
-        UsernamePasswordAuthenticationToken(
-          user.username, user.password, listOf()
-        )
-      )
+      val authentication = UsernamePasswordAuthenticationToken(user.username, user.password, listOf())
+      val result = authenticationManager.authenticate(authentication)
       logService.info("attemptAuthentication(req: $req, response: $res) - end")
       return result
     } catch (e: IOException) {

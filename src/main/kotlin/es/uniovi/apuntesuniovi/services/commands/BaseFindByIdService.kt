@@ -19,10 +19,10 @@ abstract class BaseFindByIdService<Entity>(
         logService.info("execute() - end")
         return optional.get()
       }
-      logService.error("execute() - error")
+      logService.error("execute() - error: ${getMessageNotFound()}")
       throw IllegalArgumentException(getMessageNotFound())
     }
-    logService.error("execute() - error")
+    logService.error("execute() - error: ${getMessageInvalidId()}")
     throw IllegalArgumentException(getMessageInvalidId())
   }
 

@@ -24,6 +24,7 @@ class MockUserCreator : MockCreator<User> {
         user.password = "testPassword"
         user.role = RoleType.ADMIN
         user.phone = "623548956"
+        user.img = "img"
         user.address = MockAddressCreator().create()
         return user
     }

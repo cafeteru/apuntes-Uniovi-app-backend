@@ -45,6 +45,11 @@ class UserController @Autowired constructor(
     return ResponseEntity(result, HttpStatus.OK)
   }
 
+  /**
+   * Return a user by id
+   *
+   * @param id User´s id
+   */
   @GetMapping("/{id}")
   fun findById(@PathVariable id: Long): ResponseEntity<UserDto> {
     logService.info("findById(id: ${id}) - start")
