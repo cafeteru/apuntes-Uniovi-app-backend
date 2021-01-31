@@ -12,12 +12,14 @@ import io.jsonwebtoken.ExpiredJwtException
 import io.jsonwebtoken.SignatureException
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
+import org.springframework.security.core.GrantedAuthority
+import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter
-import java.util.*
 import javax.servlet.FilterChain
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
+
 
 /**
  *
@@ -45,7 +47,7 @@ class JWTAuthorizationFilter(authManager: AuthenticationManager) : BasicAuthenti
       if (token != "") {
         val user = JWT.require(Algorithm.HMAC512(SECRET)).build().verify(token).subject
         logService.info("getAuthentication(request: HttpServletRequest) - end")
-        return UsernamePasswordAuthenticationToken(user, null, ArrayList())
+        return UsernamePasswordAuthenticationToken(user, "", getAuthorities(token))
       }
     } catch (e: ExpiredJwtException) {
       logService.error(UserMessages.EXPIRED_TOKEN)
@@ -56,5 +58,11 @@ class JWTAuthorizationFilter(authManager: AuthenticationManager) : BasicAuthenti
     }
     logService.info("getAuthentication(request: HttpServletRequest) - end")
     return null
+  }
+
+  private fun getAuthorities(token: String): List<GrantedAuthority> {
+    val decodedJwt = JWT.decode(token)
+    val role = decodedJwt.getClaim("role").asString()
+    return listOf(SimpleGrantedAuthority(role))
   }
 }
