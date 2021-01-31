@@ -29,12 +29,12 @@ class CreateUserService(
   private fun checkUniqueUsername() {
     logService.info("checkUniqueUsername() - start")
     if (user.username.isNullOrEmpty() || user.password.isNullOrBlank()) {
-      logService.error("checkUniqueUsername() - error")
+      logService.error("checkUniqueUsername() - error: ${UserMessages.INVALID_DATA_USER}")
       throw IllegalArgumentException(UserMessages.INVALID_DATA_USER)
     }
     val optional = user.username?.let { userRepository.findByUsername(it) }
     if (optional != null && optional.isPresent) {
-      logService.error("checkUniqueUsername() - error")
+      logService.error("checkUniqueUsername() - error: ${UserMessages.ALREADY_REGISTERED_USERNAME}")
       throw IllegalArgumentException(UserMessages.ALREADY_REGISTERED_USERNAME)
     }
     logService.info("checkUniqueUsername() - end")
@@ -44,7 +44,9 @@ class CreateUserService(
     logService.info("checkUniqueNumberIdentification() - start")
     val optional = user.numberIdentification?.let { userRepository.findByNumberIdentification(it) }
     if (optional != null && optional.isPresent) {
-      logService.error("checkUniqueNumberIdentification() - error")
+      logService.error(
+        "checkUniqueNumberIdentification() - error: ${UserMessages.ALREADY_REGISTERED_NUMBER_IDENTIFICATION}"
+      )
       throw IllegalArgumentException(UserMessages.ALREADY_REGISTERED_NUMBER_IDENTIFICATION)
     }
     logService.info("checkUniqueNumberIdentification() - end")

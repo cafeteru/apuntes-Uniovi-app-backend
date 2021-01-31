@@ -21,7 +21,7 @@ class CenterAssembler : AbstractAssembler<Center, CenterDto>() {
       logService.info("entityToDto(entity: Center) - end")
       return result
     }
-    logService.error("entityToDto(entity: Center) - error")
+    logService.error("entityToDto(entity: Center) - error: ${CenterMessages.NULL}")
     throw IllegalArgumentException(CenterMessages.NULL)
   }
 
@@ -35,7 +35,7 @@ class CenterAssembler : AbstractAssembler<Center, CenterDto>() {
       logService.info("dtoToEntity(dto:CenterDto) - end")
       return result
     }
-    logService.error("dtoToEntity(dto:CenterDto) - error")
+    logService.error("dtoToEntity(dto:CenterDto) - error: ${CenterMessages.NULL}")
     throw IllegalArgumentException(CenterMessages.NULL)
   }
 }

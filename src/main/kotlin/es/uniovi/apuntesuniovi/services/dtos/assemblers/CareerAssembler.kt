@@ -30,7 +30,7 @@ class CareerAssembler @Autowired constructor(
       logService.info("entityToDto(entity: Career) - end")
       return dto
     }
-    logService.error("entityToDto(entity: Career) - error")
+    logService.error("entityToDto(entity: Career) - error: ${CareerMessages.NULL}")
     throw IllegalArgumentException(CareerMessages.NULL)
   }
 
@@ -50,7 +50,7 @@ class CareerAssembler @Autowired constructor(
       logService.info("dtoToEntity(dto: CareerDto) - end")
       return entity
     }
-    logService.info("dtoToEntity(dto: CareerDto) - error")
+    logService.info("dtoToEntity(dto: CareerDto) - error: ${CareerMessages.NULL}")
     throw IllegalArgumentException(CareerMessages.NULL)
   }
 }

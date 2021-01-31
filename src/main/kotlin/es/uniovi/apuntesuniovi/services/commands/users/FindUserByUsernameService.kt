@@ -16,7 +16,7 @@ class FindUserByUsernameService(
   override fun execute(): User {
     logService.info("execute() - start")
     if (username.isNullOrBlank()) {
-      logService.error("execute() - error")
+      logService.error("execute() - error: ${UserMessages.INVALID_USERNAME}")
       throw IllegalArgumentException(UserMessages.INVALID_USERNAME)
     }
     val optional: Optional<User> = userRepository.findByUsername(username)
@@ -24,7 +24,7 @@ class FindUserByUsernameService(
       logService.info("execute() - end")
       return optional.get()
     }
-    logService.error("execute() - error")
+    logService.error("execute() - error: ${UserMessages.NOT_FOUND_USERNAME}")
     throw IllegalArgumentException(UserMessages.NOT_FOUND_USERNAME)
   }
 }

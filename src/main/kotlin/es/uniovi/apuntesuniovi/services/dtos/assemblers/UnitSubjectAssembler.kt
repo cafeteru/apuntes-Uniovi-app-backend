@@ -1,5 +1,6 @@
 package es.uniovi.apuntesuniovi.services.dtos.assemblers
 
+import es.uniovi.apuntesuniovi.infrastructure.messages.CourseMessages
 import es.uniovi.apuntesuniovi.infrastructure.messages.UnitSubjectMessages
 import es.uniovi.apuntesuniovi.models.UnitSubject
 import es.uniovi.apuntesuniovi.repositories.SubjectRepository
@@ -27,7 +28,7 @@ class UnitSubjectAssembler @Autowired constructor(
       logService.info("entityToDto(entity: UnitSubject) - end")
       return dto
     }
-    logService.error("entityToDto(entity: UnitSubject) - error")
+    logService.error("entityToDto(entity: UnitSubject) - error: ${CourseMessages.NULL}")
     throw IllegalArgumentException(UnitSubjectMessages.NULL)
   }
 
@@ -37,11 +38,13 @@ class UnitSubjectAssembler @Autowired constructor(
       val entity = UnitSubject()
       entity.id = it.id
       if (it.name == null) {
+        logService.info("dtoToEntity(dto: UnitSubjectDto) - error: ${UnitSubjectMessages.NULL_NAME}")
         throw IllegalArgumentException(UnitSubjectMessages.NULL_NAME)
       } else {
         entity.name = it.name
       }
       if (it.position == null) {
+        logService.info("dtoToEntity(dto: UnitSubjectDto) - error: ${UnitSubjectMessages.NULL_POSITION}")
         throw IllegalArgumentException(UnitSubjectMessages.NULL_POSITION)
       } else {
         entity.position = it.position
@@ -49,12 +52,13 @@ class UnitSubjectAssembler @Autowired constructor(
       it.subjectId?.let { id ->
         entity.subject = FindSubjectByIdService(subjectRepository, id).execute()
       } ?: run {
+        logService.info("dtoToEntity(dto: UnitSubjectDto) - error: ${UnitSubjectMessages.NULL_SUBJECT}")
         throw IllegalArgumentException(UnitSubjectMessages.NULL_SUBJECT)
       }
       logService.info("dtoToEntity(dto: UnitSubjectDto) - end")
       return entity
     }
-    logService.info("dtoToEntity(dto: UnitSubjectDto) - error")
+    logService.info("dtoToEntity(dto: UnitSubjectDto) - error: ${UnitSubjectMessages.NULL}")
     throw IllegalArgumentException(UnitSubjectMessages.NULL)
   }
 }

@@ -21,7 +21,7 @@ class SubjectAssembler : AbstractAssembler<Subject, SubjectDto>() {
       logService.info("entityToDto(entity: Subject) - end")
       return result
     }
-    logService.error("entityToDto(entity: Subject) - error")
+    logService.error("entityToDto(entity: Subject) - error: ${SubjectMessages.NULL}")
     throw IllegalArgumentException(SubjectMessages.NULL)
   }
 
@@ -35,7 +35,7 @@ class SubjectAssembler : AbstractAssembler<Subject, SubjectDto>() {
       logService.info("dtoToEntity(dto: SubjectDto) - end")
       return result
     }
-    logService.error("dtoToEntity(dto: SubjectDto) - error")
+    logService.error("dtoToEntity(dto: SubjectDto) - error: ${SubjectMessages.NULL}")
     throw IllegalArgumentException(SubjectMessages.NULL)
   }
 }

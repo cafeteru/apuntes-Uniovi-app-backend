@@ -20,7 +20,7 @@ abstract class BaseCreate<Entity, Dto>(
             logService.info("execute() - end")
             return result
         } catch (e: JsonSyntaxException) {
-            logService.error("execute() - error")
+            logService.error("execute() - error: getMessageInvalidJson()")
             throw IllegalArgumentException(getMessageInvalidJson())
         }
     }

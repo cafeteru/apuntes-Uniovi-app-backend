@@ -2,10 +2,8 @@ package es.uniovi.apuntesuniovi.controllers.commands.users
 
 import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException
-import es.uniovi.apuntesuniovi.controllers.commands.BaseCreate
 import es.uniovi.apuntesuniovi.infrastructure.AbstractCommand
 import es.uniovi.apuntesuniovi.infrastructure.messages.UserMessages
-import es.uniovi.apuntesuniovi.models.User
 import es.uniovi.apuntesuniovi.services.UserService
 import es.uniovi.apuntesuniovi.services.dtos.entities.UserDto
 
@@ -25,7 +23,7 @@ class CreateUser(
       logService.info("execute() - end")
       return result
     } catch (e: JsonSyntaxException) {
-      logService.error("execute() - error")
+      logService.error("execute() - error: ${UserMessages.INVALID_JSON}")
       throw IllegalArgumentException(UserMessages.INVALID_JSON)
     }
   }

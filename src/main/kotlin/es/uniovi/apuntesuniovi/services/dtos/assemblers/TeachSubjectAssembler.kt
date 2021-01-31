@@ -31,7 +31,7 @@ class TeachSubjectAssembler @Autowired constructor(
       logService.info("entityToDto(entity: TeachSubject) - end")
       return result
     }
-    logService.error("entityToDto(entity: TeachSubject) - error")
+    logService.error("entityToDto(entity: TeachSubject) - error: ${TeachSubjectMessages.NULL}")
     throw IllegalArgumentException(TeachSubjectMessages.NULL)
   }
 
@@ -44,13 +44,13 @@ class TeachSubjectAssembler @Autowired constructor(
       result.subject = FindSubjectByIdService(subjectRepository, it.subjectId).execute()
       result.teacher = FindUserByIdService(userRepository, it.teacherId).execute()
       if (result.teacher.role != RoleType.TEACHER) {
-        logService.error("dtoToEntity(dto: TeachSubjectDto) - error")
+        logService.error("dtoToEntity(dto: TeachSubjectDto) - error: ${TeachSubjectMessages.INVALID_USER_ROLE}")
         throw IllegalArgumentException(TeachSubjectMessages.INVALID_USER_ROLE)
       }
       logService.info("dtoToEntity(dto: TeachSubjectDto) - end")
       return result
     }
-    logService.error("dtoToEntity(dto: TeachSubjectDto) - error")
+    logService.error("dtoToEntity(dto: TeachSubjectDto) - error: ${TeachSubjectMessages.NULL}")
     throw IllegalArgumentException(TeachSubjectMessages.NULL)
   }
 }

@@ -26,7 +26,7 @@ class CourseAssembler @Autowired constructor(
       logService.info("entityToDto(entity: Course) - end")
       return dto
     }
-    logService.error("entityToDto(entity: Course) - error")
+    logService.error("entityToDto(entity: Course) - error: ${CourseMessages.NULL}")
     throw IllegalArgumentException(CourseMessages.NULL)
   }
 
@@ -42,7 +42,7 @@ class CourseAssembler @Autowired constructor(
       logService.info("dtoToEntity(dto: CourseDto) - end")
       return entity
     }
-    logService.info("dtoToEntity(dto: CourseDto) - error")
+    logService.info("dtoToEntity(dto: CourseDto) - error:${CourseMessages.NULL}")
     throw IllegalArgumentException(CourseMessages.NULL)
   }
 }
