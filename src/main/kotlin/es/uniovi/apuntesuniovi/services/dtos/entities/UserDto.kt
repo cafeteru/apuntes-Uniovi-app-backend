@@ -18,6 +18,7 @@ data class UserDto(
   var username: String?,
   var password: String?,
   var role: String?,
+  var language: String,
   var identificationType: String?,
   var numberIdentification: String?,
   var address: Address?

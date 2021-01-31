@@ -29,9 +29,9 @@ class LanguageTest {
      */
     @Test
     fun validLanguage() {
-        career.addLanguage(LanguageType.SPANISH.toString())
-        assertTrue(career.languages.contains(LanguageType.SPANISH))
-        career.addLanguage(LanguageType.SPANISH.toString())
+        career.addLanguage(LanguageType.ES.toString())
+        assertTrue(career.languages.contains(LanguageType.ES))
+        career.addLanguage(LanguageType.ES.toString())
         assertEquals(career.languages.size, 1)
     }
 

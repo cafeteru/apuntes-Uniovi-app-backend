@@ -15,8 +15,8 @@ class MockCareerCreator : MockCreator<Career> {
         career.code = "TEST"
         career.yearImplantation = 2020
         career.center = MockCenterCreator().create()
-        career.addLanguage(LanguageType.SPANISH.toString())
-        career.addLanguage(LanguageType.ENGLISH.toString())
+        career.addLanguage(LanguageType.ES.toString())
+        career.addLanguage(LanguageType.US.toString())
         return career
     }
 }

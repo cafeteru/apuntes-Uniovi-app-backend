@@ -3,6 +3,7 @@ package es.uniovi.apuntesuniovi.mocks.dtos
 import es.uniovi.apuntesuniovi.mocks.MockCreator
 import es.uniovi.apuntesuniovi.mocks.entities.MockAddressCreator
 import es.uniovi.apuntesuniovi.models.types.IdentificationType
+import es.uniovi.apuntesuniovi.models.types.LanguageType
 import es.uniovi.apuntesuniovi.models.types.RoleType
 import es.uniovi.apuntesuniovi.services.dtos.entities.UserDto
 import java.time.LocalDate
@@ -26,7 +27,8 @@ class MockUserDtoCreator : MockCreator<UserDto> {
             phone = "623548956",
             username = "admin",
             role = RoleType.ADMIN.toString(),
-            address = MockAddressCreator().create()
+            address = MockAddressCreator().create(),
+            language = LanguageType.ES.toString()
         )
     }
 }

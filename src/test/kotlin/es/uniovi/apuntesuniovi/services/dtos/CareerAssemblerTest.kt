@@ -42,7 +42,7 @@ class CareerAssemblerTest {
     @Test
     fun validCareer() {
         val career = MockCareerCreator().create()
-        career.addLanguage(LanguageType.SPANISH.toString())
+        career.addLanguage(LanguageType.ES.toString())
         val dto = careerAssembler.entityToDto(career)
         assertEquals(career.id, dto.id)
         assertEquals(career.name, dto.name)

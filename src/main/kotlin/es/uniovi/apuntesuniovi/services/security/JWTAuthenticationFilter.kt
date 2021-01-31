@@ -84,7 +84,7 @@ class JWTAuthenticationFilter(
     val username = (auth.principal as User).username
     val user = userService.findByUsername(username)
     val token = JWT.create()
-      .withClaim("username", user.username)
+      .withSubject(user.username)
       .withClaim("role", "ROLE_" + user.role)
       .withClaim("id", user.id)
       .withExpiresAt(Date(System.currentTimeMillis() + EXPIRATION_TIME))

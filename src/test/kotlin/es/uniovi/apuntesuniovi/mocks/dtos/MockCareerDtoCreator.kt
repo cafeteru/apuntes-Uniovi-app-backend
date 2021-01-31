@@ -18,7 +18,7 @@ class MockCareerDtoCreator : MockCreator<CareerDto> {
             yearImplantation = 1990,
             etcs = CareerLimits.ECTS_MIN,
             centerId = MockCenterCreator().create().id,
-            languages = listOf(LanguageType.SPANISH.toString(), LanguageType.ENGLISH.toString())
+            languages = listOf(LanguageType.ES.toString(), LanguageType.US.toString())
         )
     }
 }

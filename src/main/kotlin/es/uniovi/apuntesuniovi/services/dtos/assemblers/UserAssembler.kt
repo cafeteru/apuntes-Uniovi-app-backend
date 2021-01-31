@@ -27,7 +27,8 @@ class UserAssembler : AbstractAssembler<User, UserDto>() {
         role = entity.role.toString(),
         identificationType = entity.identificationType.toString(),
         numberIdentification = entity.numberIdentification,
-        address = entity.address
+        address = entity.address,
+        language = entity.language.toString()
       )
       logService.info("entityToDto(user: User) - end")
       return result
@@ -54,6 +55,7 @@ class UserAssembler : AbstractAssembler<User, UserDto>() {
       result.numberIdentification = dto.numberIdentification
       result.setRole(dto.role)
       result.address = dto.address
+      result.setLanguage(dto.language)
       logService.info("dtoToEntity(userDto: UserDto) - end")
       return result
     }
