@@ -1,6 +1,7 @@
 package es.uniovi.apuntesuniovi.controllers.error
 
 import es.uniovi.apuntesuniovi.infrastructure.log.LogService
+import es.uniovi.apuntesuniovi.infrastructure.messages.LoadMessages
 import es.uniovi.apuntesuniovi.services.UserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
@@ -16,7 +17,8 @@ import java.util.*
  */
 @ControllerAdvice
 class ErrorController @Autowired constructor(
-  private val userService: UserService
+  private val userService: UserService,
+  private val loadMessages: LoadMessages
 ) {
   private val logService = LogService(this.javaClass)
 
@@ -29,14 +31,14 @@ class ErrorController @Autowired constructor(
     val authentication = SecurityContextHolder.getContext().authentication
     val username = authentication.name
     val user = userService.findByUsername(username)
-    println(user.language)
+    loadMessages.setLanguage(user.language)
     return ResponseEntity(createJsonError(e.message), HttpStatus.BAD_REQUEST)
   }
 
   private fun createJsonError(message: String?): Map<String, String?> {
     logService.info("createJsonError(message: ${message}) - start")
     val map = HashMap<String, String?>()
-    map["error"] = message
+    map["error"] = loadMessages[message]
     logService.info("createJsonError(message: ${message}) - end")
     return map
   }
