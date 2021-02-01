@@ -16,31 +16,31 @@ import org.mockito.junit.jupiter.MockitoExtension
  */
 @ExtendWith(MockitoExtension::class)
 class SubjectServiceTest {
-    private lateinit var subjectService: SubjectService
-    private val dto = MockSubjectDtoCreator().create()
+  private lateinit var subjectService: SubjectService
+  private val dto = MockSubjectDtoCreator().create()
 
-    @Mock
-    private lateinit var subjectRepository: SubjectRepository
-    private val subjectAssembler = SubjectAssembler()
+  @Mock
+  private lateinit var subjectRepository: SubjectRepository
+  private val subjectAssembler = SubjectAssembler()
 
-    /**
-     * Create init data for the test
-     */
-    @BeforeEach
-    fun initTest() {
-        subjectService = SubjectService(subjectRepository, subjectAssembler)
-    }
+  /**
+   * Create init data for the test
+   */
+  @BeforeEach
+  fun initTest() {
+    subjectService = SubjectService(subjectRepository, subjectAssembler)
+  }
 
-    /**
-     * Checks the functionality with valid data
-     */
-    @Test
-    fun createValidData() {
-        val subject = subjectAssembler.dtoToEntity(dto)
-        Mockito.`when`(subjectRepository.save(subject)).thenReturn(subject)
-        val result = subjectService.create(dto)
-        assertEquals(result.name, subject.name)
-        assertEquals(result.subjectType, subject.subjectType.toString())
-        assertEquals(result.id, subject.id)
-    }
+  /**
+   * Checks the functionality with valid data
+   */
+  @Test
+  fun createValidData() {
+    val subject = subjectAssembler.dtoToEntity(dto)
+    Mockito.`when`(subjectRepository.save(subject)).thenReturn(subject)
+    val result = subjectService.create(dto)
+    assertEquals(result.name, subject.name)
+    assertEquals(result.subjectType, subject.subjectType.toString())
+    assertEquals(result.id, subject.id)
+  }
 }

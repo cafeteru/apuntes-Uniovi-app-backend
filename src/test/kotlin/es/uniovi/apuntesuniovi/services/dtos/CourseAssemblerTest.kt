@@ -22,96 +22,96 @@ import kotlin.test.assertNull
  */
 @ExtendWith(MockitoExtension::class)
 class CourseAssemblerTest {
-    @Mock
-    private lateinit var careerRepository: CareerRepository
+  @Mock
+  private lateinit var careerRepository: CareerRepository
 
-    private lateinit var courseAssembler: CourseAssembler
+  private lateinit var courseAssembler: CourseAssembler
 
-    /**
-     * Create init data for the test
-     */
-    @BeforeEach
-    fun initTest() {
-        courseAssembler = CourseAssembler(careerRepository)
+  /**
+   * Create init data for the test
+   */
+  @BeforeEach
+  fun initTest() {
+    courseAssembler = CourseAssembler(careerRepository)
+  }
+
+  /**
+   * Checks the conversion with valid Course
+   */
+  @Test
+  fun validCourse() {
+    val course = MockCourseCreator().create()
+    val dto = courseAssembler.entityToDto(course)
+    assertEquals(course.id, dto.id)
+    assertEquals(course.position, dto.position)
+    assertEquals(course.career?.id, dto.careerId)
+  }
+
+  /**
+   * Checks the conversion with valid Course without Career
+   */
+  @Test
+  fun validCourseNullCareer() {
+    val course = MockCourseCreator().create()
+    course.career = null
+    val dto = courseAssembler.entityToDto(course)
+    assertEquals(course.id, dto.id)
+    assertEquals(course.position, dto.position)
+    assertEquals(course.career?.id, dto.careerId)
+  }
+
+  /**
+   * Checks the conversion with null Course
+   */
+  @Test
+  fun nullCourse() {
+    try {
+      courseAssembler.entityToDto(null)
+      fail("Course can´t be null")
+    } catch (e: IllegalArgumentException) {
+      assertEquals(e.message, CourseMessages.NULL)
     }
+  }
 
-    /**
-     * Checks the conversion with valid Course
-     */
-    @Test
-    fun validCourse() {
-        val course = MockCourseCreator().create()
-        val dto = courseAssembler.entityToDto(course)
-        assertEquals(course.id, dto.id)
-        assertEquals(course.position, dto.position)
-        assertEquals(course.career?.id, dto.careerId)
-    }
+  /**
+   * Checks the conversion with valid CareerDto
+   */
+  @Test
+  fun validCourseDto() {
+    val dto = MockCourseDtoCreator().create()
+    Mockito.`when`(careerRepository.findById(dto.careerId!!)).thenReturn(
+      Optional.of(MockCareerCreator().create())
+    )
+    val course = courseAssembler.dtoToEntity(dto)
+    assertEquals(course.id, dto.id)
+    assertEquals(course.position, dto.position)
+    assertEquals(course.career?.id, dto.careerId)
+  }
 
-    /**
-     * Checks the conversion with valid Course without Career
-     */
-    @Test
-    fun validCourseNullCareer() {
-        val course = MockCourseCreator().create()
-        course.career = null
-        val dto = courseAssembler.entityToDto(course)
-        assertEquals(course.id, dto.id)
-        assertEquals(course.position, dto.position)
-        assertEquals(course.career?.id, dto.careerId)
-    }
+  /**
+   * Checks the conversion with valid CareerDto without careerId
+   */
+  @Test
+  fun validCourseDtoNullCareerId() {
+    val dto = MockCourseDtoCreator().create()
+    dto.careerId = null
+    val course = courseAssembler.dtoToEntity(dto)
+    assertEquals(course.id, dto.id)
+    assertEquals(course.position, dto.position)
+    assertNull(course.career)
+    assertNull(dto.careerId)
+  }
 
-    /**
-     * Checks the conversion with null Course
-     */
-    @Test
-    fun nullCourse() {
-        try {
-            courseAssembler.entityToDto(null)
-            fail("Course can´t be null")
-        } catch (e: IllegalArgumentException) {
-            assertEquals(e.message, CourseMessages.NULL)
-        }
+  /**
+   * Checks the conversion with null CareerDto
+   */
+  @Test
+  fun nullCourseDto() {
+    try {
+      courseAssembler.dtoToEntity(null)
+      fail("CourseDto can´t be null")
+    } catch (e: IllegalArgumentException) {
+      assertEquals(e.message, CourseMessages.NULL)
     }
-
-    /**
-     * Checks the conversion with valid CareerDto
-     */
-    @Test
-    fun validCourseDto() {
-        val dto = MockCourseDtoCreator().create()
-        Mockito.`when`(careerRepository.findById(dto.careerId!!)).thenReturn(
-            Optional.of(MockCareerCreator().create())
-        )
-        val course = courseAssembler.dtoToEntity(dto)
-        assertEquals(course.id, dto.id)
-        assertEquals(course.position, dto.position)
-        assertEquals(course.career?.id, dto.careerId)
-    }
-
-    /**
-     * Checks the conversion with valid CareerDto without careerId
-     */
-    @Test
-    fun validCourseDtoNullCareerId() {
-        val dto = MockCourseDtoCreator().create()
-        dto.careerId = null
-        val course = courseAssembler.dtoToEntity(dto)
-        assertEquals(course.id, dto.id)
-        assertEquals(course.position, dto.position)
-        assertNull(course.career)
-        assertNull(dto.careerId)
-    }
-
-    /**
-     * Checks the conversion with null CareerDto
-     */
-    @Test
-    fun nullCourseDto() {
-        try {
-            courseAssembler.dtoToEntity(null)
-            fail("CourseDto can´t be null")
-        } catch (e: IllegalArgumentException) {
-            assertEquals(e.message, CourseMessages.NULL)
-        }
-    }
+  }
 }

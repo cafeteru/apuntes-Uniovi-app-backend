@@ -8,30 +8,30 @@ import es.uniovi.apuntesuniovi.services.BaseService
  * Save a user in controller layer
  */
 abstract class BaseCreate<Entity, Dto>(
-    private val service: BaseService<Entity, Dto>,
-    private val json: String
+  private val service: BaseService<Entity, Dto>,
+  private val json: String
 ) : AbstractCommand<Dto>() {
 
-    override fun execute(): Dto {
-        logService.info("execute() - start")
-        try {
-            val dto = getEntityFromJson(json)
-            val result = service.create(dto)
-            logService.info("execute() - end")
-            return result
-        } catch (e: JsonSyntaxException) {
-            logService.error("execute() - error: getMessageInvalidJson()")
-            throw IllegalArgumentException(getMessageInvalidJson())
-        }
+  override fun execute(): Dto {
+    logService.info("execute() - start")
+    try {
+      val dto = getEntityFromJson(json)
+      val result = service.create(dto)
+      logService.info("execute() - end")
+      return result
+    } catch (e: JsonSyntaxException) {
+      logService.error("execute() - error: getMessageInvalidJson()")
+      throw IllegalArgumentException(getMessageInvalidJson())
     }
+  }
 
-    /**
-     * Convert a JSON to dto
-     */
-    abstract fun getEntityFromJson(json: String): Dto
+  /**
+   * Convert a JSON to dto
+   */
+  abstract fun getEntityFromJson(json: String): Dto
 
-    /**
-     * Return exception message when invalid json
-     */
-    abstract fun getMessageInvalidJson(): String
+  /**
+   * Return exception message when invalid json
+   */
+  abstract fun getMessageInvalidJson(): String
 }

@@ -18,20 +18,20 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/unitSubjects")
 class UnitSubjectController @Autowired constructor(
-    private val UnitSubjectService: UnitSubjectService
+  private val UnitSubjectService: UnitSubjectService
 ) : BaseController<UnitSubject, UnitSubjectDto>(UnitSubjectService) {
 
-    override fun create(
-        baseService: BaseService<UnitSubject, UnitSubjectDto>,
-        json: String
-    ): UnitSubjectDto {
-        return CreateUnitSubject(UnitSubjectService, json).execute()
-    }
+  override fun create(
+    baseService: BaseService<UnitSubject, UnitSubjectDto>,
+    json: String
+  ): UnitSubjectDto {
+    return CreateUnitSubject(UnitSubjectService, json).execute()
+  }
 
-    override fun findAll(
-        baseService: BaseService<UnitSubject, UnitSubjectDto>,
-        pageable: Pageable
-    ): Page<UnitSubjectDto> {
-        return FindAllUnitSubjects(UnitSubjectService, pageable).execute()
-    }
+  override fun findAll(
+    baseService: BaseService<UnitSubject, UnitSubjectDto>,
+    pageable: Pageable
+  ): Page<UnitSubjectDto> {
+    return FindAllUnitSubjects(UnitSubjectService, pageable).execute()
+  }
 }

@@ -8,14 +8,14 @@ import java.util.*
  * Manage the users table
  */
 interface UserRepository : PagingAndSortingRepository<User, Long> {
-    /**
-     * Find user by username
-     */
-    fun findByUsername(userName: String): Optional<User>
+  /**
+   * Find user by username
+   */
+  fun findByUsername(userName: String): Optional<User>
 
-    /**
-     * Find user by numberIdentification
-     */
-    fun findByNumberIdentification(numberIdentification: String): Optional<User>
+  /**
+   * Find user by numberIdentification
+   */
+  fun findByNumberIdentification(numberIdentification: String): Optional<User>
 
 }

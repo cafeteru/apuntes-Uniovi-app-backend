@@ -18,20 +18,20 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/semesters")
 class SemesterController @Autowired constructor(
-    private val semesterService: SemesterService
+  private val semesterService: SemesterService
 ) : BaseController<Semester, SemesterDto>(semesterService) {
 
-    override fun create(
-        baseService: BaseService<Semester, SemesterDto>,
-        json: String
-    ): SemesterDto {
-        return CreateSemester(semesterService, json).execute()
-    }
+  override fun create(
+    baseService: BaseService<Semester, SemesterDto>,
+    json: String
+  ): SemesterDto {
+    return CreateSemester(semesterService, json).execute()
+  }
 
-    override fun findAll(
-        baseService: BaseService<Semester, SemesterDto>,
-        pageable: Pageable
-    ): Page<SemesterDto> {
-        return FindAllSemesters(semesterService, pageable).execute()
-    }
+  override fun findAll(
+    baseService: BaseService<Semester, SemesterDto>,
+    pageable: Pageable
+  ): Page<SemesterDto> {
+    return FindAllSemesters(semesterService, pageable).execute()
+  }
 }

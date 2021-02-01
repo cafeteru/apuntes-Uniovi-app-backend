@@ -11,15 +11,15 @@ import es.uniovi.apuntesuniovi.services.dtos.entities.TeachSubjectDto
  * Save a subject in controller layer
  */
 class CreateTeachSubject(
-    teachSubjectService: TeachSubjectService,
-    json: String
+  teachSubjectService: TeachSubjectService,
+  json: String
 ) : BaseCreate<TeachSubject, TeachSubjectDto>(teachSubjectService, json) {
 
-    override fun getEntityFromJson(json: String): TeachSubjectDto {
-        return Gson().fromJson(json, TeachSubjectDto::class.java)
-    }
+  override fun getEntityFromJson(json: String): TeachSubjectDto {
+    return Gson().fromJson(json, TeachSubjectDto::class.java)
+  }
 
-    override fun getMessageInvalidJson(): String {
-        return TeachSubjectMessages.INVALID_JSON
-    }
+  override fun getMessageInvalidJson(): String {
+    return TeachSubjectMessages.INVALID_JSON
+  }
 }

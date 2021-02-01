@@ -11,12 +11,12 @@ import org.springframework.boot.test.context.SpringBootTest
 @SpringBootTest
 class ApuntesUnioviApplicationTests {
 
-    /**
-     * Check the application startup
-     */
-    @Test
-    fun contextLoads() {
-        assertNotNull(User())
-    }
+  /**
+   * Check the application startup
+   */
+  @Test
+  fun contextLoads() {
+    assertNotNull(User())
+  }
 
 }

@@ -14,44 +14,44 @@ import kotlin.test.assertNull
  * Test the assignments to yearImplantation of a Career
  */
 class YearImplantationTest {
-    private lateinit var career: Career
+  private lateinit var career: Career
 
-    /**
-     * Create init data for the test
-     */
-    @BeforeEach
-    fun initData() {
-        career = MockCareerCreator().create()
-    }
+  /**
+   * Create init data for the test
+   */
+  @BeforeEach
+  fun initData() {
+    career = MockCareerCreator().create()
+  }
 
-    /**
-     * Checks the assignment under the limit
-     */
-    @Test
-    fun limitYearImplantation() {
-        career.yearImplantation = CareerLimits.YEAR_IMPLANTATION
-        assertEquals(CareerLimits.YEAR_IMPLANTATION, career.yearImplantation)
-    }
+  /**
+   * Checks the assignment under the limit
+   */
+  @Test
+  fun limitYearImplantation() {
+    career.yearImplantation = CareerLimits.YEAR_IMPLANTATION
+    assertEquals(CareerLimits.YEAR_IMPLANTATION, career.yearImplantation)
+  }
 
-    /**
-     * Checks the assignment under the limit
-     */
-    @Test
-    fun downLimitYearImplantation() {
-        try {
-            career.yearImplantation = CareerLimits.YEAR_IMPLANTATION - 1
-            fail("YearImplantation is too low")
-        } catch (e: IllegalArgumentException) {
-            assertEquals(e.message, CareerMessages.LIMIT_YEAR_IMPLANTATION)
-        }
+  /**
+   * Checks the assignment under the limit
+   */
+  @Test
+  fun downLimitYearImplantation() {
+    try {
+      career.yearImplantation = CareerLimits.YEAR_IMPLANTATION - 1
+      fail("YearImplantation is too low")
+    } catch (e: IllegalArgumentException) {
+      assertEquals(e.message, CareerMessages.LIMIT_YEAR_IMPLANTATION)
     }
+  }
 
-    /**
-     * Checks the assignment to null
-     */
-    @Test
-    fun nullYearImplantation() {
-        career.yearImplantation = null
-        assertNull(career.yearImplantation)
-    }
+  /**
+   * Checks the assignment to null
+   */
+  @Test
+  fun nullYearImplantation() {
+    career.yearImplantation = null
+    assertNull(career.yearImplantation)
+  }
 }

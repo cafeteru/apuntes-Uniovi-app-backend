@@ -10,6 +10,6 @@ import org.springframework.data.domain.Pageable
  * Return all subjects in controller layer
  */
 class FindAllSubjects(
-    subjectService: SubjectService,
-    pageable: Pageable
+  subjectService: SubjectService,
+  pageable: Pageable
 ) : BaseFindAll<Subject, SubjectDto>(subjectService, pageable)

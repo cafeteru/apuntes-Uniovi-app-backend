@@ -9,12 +9,12 @@ import es.uniovi.apuntesuniovi.services.dtos.entities.UnitSubjectDto
  * Service to create mock data of the dto UnitSubject
  */
 class MockUnitSubjectDtoCreator : MockCreator<UnitSubjectDto> {
-    override fun create(): UnitSubjectDto {
-        return UnitSubjectDto(
-            id = 3,
-            name = "unitSubject",
-            position = UnitSubjectLimits.POSITION_MIN,
-            subjectId = MockSubjectCreator().create().id
-        )
-    }
+  override fun create(): UnitSubjectDto {
+    return UnitSubjectDto(
+      id = 3,
+      name = "unitSubject",
+      position = UnitSubjectLimits.POSITION_MIN,
+      subjectId = MockSubjectCreator().create().id
+    )
+  }
 }

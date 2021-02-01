@@ -8,11 +8,11 @@ import es.uniovi.apuntesuniovi.services.dtos.entities.CenterDto
  * Service to create mock data of the dto CenterDto
  */
 class MockCenterDtoCreator : MockCreator<CenterDto> {
-    override fun create(): CenterDto {
-        return CenterDto(
-            id = 3,
-            name = "name",
-            address = MockAddressCreator().create()
-        )
-    }
+  override fun create(): CenterDto {
+    return CenterDto(
+      id = 3,
+      name = "name",
+      address = MockAddressCreator().create()
+    )
+  }
 }

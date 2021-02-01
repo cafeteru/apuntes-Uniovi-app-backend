@@ -18,16 +18,16 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/careers")
 class CareerController @Autowired constructor(
-    private val careerService: CareerService
+  private val careerService: CareerService
 ) : BaseController<Career, CareerDto>(careerService) {
 
-    override fun create(baseService: BaseService<Career, CareerDto>, json: String): CareerDto {
-        return CreateCareer(careerService, json).execute()
-    }
+  override fun create(baseService: BaseService<Career, CareerDto>, json: String): CareerDto {
+    return CreateCareer(careerService, json).execute()
+  }
 
-    override fun findAll(baseService: BaseService<Career, CareerDto>, pageable: Pageable): Page<CareerDto> {
-        return FindAllCareers(careerService, pageable).execute()
-    }
+  override fun findAll(baseService: BaseService<Career, CareerDto>, pageable: Pageable): Page<CareerDto> {
+    return FindAllCareers(careerService, pageable).execute()
+  }
 
 
 }

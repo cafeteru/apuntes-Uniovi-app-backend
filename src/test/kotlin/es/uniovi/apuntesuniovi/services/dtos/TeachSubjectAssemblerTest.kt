@@ -23,90 +23,90 @@ import java.util.*
  */
 @ExtendWith(MockitoExtension::class)
 class TeachSubjectAssemblerTest {
-    @Mock
-    private lateinit var userRepository: UserRepository
+  @Mock
+  private lateinit var userRepository: UserRepository
 
-    @Mock
-    private lateinit var subjectRepository: SubjectRepository
+  @Mock
+  private lateinit var subjectRepository: SubjectRepository
 
-    private lateinit var assembler: TeachSubjectAssembler
+  private lateinit var assembler: TeachSubjectAssembler
 
-    /**
-     * Create init data for the test
-     */
-    @BeforeEach
-    fun initTest() {
-        assembler = TeachSubjectAssembler(subjectRepository, userRepository)
+  /**
+   * Create init data for the test
+   */
+  @BeforeEach
+  fun initTest() {
+    assembler = TeachSubjectAssembler(subjectRepository, userRepository)
+  }
+
+  /**
+   * Checks the conversion with valid TeachSubject
+   */
+  @Test
+  fun validTeachSubject() {
+    val teachSubject = MockTeachSubjectCreator().create()
+    val dto = assembler.entityToDto(teachSubject)
+    assertEquals(teachSubject.id, dto.id)
+    assertEquals(teachSubject.isCoordinator, dto.isCoordinator)
+    assertEquals(teachSubject.subject.id, dto.subjectId)
+    assertEquals(teachSubject.teacher.id, dto.teacherId)
+  }
+
+  /**
+   * Checks the conversion with valid TeachSubject
+   */
+  @Test
+  fun validTeachNullSubject() {
+    val teachSubject = MockTeachSubjectCreator().create()
+    val dto = assembler.entityToDto(teachSubject)
+    assertEquals(teachSubject.id, dto.id)
+    assertEquals(teachSubject.isCoordinator, dto.isCoordinator)
+    assertEquals(teachSubject.subject.id, dto.subjectId)
+    assertEquals(teachSubject.teacher.id, dto.teacherId)
+  }
+
+  /**
+   * Checks the conversion with null TeachSubject
+   */
+  @Test
+  fun nullTeachSubject() {
+    try {
+      assembler.entityToDto(null)
+      fail("TeachSubject can´t be null")
+    } catch (e: IllegalArgumentException) {
+      assertEquals(e.message, TeachSubjectMessages.NULL)
     }
+  }
 
-    /**
-     * Checks the conversion with valid TeachSubject
-     */
-    @Test
-    fun validTeachSubject() {
-        val teachSubject = MockTeachSubjectCreator().create()
-        val dto = assembler.entityToDto(teachSubject)
-        assertEquals(teachSubject.id, dto.id)
-        assertEquals(teachSubject.isCoordinator, dto.isCoordinator)
-        assertEquals(teachSubject.subject.id, dto.subjectId)
-        assertEquals(teachSubject.teacher.id, dto.teacherId)
-    }
+  /**
+   * Checks the conversion with valid TeachSubjectDto
+   */
+  @Test
+  fun validTeachSubjectDto() {
+    val dto = MockTeachSubjectDtoCreator().create()
+    Mockito.`when`(subjectRepository.findById(dto.subjectId)).thenReturn(
+      Optional.of(MockSubjectCreator().create())
+    )
+    Mockito.`when`(userRepository.findById(dto.teacherId)).thenReturn(
+      Optional.of(MockUserCreator().createTeacher())
+    )
+    val teachSubject = assembler.dtoToEntity(dto)
+    assertEquals(teachSubject.id, dto.id)
+    assertEquals(teachSubject.isCoordinator, dto.isCoordinator)
+    assertEquals(teachSubject.subject.id, dto.subjectId)
+    assertEquals(teachSubject.teacher.id, dto.teacherId)
+  }
 
-    /**
-     * Checks the conversion with valid TeachSubject
-     */
-    @Test
-    fun validTeachNullSubject() {
-        val teachSubject = MockTeachSubjectCreator().create()
-        val dto = assembler.entityToDto(teachSubject)
-        assertEquals(teachSubject.id, dto.id)
-        assertEquals(teachSubject.isCoordinator, dto.isCoordinator)
-        assertEquals(teachSubject.subject.id, dto.subjectId)
-        assertEquals(teachSubject.teacher.id, dto.teacherId)
+  /**
+   * Checks the conversion with null TeachSubjectDto
+   */
+  @Test
+  fun nullTeachSubjectDto() {
+    try {
+      assembler.dtoToEntity(null)
+      fail("TeachSubjectDto can´t be null")
+    } catch (e: IllegalArgumentException) {
+      assertEquals(e.message, TeachSubjectMessages.NULL)
     }
-
-    /**
-     * Checks the conversion with null TeachSubject
-     */
-    @Test
-    fun nullTeachSubject() {
-        try {
-            assembler.entityToDto(null)
-            fail("TeachSubject can´t be null")
-        } catch (e: IllegalArgumentException) {
-            assertEquals(e.message, TeachSubjectMessages.NULL)
-        }
-    }
-
-    /**
-     * Checks the conversion with valid TeachSubjectDto
-     */
-    @Test
-    fun validTeachSubjectDto() {
-        val dto = MockTeachSubjectDtoCreator().create()
-        Mockito.`when`(subjectRepository.findById(dto.subjectId)).thenReturn(
-            Optional.of(MockSubjectCreator().create())
-        )
-        Mockito.`when`(userRepository.findById(dto.teacherId)).thenReturn(
-            Optional.of(MockUserCreator().createTeacher())
-        )
-        val teachSubject = assembler.dtoToEntity(dto)
-        assertEquals(teachSubject.id, dto.id)
-        assertEquals(teachSubject.isCoordinator, dto.isCoordinator)
-        assertEquals(teachSubject.subject.id, dto.subjectId)
-        assertEquals(teachSubject.teacher.id, dto.teacherId)
-    }
-
-    /**
-     * Checks the conversion with null TeachSubjectDto
-     */
-    @Test
-    fun nullTeachSubjectDto() {
-        try {
-            assembler.dtoToEntity(null)
-            fail("TeachSubjectDto can´t be null")
-        } catch (e: IllegalArgumentException) {
-            assertEquals(e.message, TeachSubjectMessages.NULL)
-        }
-    }
+  }
 }

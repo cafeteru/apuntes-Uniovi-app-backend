@@ -9,11 +9,11 @@ import es.uniovi.apuntesuniovi.services.dtos.entities.CourseDto
  * Service to create mock data of the dto CourseDto
  */
 class MockCourseDtoCreator : MockCreator<CourseDto> {
-    override fun create(): CourseDto {
-        return CourseDto(
-            id = 3,
-            position = CourseLimits.POSITION_MIN,
-            careerId = MockCareerCreator().create().id
-        )
-    }
+  override fun create(): CourseDto {
+    return CourseDto(
+      id = 3,
+      position = CourseLimits.POSITION_MIN,
+      careerId = MockCareerCreator().create().id
+    )
+  }
 }

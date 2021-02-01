@@ -10,32 +10,32 @@ import org.junit.jupiter.api.Test
  */
 class ValidatorIdTest {
 
-    /**
-     * Checks the functionality with valid data
-     */
-    @Test
-    fun validData() {
-        val validator = ValidatorId(1)
-        assertTrue(validator.isValid())
-    }
+  /**
+   * Checks the functionality with valid data
+   */
+  @Test
+  fun validData() {
+    val validator = ValidatorId(1)
+    assertTrue(validator.isValid())
+  }
 
-    /**
-     * Checks the functionality with null data
-     */
-    @Test
-    fun nullData() {
-        val validator = ValidatorId(null)
-        assertFalse(validator.isValid())
-    }
+  /**
+   * Checks the functionality with null data
+   */
+  @Test
+  fun nullData() {
+    val validator = ValidatorId(null)
+    assertFalse(validator.isValid())
+  }
 
-    /**
-     * Checks the functionality with invalid data
-     */
-    @Test
-    fun invalidData() {
-        var validator = ValidatorId(0)
-        assertFalse(validator.isValid())
-        validator = ValidatorId(-1)
-        assertFalse(validator.isValid())
-    }
+  /**
+   * Checks the functionality with invalid data
+   */
+  @Test
+  fun invalidData() {
+    var validator = ValidatorId(0)
+    assertFalse(validator.isValid())
+    validator = ValidatorId(-1)
+    assertFalse(validator.isValid())
+  }
 }

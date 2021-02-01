@@ -18,20 +18,20 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/courses")
 class CourseController @Autowired constructor(
-    private val courseService: CourseService
+  private val courseService: CourseService
 ) : BaseController<Course, CourseDto>(courseService) {
 
-    override fun create(
-        baseService: BaseService<Course, CourseDto>,
-        json: String
-    ): CourseDto {
-        return CreateCourse(courseService, json).execute()
-    }
+  override fun create(
+    baseService: BaseService<Course, CourseDto>,
+    json: String
+  ): CourseDto {
+    return CreateCourse(courseService, json).execute()
+  }
 
-    override fun findAll(
-        baseService: BaseService<Course, CourseDto>,
-        pageable: Pageable
-    ): Page<CourseDto> {
-        return FindAllCourses(courseService, pageable).execute()
-    }
+  override fun findAll(
+    baseService: BaseService<Course, CourseDto>,
+    pageable: Pageable
+  ): Page<CourseDto> {
+    return FindAllCourses(courseService, pageable).execute()
+  }
 }

@@ -11,15 +11,15 @@ import es.uniovi.apuntesuniovi.services.dtos.entities.UnitSubjectDto
  * Save a UnitSubject in controller layer
  */
 class CreateUnitSubject(
-    unitSubjectService: UnitSubjectService,
-    json: String
+  unitSubjectService: UnitSubjectService,
+  json: String
 ) : BaseCreate<UnitSubject, UnitSubjectDto>(unitSubjectService, json) {
 
-    override fun getEntityFromJson(json: String): UnitSubjectDto {
-        return Gson().fromJson(json, UnitSubjectDto::class.java)
-    }
+  override fun getEntityFromJson(json: String): UnitSubjectDto {
+    return Gson().fromJson(json, UnitSubjectDto::class.java)
+  }
 
-    override fun getMessageInvalidJson(): String {
-        return UnitSubjectMessages.INVALID_JSON
-    }
+  override fun getMessageInvalidJson(): String {
+    return UnitSubjectMessages.INVALID_JSON
+  }
 }

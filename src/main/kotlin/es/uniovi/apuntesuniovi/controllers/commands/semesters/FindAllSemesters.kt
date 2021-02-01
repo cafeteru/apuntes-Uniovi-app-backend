@@ -10,6 +10,6 @@ import org.springframework.data.domain.Pageable
  * Return all semesters in controller layer
  */
 class FindAllSemesters(
-    semesterService: SemesterService,
-    pageable: Pageable
+  semesterService: SemesterService,
+  pageable: Pageable
 ) : BaseFindAll<Semester, SemesterDto>(semesterService, pageable)

@@ -10,6 +10,6 @@ import org.springframework.data.domain.Pageable
  * Return all courses in controller layer
  */
 class FindAllCourses(
-    courseService: CourseService,
-    pageable: Pageable
+  courseService: CourseService,
+  pageable: Pageable
 ) : BaseFindAll<Course, CourseDto>(courseService, pageable)
