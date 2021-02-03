@@ -8,6 +8,9 @@ import org.springframework.context.support.MessageSourceAccessor
 import org.springframework.stereotype.Component
 import java.util.*
 
+/**
+ * Component to load i18n messages
+ */
 @Component
 class LoadMessages @Autowired constructor(
   private val messageSource: MessageSource
@@ -18,11 +21,17 @@ class LoadMessages @Autowired constructor(
 
   private lateinit var accessor: MessageSourceAccessor
 
+  /**
+   * Set the language
+   */
   final fun setLanguage(language: String) {
     val locale = Locale(language)
     accessor = MessageSourceAccessor(messageSource, locale)
   }
 
+  /**
+   * Get the 18n message
+   */
   operator fun get(code: String?): String {
     code?.let {
       return try {
