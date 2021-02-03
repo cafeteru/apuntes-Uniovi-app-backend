@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.*
 
+
 /**
  * Define user endpoints
  */
@@ -60,5 +61,12 @@ class UserController @Autowired constructor(
     val result = FindUserById(userService, id).execute()
     logService.info("findById(id: ${id}) - end")
     return ResponseEntity(result, HttpStatus.OK)
+  }
+
+  @PreAuthorize("isAuthenticated()")
+  @RequestMapping("/lang/{lang}")
+  @ResponseBody
+  fun changeLanguage(@PathVariable lang: String): String? {
+    return "You found the secret lair!"
   }
 }
