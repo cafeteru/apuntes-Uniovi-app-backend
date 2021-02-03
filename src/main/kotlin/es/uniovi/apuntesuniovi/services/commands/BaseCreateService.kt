@@ -10,6 +10,7 @@ abstract class BaseCreateService<Entity>(
   private val repository: PagingAndSortingRepository<Entity, Long>,
   private val entity: Entity,
 ) : AbstractCommand<Entity>() {
+
   override fun execute(): Entity {
     logService.info("execute() - start")
     val result = repository.save(entity)

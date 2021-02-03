@@ -15,6 +15,7 @@ class CreateUserService(
   private val addressRepository: AddressRepository,
   private val user: User
 ) : BaseCreateService<User>(userRepository, user) {
+
   override fun execute(): User {
     logService.info("execute() - start")
     checkUniqueUsername()

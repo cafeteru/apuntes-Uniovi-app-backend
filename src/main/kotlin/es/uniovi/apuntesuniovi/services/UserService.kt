@@ -4,10 +4,7 @@ import es.uniovi.apuntesuniovi.infrastructure.log.LogService
 import es.uniovi.apuntesuniovi.models.User
 import es.uniovi.apuntesuniovi.repositories.AddressRepository
 import es.uniovi.apuntesuniovi.repositories.UserRepository
-import es.uniovi.apuntesuniovi.services.commands.users.CreateUserService
-import es.uniovi.apuntesuniovi.services.commands.users.FindAllUsersService
-import es.uniovi.apuntesuniovi.services.commands.users.FindUserByIdService
-import es.uniovi.apuntesuniovi.services.commands.users.FindUserByUsernameService
+import es.uniovi.apuntesuniovi.services.commands.users.*
 import es.uniovi.apuntesuniovi.services.dtos.assemblers.UserAssembler
 import es.uniovi.apuntesuniovi.services.dtos.entities.UserDto
 import org.springframework.beans.factory.annotation.Autowired
@@ -73,6 +70,12 @@ class UserService @Autowired constructor(
     val result = FindUserByUsernameService(userRepository, username).execute()
     logService.info("findByUsername(username: ${username}) - end")
     return convertToDto(result)
+  }
+
+  fun changeLanguage(username: String, language: String) {
+    logService.info("changeLanguage(username: $username, language: $language) - start")
+    ChangeLanguageUserService(userRepository, username, language).execute()
+    logService.info("changeLanguage(username: $username, language:  $language) - end")
   }
 
   private fun convertToDto(user: User): UserDto {

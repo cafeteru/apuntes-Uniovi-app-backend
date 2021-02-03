@@ -1,5 +1,6 @@
 package es.uniovi.apuntesuniovi.controllers
 
+import es.uniovi.apuntesuniovi.controllers.commands.users.ChangeLanguageUser
 import es.uniovi.apuntesuniovi.controllers.commands.users.CreateUser
 import es.uniovi.apuntesuniovi.controllers.commands.users.FindAllUsers
 import es.uniovi.apuntesuniovi.controllers.commands.users.FindUserById
@@ -13,6 +14,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.*
+import java.security.Principal
 
 
 /**
@@ -64,9 +66,11 @@ class UserController @Autowired constructor(
   }
 
   @PreAuthorize("isAuthenticated()")
-  @RequestMapping("/lang/{lang}")
-  @ResponseBody
-  fun changeLanguage(@PathVariable lang: String): String? {
-    return "You found the secret lair!"
+  @RequestMapping(path = ["/lang/{language}"], method = [RequestMethod.HEAD])
+  fun changeLanguage(@PathVariable language: String, principal: Principal): ResponseEntity<Boolean> {
+    logService.info("changeLanguage(language: ${language}) - start")
+    ChangeLanguageUser(userService, principal.name, language).execute()
+    logService.info("changeLanguage(language: ${language}) - end")
+    return ResponseEntity<Boolean>(HttpStatus.OK)
   }
 }
