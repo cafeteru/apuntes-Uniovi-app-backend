@@ -3,6 +3,7 @@ package es.uniovi.apuntesuniovi
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
+
 /**
  * Main class that launches the application
  */

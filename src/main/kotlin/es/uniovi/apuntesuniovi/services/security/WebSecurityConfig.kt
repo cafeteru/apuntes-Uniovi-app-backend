@@ -32,7 +32,10 @@ class WebSecurityConfig @Inject constructor(
   override fun configure(http: HttpSecurity) {
     logService.info("configure(httpSecurity: HttpSecurity) - start")
     http.cors().and().csrf().disable().authorizeRequests()
-      .antMatchers(LOGIN_URL).permitAll().anyRequest()
+      .antMatchers(
+        LOGIN_URL, "/swagger", "/v2/api-docs", "/swagger-resources/**",
+        "/swagger-ui.html", "/webjars/**", "/swagger.json", "/"
+      ).permitAll().anyRequest()
       .authenticated().and()
       .addFilter(JWTAuthenticationFilter(authenticationManager(), userService))
       .addFilter(JWTAuthorizationFilter(authenticationManager()))
