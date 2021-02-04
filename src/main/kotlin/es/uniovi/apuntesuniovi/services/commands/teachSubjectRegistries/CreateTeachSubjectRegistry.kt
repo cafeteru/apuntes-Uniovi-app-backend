@@ -9,7 +9,7 @@ import java.time.LocalDate
 /**
  * Create a teaching registry for a subject in service layer
  */
-class CreateTeachSubjectRegistryService(
+class CreateTeachSubjectRegistry(
   private val teachSubjectRegistryRepository: TeachSubjectRegistryRepository,
   private val teachSubject: TeachSubject,
   private val date: LocalDate

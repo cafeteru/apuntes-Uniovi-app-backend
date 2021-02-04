@@ -2,8 +2,8 @@ package es.uniovi.apuntesuniovi.services
 
 import es.uniovi.apuntesuniovi.models.Center
 import es.uniovi.apuntesuniovi.repositories.CenterRepository
-import es.uniovi.apuntesuniovi.services.commands.centers.CreateCenterService
-import es.uniovi.apuntesuniovi.services.commands.centers.FindAllCentersService
+import es.uniovi.apuntesuniovi.services.commands.centers.CreateCenter
+import es.uniovi.apuntesuniovi.services.commands.centers.FindAllCenters
 import es.uniovi.apuntesuniovi.services.dtos.assemblers.CenterAssembler
 import es.uniovi.apuntesuniovi.services.dtos.entities.CenterDto
 import org.springframework.beans.factory.annotation.Autowired
@@ -25,13 +25,13 @@ class CenterService @Autowired constructor(
     repository: PagingAndSortingRepository<Center, Long>,
     entity: Center
   ): Center {
-    return CreateCenterService(centerRepository, entity).execute()
+    return CreateCenter(centerRepository, entity).execute()
   }
 
   override fun findAll(
     repository: PagingAndSortingRepository<Center, Long>,
     pageable: Pageable
   ): Page<Center> {
-    return FindAllCentersService(centerRepository, pageable).execute()
+    return FindAllCenters(centerRepository, pageable).execute()
   }
 }

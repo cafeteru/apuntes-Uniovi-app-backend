@@ -3,7 +3,7 @@ package es.uniovi.apuntesuniovi.services.dtos.assemblers
 import es.uniovi.apuntesuniovi.infrastructure.messages.CareerMessages
 import es.uniovi.apuntesuniovi.models.Career
 import es.uniovi.apuntesuniovi.repositories.CenterRepository
-import es.uniovi.apuntesuniovi.services.commands.centers.FindCenterByIdService
+import es.uniovi.apuntesuniovi.services.commands.centers.FindCenterById
 import es.uniovi.apuntesuniovi.services.dtos.entities.CareerDto
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -45,7 +45,7 @@ class CareerAssembler @Autowired constructor(
       entity.etcs = it.etcs
       it.languages.forEach { language -> entity.addLanguage(language) }
       it.centerId?.let { id ->
-        entity.center = FindCenterByIdService(centerRepository, id).execute()
+        entity.center = FindCenterById(centerRepository, id).execute()
       }
       logService.info("dtoToEntity(dto: CareerDto) - end")
       return entity

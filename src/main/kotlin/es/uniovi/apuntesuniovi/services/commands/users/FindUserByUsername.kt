@@ -9,7 +9,7 @@ import java.util.*
 /**
  * Find user by username in service layer
  */
-class FindUserByUsernameService(
+class FindUserByUsername(
   private val userRepository: UserRepository,
   private val username: String?
 ) : AbstractCommand<User>() {

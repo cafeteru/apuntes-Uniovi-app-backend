@@ -37,7 +37,7 @@ class CreateSubjectServiceTest {
   fun validData() {
     subject.id = null
     Mockito.`when`(subjectRepository.save(subject)).thenReturn(MockSubjectCreator().create())
-    val result = CreateSubjectService(subjectRepository, subject).execute()
+    val result = CreateSubject(subjectRepository, subject).execute()
     assertEquals(result.name, subject.name)
     assertEquals(result.subjectType, subject.subjectType)
     assertNotEquals(result.id, subject.id)

@@ -31,7 +31,7 @@ class UserService @Autowired constructor(
   fun create(dto: UserDto): UserDto {
     logService.info("create(dto: UserDto) - start")
     val entity = userAssembler.dtoToEntity(dto)
-    val result = CreateUserService(userRepository, addressRepository, entity).execute()
+    val result = CreateUser(userRepository, addressRepository, entity).execute()
     logService.info("create(dto: UserDto) - end")
     return convertToDto(result)
   }
@@ -43,7 +43,7 @@ class UserService @Autowired constructor(
    */
   fun findAll(pageable: Pageable): Page<UserDto> {
     logService.info("findAll() - start")
-    val result = FindAllUsersService(userRepository, pageable).execute()
+    val result = FindAllUsers(userRepository, pageable).execute()
     logService.info("findAll() - end")
     return result.map { entity -> convertToDto(entity) }
   }
@@ -55,7 +55,7 @@ class UserService @Autowired constructor(
    */
   fun findById(id: Long): UserDto {
     logService.info("findById() - start")
-    val result = FindUserByIdService(userRepository, id).execute()
+    val result = FindUserById(userRepository, id).execute()
     logService.info("findById() - end")
     return userAssembler.entityToDto(result)
   }
@@ -67,14 +67,14 @@ class UserService @Autowired constructor(
    */
   fun findByUsername(username: String): UserDto {
     logService.info("findByUsername(username: ${username}) - start")
-    val result = FindUserByUsernameService(userRepository, username).execute()
+    val result = FindUserByUsername(userRepository, username).execute()
     logService.info("findByUsername(username: ${username}) - end")
     return convertToDto(result)
   }
 
   fun changeLanguage(username: String, language: String) {
     logService.info("changeLanguage(username: $username, language: $language) - start")
-    ChangeLanguageUserService(userRepository, username, language).execute()
+    ChangeLanguageUser(userRepository, username, language).execute()
     logService.info("changeLanguage(username: $username, language:  $language) - end")
   }
 

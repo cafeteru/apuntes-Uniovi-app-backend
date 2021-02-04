@@ -8,7 +8,7 @@ import es.uniovi.apuntesuniovi.services.commands.BaseFindByIdService
 /**
  * Return user by id in service layer
  */
-class FindUserByIdService(
+class FindUserById(
   userRepository: UserRepository,
   id: Long
 ) : BaseFindByIdService<User>(userRepository, id) {

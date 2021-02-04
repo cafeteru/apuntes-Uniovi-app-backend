@@ -8,7 +8,7 @@ import es.uniovi.apuntesuniovi.services.commands.BaseFindByIdService
 /**
  * Return teachSubjectRegistry by id in service layer
  */
-class FindTeachSubjectRegistryByIdService(
+class FindTeachSubjectRegistryById(
   teachSubjectRegistryRepository: TeachSubjectRegistryRepository,
   id: Long
 ) : BaseFindByIdService<TeachSubjectRegistry>(teachSubjectRegistryRepository, id) {

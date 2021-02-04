@@ -8,7 +8,7 @@ import org.springframework.data.domain.Pageable
 /**
  * Return all subjects in service layer
  */
-class FindAllSubjectsService(
+class FindAllSubjects(
   subjectRepository: SubjectRepository,
   pageable: Pageable
 ) : BaseFindAllService<Subject>(subjectRepository, pageable)

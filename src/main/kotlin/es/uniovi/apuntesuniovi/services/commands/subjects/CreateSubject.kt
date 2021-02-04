@@ -7,5 +7,5 @@ import es.uniovi.apuntesuniovi.services.commands.BaseCreateService
 /**
  * Create a subject in service layer
  */
-class CreateSubjectService(subjectRepository: SubjectRepository, subject: Subject) :
+class CreateSubject(subjectRepository: SubjectRepository, subject: Subject) :
   BaseCreateService<Subject>(subjectRepository, subject)

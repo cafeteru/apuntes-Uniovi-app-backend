@@ -44,7 +44,7 @@ class SaveUserServiceTest {
   @Test
   fun validUser() {
     Mockito.`when`(userRepository.save(Mockito.any(User::class.java))).thenReturn(user)
-    val saveUserService = CreateUserService(userRepository, addressRepository, user)
+    val saveUserService = CreateUser(userRepository, addressRepository, user)
     val result = saveUserService.execute()
     assertNotNull(result)
     assertEquals(result.password, user.password)
@@ -57,7 +57,7 @@ class SaveUserServiceTest {
   fun existedUser() {
     Mockito.`when`(userRepository.findByUsername(user.username!!)).thenReturn(Optional.of(user))
     try {
-      val saveUserService = CreateUserService(userRepository, addressRepository, user)
+      val saveUserService = CreateUser(userRepository, addressRepository, user)
       saveUserService.execute()
       fail("User already registered")
     } catch (e: IllegalArgumentException) {
@@ -72,7 +72,7 @@ class SaveUserServiceTest {
   fun nullUsername() {
     try {
       user.username = null
-      val saveUserService = CreateUserService(userRepository, addressRepository, user)
+      val saveUserService = CreateUser(userRepository, addressRepository, user)
       saveUserService.execute()
       fail("Username can´t be null")
     } catch (e: IllegalArgumentException) {
@@ -87,7 +87,7 @@ class SaveUserServiceTest {
   fun emptyUsername() {
     try {
       user.username = ""
-      val saveUserService = CreateUserService(userRepository, addressRepository, user)
+      val saveUserService = CreateUser(userRepository, addressRepository, user)
       saveUserService.execute()
       fail("Username can´t be empty")
     } catch (e: IllegalArgumentException) {
@@ -102,7 +102,7 @@ class SaveUserServiceTest {
   fun nullPassword() {
     try {
       user.password = null
-      val saveUserService = CreateUserService(userRepository, addressRepository, user)
+      val saveUserService = CreateUser(userRepository, addressRepository, user)
       saveUserService.execute()
       fail("Password can´t be null")
     } catch (e: IllegalArgumentException) {
@@ -117,7 +117,7 @@ class SaveUserServiceTest {
   fun emptyPassword() {
     try {
       user.password = ""
-      val saveUserService = CreateUserService(userRepository, addressRepository, user)
+      val saveUserService = CreateUser(userRepository, addressRepository, user)
       saveUserService.execute()
       fail("Password can´t be empty")
     } catch (e: IllegalArgumentException) {

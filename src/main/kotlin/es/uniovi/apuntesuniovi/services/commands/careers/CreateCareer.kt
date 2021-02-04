@@ -7,5 +7,5 @@ import es.uniovi.apuntesuniovi.services.commands.BaseCreateService
 /**
  * Create a career in service layer
  */
-class CreateCareerService(careerRepository: CareerRepository, career: Career) :
+class CreateCareer(careerRepository: CareerRepository, career: Career) :
   BaseCreateService<Career>(careerRepository, career)

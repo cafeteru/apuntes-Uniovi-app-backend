@@ -8,7 +8,7 @@ import es.uniovi.apuntesuniovi.services.commands.BaseFindByIdService
 /**
  * Return center by id in service layer
  */
-class FindCenterByIdService(
+class FindCenterById(
   centerRepository: CenterRepository,
   id: Long
 ) : BaseFindByIdService<Center>(centerRepository, id) {

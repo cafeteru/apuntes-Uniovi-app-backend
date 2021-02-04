@@ -2,8 +2,8 @@ package es.uniovi.apuntesuniovi.services
 
 import es.uniovi.apuntesuniovi.models.TeachSubject
 import es.uniovi.apuntesuniovi.repositories.TeachSubjectRepository
-import es.uniovi.apuntesuniovi.services.commands.teachSubjects.CreateTeachSubjectService
-import es.uniovi.apuntesuniovi.services.commands.teachSubjects.FindAllTeachSubjectsService
+import es.uniovi.apuntesuniovi.services.commands.teachSubjects.CreateTeachSubject
+import es.uniovi.apuntesuniovi.services.commands.teachSubjects.FindAllTeachSubjects
 import es.uniovi.apuntesuniovi.services.dtos.assemblers.TeachSubjectAssembler
 import es.uniovi.apuntesuniovi.services.dtos.entities.TeachSubjectDto
 import org.springframework.beans.factory.annotation.Autowired
@@ -25,13 +25,13 @@ class TeachSubjectService @Autowired constructor(
     repository: PagingAndSortingRepository<TeachSubject, Long>,
     entity: TeachSubject
   ): TeachSubject {
-    return CreateTeachSubjectService(teachSubjectRepository, entity).execute()
+    return CreateTeachSubject(teachSubjectRepository, entity).execute()
   }
 
   override fun findAll(
     repository: PagingAndSortingRepository<TeachSubject, Long>,
     pageable: Pageable
   ): Page<TeachSubject> {
-    return FindAllTeachSubjectsService(teachSubjectRepository, pageable).execute()
+    return FindAllTeachSubjects(teachSubjectRepository, pageable).execute()
   }
 }

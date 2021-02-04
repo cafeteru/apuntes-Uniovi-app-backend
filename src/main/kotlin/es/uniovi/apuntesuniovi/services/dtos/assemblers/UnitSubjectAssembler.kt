@@ -4,7 +4,7 @@ import es.uniovi.apuntesuniovi.infrastructure.messages.CourseMessages
 import es.uniovi.apuntesuniovi.infrastructure.messages.UnitSubjectMessages
 import es.uniovi.apuntesuniovi.models.UnitSubject
 import es.uniovi.apuntesuniovi.repositories.SubjectRepository
-import es.uniovi.apuntesuniovi.services.commands.subjects.FindSubjectByIdService
+import es.uniovi.apuntesuniovi.services.commands.subjects.FindSubjectById
 import es.uniovi.apuntesuniovi.services.dtos.entities.UnitSubjectDto
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -50,7 +50,7 @@ class UnitSubjectAssembler @Autowired constructor(
         entity.position = it.position
       }
       it.subjectId?.let { id ->
-        entity.subject = FindSubjectByIdService(subjectRepository, id).execute()
+        entity.subject = FindSubjectById(subjectRepository, id).execute()
       } ?: run {
         logService.info("dtoToEntity(dto: UnitSubjectDto) - error: ${UnitSubjectMessages.NULL_SUBJECT}")
         throw IllegalArgumentException(UnitSubjectMessages.NULL_SUBJECT)

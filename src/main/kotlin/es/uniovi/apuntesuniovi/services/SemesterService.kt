@@ -2,8 +2,8 @@ package es.uniovi.apuntesuniovi.services
 
 import es.uniovi.apuntesuniovi.models.Semester
 import es.uniovi.apuntesuniovi.repositories.SemesterRepository
-import es.uniovi.apuntesuniovi.services.commands.semesters.CreateSemesterService
-import es.uniovi.apuntesuniovi.services.commands.semesters.FindAllSemestersService
+import es.uniovi.apuntesuniovi.services.commands.semesters.CreateSemester
+import es.uniovi.apuntesuniovi.services.commands.semesters.FindAllSemesters
 import es.uniovi.apuntesuniovi.services.dtos.assemblers.SemesterAssembler
 import es.uniovi.apuntesuniovi.services.dtos.entities.SemesterDto
 import org.springframework.beans.factory.annotation.Autowired
@@ -25,13 +25,13 @@ class SemesterService @Autowired constructor(
     repository: PagingAndSortingRepository<Semester, Long>,
     entity: Semester
   ): Semester {
-    return CreateSemesterService(semesterRepository, entity).execute()
+    return CreateSemester(semesterRepository, entity).execute()
   }
 
   override fun findAll(
     repository: PagingAndSortingRepository<Semester, Long>,
     pageable: Pageable
   ): Page<Semester> {
-    return FindAllSemestersService(semesterRepository, pageable).execute()
+    return FindAllSemesters(semesterRepository, pageable).execute()
   }
 }

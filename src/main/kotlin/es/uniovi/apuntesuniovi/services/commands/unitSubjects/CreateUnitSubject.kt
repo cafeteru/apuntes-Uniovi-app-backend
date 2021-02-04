@@ -8,7 +8,7 @@ import es.uniovi.apuntesuniovi.services.commands.BaseCreateService
 /**
  * Create a UnitSubject in service layer
  */
-class CreateUnitSubjectService(
+class CreateUnitSubject(
   private val unitSubjectRepository: UnitSubjectRepository,
   private val unitSubject: UnitSubject
 ) : BaseCreateService<UnitSubject>(unitSubjectRepository, unitSubject) {

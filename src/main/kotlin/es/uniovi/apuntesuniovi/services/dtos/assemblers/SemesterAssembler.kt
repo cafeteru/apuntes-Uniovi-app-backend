@@ -3,7 +3,7 @@ package es.uniovi.apuntesuniovi.services.dtos.assemblers
 import es.uniovi.apuntesuniovi.infrastructure.messages.SemesterMessages
 import es.uniovi.apuntesuniovi.models.Semester
 import es.uniovi.apuntesuniovi.repositories.CourseRepository
-import es.uniovi.apuntesuniovi.services.commands.courses.FindCourseByIdService
+import es.uniovi.apuntesuniovi.services.commands.courses.FindCourseById
 import es.uniovi.apuntesuniovi.services.dtos.entities.SemesterDto
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -37,7 +37,7 @@ class SemesterAssembler @Autowired constructor(
       entity.id = it.id
       entity.position = it.position
       it.courseId?.let { id ->
-        entity.course = FindCourseByIdService(courseRepository, id).execute()
+        entity.course = FindCourseById(courseRepository, id).execute()
       }
       logService.info("dtoToEntity(dto: CourseDto) - end")
       return entity

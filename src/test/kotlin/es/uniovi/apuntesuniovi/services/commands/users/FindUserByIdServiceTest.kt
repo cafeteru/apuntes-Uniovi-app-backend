@@ -44,7 +44,7 @@ class FindUserByIdServiceTest {
   fun validIdAndExistUser() {
     val id = 1L
     Mockito.`when`(userRepository.findById(id)).thenReturn(Optional.of(user))
-    val findUserByIdService = FindUserByIdService(userRepository, id)
+    val findUserByIdService = FindUserById(userRepository, id)
     val result = findUserByIdService.execute()
     assertNotNull(result)
     assertEquals(user, result)
@@ -57,7 +57,7 @@ class FindUserByIdServiceTest {
   @Test
   fun validIdAndNotExistUser() {
     val id = 1L
-    val findUserByIdService = FindUserByIdService(userRepository, id)
+    val findUserByIdService = FindUserById(userRepository, id)
     try {
       findUserByIdService.execute()
       fail("User not found")
@@ -72,7 +72,7 @@ class FindUserByIdServiceTest {
   @Test
   fun invalidId() {
     val id = -1L
-    val findUserByIdService = FindUserByIdService(userRepository, id)
+    val findUserByIdService = FindUserById(userRepository, id)
     try {
       findUserByIdService.execute()
       fail("Invalid user id")

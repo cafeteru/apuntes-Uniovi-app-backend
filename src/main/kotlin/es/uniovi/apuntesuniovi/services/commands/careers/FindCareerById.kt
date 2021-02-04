@@ -8,7 +8,7 @@ import es.uniovi.apuntesuniovi.services.commands.BaseFindByIdService
 /**
  * Return career by id in service layer
  */
-class FindCareerByIdService(
+class FindCareerById(
   careerRepository: CareerRepository,
   id: Long
 ) : BaseFindByIdService<Career>(careerRepository, id) {

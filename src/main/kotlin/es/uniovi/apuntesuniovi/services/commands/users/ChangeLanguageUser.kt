@@ -3,7 +3,7 @@ package es.uniovi.apuntesuniovi.services.commands.users
 import es.uniovi.apuntesuniovi.infrastructure.AbstractCommand
 import es.uniovi.apuntesuniovi.repositories.UserRepository
 
-class ChangeLanguageUserService(
+class ChangeLanguageUser(
   private val userRepository: UserRepository,
   private val username: String,
   private val language: String

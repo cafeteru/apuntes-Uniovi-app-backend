@@ -7,5 +7,5 @@ import es.uniovi.apuntesuniovi.services.commands.BaseCreateService
 /**
  * Create a center in service layer
  */
-class CreateCenterService(centerRepository: CenterRepository, center: Center) :
+class CreateCenter(centerRepository: CenterRepository, center: Center) :
   BaseCreateService<Center>(centerRepository, center)

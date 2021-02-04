@@ -7,5 +7,5 @@ import es.uniovi.apuntesuniovi.services.commands.BaseCreateService
 /**
  * Create a semester in service layer
  */
-class CreateSemesterService(semesterRepository: SemesterRepository, semester: Semester) :
+class CreateSemester(semesterRepository: SemesterRepository, semester: Semester) :
   BaseCreateService<Semester>(semesterRepository, semester)
