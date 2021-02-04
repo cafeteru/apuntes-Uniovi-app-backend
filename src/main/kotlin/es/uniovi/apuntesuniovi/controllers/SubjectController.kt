@@ -1,7 +1,5 @@
 package es.uniovi.apuntesuniovi.controllers
 
-import es.uniovi.apuntesuniovi.controllers.commands.subjects.CreateSubject
-import es.uniovi.apuntesuniovi.controllers.commands.subjects.FindAllSubjects
 import es.uniovi.apuntesuniovi.models.Subject
 import es.uniovi.apuntesuniovi.services.BaseService
 import es.uniovi.apuntesuniovi.services.SubjectService
@@ -23,15 +21,15 @@ class SubjectController @Autowired constructor(
 
   override fun create(
     baseService: BaseService<Subject, SubjectDto>,
-    json: String
+    dto: SubjectDto
   ): SubjectDto {
-    return CreateSubject(subjectService, json).execute()
+    return subjectService.create(dto)
   }
 
   override fun findAll(
     baseService: BaseService<Subject, SubjectDto>,
     pageable: Pageable
   ): Page<SubjectDto> {
-    return FindAllSubjects(subjectService, pageable).execute()
+    return subjectService.findAll(pageable)
   }
 }

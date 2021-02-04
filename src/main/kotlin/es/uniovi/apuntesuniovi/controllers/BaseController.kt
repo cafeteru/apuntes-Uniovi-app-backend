@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
+import javax.validation.Valid
 
 /**
  * Define base endpoints
@@ -22,9 +23,9 @@ abstract class BaseController<Entity, Dto> constructor(
    * Add a new entity through a text string (JSON)
    */
   @PostMapping("/create")
-  fun create(@RequestBody json: String): ResponseEntity<Dto> {
+  fun create(@Valid @RequestBody dto: Dto): ResponseEntity<Dto> {
     logService.info("save(json: String) - start")
-    val result = create(baseService, json)
+    val result = create(baseService, dto)
     logService.info("save(json: String) - end")
     return ResponseEntity(result, HttpStatus.OK)
   }
@@ -32,7 +33,7 @@ abstract class BaseController<Entity, Dto> constructor(
   /**
    * Return the controller command to execute create
    */
-  protected abstract fun create(baseService: BaseService<Entity, Dto>, json: String): Dto
+  protected abstract fun create(baseService: BaseService<Entity, Dto>, dto: Dto): Dto
 
   /**
    * Returns all registered in the system

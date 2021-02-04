@@ -1,9 +1,5 @@
 package es.uniovi.apuntesuniovi.controllers
 
-import es.uniovi.apuntesuniovi.controllers.commands.users.ChangeLanguageUser
-import es.uniovi.apuntesuniovi.controllers.commands.users.CreateUser
-import es.uniovi.apuntesuniovi.controllers.commands.users.FindAllUsers
-import es.uniovi.apuntesuniovi.controllers.commands.users.FindUserById
 import es.uniovi.apuntesuniovi.infrastructure.log.LogService
 import es.uniovi.apuntesuniovi.services.UserService
 import es.uniovi.apuntesuniovi.services.dtos.entities.UserDto
@@ -11,10 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.http.HttpStatus
+import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.*
 import java.security.Principal
+import javax.validation.Valid
 
 
 /**
@@ -31,10 +29,10 @@ class UserController @Autowired constructor(
    * Add a new user through a text string (JSON)
    */
   @PreAuthorize("hasRole('ROLE_ADMIN')")
-  @PostMapping("/create")
-  fun create(@RequestBody json: String): ResponseEntity<UserDto> {
+  @PostMapping(value = ["/create"], consumes = [MediaType.APPLICATION_JSON_VALUE])
+  fun create(@Valid @RequestBody userDto: UserDto): ResponseEntity<UserDto> {
     logService.info("save(json: String) - start")
-    val result = CreateUser(userService, json).execute()
+    val result = userService.create(userDto)
     logService.info("save(json: String) - end")
     return ResponseEntity(result, HttpStatus.OK)
   }
@@ -46,7 +44,7 @@ class UserController @Autowired constructor(
   @GetMapping("")
   fun findAll(pageable: Pageable): ResponseEntity<Page<UserDto>> {
     logService.info("findAll() - start")
-    val result = FindAllUsers(userService, pageable).execute()
+    val result = userService.findAll(pageable)
     logService.info("findAll() - end")
     return ResponseEntity(result, HttpStatus.OK)
   }
@@ -60,7 +58,7 @@ class UserController @Autowired constructor(
   @GetMapping("/{id}")
   fun findById(@PathVariable id: Long): ResponseEntity<UserDto> {
     logService.info("findById(id: ${id}) - start")
-    val result = FindUserById(userService, id).execute()
+    val result = userService.findById(id)
     logService.info("findById(id: ${id}) - end")
     return ResponseEntity(result, HttpStatus.OK)
   }
@@ -69,7 +67,7 @@ class UserController @Autowired constructor(
   @RequestMapping(path = ["/lang/{language}"], method = [RequestMethod.HEAD])
   fun changeLanguage(@PathVariable language: String, principal: Principal): ResponseEntity<Boolean> {
     logService.info("changeLanguage(language: ${language}) - start")
-    ChangeLanguageUser(userService, principal.name, language).execute()
+    userService.changeLanguage(principal.name, language)
     logService.info("changeLanguage(language: ${language}) - end")
     return ResponseEntity<Boolean>(HttpStatus.OK)
   }

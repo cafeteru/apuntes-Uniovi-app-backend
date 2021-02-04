@@ -1,7 +1,5 @@
 package es.uniovi.apuntesuniovi.controllers
 
-import es.uniovi.apuntesuniovi.controllers.commands.unitSubjects.CreateUnitSubject
-import es.uniovi.apuntesuniovi.controllers.commands.unitSubjects.FindAllUnitSubjects
 import es.uniovi.apuntesuniovi.models.UnitSubject
 import es.uniovi.apuntesuniovi.services.BaseService
 import es.uniovi.apuntesuniovi.services.UnitSubjectService
@@ -18,20 +16,20 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/unitSubjects")
 class UnitSubjectController @Autowired constructor(
-  private val UnitSubjectService: UnitSubjectService
-) : BaseController<UnitSubject, UnitSubjectDto>(UnitSubjectService) {
+  private val unitSubjectService: UnitSubjectService
+) : BaseController<UnitSubject, UnitSubjectDto>(unitSubjectService) {
 
   override fun create(
     baseService: BaseService<UnitSubject, UnitSubjectDto>,
-    json: String
+    dto: UnitSubjectDto
   ): UnitSubjectDto {
-    return CreateUnitSubject(UnitSubjectService, json).execute()
+    return unitSubjectService.create(dto)
   }
 
   override fun findAll(
     baseService: BaseService<UnitSubject, UnitSubjectDto>,
     pageable: Pageable
   ): Page<UnitSubjectDto> {
-    return FindAllUnitSubjects(UnitSubjectService, pageable).execute()
+    return unitSubjectService.findAll(pageable)
   }
 }

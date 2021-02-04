@@ -1,7 +1,5 @@
 package es.uniovi.apuntesuniovi.controllers
 
-import es.uniovi.apuntesuniovi.controllers.commands.centers.CreateCenter
-import es.uniovi.apuntesuniovi.controllers.commands.centers.FindAllCenters
 import es.uniovi.apuntesuniovi.models.Center
 import es.uniovi.apuntesuniovi.services.BaseService
 import es.uniovi.apuntesuniovi.services.CenterService
@@ -23,15 +21,15 @@ class CenterController @Autowired constructor(
 
   override fun create(
     baseService: BaseService<Center, CenterDto>,
-    json: String
+    dto: CenterDto
   ): CenterDto {
-    return CreateCenter(centerService, json).execute()
+    return centerService.create(dto)
   }
 
   override fun findAll(
     baseService: BaseService<Center, CenterDto>,
     pageable: Pageable
   ): Page<CenterDto> {
-    return FindAllCenters(centerService, pageable).execute()
+    return centerService.findAll(pageable)
   }
 }

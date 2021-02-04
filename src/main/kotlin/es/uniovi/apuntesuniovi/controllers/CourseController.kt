@@ -1,7 +1,5 @@
 package es.uniovi.apuntesuniovi.controllers
 
-import es.uniovi.apuntesuniovi.controllers.commands.courses.CreateCourse
-import es.uniovi.apuntesuniovi.controllers.commands.courses.FindAllCourses
 import es.uniovi.apuntesuniovi.models.Course
 import es.uniovi.apuntesuniovi.services.BaseService
 import es.uniovi.apuntesuniovi.services.CourseService
@@ -23,15 +21,15 @@ class CourseController @Autowired constructor(
 
   override fun create(
     baseService: BaseService<Course, CourseDto>,
-    json: String
+    dto: CourseDto
   ): CourseDto {
-    return CreateCourse(courseService, json).execute()
+    return courseService.create(dto)
   }
 
   override fun findAll(
     baseService: BaseService<Course, CourseDto>,
     pageable: Pageable
   ): Page<CourseDto> {
-    return FindAllCourses(courseService, pageable).execute()
+    return courseService.findAll(pageable)
   }
 }

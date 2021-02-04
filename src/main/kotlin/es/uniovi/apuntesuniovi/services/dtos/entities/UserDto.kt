@@ -2,6 +2,7 @@ package es.uniovi.apuntesuniovi.services.dtos.entities
 
 import es.uniovi.apuntesuniovi.models.Address
 import java.time.LocalDate
+import javax.validation.constraints.NotNull
 
 /**
  * Data Transfer Object of users

@@ -1,7 +1,5 @@
 package es.uniovi.apuntesuniovi.controllers
 
-import es.uniovi.apuntesuniovi.controllers.commands.semesters.CreateSemester
-import es.uniovi.apuntesuniovi.controllers.commands.semesters.FindAllSemesters
 import es.uniovi.apuntesuniovi.models.Semester
 import es.uniovi.apuntesuniovi.services.BaseService
 import es.uniovi.apuntesuniovi.services.SemesterService
@@ -23,15 +21,15 @@ class SemesterController @Autowired constructor(
 
   override fun create(
     baseService: BaseService<Semester, SemesterDto>,
-    json: String
+    dto: SemesterDto
   ): SemesterDto {
-    return CreateSemester(semesterService, json).execute()
+    return semesterService.create(dto)
   }
 
   override fun findAll(
     baseService: BaseService<Semester, SemesterDto>,
     pageable: Pageable
   ): Page<SemesterDto> {
-    return FindAllSemesters(semesterService, pageable).execute()
+    return semesterService.findAll(pageable)
   }
 }

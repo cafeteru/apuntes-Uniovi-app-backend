@@ -1,7 +1,5 @@
 package es.uniovi.apuntesuniovi.controllers
 
-import es.uniovi.apuntesuniovi.controllers.commands.careers.CreateCareer
-import es.uniovi.apuntesuniovi.controllers.commands.careers.FindAllCareers
 import es.uniovi.apuntesuniovi.models.Career
 import es.uniovi.apuntesuniovi.services.BaseService
 import es.uniovi.apuntesuniovi.services.CareerService
@@ -21,12 +19,12 @@ class CareerController @Autowired constructor(
   private val careerService: CareerService
 ) : BaseController<Career, CareerDto>(careerService) {
 
-  override fun create(baseService: BaseService<Career, CareerDto>, json: String): CareerDto {
-    return CreateCareer(careerService, json).execute()
+  override fun create(baseService: BaseService<Career, CareerDto>, dto: CareerDto): CareerDto {
+    return careerService.create(dto)
   }
 
   override fun findAll(baseService: BaseService<Career, CareerDto>, pageable: Pageable): Page<CareerDto> {
-    return FindAllCareers(careerService, pageable).execute()
+    return careerService.findAll(pageable)
   }
 
 
