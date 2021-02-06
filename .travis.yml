@@ -17,7 +17,6 @@ deploy:
   strategy: git
   api_key: $HEROKU_API_KEY
   region: Europe
-  app:
-    master: apuntes-uniovi
+  app: apuntes-uniovi
   on:
     branch: fix-heroku
