@@ -31,6 +31,7 @@ class ChangeLanguageUserTest {
   @Mock
   private lateinit var addressRepository: AddressRepository
   private val userAssembler = UserAssembler()
+  private val username = "username"
 
   /**
    * Create init data for the test
@@ -45,7 +46,6 @@ class ChangeLanguageUserTest {
    */
   @Test
   fun validData() {
-    val username = "username"
     val user = MockUserCreator().create()
     user.username = username
     Mockito.`when`(userRepository.findByUsername(username)).thenReturn(Optional.of(user))
@@ -58,7 +58,6 @@ class ChangeLanguageUserTest {
    */
   @Test
   fun invalidLanguage() {
-    val username = "username"
     val user = MockUserCreator().create()
     user.username = username
     Mockito.`when`(userRepository.findByUsername(username)).thenReturn(Optional.of(user))
@@ -75,7 +74,6 @@ class ChangeLanguageUserTest {
    */
   @Test
   fun invalidUsername() {
-    val username = "username"
     val user = MockUserCreator().create()
     user.username = username
     try {
