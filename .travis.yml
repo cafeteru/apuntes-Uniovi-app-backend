@@ -14,7 +14,8 @@ after_success:
 
 deploy:
   provider: heroku
-  api_key:
-    secure: $HEROKU_API_KEY
+  strategy: git
+  api_key: $HEROKU_API_KEY
+  app: apuntes-uniovi
   on:
     branch: master
