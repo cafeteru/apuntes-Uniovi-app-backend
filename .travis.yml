@@ -7,7 +7,7 @@ install:
   - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 
 script:
-  - mvn package
+  - mvn verify package
 
 after_success:
   - bash <(curl -Ls https://coverage.codacy.com/get.sh) report
@@ -17,5 +17,5 @@ deploy:
   strategy: api
   api_key:
     secure: $HEROKU_API_KEY
-  #on:
-   # branch: master
+  on:
+    branch: fix-heroku
