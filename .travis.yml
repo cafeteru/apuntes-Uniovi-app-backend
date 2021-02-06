@@ -1,8 +1,5 @@
 language: java
 
-env:
-  - CODACY_PROJECT_TOKEN="c2be9f43ccaf4cff9ff05739ef073a6c"
-
 jdk:
   - openjdk11
 
@@ -14,3 +11,10 @@ script:
 
 after_success:
   - bash <(curl -Ls https://coverage.codacy.com/get.sh) report
+
+deploy:
+  provider: heroku
+  api_key:
+    secure: $HEROKU_API_KEY
+  on:
+    branch: master
