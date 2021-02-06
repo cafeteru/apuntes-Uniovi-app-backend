@@ -72,10 +72,17 @@ class UserService @Autowired constructor(
     return convertToDto(result)
   }
 
-  fun changeLanguage(username: String, language: String) {
+  /**
+   * Change a user's language
+   *
+   * @param username User's username sending the request
+   * @param language Selected language
+   */
+  fun changeLanguage(username: String, language: String): Boolean {
     logService.info("changeLanguage(username: $username, language: $language) - start")
-    ChangeLanguageUser(userRepository, username, language).execute()
+    val result = ChangeLanguageUser(userRepository, username, language).execute()
     logService.info("changeLanguage(username: $username, language:  $language) - end")
+    return result
   }
 
   private fun convertToDto(user: User): UserDto {

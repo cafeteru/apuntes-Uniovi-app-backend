@@ -63,6 +63,12 @@ class UserController @Autowired constructor(
     return ResponseEntity(result, HttpStatus.OK)
   }
 
+  /**
+   * Change a user's language
+   *
+   * @param language Selected language
+   * @param principal User sending the request
+   */
   @PreAuthorize("isAuthenticated()")
   @RequestMapping(path = ["/lang/{language}"], method = [RequestMethod.HEAD])
   fun changeLanguage(@PathVariable language: String, principal: Principal): ResponseEntity<Boolean> {

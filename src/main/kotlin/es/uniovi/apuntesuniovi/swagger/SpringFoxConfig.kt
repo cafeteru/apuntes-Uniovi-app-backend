@@ -9,9 +9,16 @@ import springfox.documentation.spring.web.plugins.Docket
 import springfox.documentation.swagger2.annotations.EnableSwagger2
 
 
+/**
+ * Configure the Swagger service
+ */
 @Configuration
 @EnableSwagger2
 class SpringFoxConfig {
+
+  /**
+   * Create Swagger's bean
+   */
   @Bean
   fun api(): Docket {
     return Docket(DocumentationType.SWAGGER_2)

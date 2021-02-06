@@ -48,15 +48,12 @@ class JWTAuthenticationFilter(
       logService.info("attemptAuthentication(req: $req, response: $res) - end")
       return result
     } catch (e: IOException) {
-      logService.error(UserMessages.LOGIN_SYSTEM)
       logService.error(
-        "attemptAuthentication(req: HttpServletRequest, res: HttpServletResponse) - " +
-            UserMessages.LOGIN_SYSTEM
+        "attemptAuthentication(req: HttpServletRequest, res: HttpServletResponse) - ${UserMessages.LOGIN_SYSTEM}"
       )
     } catch (e: InternalAuthenticationServiceException) {
       logService.error(
-        "attemptAuthentication(req: HttpServletRequest, res: HttpServletResponse) - " +
-            UserMessages.NOT_EXISTS
+        "attemptAuthentication(req: HttpServletRequest, res: HttpServletResponse) - ${UserMessages.NOT_EXISTS}"
       )
     }
     return null
@@ -70,9 +67,8 @@ class JWTAuthenticationFilter(
       "successfulAuthentication(request: HttpServletRequest, " +
           "response: HttpServletResponse, chain: FilterChain, auth: Authentication) - start"
     )
-    val token = createToken(auth)
     response.contentType = "application/json;charset=UTF-8"
-    response.writer.print("{ \"$AUTHORIZATION_HEADER\" : \"$TOKEN_BEARER_PREFIX$token\" }")
+    response.writer.print("{ \"$AUTHORIZATION_HEADER\" : \"$TOKEN_BEARER_PREFIX${createToken(auth)}\" }")
     logService.info(
       "successfulAuthentication(request: HttpServletRequest, " +
           "response: HttpServletResponse, chain: FilterChain, auth: Authentication) - end"
@@ -85,7 +81,7 @@ class JWTAuthenticationFilter(
     val user = userService.findByUsername(username)
     val token = JWT.create()
       .withSubject(user.username)
-      .withClaim("role", "ROLE_" + user.role)
+      .withClaim("role", "ROLE_${user.role}")
       .withClaim("id", user.id)
       .withExpiresAt(Date(System.currentTimeMillis() + EXPIRATION_TIME))
       .sign(HMAC512(SECRET))
