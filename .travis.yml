@@ -19,4 +19,4 @@ deploy:
   region: Europe
   app: apuntes-uniovi
   on:
-    branch: fix-heroku
+    branch: master
