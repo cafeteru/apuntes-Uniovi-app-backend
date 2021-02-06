@@ -14,44 +14,44 @@ import kotlin.test.assertNull
  * Test the assignments to position of a UnitSubject
  */
 class PositionTest {
-    private lateinit var unitSubject: UnitSubject
+  private lateinit var unitSubject: UnitSubject
 
-    /**
-     * Create init data for the test
-     */
-    @BeforeEach
-    fun initData() {
-        unitSubject = MockUnitSubjectCreator().create()
-    }
+  /**
+   * Create init data for the test
+   */
+  @BeforeEach
+  fun initData() {
+    unitSubject = MockUnitSubjectCreator().create()
+  }
 
-    /**
-     * Checks the assignment under the limit
-     */
-    @Test
-    fun limitPosition() {
-        unitSubject.position = UnitSubjectLimits.POSITION_MIN
-        assertEquals(UnitSubjectLimits.POSITION_MIN, unitSubject.position)
-    }
+  /**
+   * Checks the assignment under the limit
+   */
+  @Test
+  fun limitPosition() {
+    unitSubject.position = UnitSubjectLimits.POSITION_MIN
+    assertEquals(UnitSubjectLimits.POSITION_MIN, unitSubject.position)
+  }
 
-    /**
-     * Checks the assignment under the limit
-     */
-    @Test
-    fun downLimitPosition() {
-        try {
-            unitSubject.position = UnitSubjectLimits.POSITION_MIN - 1
-            fail("Position is too low")
-        } catch (e: IllegalArgumentException) {
-            assertEquals(e.message, UnitSubjectMessages.LIMIT_POSITION_MIN)
-        }
+  /**
+   * Checks the assignment under the limit
+   */
+  @Test
+  fun downLimitPosition() {
+    try {
+      unitSubject.position = UnitSubjectLimits.POSITION_MIN - 1
+      fail("Position is too low")
+    } catch (e: IllegalArgumentException) {
+      assertEquals(e.message, UnitSubjectMessages.LIMIT_POSITION_MIN)
     }
+  }
 
-    /**
-     * Checks the assignment to null
-     */
-    @Test
-    fun nullPosition() {
-        unitSubject.position = null
-        assertNull(unitSubject.position)
-    }
+  /**
+   * Checks the assignment to null
+   */
+  @Test
+  fun nullPosition() {
+    unitSubject.position = null
+    assertNull(unitSubject.position)
+  }
 }

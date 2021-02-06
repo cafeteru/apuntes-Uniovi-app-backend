@@ -1,37 +1,87 @@
 package es.uniovi.apuntesuniovi.controllers
 
-import es.uniovi.apuntesuniovi.controllers.commands.users.CreateUser
-import es.uniovi.apuntesuniovi.controllers.commands.users.FindAllUsers
-import es.uniovi.apuntesuniovi.models.User
-import es.uniovi.apuntesuniovi.services.BaseService
+import es.uniovi.apuntesuniovi.infrastructure.log.LogService
 import es.uniovi.apuntesuniovi.services.UserService
 import es.uniovi.apuntesuniovi.services.dtos.entities.UserDto
+import io.swagger.annotations.Api
+import io.swagger.annotations.ApiOperation
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.http.HttpStatus
+import org.springframework.http.MediaType
+import org.springframework.http.ResponseEntity
+import org.springframework.security.access.prepost.PreAuthorize
+import org.springframework.web.bind.annotation.*
+import java.security.Principal
+import javax.validation.Valid
+
 
 /**
- * Define user endpoints
+ * Define user`s endpoints
  */
 @RestController
 @RequestMapping("/users")
+@Api(tags = ["Users"])
 class UserController @Autowired constructor(
-    private val userService: UserService
-) : BaseController<User, UserDto>(userService) {
+  private val userService: UserService
+) {
+  private val logService = LogService(this.javaClass)
 
-    override fun create(
-        baseService: BaseService<User, UserDto>,
-        json: String
-    ): UserDto {
-        return CreateUser(userService, json).execute()
-    }
+  /**
+   * Create a new user
+   */
+  @PreAuthorize("hasRole('ROLE_ADMIN')")
+  @PostMapping(value = ["/create"], consumes = [MediaType.APPLICATION_JSON_VALUE])
+  @ApiOperation(value = "Create a new user")
+  fun create(@Valid @RequestBody userDto: UserDto): ResponseEntity<UserDto> {
+    logService.info("save(json: String) - start")
+    val result = userService.create(userDto)
+    logService.info("save(json: String) - end")
+    return ResponseEntity(result, HttpStatus.OK)
+  }
 
-    override fun findAll(
-        baseService: BaseService<User, UserDto>,
-        pageable: Pageable
-    ): Page<UserDto> {
-        return FindAllUsers(userService, pageable).execute()
-    }
+  /**
+   * Returns all registered users
+   */
+  @PreAuthorize("hasRole('ROLE_ADMIN')")
+  @GetMapping("")
+  @ApiOperation(value = "Returns all registered users")
+  fun findAll(pageable: Pageable): ResponseEntity<Page<UserDto>> {
+    logService.info("findAll() - start")
+    val result = userService.findAll(pageable)
+    logService.info("findAll() - end")
+    return ResponseEntity(result, HttpStatus.OK)
+  }
+
+  /**
+   * Return a user by id
+   *
+   * @param id User´s id
+   */
+  @PreAuthorize("hasRole('ROLE_ADMIN')")
+  @GetMapping("/{id}")
+  @ApiOperation(value = "Return a user by id")
+  fun findById(@PathVariable id: Long): ResponseEntity<UserDto> {
+    logService.info("findById(id: ${id}) - start")
+    val result = userService.findById(id)
+    logService.info("findById(id: ${id}) - end")
+    return ResponseEntity(result, HttpStatus.OK)
+  }
+
+  /**
+   * Change a user's language
+   *
+   * @param language Selected language
+   * @param principal User sending the request
+   */
+  @PreAuthorize("isAuthenticated()")
+  @RequestMapping(path = ["/lang/{language}"], method = [RequestMethod.HEAD])
+  @ApiOperation(value = "Change a user's language")
+  fun changeLanguage(@PathVariable language: String, principal: Principal): ResponseEntity<Boolean> {
+    logService.info("changeLanguage(language: ${language}) - start")
+    userService.changeLanguage(principal.name, language)
+    logService.info("changeLanguage(language: ${language}) - end")
+    return ResponseEntity<Boolean>(HttpStatus.OK)
+  }
 }

@@ -27,12 +27,13 @@ class UserAssembler : AbstractAssembler<User, UserDto>() {
         role = entity.role.toString(),
         identificationType = entity.identificationType.toString(),
         numberIdentification = entity.numberIdentification,
-        address = entity.address
+        address = entity.address,
+        language = entity.language.toString()
       )
       logService.info("entityToDto(user: User) - end")
       return result
     }
-    logService.error("entityToDto(user: User) - error")
+    logService.error("entityToDto(user: User) - error: ${UserMessages.NULL}")
     throw IllegalArgumentException(UserMessages.NULL)
   }
 
@@ -54,10 +55,11 @@ class UserAssembler : AbstractAssembler<User, UserDto>() {
       result.numberIdentification = dto.numberIdentification
       result.setRole(dto.role)
       result.address = dto.address
+      result.setLanguage(dto.language)
       logService.info("dtoToEntity(userDto: UserDto) - end")
       return result
     }
-    logService.info("dtoToEntity(userDto: UserDto) - error")
+    logService.info("dtoToEntity(userDto: UserDto) - error: ${UserMessages.NULL}")
     throw IllegalArgumentException(UserMessages.NULL)
   }
 }

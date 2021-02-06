@@ -1,7 +1,5 @@
 package es.uniovi.apuntesuniovi.controllers
 
-import es.uniovi.apuntesuniovi.controllers.commands.teachSubjects.CreateTeachSubject
-import es.uniovi.apuntesuniovi.controllers.commands.teachSubjects.FindAllTeachSubjects
 import es.uniovi.apuntesuniovi.models.TeachSubject
 import es.uniovi.apuntesuniovi.services.BaseService
 import es.uniovi.apuntesuniovi.services.TeachSubjectService
@@ -18,20 +16,20 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/teachSubjects")
 class TeachSubjectController @Autowired constructor(
-    private val TeachSubjectService: TeachSubjectService
-) : BaseController<TeachSubject, TeachSubjectDto>(TeachSubjectService) {
+  private val teachSubjectService: TeachSubjectService
+) : BaseController<TeachSubject, TeachSubjectDto>(teachSubjectService) {
 
-    override fun create(
-        baseService: BaseService<TeachSubject, TeachSubjectDto>,
-        json: String
-    ): TeachSubjectDto {
-        return CreateTeachSubject(TeachSubjectService, json).execute()
-    }
+  override fun create(
+    baseService: BaseService<TeachSubject, TeachSubjectDto>,
+    dto: TeachSubjectDto
+  ): TeachSubjectDto {
+    return teachSubjectService.create(dto)
+  }
 
-    override fun findAll(
-        baseService: BaseService<TeachSubject, TeachSubjectDto>,
-        pageable: Pageable
-    ): Page<TeachSubjectDto> {
-        return FindAllTeachSubjects(TeachSubjectService, pageable).execute()
-    }
+  override fun findAll(
+    baseService: BaseService<TeachSubject, TeachSubjectDto>,
+    pageable: Pageable
+  ): Page<TeachSubjectDto> {
+    return teachSubjectService.findAll(pageable)
+  }
 }

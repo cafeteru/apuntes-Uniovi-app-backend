@@ -5,8 +5,8 @@ import es.uniovi.apuntesuniovi.models.TeachSubject
 import es.uniovi.apuntesuniovi.models.types.RoleType
 import es.uniovi.apuntesuniovi.repositories.SubjectRepository
 import es.uniovi.apuntesuniovi.repositories.UserRepository
-import es.uniovi.apuntesuniovi.services.commands.subjects.FindSubjectByIdService
-import es.uniovi.apuntesuniovi.services.commands.users.FindUserByIdService
+import es.uniovi.apuntesuniovi.services.commands.subjects.FindSubjectById
+import es.uniovi.apuntesuniovi.services.commands.users.FindUserById
 import es.uniovi.apuntesuniovi.services.dtos.entities.TeachSubjectDto
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -31,7 +31,7 @@ class TeachSubjectAssembler @Autowired constructor(
       logService.info("entityToDto(entity: TeachSubject) - end")
       return result
     }
-    logService.error("entityToDto(entity: TeachSubject) - error")
+    logService.error("entityToDto(entity: TeachSubject) - error: ${TeachSubjectMessages.NULL}")
     throw IllegalArgumentException(TeachSubjectMessages.NULL)
   }
 
@@ -41,16 +41,16 @@ class TeachSubjectAssembler @Autowired constructor(
       val result = TeachSubject()
       result.id = it.id
       result.isCoordinator = it.isCoordinator
-      result.subject = FindSubjectByIdService(subjectRepository, it.subjectId).execute()
-      result.teacher = FindUserByIdService(userRepository, it.teacherId).execute()
+      result.subject = FindSubjectById(subjectRepository, it.subjectId).execute()
+      result.teacher = FindUserById(userRepository, it.teacherId).execute()
       if (result.teacher.role != RoleType.TEACHER) {
-        logService.error("dtoToEntity(dto: TeachSubjectDto) - error")
+        logService.error("dtoToEntity(dto: TeachSubjectDto) - error: ${TeachSubjectMessages.INVALID_USER_ROLE}")
         throw IllegalArgumentException(TeachSubjectMessages.INVALID_USER_ROLE)
       }
       logService.info("dtoToEntity(dto: TeachSubjectDto) - end")
       return result
     }
-    logService.error("dtoToEntity(dto: TeachSubjectDto) - error")
+    logService.error("dtoToEntity(dto: TeachSubjectDto) - error: ${TeachSubjectMessages.NULL}")
     throw IllegalArgumentException(TeachSubjectMessages.NULL)
   }
 }

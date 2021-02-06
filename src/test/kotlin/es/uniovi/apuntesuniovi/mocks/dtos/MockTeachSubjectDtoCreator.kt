@@ -9,12 +9,12 @@ import es.uniovi.apuntesuniovi.services.dtos.entities.TeachSubjectDto
  * Service to create mock data of the dto TeachSubjectDto
  */
 class MockTeachSubjectDtoCreator : MockCreator<TeachSubjectDto> {
-    override fun create(): TeachSubjectDto {
-        return TeachSubjectDto(
-            id = 3,
-            isCoordinator = true,
-            subjectId = MockSubjectCreator().create().id!!,
-            teacherId = MockUserCreator().createTeacher().id!!
-        )
-    }
+  override fun create(): TeachSubjectDto {
+    return TeachSubjectDto(
+      id = 3,
+      isCoordinator = true,
+      subjectId = MockSubjectCreator().create().id!!,
+      teacherId = MockUserCreator().createTeacher().id!!
+    )
+  }
 }

@@ -2,8 +2,8 @@ package es.uniovi.apuntesuniovi.services
 
 import es.uniovi.apuntesuniovi.models.Career
 import es.uniovi.apuntesuniovi.repositories.CareerRepository
-import es.uniovi.apuntesuniovi.services.commands.careers.CreateCareerService
-import es.uniovi.apuntesuniovi.services.commands.careers.FindAllCareersService
+import es.uniovi.apuntesuniovi.services.commands.careers.CreateCareer
+import es.uniovi.apuntesuniovi.services.commands.careers.FindAllCareers
 import es.uniovi.apuntesuniovi.services.dtos.assemblers.CareerAssembler
 import es.uniovi.apuntesuniovi.services.dtos.entities.CareerDto
 import org.springframework.beans.factory.annotation.Autowired
@@ -25,13 +25,13 @@ class CareerService @Autowired constructor(
     repository: PagingAndSortingRepository<Career, Long>,
     entity: Career
   ): Career {
-    return CreateCareerService(careerRepository, entity).execute()
+    return CreateCareer(careerRepository, entity).execute()
   }
 
   override fun findAll(
     repository: PagingAndSortingRepository<Career, Long>,
     pageable: Pageable
   ): Page<Career> {
-    return FindAllCareersService(careerRepository, pageable).execute()
+    return FindAllCareers(careerRepository, pageable).execute()
   }
 }

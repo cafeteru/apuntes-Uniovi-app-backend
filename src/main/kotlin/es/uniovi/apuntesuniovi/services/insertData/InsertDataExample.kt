@@ -1,6 +1,7 @@
 package es.uniovi.apuntesuniovi.services.insertData
 
 import es.uniovi.apuntesuniovi.infrastructure.log.LogService
+import es.uniovi.apuntesuniovi.models.types.LanguageType
 import es.uniovi.apuntesuniovi.models.types.RoleType
 import es.uniovi.apuntesuniovi.services.UserService
 import es.uniovi.apuntesuniovi.services.dtos.entities.UserDto
@@ -31,7 +32,8 @@ class InsertDataExample @Autowired constructor(
     phone = "623548956",
     username = "admin",
     role = RoleType.ADMIN.toString(),
-    address = null
+    address = null,
+    language = LanguageType.ES.toString()
   )
 
   /**

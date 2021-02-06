@@ -3,6 +3,7 @@ package es.uniovi.apuntesuniovi.models
 import es.uniovi.apuntesuniovi.infrastructure.constants.database.UserLimits
 import es.uniovi.apuntesuniovi.infrastructure.messages.UserMessages
 import es.uniovi.apuntesuniovi.models.types.IdentificationType
+import es.uniovi.apuntesuniovi.models.types.LanguageType
 import es.uniovi.apuntesuniovi.models.types.RoleType
 import es.uniovi.apuntesuniovi.validators.impl.*
 import java.time.LocalDate
@@ -101,6 +102,9 @@ open class User {
     }
 
   @Enumerated(EnumType.STRING)
+  var language: LanguageType = LanguageType.ES
+
+  @Enumerated(EnumType.STRING)
   var role: RoleType? = null
 
   @Enumerated(EnumType.STRING)
@@ -120,6 +124,22 @@ open class User {
 
   @OneToOne
   var address: Address? = null
+
+  /**
+   * Set identificationType according to a text
+   *
+   * @param language Text
+   * @throws IllegalArgumentException Invalid text
+   */
+  fun setLanguage(language: String?) {
+    if (language != null) {
+      try {
+        this.language = LanguageType.valueOf(language.toUpperCase())
+      } catch (e: IllegalArgumentException) {
+        throw IllegalArgumentException(UserMessages.INVALID_LANGUAGE)
+      }
+    }
+  }
 
   /**
    * Set identificationType according to a text

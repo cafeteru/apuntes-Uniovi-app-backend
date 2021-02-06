@@ -2,8 +2,8 @@ package es.uniovi.apuntesuniovi.services
 
 import es.uniovi.apuntesuniovi.models.Subject
 import es.uniovi.apuntesuniovi.repositories.SubjectRepository
-import es.uniovi.apuntesuniovi.services.commands.subjects.CreateSubjectService
-import es.uniovi.apuntesuniovi.services.commands.subjects.FindAllSubjectsService
+import es.uniovi.apuntesuniovi.services.commands.subjects.CreateSubject
+import es.uniovi.apuntesuniovi.services.commands.subjects.FindAllSubjects
 import es.uniovi.apuntesuniovi.services.dtos.assemblers.SubjectAssembler
 import es.uniovi.apuntesuniovi.services.dtos.entities.SubjectDto
 import org.springframework.beans.factory.annotation.Autowired
@@ -25,13 +25,13 @@ class SubjectService @Autowired constructor(
     repository: PagingAndSortingRepository<Subject, Long>,
     entity: Subject
   ): Subject {
-    return CreateSubjectService(subjectRepository, entity).execute()
+    return CreateSubject(subjectRepository, entity).execute()
   }
 
   override fun findAll(
     repository: PagingAndSortingRepository<Subject, Long>,
     pageable: Pageable
   ): Page<Subject> {
-    return FindAllSubjectsService(subjectRepository, pageable).execute()
+    return FindAllSubjects(subjectRepository, pageable).execute()
   }
 }

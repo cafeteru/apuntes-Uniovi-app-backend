@@ -1,17 +1,15 @@
 package es.uniovi.apuntesuniovi.services
 
+import es.uniovi.apuntesuniovi.infrastructure.log.LogService
 import es.uniovi.apuntesuniovi.models.User
 import es.uniovi.apuntesuniovi.repositories.AddressRepository
 import es.uniovi.apuntesuniovi.repositories.UserRepository
-import es.uniovi.apuntesuniovi.services.commands.users.CreateUserService
-import es.uniovi.apuntesuniovi.services.commands.users.FindAllUsersService
-import es.uniovi.apuntesuniovi.services.commands.users.FindUserByUsernameService
+import es.uniovi.apuntesuniovi.services.commands.users.*
 import es.uniovi.apuntesuniovi.services.dtos.assemblers.UserAssembler
 import es.uniovi.apuntesuniovi.services.dtos.entities.UserDto
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
-import org.springframework.data.repository.PagingAndSortingRepository
 import org.springframework.stereotype.Service
 
 /**
@@ -22,26 +20,44 @@ class UserService @Autowired constructor(
   private val userRepository: UserRepository,
   private val addressRepository: AddressRepository,
   private val userAssembler: UserAssembler
-) : BaseService<User, UserDto>(userRepository, userAssembler) {
+) {
+  private val logService = LogService(this.javaClass)
 
-  override fun create(
-    repository: PagingAndSortingRepository<User, Long>,
-    entity: User
-  ): User {
-    return deleteImgPassword(CreateUserService(userRepository, addressRepository, entity).execute())
+  /**
+   * Create a new element
+   *
+   * @param dto Element to create
+   */
+  fun create(dto: UserDto): UserDto {
+    logService.info("create(dto: UserDto) - start")
+    val entity = userAssembler.dtoToEntity(dto)
+    val result = CreateUser(userRepository, addressRepository, entity).execute()
+    logService.info("create(dto: UserDto) - end")
+    return convertToDto(result)
   }
 
-  override fun findAll(
-    repository: PagingAndSortingRepository<User, Long>,
-    pageable: Pageable
-  ): Page<User> {
-    return FindAllUsersService(userRepository, pageable).execute().map { deleteImgPassword(it) }
+  /**
+   * Returns all elements
+   *
+   * @param pageable Pageable
+   */
+  fun findAll(pageable: Pageable): Page<UserDto> {
+    logService.info("findAll() - start")
+    val result = FindAllUsers(userRepository, pageable).execute()
+    logService.info("findAll() - end")
+    return result.map { entity -> convertToDto(entity) }
   }
 
-  private fun deleteImgPassword(user: User): User {
-    user.img = null
-    user.password = null
-    return user
+  /**
+   * Returns the user whose id matches
+   *
+   * @param id User id
+   */
+  fun findById(id: Long): UserDto {
+    logService.info("findById() - start")
+    val result = FindUserById(userRepository, id).execute()
+    logService.info("findById() - end")
+    return userAssembler.entityToDto(result)
   }
 
   /**
@@ -51,8 +67,27 @@ class UserService @Autowired constructor(
    */
   fun findByUsername(username: String): UserDto {
     logService.info("findByUsername(username: ${username}) - start")
-    val result = FindUserByUsernameService(userRepository, username).execute()
+    val result = FindUserByUsername(userRepository, username).execute()
     logService.info("findByUsername(username: ${username}) - end")
-    return userAssembler.entityToDto(result)
+    return convertToDto(result)
+  }
+
+  /**
+   * Change a user's language
+   *
+   * @param username User's username sending the request
+   * @param language Selected language
+   */
+  fun changeLanguage(username: String, language: String): Boolean {
+    logService.info("changeLanguage(username: $username, language: $language) - start")
+    val result = ChangeLanguageUser(userRepository, username, language).execute()
+    logService.info("changeLanguage(username: $username, language:  $language) - end")
+    return result
+  }
+
+  private fun convertToDto(user: User): UserDto {
+    user.img = null
+    user.password = null
+    return userAssembler.entityToDto(user)
   }
 }

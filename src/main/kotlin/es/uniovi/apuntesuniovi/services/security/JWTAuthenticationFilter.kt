@@ -14,6 +14,8 @@ import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.InternalAuthenticationServiceException
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
+import org.springframework.security.core.GrantedAuthority
+import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.User
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 import java.io.IOException
@@ -41,23 +43,17 @@ class JWTAuthenticationFilter(
     logService.info("attemptAuthentication(req: HttpServletRequest, res: HttpServletResponse) - start")
     try {
       val user = ObjectMapper().readValue(req.inputStream, es.uniovi.apuntesuniovi.models.User::class.java)
-      val result = authenticationManager.authenticate(
-        UsernamePasswordAuthenticationToken(
-          user.username, user.password, listOf()
-        )
-      )
+      val authentication = UsernamePasswordAuthenticationToken(user.username, user.password, getAuthorities(user))
+      val result = authenticationManager.authenticate(authentication)
       logService.info("attemptAuthentication(req: $req, response: $res) - end")
       return result
     } catch (e: IOException) {
-      logService.error(UserMessages.LOGIN_SYSTEM)
       logService.error(
-        "attemptAuthentication(req: HttpServletRequest, res: HttpServletResponse) - " +
-            UserMessages.LOGIN_SYSTEM
+        "attemptAuthentication(req: HttpServletRequest, res: HttpServletResponse) - ${UserMessages.LOGIN_SYSTEM}"
       )
     } catch (e: InternalAuthenticationServiceException) {
       logService.error(
-        "attemptAuthentication(req: HttpServletRequest, res: HttpServletResponse) - " +
-            UserMessages.NOT_EXISTS
+        "attemptAuthentication(req: HttpServletRequest, res: HttpServletResponse) - ${UserMessages.NOT_EXISTS}"
       )
     }
     return null
@@ -71,9 +67,8 @@ class JWTAuthenticationFilter(
       "successfulAuthentication(request: HttpServletRequest, " +
           "response: HttpServletResponse, chain: FilterChain, auth: Authentication) - start"
     )
-    val token = createToken(auth)
     response.contentType = "application/json;charset=UTF-8"
-    response.writer.print("{ \"$AUTHORIZATION_HEADER\" : \"$TOKEN_BEARER_PREFIX$token\" }")
+    response.writer.print("{ \"$AUTHORIZATION_HEADER\" : \"$TOKEN_BEARER_PREFIX${createToken(auth)}\" }")
     logService.info(
       "successfulAuthentication(request: HttpServletRequest, " +
           "response: HttpServletResponse, chain: FilterChain, auth: Authentication) - end"
@@ -85,12 +80,16 @@ class JWTAuthenticationFilter(
     val username = (auth.principal as User).username
     val user = userService.findByUsername(username)
     val token = JWT.create()
-      .withClaim("username", user.username)
-      .withClaim("role", user.role)
+      .withSubject(user.username)
+      .withClaim("role", "ROLE_${user.role}")
       .withClaim("id", user.id)
       .withExpiresAt(Date(System.currentTimeMillis() + EXPIRATION_TIME))
       .sign(HMAC512(SECRET))
     logService.info("createToken(auth: Authentication) - end")
     return token
+  }
+
+  private fun getAuthorities(user: es.uniovi.apuntesuniovi.models.User): List<GrantedAuthority> {
+    return listOf(SimpleGrantedAuthority("ROLE_$user.role"))
   }
 }

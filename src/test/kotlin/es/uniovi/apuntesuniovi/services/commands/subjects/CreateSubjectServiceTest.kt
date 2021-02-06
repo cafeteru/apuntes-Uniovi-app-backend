@@ -17,29 +17,29 @@ import org.mockito.junit.jupiter.MockitoExtension
  */
 @ExtendWith(MockitoExtension::class)
 class CreateSubjectServiceTest {
-    private lateinit var subject: Subject
+  private lateinit var subject: Subject
 
-    @Mock
-    private lateinit var subjectRepository: SubjectRepository
+  @Mock
+  private lateinit var subjectRepository: SubjectRepository
 
-    /**
-     * Create init data for the test
-     */
-    @BeforeEach
-    fun initTest() {
-        subject = MockSubjectCreator().create()
-    }
+  /**
+   * Create init data for the test
+   */
+  @BeforeEach
+  fun initTest() {
+    subject = MockSubjectCreator().create()
+  }
 
-    /**
-     * Checks the functionality with valid data
-     */
-    @Test
-    fun validData() {
-        subject.id = null
-        Mockito.`when`(subjectRepository.save(subject)).thenReturn(MockSubjectCreator().create())
-        val result = CreateSubjectService(subjectRepository, subject).execute()
-        assertEquals(result.name, subject.name)
-        assertEquals(result.subjectType, subject.subjectType)
-        assertNotEquals(result.id, subject.id)
-    }
+  /**
+   * Checks the functionality with valid data
+   */
+  @Test
+  fun validData() {
+    subject.id = null
+    Mockito.`when`(subjectRepository.save(subject)).thenReturn(MockSubjectCreator().create())
+    val result = CreateSubject(subjectRepository, subject).execute()
+    assertEquals(result.name, subject.name)
+    assertEquals(result.subjectType, subject.subjectType)
+    assertNotEquals(result.id, subject.id)
+  }
 }

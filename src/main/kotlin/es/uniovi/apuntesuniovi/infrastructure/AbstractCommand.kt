@@ -6,10 +6,10 @@ import es.uniovi.apuntesuniovi.infrastructure.log.LogService
  * Abstract class to apply the Command pattern
  */
 abstract class AbstractCommand<T> {
-    protected val logService = LogService(this.javaClass)
+  protected val logService = LogService(this.javaClass)
 
-    /**
-     * Run the command and return a value
-     */
-    abstract fun execute(): T
+  /**
+   * Run the command and return a value
+   */
+  abstract fun execute(): T
 }

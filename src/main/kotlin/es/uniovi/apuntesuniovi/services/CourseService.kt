@@ -2,8 +2,8 @@ package es.uniovi.apuntesuniovi.services
 
 import es.uniovi.apuntesuniovi.models.Course
 import es.uniovi.apuntesuniovi.repositories.CourseRepository
-import es.uniovi.apuntesuniovi.services.commands.courses.CreateCourseService
-import es.uniovi.apuntesuniovi.services.commands.courses.FindAllCoursesService
+import es.uniovi.apuntesuniovi.services.commands.courses.CreateCourse
+import es.uniovi.apuntesuniovi.services.commands.courses.FindAllCourses
 import es.uniovi.apuntesuniovi.services.dtos.assemblers.CourseAssembler
 import es.uniovi.apuntesuniovi.services.dtos.entities.CourseDto
 import org.springframework.beans.factory.annotation.Autowired
@@ -25,13 +25,13 @@ class CourseService @Autowired constructor(
     repository: PagingAndSortingRepository<Course, Long>,
     entity: Course
   ): Course {
-    return CreateCourseService(courseRepository, entity).execute()
+    return CreateCourse(courseRepository, entity).execute()
   }
 
   override fun findAll(
     repository: PagingAndSortingRepository<Course, Long>,
     pageable: Pageable
   ): Page<Course> {
-    return FindAllCoursesService(courseRepository, pageable).execute()
+    return FindAllCourses(courseRepository, pageable).execute()
   }
 }

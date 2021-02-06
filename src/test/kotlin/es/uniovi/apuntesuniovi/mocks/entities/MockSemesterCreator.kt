@@ -7,11 +7,11 @@ import es.uniovi.apuntesuniovi.models.Semester
  * Service to create mock data of the entity Semester
  */
 class MockSemesterCreator : MockCreator<Semester> {
-    override fun create(): Semester {
-        val semester = Semester()
-        semester.id = 1
-        semester.position = 1
-        semester.course = MockCourseCreator().create()
-        return semester
-    }
+  override fun create(): Semester {
+    val semester = Semester()
+    semester.id = 1
+    semester.position = 1
+    semester.course = MockCourseCreator().create()
+    return semester
+  }
 }

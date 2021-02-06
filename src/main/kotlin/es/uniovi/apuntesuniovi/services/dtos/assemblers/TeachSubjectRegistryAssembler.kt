@@ -3,7 +3,7 @@ package es.uniovi.apuntesuniovi.services.dtos.assemblers
 import es.uniovi.apuntesuniovi.infrastructure.messages.TeachSubjectRegistryMessages
 import es.uniovi.apuntesuniovi.models.TeachSubjectRegistry
 import es.uniovi.apuntesuniovi.repositories.TeachSubjectRepository
-import es.uniovi.apuntesuniovi.services.commands.teachSubjects.FindTeachSubjectByIdService
+import es.uniovi.apuntesuniovi.services.commands.teachSubjects.FindTeachSubjectById
 import es.uniovi.apuntesuniovi.services.dtos.entities.TeachSubjectRegistryDto
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -29,7 +29,7 @@ class TeachSubjectRegistryAssembler @Autowired constructor(
         return result
       }
     }
-    logService.error("entityToDto(entity: TeachSubjectRegistry) - error")
+    logService.error("entityToDto(entity: TeachSubjectRegistry) - error: ${TeachSubjectRegistryMessages.NULL}")
     throw IllegalArgumentException(TeachSubjectRegistryMessages.NULL)
   }
 
@@ -39,13 +39,13 @@ class TeachSubjectRegistryAssembler @Autowired constructor(
       val entity = TeachSubjectRegistry()
       entity.id = it.id
       it.teachSubjectId?.let { id ->
-        entity.teachSubject = FindTeachSubjectByIdService(teachSubjectRepository, id).execute()
+        entity.teachSubject = FindTeachSubjectById(teachSubjectRepository, id).execute()
       }
       entity.initDay = it.initDay
       entity.finishDay = it.finishDay
       return entity
     }
-    logService.error("dtoToEntity(dto: TeachSubjectRegistryDto) - error")
+    logService.error("dtoToEntity(dto: TeachSubjectRegistryDto) - error: ${TeachSubjectRegistryMessages.NULL}")
     throw IllegalArgumentException(TeachSubjectRegistryMessages.NULL)
   }
 }

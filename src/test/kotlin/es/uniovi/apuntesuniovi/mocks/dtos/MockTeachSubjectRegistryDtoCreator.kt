@@ -9,12 +9,12 @@ import java.time.LocalDate
  * Service to create mock data of the dto TeachSubjectRegistryDto
  */
 class MockTeachSubjectRegistryDtoCreator : MockCreator<TeachSubjectRegistryDto> {
-    override fun create(): TeachSubjectRegistryDto {
-        return TeachSubjectRegistryDto(
-            id = 3,
-            teachSubjectId = MockTeachSubjectCreator().create().id,
-            initDay = LocalDate.now(),
-            finishDay = null
-        )
-    }
+  override fun create(): TeachSubjectRegistryDto {
+    return TeachSubjectRegistryDto(
+      id = 3,
+      teachSubjectId = MockTeachSubjectCreator().create().id,
+      initDay = LocalDate.now(),
+      finishDay = null
+    )
+  }
 }

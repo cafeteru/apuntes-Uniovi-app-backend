@@ -9,11 +9,11 @@ import es.uniovi.apuntesuniovi.models.types.SubjectType
  * Service to create mock data of the entity OptionETCS
  */
 class MockOptionETCSCreator : MockCreator<OptionETCS> {
-    override fun create(): OptionETCS {
-        val optionETCS = OptionETCS()
-        optionETCS.id = 1
-        optionETCS.etcs = OptionETCSLimits.ECTS_MIN
-        optionETCS.subjectType = SubjectType.BASIC
-        return optionETCS
-    }
+  override fun create(): OptionETCS {
+    val optionETCS = OptionETCS()
+    optionETCS.id = 1
+    optionETCS.etcs = OptionETCSLimits.ECTS_MIN
+    optionETCS.subjectType = SubjectType.BASIC
+    return optionETCS
+  }
 }
