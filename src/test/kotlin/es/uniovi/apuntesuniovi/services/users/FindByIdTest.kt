@@ -5,8 +5,7 @@ import es.uniovi.apuntesuniovi.repositories.AddressRepository
 import es.uniovi.apuntesuniovi.repositories.UserRepository
 import es.uniovi.apuntesuniovi.services.UserService
 import es.uniovi.apuntesuniovi.services.dtos.assemblers.UserAssembler
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -48,9 +47,9 @@ class FindByIdTest {
     val userDto = userAssembler.entityToDto(user)
     Mockito.`when`(userRepository.findById(id)).thenReturn(Optional.of(user))
     val result = userService.findById(id)
-    assertEquals(userDto, result)
+    assertNotEquals(userDto, result)
     assertEquals(user.id, result.id)
     assertNotNull(result.img)
-    assertNotNull(result.password)
+    assertNull(result.password)
   }
 }
