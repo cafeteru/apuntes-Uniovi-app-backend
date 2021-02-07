@@ -56,6 +56,7 @@ class UserService @Autowired constructor(
   fun findById(id: Long): UserDto {
     logService.info("findById() - start")
     val result = FindUserById(userRepository, id).execute()
+    result.password = null
     logService.info("findById() - end")
     return userAssembler.entityToDto(result)
   }
