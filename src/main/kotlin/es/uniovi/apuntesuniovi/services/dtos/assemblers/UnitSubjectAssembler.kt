@@ -28,7 +28,6 @@ class UnitSubjectAssembler @Autowired constructor(
       logService.info("entityToDto(entity: UnitSubject) - end")
       return dto
     }
-    logService.error("entityToDto(entity: UnitSubject) - error: ${CourseMessages.NULL}")
     throw IllegalArgumentException(UnitSubjectMessages.NULL)
   }
 
@@ -58,7 +57,6 @@ class UnitSubjectAssembler @Autowired constructor(
       logService.info("dtoToEntity(dto: UnitSubjectDto) - end")
       return entity
     }
-    logService.info("dtoToEntity(dto: UnitSubjectDto) - error: ${UnitSubjectMessages.NULL}")
     throw IllegalArgumentException(UnitSubjectMessages.NULL)
   }
 }

@@ -8,4 +8,10 @@ import es.uniovi.apuntesuniovi.services.commands.BaseCreateService
  * Create a course in service layer
  */
 class CreateCourse(courseRepository: CourseRepository, course: Course) :
-  BaseCreateService<Course>(courseRepository, course)
+  BaseCreateService<Course>(courseRepository, course) {
+
+  override fun checkData() {
+    logService.info("checkData() - start")
+    logService.info("checkData() - end")
+  }
+}

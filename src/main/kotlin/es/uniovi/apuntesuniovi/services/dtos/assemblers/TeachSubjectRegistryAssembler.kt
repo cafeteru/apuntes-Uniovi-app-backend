@@ -29,7 +29,6 @@ class TeachSubjectRegistryAssembler @Autowired constructor(
         return result
       }
     }
-    logService.error("entityToDto(entity: TeachSubjectRegistry) - error: ${TeachSubjectRegistryMessages.NULL}")
     throw IllegalArgumentException(TeachSubjectRegistryMessages.NULL)
   }
 
@@ -45,7 +44,6 @@ class TeachSubjectRegistryAssembler @Autowired constructor(
       entity.finishDay = it.finishDay
       return entity
     }
-    logService.error("dtoToEntity(dto: TeachSubjectRegistryDto) - error: ${TeachSubjectRegistryMessages.NULL}")
     throw IllegalArgumentException(TeachSubjectRegistryMessages.NULL)
   }
 }

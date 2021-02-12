@@ -8,4 +8,10 @@ import es.uniovi.apuntesuniovi.services.commands.BaseCreateService
  * Create a semester in service layer
  */
 class CreateSemester(semesterRepository: SemesterRepository, semester: Semester) :
-  BaseCreateService<Semester>(semesterRepository, semester)
+  BaseCreateService<Semester>(semesterRepository, semester) {
+
+  override fun checkData() {
+    logService.info("checkData() - start")
+    logService.info("checkData() - end")
+  }
+}

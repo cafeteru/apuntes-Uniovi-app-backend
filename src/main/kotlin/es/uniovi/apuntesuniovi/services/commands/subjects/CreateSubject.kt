@@ -8,4 +8,10 @@ import es.uniovi.apuntesuniovi.services.commands.BaseCreateService
  * Create a subject in service layer
  */
 class CreateSubject(subjectRepository: SubjectRepository, subject: Subject) :
-  BaseCreateService<Subject>(subjectRepository, subject)
+  BaseCreateService<Subject>(subjectRepository, subject) {
+
+  override fun checkData() {
+    logService.info("checkData() - start")
+    logService.info("checkData() - end")
+  }
+}

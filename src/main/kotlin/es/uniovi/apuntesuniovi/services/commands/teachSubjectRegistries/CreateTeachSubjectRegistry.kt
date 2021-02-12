@@ -14,6 +14,7 @@ class CreateTeachSubjectRegistry(
   private val teachSubject: TeachSubject,
   private val date: LocalDate
 ) : AbstractCommand<List<TeachSubjectRegistry>>() {
+
   override fun execute(): List<TeachSubjectRegistry> {
     logService.info("execute() - start")
     var teachSubjectRegistry = TeachSubjectRegistry()
