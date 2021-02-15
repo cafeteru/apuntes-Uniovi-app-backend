@@ -1,6 +1,7 @@
 package es.uniovi.apuntesuniovi.services.insertData
 
 import es.uniovi.apuntesuniovi.infrastructure.log.LogService
+import es.uniovi.apuntesuniovi.models.Address
 import es.uniovi.apuntesuniovi.models.types.LanguageType
 import es.uniovi.apuntesuniovi.models.types.RoleType
 import es.uniovi.apuntesuniovi.services.UserService
@@ -42,6 +43,12 @@ class InsertDataExample @Autowired constructor(
   @PostConstruct
   fun initData() {
     logService.info("initData() - start")
+    val address = Address()
+    address.city = "city"
+    address.country = "country"
+    address.street = "street"
+    address.postalCode = "postalCode"
+    admin.address = address
     userService.create(admin)
     logService.info("initData() - end")
   }
