@@ -49,7 +49,7 @@ class FindAllTest {
     val pageable = PageRequest.of(0, 10)
     val page = PageImpl(list, pageable, list.size.toLong())
     Mockito.`when`(userRepository.findAll(pageable)).thenReturn(page)
-    val result = userService.findAll(pageable)
+    val result = userService.findAll(null, pageable)
     assertNotNull(result)
     assertEquals(result.totalElements, list.size.toLong())
     val element = result.content[0]
