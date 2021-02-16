@@ -47,10 +47,12 @@ class UserController @Autowired constructor(
   @PreAuthorize("hasRole('ROLE_ADMIN')")
   @PostMapping("")
   @ApiOperation(value = "Returns all registered users")
-  fun findAll(@RequestBody(required = false) userDto: UserDto?, pageable: Pageable): ResponseEntity<Page<UserDto>> {
+  fun findAll(
+    @RequestBody(required = false) userDto: UserDto?,
+    pageable: Pageable
+  ): ResponseEntity<Page<UserDto>> {
     logService.info("findAll() - start")
-    print(userDto)
-    val result = userService.findAll(pageable)
+    val result = userService.findAll(userDto, pageable)
     logService.info("findAll() - end")
     return ResponseEntity(result, HttpStatus.OK)
   }
