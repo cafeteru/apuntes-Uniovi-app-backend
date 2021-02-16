@@ -4,7 +4,7 @@ jdk:
   - openjdk11
 
 install:
-  - mvn clean compile install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+  - mvn clean compile
 
 script:
   - mvn verify package
