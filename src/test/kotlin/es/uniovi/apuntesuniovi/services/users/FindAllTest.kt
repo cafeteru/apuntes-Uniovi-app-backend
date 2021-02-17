@@ -1,9 +1,11 @@
 package es.uniovi.apuntesuniovi.services.users
 
 import com.querydsl.core.BooleanBuilder
+import es.uniovi.apuntesuniovi.mocks.dtos.MockUserDtoCreator
 import es.uniovi.apuntesuniovi.mocks.entities.MockUserCreator
 import es.uniovi.apuntesuniovi.repositories.AddressRepository
 import es.uniovi.apuntesuniovi.repositories.UserRepository
+import es.uniovi.apuntesuniovi.repositories.builders.UserBuilder
 import es.uniovi.apuntesuniovi.services.UserService
 import es.uniovi.apuntesuniovi.services.dtos.assemblers.UserAssembler
 import org.junit.jupiter.api.BeforeEach
@@ -52,6 +54,22 @@ class FindAllTest {
     val builder = BooleanBuilder()
     Mockito.`when`(userRepository.findAll(builder, pageable)).thenReturn(page)
     val result = userService.findAll(null, pageable)
+    assertNotNull(result)
+    assertEquals(result.totalElements, list.size.toLong())
+    val element = result.content[0]
+    assertEquals(user.id, element.id)
+    assertEquals(user.username, element.username)
+  }
+
+  @Test
+  fun validDataWithFilters() {
+    val user = MockUserCreator().create()
+    val list = listOf(user)
+    val pageable = PageRequest.of(0, 10)
+    val page = PageImpl(list, pageable, list.size.toLong())
+    val builder = UserBuilder().createBuilder(MockUserDtoCreator().create())
+    Mockito.`when`(userRepository.findAll(builder, pageable)).thenReturn(page)
+    val result = userService.findAll(MockUserDtoCreator().create(), pageable)
     assertNotNull(result)
     assertEquals(result.totalElements, list.size.toLong())
     val element = result.content[0]
