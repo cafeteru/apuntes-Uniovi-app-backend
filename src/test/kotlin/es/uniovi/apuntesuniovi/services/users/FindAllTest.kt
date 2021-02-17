@@ -1,5 +1,6 @@
 package es.uniovi.apuntesuniovi.services.users
 
+import com.querydsl.core.BooleanBuilder
 import es.uniovi.apuntesuniovi.mocks.entities.MockUserCreator
 import es.uniovi.apuntesuniovi.repositories.AddressRepository
 import es.uniovi.apuntesuniovi.repositories.UserRepository
@@ -48,7 +49,8 @@ class FindAllTest {
     val list = listOf(user)
     val pageable = PageRequest.of(0, 10)
     val page = PageImpl(list, pageable, list.size.toLong())
-    Mockito.`when`(userRepository.findAll(pageable)).thenReturn(page)
+    val builder = BooleanBuilder()
+    Mockito.`when`(userRepository.findAll(builder, pageable)).thenReturn(page)
     val result = userService.findAll(null, pageable)
     assertNotNull(result)
     assertEquals(result.totalElements, list.size.toLong())
