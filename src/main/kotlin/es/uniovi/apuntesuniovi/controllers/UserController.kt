@@ -5,6 +5,7 @@ import es.uniovi.apuntesuniovi.services.UserService
 import es.uniovi.apuntesuniovi.services.dtos.entities.UserDto
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation
+import io.swagger.annotations.ApiParam
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -43,10 +44,13 @@ class UserController @Autowired constructor(
 
   /**
    * Returns all registered users
+   *
+   * @param userDto User to apply filters
+   * @param pageable Pageable
    */
   @PreAuthorize("hasRole('ROLE_ADMIN')")
   @PostMapping("")
-  @ApiOperation(value = "Returns all registered users")
+  @ApiOperation("Returns all registered users")
   fun findAll(
     @RequestBody(required = false) userDto: UserDto?,
     pageable: Pageable
@@ -64,7 +68,7 @@ class UserController @Autowired constructor(
    */
   @PreAuthorize("hasRole('ROLE_ADMIN')")
   @GetMapping("/{id}")
-  @ApiOperation(value = "Return a user by id")
+  @ApiOperation( "Return a user by id")
   fun findById(@PathVariable id: Long): ResponseEntity<UserDto> {
     logService.info("findById(id: ${id}) - start")
     val result = userService.findById(id)
@@ -80,7 +84,7 @@ class UserController @Autowired constructor(
    */
   @PreAuthorize("isAuthenticated()")
   @RequestMapping(path = ["/lang/{language}"], method = [RequestMethod.HEAD])
-  @ApiOperation(value = "Change a user's language")
+  @ApiOperation( "Change a user's language")
   fun changeLanguage(@PathVariable language: String, principal: Principal): ResponseEntity<Boolean> {
     logService.info("changeLanguage(language: ${language}) - start")
     userService.changeLanguage(principal.name, language)
