@@ -25,12 +25,18 @@ class AddressBuilderTest {
     qAddress = QAddress.address
   }
 
+  /**
+   * Checks conditions with null address
+   */
   @Test
   fun nullAddress() {
     val builder = AddressBuilder().createBuilder(null)
     Assertions.assertNull(builder.value)
   }
 
+  /**
+   * Checks conditions with null street
+   */
   @Test
   fun nullStreet() {
     val expression = qAddress.street.like(
@@ -41,6 +47,9 @@ class AddressBuilderTest {
     Assertions.assertFalse(builder.value.toString().contains(expression.toString()))
   }
 
+  /**
+   * Checks conditions with null city
+   */
   @Test
   fun nullCity() {
     val expression = qAddress.city.like(
@@ -51,6 +60,9 @@ class AddressBuilderTest {
     Assertions.assertFalse(builder.value.toString().contains(expression.toString()))
   }
 
+  /**
+   * Checks conditions with null postalCode
+   */
   @Test
   fun nullPostalCode() {
     val expression = qAddress.postalCode.like(
@@ -61,6 +73,9 @@ class AddressBuilderTest {
     Assertions.assertFalse(builder.value.toString().contains(expression.toString()))
   }
 
+  /**
+   * Checks conditions with null country
+   */
   @Test
   fun nullCountry() {
     val expression = qAddress.country.like(

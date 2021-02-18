@@ -27,6 +27,9 @@ class UserBuilderTest {
     qUser = QUser.user
   }
 
+  /**
+   * Checks conditions with null name
+   */
   @Test
   fun nullName() {
     val expression = qUser.name.like(
@@ -37,6 +40,9 @@ class UserBuilderTest {
     Assertions.assertFalse(builder.value.toString().contains(expression.toString()))
   }
 
+  /**
+   * Checks conditions with empty name
+   */
   @Test
   fun emptyName() {
     val expression = qUser.name.like(
@@ -47,6 +53,9 @@ class UserBuilderTest {
     Assertions.assertFalse(builder.value.toString().contains(expression.toString()))
   }
 
+  /**
+   * Checks conditions with null surname
+   */
   @Test
   fun nullSurname() {
     val expression = qUser.surname.like(
@@ -57,6 +66,9 @@ class UserBuilderTest {
     Assertions.assertFalse(builder.value.toString().contains(expression.toString()))
   }
 
+  /**
+   * Checks conditions with empty surname
+   */
   @Test
   fun emptySurname() {
     val expression = qUser.surname.like(
@@ -67,6 +79,9 @@ class UserBuilderTest {
     Assertions.assertFalse(builder.value.toString().contains(expression.toString()))
   }
 
+  /**
+   * Checks conditions with null email
+   */
   @Test
   fun nullEmail() {
     val expression = qUser.email.like(
@@ -77,6 +92,9 @@ class UserBuilderTest {
     Assertions.assertFalse(builder.value.toString().contains(expression.toString()))
   }
 
+  /**
+   * Checks conditions with empty email
+   */
   @Test
   fun emptyEmail() {
     val expression = qUser.email.like(
@@ -87,6 +105,9 @@ class UserBuilderTest {
     Assertions.assertFalse(builder.value.toString().contains(expression.toString()))
   }
 
+  /**
+   * Checks conditions with null phone
+   */
   @Test
   fun nullPhone() {
     val expression = qUser.phone.like(
@@ -97,6 +118,9 @@ class UserBuilderTest {
     Assertions.assertFalse(builder.value.toString().contains(expression.toString()))
   }
 
+  /**
+   * Checks conditions with empty phone
+   */
   @Test
   fun emptyPhone() {
     val expression = qUser.phone.like(
@@ -107,6 +131,9 @@ class UserBuilderTest {
     Assertions.assertFalse(builder.value.toString().contains(expression.toString()))
   }
 
+  /**
+   * Checks conditions with null username
+   */
   @Test
   fun nullUsername() {
     val expression = qUser.username.like(
@@ -117,6 +144,9 @@ class UserBuilderTest {
     Assertions.assertFalse(builder.value.toString().contains(expression.toString()))
   }
 
+  /**
+   * Checks conditions with empty username
+   */
   @Test
   fun emptyUsername() {
     val expression = qUser.username.like(
@@ -127,6 +157,9 @@ class UserBuilderTest {
     Assertions.assertFalse(builder.value.toString().contains(expression.toString()))
   }
 
+  /**
+   * Checks conditions with null role
+   */
   @Test
   fun nullRole() {
     val expression = qUser.role.eq(
@@ -137,6 +170,9 @@ class UserBuilderTest {
     Assertions.assertFalse(builder.value.toString().contains(expression.toString()))
   }
 
+  /**
+   * Checks conditions with empty role
+   */
   @Test
   fun emptyRole() {
     val expression = qUser.role.eq(
@@ -147,6 +183,9 @@ class UserBuilderTest {
     Assertions.assertFalse(builder.value.toString().contains(expression.toString()))
   }
 
+  /**
+   * Checks conditions with null identificationType
+   */
   @Test
   fun nullIdentificationType() {
     val expression = qUser.identificationType.eq(
@@ -157,6 +196,9 @@ class UserBuilderTest {
     Assertions.assertFalse(builder.value.toString().contains(expression.toString()))
   }
 
+  /**
+   * Checks conditions with empty identificationType
+   */
   @Test
   fun emptyIdentificationType() {
     val expression = qUser.identificationType.eq(
@@ -167,6 +209,9 @@ class UserBuilderTest {
     Assertions.assertFalse(builder.value.toString().contains(expression.toString()))
   }
 
+  /**
+   * Checks conditions with null numberIdentification
+   */
   @Test
   fun nullNumberIdentification() {
     val expression = qUser.numberIdentification.like(
@@ -177,6 +222,9 @@ class UserBuilderTest {
     Assertions.assertFalse(builder.value.toString().contains(expression.toString()))
   }
 
+  /**
+   * Checks conditions with empty numberIdentification
+   */
   @Test
   fun emptyNumberIdentification() {
     val expression = qUser.numberIdentification.like(
@@ -187,46 +235,10 @@ class UserBuilderTest {
     Assertions.assertFalse(builder.value.toString().contains(expression.toString()))
   }
 
-  @Test
-  fun nullStreet() {
-    val expression = qUser.address.street.like(
-      Expressions.asString("%").concat(userDto.address!!.street).concat("%")
-    )
-    userDto.address!!.street = null
-    val builder = UserBuilder().createBuilder(userDto)
-    Assertions.assertFalse(builder.value.toString().contains(expression.toString()))
-  }
 
-  @Test
-  fun nullCity() {
-    val expression = qUser.address.city.like(
-      Expressions.asString("%").concat(userDto.address!!.city).concat("%")
-    )
-    userDto.address!!.city = null
-    val builder = UserBuilder().createBuilder(userDto)
-    Assertions.assertFalse(builder.value.toString().contains(expression.toString()))
-  }
-
-  @Test
-  fun nullPostalCode() {
-    val expression = qUser.address.postalCode.like(
-      Expressions.asString("%").concat(userDto.address!!.postalCode).concat("%")
-    )
-    userDto.address!!.postalCode = null
-    val builder = UserBuilder().createBuilder(userDto)
-    Assertions.assertFalse(builder.value.toString().contains(expression.toString()))
-  }
-
-  @Test
-  fun nullCountry() {
-    val expression = qUser.address.country.like(
-      Expressions.asString("%").concat(userDto.address!!.country).concat("%")
-    )
-    userDto.address!!.country = null
-    val builder = UserBuilder().createBuilder(userDto)
-    Assertions.assertFalse(builder.value.toString().contains(expression.toString()))
-  }
-
+  /**
+   * Checks conditions with null birthDate
+   */
   @Test
   fun nullBirthday() {
     val expression = qUser.birthDate.eq(userDto.birthDate)

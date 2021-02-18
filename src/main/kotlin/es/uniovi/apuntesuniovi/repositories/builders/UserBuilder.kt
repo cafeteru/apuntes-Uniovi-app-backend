@@ -7,8 +7,14 @@ import es.uniovi.apuntesuniovi.models.types.IdentificationType
 import es.uniovi.apuntesuniovi.models.types.RoleType
 import es.uniovi.apuntesuniovi.services.dtos.entities.UserDto
 
+/**
+ * Class to create conditions to filter addresses
+ */
 class UserBuilder {
 
+  /**
+   * Create conditions to filter addresses
+   */
   fun createBuilder(userDto: UserDto?): BooleanBuilder {
     val builder = BooleanBuilder()
     val qUser = QUser.user

@@ -5,8 +5,14 @@ import com.querydsl.core.types.dsl.Expressions
 import es.uniovi.apuntesuniovi.models.Address
 import es.uniovi.apuntesuniovi.models.QAddress
 
+/**
+ * Class to create conditions to filter users
+ */
 class AddressBuilder {
 
+  /**
+   * Create conditions to filter users
+   */
   fun createBuilder(address: Address?): BooleanBuilder {
     val builder = BooleanBuilder()
     val qAddress = QAddress.address
