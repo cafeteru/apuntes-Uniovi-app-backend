@@ -61,6 +61,9 @@ class FindAllTest {
     assertEquals(user.username, element.username)
   }
 
+  /**
+   * Checks the functionality with valid data and filters
+   */
   @Test
   fun validDataWithFilters() {
     val user = MockUserCreator().create()

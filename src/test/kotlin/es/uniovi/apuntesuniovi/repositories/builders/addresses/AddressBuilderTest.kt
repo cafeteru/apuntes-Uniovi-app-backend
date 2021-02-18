@@ -1,4 +1,4 @@
-package es.uniovi.apuntesuniovi.repositories
+package es.uniovi.apuntesuniovi.repositories.builders.addresses
 
 import com.querydsl.core.types.dsl.Expressions
 import es.uniovi.apuntesuniovi.mocks.entities.MockAddressCreator
