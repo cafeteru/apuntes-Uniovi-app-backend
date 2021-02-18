@@ -8,4 +8,10 @@ import es.uniovi.apuntesuniovi.services.commands.BaseCreateService
  * Create a center in service layer
  */
 class CreateCenter(centerRepository: CenterRepository, center: Center) :
-  BaseCreateService<Center>(centerRepository, center)
+  BaseCreateService<Center>(centerRepository, center) {
+
+  override fun checkData() {
+    logService.info("checkData() - start")
+    logService.info("checkData() - end")
+  }
+}

@@ -33,7 +33,6 @@ class UserAssembler : AbstractAssembler<User, UserDto>() {
       logService.info("entityToDto(user: User) - end")
       return result
     }
-    logService.error("entityToDto(user: User) - error: ${UserMessages.NULL}")
     throw IllegalArgumentException(UserMessages.NULL)
   }
 
@@ -59,7 +58,6 @@ class UserAssembler : AbstractAssembler<User, UserDto>() {
       logService.info("dtoToEntity(userDto: UserDto) - end")
       return result
     }
-    logService.info("dtoToEntity(userDto: UserDto) - error: ${UserMessages.NULL}")
     throw IllegalArgumentException(UserMessages.NULL)
   }
 }

@@ -14,12 +14,17 @@ abstract class BaseCreateService<Entity>(
 
   override fun execute(): Entity {
     logService.info("execute() - start")
+    checkData()
     entity?.let {
       val result = repository.save(it)
       logService.info("execute() - end")
       return result
     }
-    logService.error("execute() - error")
     throw IllegalArgumentException(UserMessages.NULL)
   }
+
+  /**
+   * Check the data
+   */
+  abstract fun checkData();
 }

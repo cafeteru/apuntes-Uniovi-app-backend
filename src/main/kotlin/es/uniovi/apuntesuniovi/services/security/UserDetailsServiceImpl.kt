@@ -2,6 +2,7 @@ package es.uniovi.apuntesuniovi.services.security
 
 import es.uniovi.apuntesuniovi.infrastructure.log.LogService
 import es.uniovi.apuntesuniovi.repositories.UserRepository
+import io.jsonwebtoken.lang.Assert
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.User
 import org.springframework.security.core.userdetails.UserDetails
@@ -22,14 +23,10 @@ class UserDetailsServiceImpl @Inject constructor(
   override fun loadUserByUsername(username: String): UserDetails {
     logService.info("loadUserByUsername(username: $username) - start")
     val optional = userRepository.findByUsername(username)
-    if (optional.isPresent) {
-      val user = optional.get()
-      logService.info("loadUserByUsername(username: $username) - end")
-      val role = SimpleGrantedAuthority("ROLE_" + user.role)
-      return User(user.username, user.password, listOf(role))
-    } else {
-      logService.error("loadUserByUsername(username: $username) - error: $username")
-      throw IllegalArgumentException(username)
-    }
+    Assert.isTrue(optional.isPresent, username)
+    val user = optional.get()
+    logService.info("loadUserByUsername(username: $username) - end")
+    val role = SimpleGrantedAuthority("ROLE_" + user.role)
+    return User(user.username, user.password, listOf(role))
   }
 }

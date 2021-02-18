@@ -3,6 +3,7 @@ package es.uniovi.apuntesuniovi.services.commands
 import es.uniovi.apuntesuniovi.infrastructure.AbstractCommand
 import es.uniovi.apuntesuniovi.validators.impl.ValidatorId
 import org.springframework.data.repository.PagingAndSortingRepository
+import org.springframework.util.Assert
 
 /**
  * Find entity by id
@@ -11,19 +12,14 @@ abstract class BaseFindByIdService<Entity>(
   private val repository: PagingAndSortingRepository<Entity, Long>,
   private val id: Long
 ) : AbstractCommand<Entity>() {
+
   override fun execute(): Entity {
     logService.info("execute() - start")
-    if (ValidatorId(id).isValid()) {
-      val optional = repository.findById(id)
-      if (optional.isPresent) {
-        logService.info("execute() - end")
-        return optional.get()
-      }
-      logService.error("execute() - error: ${getMessageNotFound()}")
-      throw IllegalArgumentException(getMessageNotFound())
-    }
-    logService.error("execute() - error: ${getMessageInvalidId()}")
-    throw IllegalArgumentException(getMessageInvalidId())
+    Assert.isTrue(ValidatorId(id).isValid(), getMessageInvalidId())
+    val optional = repository.findById(id)
+    Assert.isTrue(optional.isPresent, getMessageNotFound())
+    logService.info("execute() - end")
+    return optional.get()
   }
 
   /**

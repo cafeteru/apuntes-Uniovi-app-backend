@@ -8,4 +8,10 @@ import es.uniovi.apuntesuniovi.services.commands.BaseCreateService
  * Create a career in service layer
  */
 class CreateCareer(careerRepository: CareerRepository, career: Career) :
-  BaseCreateService<Career>(careerRepository, career)
+  BaseCreateService<Career>(careerRepository, career) {
+
+  override fun checkData() {
+    logService.info("checkData() - start")
+    logService.info("checkData() - end")
+  }
+}

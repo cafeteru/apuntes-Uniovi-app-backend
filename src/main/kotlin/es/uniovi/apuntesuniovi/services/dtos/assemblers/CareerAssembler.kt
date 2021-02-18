@@ -7,6 +7,7 @@ import es.uniovi.apuntesuniovi.services.commands.centers.FindCenterById
 import es.uniovi.apuntesuniovi.services.dtos.entities.CareerDto
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import org.springframework.util.Assert
 
 /**
  * Define the entity and dto conversion methods of careers
@@ -17,6 +18,7 @@ class CareerAssembler @Autowired constructor(
 ) : AbstractAssembler<Career, CareerDto>() {
   override fun entityToDto(entity: Career?): CareerDto {
     logService.info("entityToDto(entity: Career) - start")
+    Assert.notNull(entity, CareerMessages.NULL)
     entity?.let {
       val dto = CareerDto(
         id = it.id,
@@ -30,7 +32,6 @@ class CareerAssembler @Autowired constructor(
       logService.info("entityToDto(entity: Career) - end")
       return dto
     }
-    logService.error("entityToDto(entity: Career) - error: ${CareerMessages.NULL}")
     throw IllegalArgumentException(CareerMessages.NULL)
   }
 
@@ -50,7 +51,6 @@ class CareerAssembler @Autowired constructor(
       logService.info("dtoToEntity(dto: CareerDto) - end")
       return entity
     }
-    logService.info("dtoToEntity(dto: CareerDto) - error: ${CareerMessages.NULL}")
     throw IllegalArgumentException(CareerMessages.NULL)
   }
 }

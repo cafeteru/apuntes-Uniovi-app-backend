@@ -12,6 +12,7 @@ class FindTeachSubjectRegistryById(
   teachSubjectRegistryRepository: TeachSubjectRegistryRepository,
   id: Long
 ) : BaseFindByIdService<TeachSubjectRegistry>(teachSubjectRegistryRepository, id) {
+
   override fun getMessageNotFound(): String {
     return TeachSubjectRegistryMessages.NOT_FOUND
   }
