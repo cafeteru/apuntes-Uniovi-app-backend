@@ -1,0 +1,1 @@
+web: mvn clean compile spring-boot:run
