@@ -24,6 +24,4 @@ class FindAllUsers(
     logService.info("execute() - end")
     return list
   }
-
-
 }

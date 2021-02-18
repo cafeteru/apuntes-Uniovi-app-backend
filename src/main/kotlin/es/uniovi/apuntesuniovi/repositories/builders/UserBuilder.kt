@@ -6,7 +6,7 @@ import es.uniovi.apuntesuniovi.models.QUser
 import es.uniovi.apuntesuniovi.models.types.IdentificationType
 import es.uniovi.apuntesuniovi.models.types.RoleType
 import es.uniovi.apuntesuniovi.services.dtos.entities.UserDto
-// TODO DO TESTS
+
 class UserBuilder {
 
   fun createBuilder(userDto: UserDto?): BooleanBuilder {
@@ -25,7 +25,7 @@ class UserBuilder {
       createRoleFilter(it, builder, qUser)
       createIdentificationTypeFilter(it, builder, qUser)
       createNumberIdentificationFilter(it, builder, qUser)
-      createAddressFilter(it, builder, qUser)
+      builder.and(AddressBuilder().createBuilder(it.address))
     }
     return builder
   }
@@ -135,43 +135,6 @@ class UserBuilder {
           Expressions.asString("%").concat(userDto.numberIdentification).concat("%")
         )
       )
-    }
-  }
-
-  private fun createAddressFilter(
-    userDto: UserDto,
-    builder: BooleanBuilder,
-    qUser: QUser
-  ) {
-    userDto.address?.let { address ->
-      if (!address.street.isNullOrEmpty()) {
-        builder.and(
-          qUser.address.street.like(
-            Expressions.asString("%").concat(address.street).concat("%")
-          )
-        )
-      }
-      if (!address.city.isNullOrEmpty()) {
-        builder.and(
-          qUser.address.city.like(
-            Expressions.asString("%").concat(address.city).concat("%")
-          )
-        )
-      }
-      if (!address.postalCode.isNullOrEmpty()) {
-        builder.and(
-          qUser.address.postalCode.like(
-            Expressions.asString("%").concat(address.postalCode).concat("%")
-          )
-        )
-      }
-      if (!address.country.isNullOrEmpty()) {
-        builder.and(
-          qUser.address.country.like(
-            Expressions.asString("%").concat(address.country).concat("%")
-          )
-        )
-      }
     }
   }
 }
