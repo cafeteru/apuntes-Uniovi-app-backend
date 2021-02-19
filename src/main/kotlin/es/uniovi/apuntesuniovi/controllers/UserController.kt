@@ -31,14 +31,37 @@ class UserController @Autowired constructor(
 
   /**
    * Create a new user
+   *
+   * @param userDto User to create
    */
   @PreAuthorize("hasRole('ROLE_ADMIN')")
   @PostMapping(value = ["/create"], consumes = [MediaType.APPLICATION_JSON_VALUE])
   @ApiOperation(value = "Create a new user")
-  fun create(@Valid @RequestBody userDto: UserDto): ResponseEntity<UserDto> {
-    logService.info("save(json: String) - start")
+  fun create(
+    @ApiParam(name = "userDto", value = "User to create") @Valid @RequestBody userDto: UserDto
+  ): ResponseEntity<UserDto> {
+    logService.info("save(userDto: UserDto) - start")
     val result = userService.create(userDto)
-    logService.info("save(json: String) - end")
+    logService.info("save(userDto: UserDto) - end")
+    return ResponseEntity(result, HttpStatus.OK)
+  }
+
+  /**
+   * Create a new user
+   *
+   * @param id User´s id
+   * @param userDto User to update
+   */
+  @PreAuthorize("hasRole('ROLE_ADMIN')")
+  @PutMapping(value = ["/update/{id}"], consumes = [MediaType.APPLICATION_JSON_VALUE])
+  @ApiOperation(value = "Update a user")
+  fun update(
+    @ApiParam(name = "id", value = "User´s id") @PathVariable id: Long,
+    @ApiParam(name = "userDto", value = "User to update") @Valid @RequestBody userDto: UserDto
+  ): ResponseEntity<UserDto> {
+    logService.info("update(id: ${id}, userDto: UserDto) - start")
+    val result = userService.update(id, userDto)
+    logService.info("update(id: ${id}, userDto: UserDto) - end")
     return ResponseEntity(result, HttpStatus.OK)
   }
 
@@ -52,8 +75,8 @@ class UserController @Autowired constructor(
   @PostMapping("")
   @ApiOperation("Returns all registered users")
   fun findAll(
-    @RequestBody(required = false) userDto: UserDto?,
-    pageable: Pageable
+    @ApiParam(name = "userDto", value = "User to apply filters") @RequestBody(required = false) userDto: UserDto?,
+    @ApiParam(name = "pageable", value = "Pageable") pageable: Pageable
   ): ResponseEntity<Page<UserDto>> {
     logService.info("findAll() - start")
     val result = userService.findAll(userDto, pageable)
@@ -68,8 +91,10 @@ class UserController @Autowired constructor(
    */
   @PreAuthorize("hasRole('ROLE_ADMIN')")
   @GetMapping("/{id}")
-  @ApiOperation( "Return a user by id")
-  fun findById(@PathVariable id: Long): ResponseEntity<UserDto> {
+  @ApiOperation("Return a user by id")
+  fun findById(
+    @ApiParam(name = "id", value = "User´s id") @PathVariable id: Long
+  ): ResponseEntity<UserDto> {
     logService.info("findById(id: ${id}) - start")
     val result = userService.findById(id)
     logService.info("findById(id: ${id}) - end")
@@ -84,8 +109,11 @@ class UserController @Autowired constructor(
    */
   @PreAuthorize("isAuthenticated()")
   @RequestMapping(path = ["/lang/{language}"], method = [RequestMethod.HEAD])
-  @ApiOperation( "Change a user's language")
-  fun changeLanguage(@PathVariable language: String, principal: Principal): ResponseEntity<Boolean> {
+  @ApiOperation("Change a user's language")
+  fun changeLanguage(
+    @ApiParam(name = "language", value = "Selected language") @PathVariable language: String,
+    principal: Principal
+  ): ResponseEntity<Boolean> {
     logService.info("changeLanguage(language: ${language}) - start")
     userService.changeLanguage(principal.name, language)
     logService.info("changeLanguage(language: ${language}) - end")

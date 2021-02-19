@@ -15,7 +15,7 @@ import org.mockito.junit.jupiter.MockitoExtension
 import java.util.*
 
 /**
- * Check class UserService
+ * Check find by id method of the UserService class
  */
 @ExtendWith(MockitoExtension::class)
 class FindByIdTest {

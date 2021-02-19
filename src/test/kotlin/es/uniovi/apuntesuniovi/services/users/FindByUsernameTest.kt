@@ -17,7 +17,7 @@ import kotlin.test.assertNotEquals
 import kotlin.test.assertNull
 
 /**
- * Check class UserService
+ * Check find by username method of the UserService class
  */
 @ExtendWith(MockitoExtension::class)
 class FindByUsernameTest {

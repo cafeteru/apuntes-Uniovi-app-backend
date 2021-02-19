@@ -6,8 +6,8 @@ package es.uniovi.apuntesuniovi.infrastructure.messages
 object UnitSubjectMessages {
   const val EXISTS_NAME = "error.unit.subject.exists.name"
   const val EXISTS_POSITION = "error.unit.subject.exists.position"
-  const val INVALID_JSON = "error.unit.subject.invalid.json"
   const val INVALID_ID = "error.unit.subject.invalid.id"
+  const val INVALID_JSON = "error.unit.subject.invalid.json"
   const val LIMIT_NAME = "error.unit.subject.limit.name"
   const val LIMIT_POSITION_MIN = "error.unit.subject.limit.position.min"
   const val NOT_FOUND = "error.unit.subject.not.found"

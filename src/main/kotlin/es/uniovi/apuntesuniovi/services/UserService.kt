@@ -24,9 +24,9 @@ class UserService @Autowired constructor(
   private val logService = LogService(this.javaClass)
 
   /**
-   * Create a new element
+   * Create a new user
    *
-   * @param dto Element to create
+   * @param dto User to create
    */
   fun create(dto: UserDto): UserDto {
     logService.info("create(dto: UserDto) - start")
@@ -37,7 +37,21 @@ class UserService @Autowired constructor(
   }
 
   /**
-   * Returns all elements
+   * Update a new user
+   *
+   * @param id User´s id
+   * @param dto User to update
+   */
+  fun update(id: Long, dto: UserDto): UserDto {
+    logService.info("update(id: Long, dto: UserDto) - start")
+    val entity = userAssembler.dtoToEntity(dto)
+    val result = UpdateUser(userRepository, addressRepository, id, entity).execute()
+    logService.info("update(id: Long, dto: UserDto) - end")
+    return convertToDto(result)
+  }
+
+  /**
+   * Returns all users
    *
    * @param pageable Pageable
    */
