@@ -5,7 +5,7 @@ package es.uniovi.apuntesuniovi.infrastructure.constants
  */
 object SecurityConstants {
   const val LOGIN_URL = "/login"
-  const val AUTHORIZATION_HEADER = "Authorization"
+  const val AUTHORIZATION_HEADER = "authorization"
   const val TOKEN_BEARER_PREFIX = "Bearer "
 
   const val SECRET = "SecretKeyToGenJWTs"
