@@ -6,7 +6,6 @@ import es.uniovi.apuntesuniovi.models.User
 import es.uniovi.apuntesuniovi.repositories.AddressRepository
 import es.uniovi.apuntesuniovi.repositories.UserRepository
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
-import org.springframework.util.Assert
 
 /**
  * Update a user in service layer
@@ -42,18 +41,29 @@ class UpdateUser(
 
   private fun checkUniqueUsername() {
     logService.info("checkUniqueUsername() - start")
-    Assert.isTrue(!user.username.isNullOrEmpty() && !user.password.isNullOrBlank(), UserMessages.INVALID_DATA_USER)
-    val optional = user.username?.let { userRepository.findByUsername(it) }
-    val expression = optional == null || !optional.isPresent || (optional.isPresent && optional.get().id == id)
-    Assert.isTrue(expression, UserMessages.ALREADY_REGISTERED_USERNAME)
-    logService.info("checkUniqueUsername() - end")
+    val username = user.username
+    if (username != null) {
+      val optional = userRepository.findByUsername(username)
+      if (optional.isPresent && optional.get().id != id) {
+        throw IllegalArgumentException(UserMessages.ALREADY_REGISTERED_USERNAME)
+      }
+      logService.info("checkUniqueUsername() - end")
+    } else {
+      throw IllegalArgumentException(UserMessages.INVALID_DATA_USER)
+    }
   }
 
   private fun checkUniqueNumberIdentification() {
     logService.info("checkUniqueNumberIdentification() - start")
-    val optional = user.numberIdentification?.let { userRepository.findByNumberIdentification(it) }
-    val expression = optional == null || !optional.isPresent || (optional.isPresent && optional.get().id == id)
-    Assert.isTrue(expression, UserMessages.ALREADY_REGISTERED_NUMBER_IDENTIFICATION)
-    logService.info("checkUniqueNumberIdentification() - end")
+    val numberIdentification = user.numberIdentification
+    if (numberIdentification != null) {
+      val optional = userRepository.findByNumberIdentification(numberIdentification)
+      if (optional.isPresent && optional.get().id != id) {
+        throw IllegalArgumentException(UserMessages.ALREADY_REGISTERED_NUMBER_IDENTIFICATION)
+      }
+      logService.info("checkUniqueNumberIdentification() - end")
+    } else {
+      throw IllegalArgumentException(UserMessages.INVALID_DATA_USER)
+    }
   }
 }
