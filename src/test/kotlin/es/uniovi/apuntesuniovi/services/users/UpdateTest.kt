@@ -18,7 +18,7 @@ import kotlin.test.assertNotEquals
 import kotlin.test.assertNull
 
 /**
- * Check the creation method of the UserService class
+ * Check the update method of the UserService class
  */
 @ExtendWith(MockitoExtension::class)
 class UpdateTest {
@@ -27,8 +27,8 @@ class UpdateTest {
 
   @Mock
   private lateinit var addressRepository: AddressRepository
-  private val userAssembler = UserAssembler()
 
+  private val userAssembler = UserAssembler()
   private lateinit var userService: UserService
 
   /**
