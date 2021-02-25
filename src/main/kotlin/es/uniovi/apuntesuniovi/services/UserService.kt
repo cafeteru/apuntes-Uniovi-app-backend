@@ -55,7 +55,7 @@ class UserService @Autowired constructor(
    *
    * @param pageable Pageable
    */
-  fun findAll(userDto: UserDto?, pageable: Pageable): Page<UserDto> {
+  fun findAll(pageable: Pageable, userDto: UserDto?): Page<UserDto> {
     logService.info("findAll() - start")
     val result = FindAllUsers(userRepository, userDto, pageable).execute()
     logService.info("findAll() - end")

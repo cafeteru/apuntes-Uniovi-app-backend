@@ -53,7 +53,7 @@ class FindAllTest {
     val page = PageImpl(list, pageable, list.size.toLong())
     val builder = BooleanBuilder()
     Mockito.`when`(userRepository.findAll(builder, pageable)).thenReturn(page)
-    val result = userService.findAll(null, pageable)
+    val result = userService.findAll(pageable, null)
     assertNotNull(result)
     assertEquals(result.totalElements, list.size.toLong())
     val element = result.content[0]
@@ -72,7 +72,7 @@ class FindAllTest {
     val page = PageImpl(list, pageable, list.size.toLong())
     val builder = UserBuilder().createBuilder(MockUserDtoCreator().create())
     Mockito.`when`(userRepository.findAll(builder, pageable)).thenReturn(page)
-    val result = userService.findAll(MockUserDtoCreator().create(), pageable)
+    val result = userService.findAll(pageable, MockUserDtoCreator().create())
     assertNotNull(result)
     assertEquals(result.totalElements, list.size.toLong())
     val element = result.content[0]

@@ -1,15 +1,15 @@
-package es.uniovi.apuntesuniovi.controllers
+package es.uniovi.apuntesuniovi.controllers.users
 
+import es.uniovi.apuntesuniovi.controllers.UserController
 import es.uniovi.apuntesuniovi.mocks.dtos.MockUserDtoCreator
 import es.uniovi.apuntesuniovi.services.UserService
-import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito
 import org.springframework.http.HttpStatus
 
-
-class UserControllerTest {
+class CreateTest {
   private lateinit var userController: UserController
   private lateinit var userService: UserService
 
@@ -20,11 +20,11 @@ class UserControllerTest {
   }
 
   @Test
-  fun existsUser() {
-    val user = MockUserDtoCreator().create();
-    Mockito.`when`(userService.findById(1)).thenReturn(user)
-    val httpResponse = userController.findById(1)
-    assertEquals(httpResponse.statusCode, HttpStatus.OK)
-    assertEquals(httpResponse.body, user)
+  fun validData() {
+    val userDto = MockUserDtoCreator().create()
+    Mockito.`when`(userService.create(userDto)).thenReturn(userDto)
+    val httpResponse = userController.create(userDto)
+    Assertions.assertEquals(httpResponse.statusCode, HttpStatus.OK)
+    Assertions.assertEquals(httpResponse.body, userDto)
   }
 }

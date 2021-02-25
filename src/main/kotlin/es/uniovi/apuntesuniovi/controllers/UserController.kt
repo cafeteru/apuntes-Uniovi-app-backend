@@ -75,11 +75,11 @@ class UserController @Autowired constructor(
   @PostMapping("")
   @ApiOperation("Returns all registered users")
   fun findAll(
-    @ApiParam(name = "userDto", value = "User to apply filters") @RequestBody(required = false) userDto: UserDto?,
-    @ApiParam(name = "pageable", value = "Pageable") pageable: Pageable
+    @ApiParam(name = "pageable", value = "Pageable") pageable: Pageable,
+    @ApiParam(name = "userDto", value = "User to apply filters") @RequestBody(required = false) userDto: UserDto?
   ): ResponseEntity<Page<UserDto>> {
     logService.info("findAll() - start")
-    val result = userService.findAll(userDto, pageable)
+    val result = userService.findAll(pageable, userDto)
     logService.info("findAll() - end")
     return ResponseEntity(result, HttpStatus.OK)
   }
@@ -115,8 +115,11 @@ class UserController @Autowired constructor(
     principal: Principal
   ): ResponseEntity<Boolean> {
     logService.info("changeLanguage(language: ${language}) - start")
-    userService.changeLanguage(principal.name, language)
+    var status = HttpStatus.BAD_REQUEST
+    if (userService.changeLanguage(principal.name, language)) {
+      status = HttpStatus.OK
+    }
     logService.info("changeLanguage(language: ${language}) - end")
-    return ResponseEntity<Boolean>(HttpStatus.OK)
+    return ResponseEntity<Boolean>(status)
   }
 }
