@@ -1,0 +1,1 @@
+web: mvn clean compile package && java -jar target/apuntesuniovi-0.0.1-SNAPSHOT.jar
