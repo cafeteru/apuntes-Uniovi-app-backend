@@ -11,3 +11,11 @@ script:
 
 after_success:
   - bash <(curl -Ls https://coverage.codacy.com/get.sh) report
+
+deploy:
+  provider: heroku
+  strategy: git
+  api_key: $HEROKU_API_KEY
+  app: app-apuntes-uniovi
+  on:
+    branch: master
