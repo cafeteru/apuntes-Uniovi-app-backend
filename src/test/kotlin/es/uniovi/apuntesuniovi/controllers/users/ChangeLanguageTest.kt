@@ -9,17 +9,25 @@ import org.mockito.Mockito
 import org.springframework.http.HttpStatus
 import java.security.Principal
 
-
+/**
+ * Check the change of language method of the UserController class
+ */
 class ChangeLanguageTest {
   private lateinit var userController: UserController
   private lateinit var userService: UserService
 
+  /**
+   * Create init data for the test
+   */
   @BeforeEach
   fun initTest() {
     userService = Mockito.mock(UserService::class.java)
     userController = UserController(userService)
   }
 
+  /**
+   * Checks the functionality with valid data
+   */
   @Test
   fun validData() {
     val principal = Mockito.mock(Principal::class.java)

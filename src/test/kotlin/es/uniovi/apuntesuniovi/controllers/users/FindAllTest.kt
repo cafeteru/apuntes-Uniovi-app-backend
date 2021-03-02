@@ -12,16 +12,25 @@ import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.PageRequest
 import org.springframework.http.HttpStatus
 
+/**
+ * Check find all method of the UserController class
+ */
 class FindAllTest {
   private lateinit var userController: UserController
   private lateinit var userService: UserService
 
+  /**
+   * Create init data for the test
+   */
   @BeforeEach
   fun initTest() {
     userService = Mockito.mock(UserService::class.java)
     userController = UserController(userService)
   }
 
+  /**
+   * Checks the functionality with valid data
+   */
   @Test
   fun validData() {
     val userDto = MockUserDtoCreator().create()

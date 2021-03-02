@@ -9,16 +9,25 @@ import org.junit.jupiter.api.Test
 import org.mockito.Mockito
 import org.springframework.http.HttpStatus
 
+/**
+ * Check find by id method of the UserController class
+ */
 class FindByIdTest {
   private lateinit var userController: UserController
   private lateinit var userService: UserService
 
+  /**
+   * Create init data for the test
+   */
   @BeforeEach
   fun initTest() {
     userService = Mockito.mock(UserService::class.java)
     userController = UserController(userService)
   }
 
+  /**
+   * Checks the functionality with valid data
+   */
   @Test
   fun validData() {
     val userDto = MockUserDtoCreator().create()
