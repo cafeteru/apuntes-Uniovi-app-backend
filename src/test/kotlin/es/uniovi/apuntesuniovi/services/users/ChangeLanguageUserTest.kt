@@ -19,7 +19,7 @@ import kotlin.test.assertTrue
 import kotlin.test.fail
 
 /**
- * Check class UserService
+ * Check the change of language method of the UserService class
  */
 @ExtendWith(MockitoExtension::class)
 class ChangeLanguageUserTest {

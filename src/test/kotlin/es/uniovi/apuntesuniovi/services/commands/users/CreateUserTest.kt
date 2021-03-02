@@ -16,10 +16,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import java.util.*
 
 /**
- * Check class SaveUserService
+ * Check class CreateUserService
  */
 @ExtendWith(MockitoExtension::class)
-class SaveUserServiceTest {
+class CreateUserTest {
   private lateinit var user: User
   private val encoder = BCryptPasswordEncoder()
 
@@ -44,8 +44,7 @@ class SaveUserServiceTest {
   @Test
   fun validUser() {
     Mockito.`when`(userRepository.save(Mockito.any(User::class.java))).thenReturn(user)
-    val saveUserService = CreateUser(userRepository, addressRepository, user)
-    val result = saveUserService.execute()
+    val result = CreateUser(userRepository, addressRepository, user).execute()
     assertNotNull(result)
     assertEquals(result.password, user.password)
   }
@@ -57,8 +56,7 @@ class SaveUserServiceTest {
   fun existedUser() {
     Mockito.`when`(userRepository.findByUsername(user.username!!)).thenReturn(Optional.of(user))
     try {
-      val saveUserService = CreateUser(userRepository, addressRepository, user)
-      saveUserService.execute()
+      CreateUser(userRepository, addressRepository, user).execute()
       fail("User already registered")
     } catch (e: IllegalArgumentException) {
       assertEquals(e.message, UserMessages.ALREADY_REGISTERED_USERNAME)
@@ -72,8 +70,7 @@ class SaveUserServiceTest {
   fun nullUsername() {
     try {
       user.username = null
-      val saveUserService = CreateUser(userRepository, addressRepository, user)
-      saveUserService.execute()
+      CreateUser(userRepository, addressRepository, user).execute()
       fail("Username can´t be null")
     } catch (e: IllegalArgumentException) {
       assertEquals(e.message, UserMessages.INVALID_DATA_USER)
@@ -87,8 +84,7 @@ class SaveUserServiceTest {
   fun emptyUsername() {
     try {
       user.username = ""
-      val saveUserService = CreateUser(userRepository, addressRepository, user)
-      saveUserService.execute()
+      CreateUser(userRepository, addressRepository, user).execute()
       fail("Username can´t be empty")
     } catch (e: IllegalArgumentException) {
       assertEquals(e.message, UserMessages.LIMIT_USERNAME)
@@ -102,8 +98,7 @@ class SaveUserServiceTest {
   fun nullPassword() {
     try {
       user.password = null
-      val saveUserService = CreateUser(userRepository, addressRepository, user)
-      saveUserService.execute()
+      CreateUser(userRepository, addressRepository, user).execute()
       fail("Password can´t be null")
     } catch (e: IllegalArgumentException) {
       assertEquals(e.message, UserMessages.INVALID_DATA_USER)
@@ -117,8 +112,7 @@ class SaveUserServiceTest {
   fun emptyPassword() {
     try {
       user.password = ""
-      val saveUserService = CreateUser(userRepository, addressRepository, user)
-      saveUserService.execute()
+      CreateUser(userRepository, addressRepository, user).execute()
       fail("Password can´t be empty")
     } catch (e: IllegalArgumentException) {
       assertEquals(e.message, UserMessages.LIMIT_PASSWORD)

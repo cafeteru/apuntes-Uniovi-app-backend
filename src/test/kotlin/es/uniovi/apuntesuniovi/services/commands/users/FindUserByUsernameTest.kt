@@ -17,7 +17,7 @@ import java.util.*
  * Check class FindUserByUsernameService
  */
 @ExtendWith(MockitoExtension::class)
-class FindUserByUsernameServiceTest {
+class FindUserByUsernameTest {
   private lateinit var user: User
   private lateinit var username: String
 

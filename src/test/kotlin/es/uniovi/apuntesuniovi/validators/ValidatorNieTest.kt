@@ -1,5 +1,6 @@
 package es.uniovi.apuntesuniovi.validators
 
+import es.uniovi.apuntesuniovi.util.RandomMethods
 import es.uniovi.apuntesuniovi.validators.impl.ValidatorNie
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -15,7 +16,7 @@ class ValidatorNieTest {
    */
   @Test
   fun validData() {
-    val validator = ValidatorNie("Z7905351A")
+    val validator = ValidatorNie(RandomMethods.nie())
     assertTrue(validator.isValid())
   }
 

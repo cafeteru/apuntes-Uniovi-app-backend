@@ -21,7 +21,7 @@ import kotlin.test.fail
  * Check class FindUserByIdService
  */
 @ExtendWith(MockitoExtension::class)
-class FindUserByIdServiceTest {
+class FindUserByIdTest {
   private lateinit var user: User
   private var address: Address? = null
 

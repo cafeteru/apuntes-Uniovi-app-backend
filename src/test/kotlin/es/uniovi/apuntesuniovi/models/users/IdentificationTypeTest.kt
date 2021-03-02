@@ -42,7 +42,7 @@ class IdentificationTypeTest {
       user.setIdentificationType("No exists")
       fail("IdentificationType is invalid")
     } catch (e: IllegalArgumentException) {
-      assertEquals(IdentificationType.NIE, user.identificationType)
+      assertEquals(IdentificationType.DNI, user.identificationType)
       assertEquals(e.message, UserMessages.INVALID_IDENTIFICATION_TYPE)
     }
   }
@@ -56,7 +56,7 @@ class IdentificationTypeTest {
       user.setIdentificationType("")
       fail("IdentificationType can´t be empty")
     } catch (e: IllegalArgumentException) {
-      assertEquals(IdentificationType.NIE, user.identificationType)
+      assertEquals(IdentificationType.DNI, user.identificationType)
       assertEquals(e.message, UserMessages.INVALID_IDENTIFICATION_TYPE)
     }
   }
