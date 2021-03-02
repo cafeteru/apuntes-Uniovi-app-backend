@@ -8,17 +8,6 @@ import java.util.*
 class RandomMethods {
   companion object {
     /**
-     * Generate a random integer
-     *
-     * @param min Min value
-     * @param max Max value
-     */
-    private fun randomInteger(min: Int, max: Int): Int {
-      var limitMax = max
-      return (Random().nextFloat() * (++limitMax - min) + min).toInt()
-    }
-
-    /**
      * Generate a random username
      */
     fun randomUsername(): String {
@@ -47,6 +36,11 @@ class RandomMethods {
       return if (stringDni[0] == '1') {
         "Y" + stringDni.substring(1) + letterDni[numberDni % 23]
       } else "Z" + stringDni.substring(1) + letterDni[numberDni % 23]
+    }
+
+    private fun randomInteger(min: Int, max: Int): Int {
+      var limitMax = max
+      return (Random().nextFloat() * (++limitMax - min) + min).toInt()
     }
   }
 }
