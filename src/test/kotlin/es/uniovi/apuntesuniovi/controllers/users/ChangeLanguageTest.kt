@@ -38,6 +38,9 @@ class ChangeLanguageTest {
     Assertions.assertEquals(httpResponse.statusCode, HttpStatus.OK)
   }
 
+  /**
+   * Checks the functionality with invalid data
+   */
   @Test
   fun invalidData() {
     val mockPrincipal = Mockito.mock(Principal::class.java)
