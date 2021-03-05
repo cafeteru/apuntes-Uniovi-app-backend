@@ -6,6 +6,7 @@ import es.uniovi.apuntesuniovi.models.User
 import es.uniovi.apuntesuniovi.repositories.AddressRepository
 import es.uniovi.apuntesuniovi.repositories.UserRepository
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+import org.springframework.util.Assert
 
 /**
  * Update a user in service layer
@@ -55,15 +56,11 @@ class UpdateUser(
 
   private fun checkUniqueNumberIdentification() {
     logService.info("checkUniqueNumberIdentification() - start")
-    val numberIdentification = user.numberIdentification
-    if (numberIdentification != null) {
-      val optional = userRepository.findByNumberIdentification(numberIdentification)
-      if (optional.isPresent && optional.get().id != id) {
-        throw IllegalArgumentException(UserMessages.ALREADY_REGISTERED_NUMBER_IDENTIFICATION)
-      }
-      logService.info("checkUniqueNumberIdentification() - end")
-    } else {
-      throw IllegalArgumentException(UserMessages.INVALID_DATA_USER)
-    }
+    val optional = user.numberIdentification?.let { userRepository.findByNumberIdentification(it) }
+    Assert.isTrue(
+      optional == null || optional.isPresent && optional.get().id != id,
+      UserMessages.ALREADY_REGISTERED_NUMBER_IDENTIFICATION
+    )
+    logService.info("checkUniqueNumberIdentification() - end")
   }
 }
