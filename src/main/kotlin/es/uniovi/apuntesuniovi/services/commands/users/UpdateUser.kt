@@ -62,8 +62,6 @@ class UpdateUser(
         throw IllegalArgumentException(UserMessages.ALREADY_REGISTERED_NUMBER_IDENTIFICATION)
       }
       logService.info("checkUniqueNumberIdentification() - end")
-    } else {
-      throw IllegalArgumentException(UserMessages.INVALID_DATA_USER)
     }
   }
 }

@@ -12,26 +12,31 @@ import org.springframework.stereotype.Service
 class UserAssembler : AbstractAssembler<User, UserDto>() {
   override fun entityToDto(entity: User?): UserDto {
     logService.info("entityToDto(user: User) - start")
+
     entity?.let {
-      val result = UserDto(
+      var identificationType: String? = null
+      if (it.identificationType != null) {
+        identificationType = it.identificationType.toString()
+      }
+      val dto = UserDto(
         id = it.id,
-        name = entity.name,
-        surname = entity.surname,
-        email = entity.email,
-        phone = entity.phone,
-        active = entity.active,
-        img = entity.img,
-        birthDate = entity.birthDate,
-        username = entity.username,
-        password = entity.password,
-        role = entity.role.toString(),
-        identificationType = entity.identificationType.toString(),
-        numberIdentification = entity.numberIdentification,
-        address = entity.address,
-        language = entity.language.toString()
+        name = it.name,
+        surname = it.surname,
+        email = it.email,
+        phone = it.phone,
+        active = it.active,
+        img = it.img,
+        birthDate = it.birthDate,
+        username = it.username,
+        password = it.password,
+        role = it.role.toString(),
+        identificationType = identificationType,
+        numberIdentification = it.numberIdentification,
+        address = it.address,
+        language = it.language.toString()
       )
       logService.info("entityToDto(user: User) - end")
-      return result
+      return dto
     }
     throw IllegalArgumentException(UserMessages.NULL)
   }
@@ -39,24 +44,24 @@ class UserAssembler : AbstractAssembler<User, UserDto>() {
   override fun dtoToEntity(dto: UserDto?): User {
     logService.info("dtoToEntity(userDto: UserDto) - start")
     dto?.let {
-      val result = User()
-      result.id = dto.id
-      result.name = dto.name
-      result.surname = dto.surname
-      result.email = dto.email
-      result.phone = dto.phone
-      result.active = dto.active
-      result.img = dto.img
-      result.birthDate = dto.birthDate
-      result.username = dto.username
-      result.password = dto.password
-      result.setIdentificationType(dto.identificationType)
-      result.numberIdentification = dto.numberIdentification
-      result.setRole(dto.role)
-      result.address = dto.address
-      result.setLanguage(dto.language)
+      val user = User()
+      user.id = it.id
+      user.name = it.name
+      user.surname = it.surname
+      user.email = it.email
+      user.phone = it.phone
+      user.active = it.active
+      user.img = it.img
+      user.birthDate = it.birthDate
+      user.username = it.username
+      user.password = it.password
+      user.setIdentificationType(it.identificationType)
+      user.numberIdentification = it.numberIdentification
+      user.setRole(it.role)
+      user.address = it.address
+      user.setLanguage(it.language)
       logService.info("dtoToEntity(userDto: UserDto) - end")
-      return result
+      return user
     }
     throw IllegalArgumentException(UserMessages.NULL)
   }
