@@ -30,8 +30,8 @@ class UserService @Autowired constructor(
    */
   fun create(dto: UserDto): UserDto {
     logService.info("create(dto: UserDto) - start")
-    val entity = userAssembler.dtoToEntity(dto)
-    val result = CreateUser(userRepository, addressRepository, entity).execute()
+    val user = userAssembler.dtoToEntity(dto)
+    val result = CreateUser(userRepository, addressRepository, user).execute()
     logService.info("create(dto: UserDto) - end")
     return convertToDto(result)
   }
@@ -44,8 +44,8 @@ class UserService @Autowired constructor(
    */
   fun update(id: Long, dto: UserDto): UserDto {
     logService.info("update(id: Long, dto: UserDto) - start")
-    val entity = userAssembler.dtoToEntity(dto)
-    val result = UpdateUser(userRepository, addressRepository, id, entity).execute()
+    val user = userAssembler.dtoToEntity(dto)
+    val result = UpdateUser(userRepository, addressRepository, id, user).execute()
     logService.info("update(id: Long, dto: UserDto) - end")
     return convertToDto(result)
   }
@@ -69,10 +69,10 @@ class UserService @Autowired constructor(
    */
   fun findById(id: Long): UserDto {
     logService.info("findById() - start")
-    val result = FindUserById(userRepository, id).execute()
-    result.password = null
+    val user = FindUserById(userRepository, id).execute()
+    user.password = null
     logService.info("findById() - end")
-    return userAssembler.entityToDto(result)
+    return userAssembler.entityToDto(user)
   }
 
   /**
@@ -82,9 +82,9 @@ class UserService @Autowired constructor(
    */
   fun findByUsername(username: String): UserDto {
     logService.info("findByUsername(username: ${username}) - start")
-    val result = FindUserByUsername(userRepository, username).execute()
+    val user = FindUserByUsername(userRepository, username).execute()
     logService.info("findByUsername(username: ${username}) - end")
-    return convertToDto(result)
+    return convertToDto(user)
   }
 
   /**
@@ -98,6 +98,19 @@ class UserService @Autowired constructor(
     val result = ChangeLanguageUser(userRepository, username, language).execute()
     logService.info("changeLanguage(username: $username, language:  $language) - end")
     return result
+  }
+
+  /**
+   * Change the value active of a user
+   *
+   * @param id User´s id
+   * @param active New value to user´s active
+   */
+  fun disable(id: Long, active: Boolean): UserDto {
+    logService.info("disable(id: $id, active: $active) - start")
+    val user = DisabledUser(userRepository, id, active).execute()
+    logService.info("disable(id: $id, active:  $active) - end")
+    return convertToDto(user)
   }
 
   private fun convertToDto(user: User): UserDto {
