@@ -130,7 +130,7 @@ class UserController @Autowired constructor(
    * @param active New value to user´s active
    */
   @PreAuthorize("hasRole('ROLE_ADMIN')")
-  @PutMapping("/{id}/{active}")
+  @PatchMapping("/disable/{id}/{active}")
   @ApiOperation("Change the value active of a user")
   fun disable(
     @ApiParam(name = "id", value = "User´s id") @PathVariable id: Long,
