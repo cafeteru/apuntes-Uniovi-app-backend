@@ -19,7 +19,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.User
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 import java.io.IOException
-import java.lang.IllegalArgumentException
 import java.util.*
 import javax.servlet.FilterChain
 import javax.servlet.http.HttpServletRequest
