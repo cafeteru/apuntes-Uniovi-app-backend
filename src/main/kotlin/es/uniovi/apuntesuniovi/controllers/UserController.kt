@@ -122,4 +122,23 @@ class UserController @Autowired constructor(
     logService.info("changeLanguage(language: ${language}) - end")
     return ResponseEntity<Boolean>(status)
   }
+
+  /**
+   * Change the value active of a user
+   *
+   * @param id User´s id
+   * @param active New value to user´s active
+   */
+  @PreAuthorize("hasRole('ROLE_ADMIN')")
+  @PatchMapping("/disable/{id}/{active}")
+  @ApiOperation("Change the value active of a user")
+  fun disable(
+    @ApiParam(name = "id", value = "User´s id") @PathVariable id: Long,
+    @ApiParam(name = "active", value = "New value to user´s active") @PathVariable active: Boolean
+  ): ResponseEntity<UserDto> {
+    logService.info("disable(id: ${id}, active: ${active}) - start")
+    val userDto = userService.disable(id, active)
+    logService.info("disable(id: ${id}, active: ${active}) - end")
+    return ResponseEntity(userDto, HttpStatus.OK)
+  }
 }

@@ -6,6 +6,7 @@ package es.uniovi.apuntesuniovi.infrastructure.messages
 object UserMessages {
   const val ALREADY_REGISTERED_NUMBER_IDENTIFICATION = "error.user.already.registered.number.identification"
   const val ALREADY_REGISTERED_USERNAME = "error.user.already.registered.username"
+  const val DISABLE = "error.user.disable"
   const val EXPIRED_TOKEN = "error.user.expired.token"
   const val INVALID_DATA_USER = "error.user.invalid.data.user"
   const val INVALID_EMAIL = "error.user.invalid.email"

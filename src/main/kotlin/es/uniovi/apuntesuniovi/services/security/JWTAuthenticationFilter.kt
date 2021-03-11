@@ -29,20 +29,26 @@ import javax.servlet.http.HttpServletResponse
  */
 class JWTAuthenticationFilter(
   authenticationManager: AuthenticationManager,
-  userService: UserService
+  private val userService: UserService
 ) : UsernamePasswordAuthenticationFilter() {
   private val logService = LogService(this.javaClass)
-  private var userService: UserService
 
   init {
     this.authenticationManager = authenticationManager
-    this.userService = userService
   }
 
   override fun attemptAuthentication(req: HttpServletRequest, res: HttpServletResponse): Authentication? {
     logService.info("attemptAuthentication(req: HttpServletRequest, res: HttpServletResponse) - start")
     try {
       val user = ObjectMapper().readValue(req.inputStream, es.uniovi.apuntesuniovi.models.User::class.java)
+      val username = user.username
+      if (username != null) {
+        val aux = userService.findByUsername(username)
+        if (!aux.active) {
+          logService.error(UserMessages.DISABLE)
+          return null
+        }
+      }
       val authentication = UsernamePasswordAuthenticationToken(user.username, user.password, getAuthorities(user))
       val result = authenticationManager.authenticate(authentication)
       logService.info("attemptAuthentication(req: $req, response: $res) - end")
