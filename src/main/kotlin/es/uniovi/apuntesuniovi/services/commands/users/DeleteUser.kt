@@ -7,21 +7,18 @@ import es.uniovi.apuntesuniovi.repositories.UserRepository
 import es.uniovi.apuntesuniovi.validators.impl.ValidatorId
 
 /**
- * Change the value active of a user
+ * Delete a user
  */
-class DisabledUser(
+class DeleteUser(
   private val userRepository: UserRepository,
   private val id: Long,
-  private val active: Boolean
-) : AbstractCommand<User>() {
+) : AbstractCommand<Void>() {
 
-  override fun execute(): User {
+  override fun execute(): Void {
     if (ValidatorId(id).isValid()) {
       val optional = userRepository.findById(id)
       if (optional.isPresent) {
-        val user = optional.get()
-        user.active = active
-        return userRepository.save(user)
+        userRepository.deleteById(id)
       }
       throw IllegalArgumentException(UserMessages.NOT_FOUND)
     }

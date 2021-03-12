@@ -53,7 +53,7 @@ class UserController @Autowired constructor(
    * @param userDto User to update
    */
   @PreAuthorize("hasRole('ROLE_ADMIN')")
-  @PutMapping(value = ["/update/{id}"], consumes = [MediaType.APPLICATION_JSON_VALUE])
+  @PutMapping(value = ["/{id}"], consumes = [MediaType.APPLICATION_JSON_VALUE])
   @ApiOperation(value = "Update a user")
   fun update(
     @ApiParam(name = "id", value = "User´s id") @PathVariable id: Long,
@@ -139,6 +139,23 @@ class UserController @Autowired constructor(
     logService.info("disable(id: ${id}, active: ${active}) - start")
     val userDto = userService.disable(id, active)
     logService.info("disable(id: ${id}, active: ${active}) - end")
+    return ResponseEntity(userDto, HttpStatus.OK)
+  }
+
+  /**
+   * Delete a user
+   *
+   * @param id User´s id
+   */
+  @PreAuthorize("hasRole('ROLE_ADMIN')")
+  @DeleteMapping("/{id}")
+  @ApiOperation("Delete a user")
+  fun delete(
+    @ApiParam(name = "id", value = "User´s id") @PathVariable id: Long
+  ): ResponseEntity<Boolean> {
+    logService.info("delete(id: ${id}) - start")
+    val userDto = userService.delete(id)
+    logService.info("delete(id: ${id}) - end")
     return ResponseEntity(userDto, HttpStatus.OK)
   }
 }
