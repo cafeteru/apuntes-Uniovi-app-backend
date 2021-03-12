@@ -12,13 +12,14 @@ import es.uniovi.apuntesuniovi.validators.impl.ValidatorId
 class DeleteUser(
   private val userRepository: UserRepository,
   private val id: Long,
-) : AbstractCommand<Void>() {
+) : AbstractCommand<Boolean>() {
 
-  override fun execute(): Void {
+  override fun execute(): Boolean {
     if (ValidatorId(id).isValid()) {
       val optional = userRepository.findById(id)
       if (optional.isPresent) {
         userRepository.deleteById(id)
+        return true
       }
       throw IllegalArgumentException(UserMessages.NOT_FOUND)
     }
