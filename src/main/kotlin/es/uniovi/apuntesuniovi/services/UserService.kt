@@ -108,9 +108,21 @@ class UserService @Autowired constructor(
    */
   fun disable(id: Long, active: Boolean): UserDto {
     logService.info("disable(id: $id, active: $active) - start")
-    val user = DisabledUser(userRepository, id, active).execute()
+    val user = DisableUser(userRepository, id, active).execute()
     logService.info("disable(id: $id, active:  $active) - end")
     return convertToDto(user)
+  }
+
+  /**
+   * Delete a user
+   *
+   * @param id User´s id
+   */
+  fun delete(id: Long): Boolean {
+    logService.info("delete(id: $id) - start")
+    val result = DeleteUser(userRepository, id).execute()
+    logService.info("delete(id: $id) - end")
+    return result
   }
 
   private fun convertToDto(user: User): UserDto {

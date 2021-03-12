@@ -9,7 +9,7 @@ import es.uniovi.apuntesuniovi.validators.impl.ValidatorId
 /**
  * Change the value active of a user
  */
-class DisabledUser(
+class DisableUser(
   private val userRepository: UserRepository,
   private val id: Long,
   private val active: Boolean

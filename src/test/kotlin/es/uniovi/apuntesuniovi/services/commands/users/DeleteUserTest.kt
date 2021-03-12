@@ -5,21 +5,22 @@ import es.uniovi.apuntesuniovi.mocks.entities.MockUserCreator
 import es.uniovi.apuntesuniovi.models.User
 import es.uniovi.apuntesuniovi.repositories.UserRepository
 import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.Mock
 import org.mockito.Mockito
+import org.mockito.Mockito.times
 import org.mockito.junit.jupiter.MockitoExtension
 import java.util.*
-import kotlin.test.assertEquals
 import kotlin.test.fail
 
 /**
  * Check class DisableUser
  */
 @ExtendWith(MockitoExtension::class)
-class DisableUserTest {
+class DeleteUserTest {
   private lateinit var user: User
 
   @Mock
@@ -38,12 +39,11 @@ class DisableUserTest {
    */
   @Test
   fun validIdAndExistUser() {
-    Mockito.`when`(userRepository.findById(user.id!!)).thenReturn(Optional.of(user))
-    Mockito.`when`(userRepository.save(user)).thenReturn(user)
-    val disabledUser = DisableUser(userRepository, user.id!!, true)
-    val result = disabledUser.execute()
-    Assertions.assertNotNull(result)
-    assertEquals(user, result)
+    val id = user.id!!
+    Mockito.`when`(userRepository.findById(id)).thenReturn(Optional.of(user))
+    val deleteUser = DeleteUser(userRepository, id)
+    assertTrue(deleteUser.execute())
+    Mockito.verify(userRepository, times(1)).deleteById(id)
   }
 
   /**
@@ -52,7 +52,7 @@ class DisableUserTest {
   @Test
   fun validIdAndNotExistUser() {
     try {
-      DisableUser(userRepository, 1L, true).execute()
+      DeleteUser(userRepository, 1L).execute()
       fail("User not found")
     } catch (e: IllegalArgumentException) {
       Assertions.assertEquals(e.message, UserMessages.NOT_FOUND)
@@ -65,7 +65,7 @@ class DisableUserTest {
   @Test
   fun invalidId() {
     try {
-      DisableUser(userRepository, -1L, true).execute()
+      DeleteUser(userRepository, -1L).execute()
       fail("Invalid user id")
     } catch (e: IllegalArgumentException) {
       Assertions.assertEquals(e.message, UserMessages.INVALID_ID)
