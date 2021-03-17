@@ -3,29 +3,20 @@ package es.uniovi.apuntesuniovi.services.dtos
 import es.uniovi.apuntesuniovi.infrastructure.messages.CareerMessages
 import es.uniovi.apuntesuniovi.mocks.dtos.MockCareerDtoCreator
 import es.uniovi.apuntesuniovi.mocks.entities.MockCareerCreator
-import es.uniovi.apuntesuniovi.mocks.entities.MockCenterCreator
 import es.uniovi.apuntesuniovi.models.types.LanguageType
-import es.uniovi.apuntesuniovi.repositories.CenterRepository
 import es.uniovi.apuntesuniovi.services.dtos.assemblers.CareerAssembler
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.junit.jupiter.api.fail
-import org.mockito.Mock
-import org.mockito.Mockito
 import org.mockito.junit.jupiter.MockitoExtension
-import java.util.*
 
 /**
  * Check class CareerAssembler
  */
 @ExtendWith(MockitoExtension::class)
 class CareerAssemblerTest {
-  @Mock
-  private lateinit var centerRepository: CenterRepository
-
   private lateinit var careerAssembler: CareerAssembler
 
   /**
@@ -33,7 +24,7 @@ class CareerAssemblerTest {
    */
   @BeforeEach
   fun initTest() {
-    careerAssembler = CareerAssembler(centerRepository)
+    careerAssembler = CareerAssembler()
   }
 
   /**
@@ -50,7 +41,6 @@ class CareerAssemblerTest {
     assertEquals(career.yearImplantation, dto.yearImplantation)
     assertEquals(career.etcs, dto.etcs)
     assertEquals(career.languages.size, dto.languages.size)
-    assertEquals(career.center?.id, dto.centerId)
   }
 
   /**
@@ -72,9 +62,6 @@ class CareerAssemblerTest {
   @Test
   fun validCareerDto() {
     val dto = MockCareerDtoCreator().create()
-    Mockito.`when`(centerRepository.findById(dto.centerId!!)).thenReturn(
-      Optional.of(MockCenterCreator().create())
-    )
     val career = careerAssembler.dtoToEntity(dto)
     assertEquals(career.id, dto.id)
     assertEquals(career.name, dto.name)
@@ -82,7 +69,6 @@ class CareerAssemblerTest {
     assertEquals(career.yearImplantation, dto.yearImplantation)
     assertEquals(career.etcs, dto.etcs)
     assertEquals(career.languages.size, dto.languages.size)
-    assertEquals(career.center?.id, dto.centerId)
   }
 
   /**
@@ -91,7 +77,6 @@ class CareerAssemblerTest {
   @Test
   fun validCareerDtoCenterNull() {
     val dto = MockCareerDtoCreator().create()
-    dto.centerId = null
     val career = careerAssembler.dtoToEntity(dto)
     assertEquals(career.id, dto.id)
     assertEquals(career.name, dto.name)
@@ -99,8 +84,6 @@ class CareerAssemblerTest {
     assertEquals(career.yearImplantation, dto.yearImplantation)
     assertEquals(career.etcs, dto.etcs)
     assertEquals(career.languages.size, dto.languages.size)
-    assertNull(career.center)
-    assertNull(dto.centerId)
   }
 
 

@@ -2,8 +2,6 @@ package es.uniovi.apuntesuniovi.services.dtos.assemblers
 
 import es.uniovi.apuntesuniovi.infrastructure.messages.CareerMessages
 import es.uniovi.apuntesuniovi.models.Career
-import es.uniovi.apuntesuniovi.repositories.CenterRepository
-import es.uniovi.apuntesuniovi.services.commands.centers.FindCenterById
 import es.uniovi.apuntesuniovi.services.dtos.entities.CareerDto
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -14,7 +12,6 @@ import org.springframework.util.Assert
  */
 @Service
 class CareerAssembler @Autowired constructor(
-  private val centerRepository: CenterRepository
 ) : AbstractAssembler<Career, CareerDto>() {
   override fun entityToDto(entity: Career?): CareerDto {
     logService.info("entityToDto(entity: Career) - start")
@@ -27,7 +24,6 @@ class CareerAssembler @Autowired constructor(
         yearImplantation = it.yearImplantation,
         etcs = it.etcs,
         languages = it.languages.map { language -> language.toString() },
-        centerId = it.center?.id,
       )
       logService.info("entityToDto(entity: Career) - end")
       return dto
@@ -45,9 +41,6 @@ class CareerAssembler @Autowired constructor(
       entity.yearImplantation = it.yearImplantation
       entity.etcs = it.etcs
       it.languages.forEach { language -> entity.addLanguage(language) }
-      it.centerId?.let { id ->
-        entity.center = FindCenterById(centerRepository, id).execute()
-      }
       logService.info("dtoToEntity(dto: CareerDto) - end")
       return entity
     }

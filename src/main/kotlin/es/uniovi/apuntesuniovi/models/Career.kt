@@ -71,9 +71,6 @@ class Career {
   @Enumerated(EnumType.STRING)
   var languages: MutableSet<LanguageType> = HashSet()
 
-  @ManyToOne
-  var center: Center? = null
-
   @OneToMany(mappedBy = "career", cascade = [(CascadeType.ALL)])
   var optionETCS: Set<OptionETCS> = HashSet()
 
