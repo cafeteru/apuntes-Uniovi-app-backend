@@ -1,5 +1,6 @@
 package es.uniovi.apuntesuniovi.models
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import es.uniovi.apuntesuniovi.infrastructure.constants.database.UnitSubjectLimits
 import es.uniovi.apuntesuniovi.infrastructure.messages.UnitSubjectMessages
 import es.uniovi.apuntesuniovi.validators.impl.ValidatorMaxLength
@@ -42,8 +43,10 @@ class UnitSubject {
     }
 
   @OneToMany(mappedBy = "unitSubject", cascade = [(CascadeType.ALL)])
+  @JsonIgnore
   val partUnits: Set<PartUnitSubject> = HashSet()
 
   @ManyToMany(mappedBy = "units", fetch = FetchType.LAZY, cascade = [(CascadeType.ALL)])
+  @JsonIgnore
   val tests: Set<Test> = HashSet()
 }

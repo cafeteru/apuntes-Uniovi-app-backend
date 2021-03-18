@@ -1,5 +1,6 @@
 package es.uniovi.apuntesuniovi.models
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import es.uniovi.apuntesuniovi.infrastructure.constants.database.SubjectLimits
 import es.uniovi.apuntesuniovi.infrastructure.messages.SubjectMessages
 import es.uniovi.apuntesuniovi.models.types.SubjectType
@@ -30,12 +31,15 @@ class Subject {
   var subjectType: SubjectType? = null
 
   @OneToMany(mappedBy = "subject", cascade = [(CascadeType.ALL)])
+  @JsonIgnore
   val teachSubjects: Set<TeachSubject> = HashSet()
 
   @OneToMany(mappedBy = "subject", cascade = [(CascadeType.ALL)])
+  @JsonIgnore
   val learnSubject: Set<LearnSubject> = HashSet()
 
   @OneToMany(mappedBy = "subject", cascade = [(CascadeType.ALL)])
+  @JsonIgnore
   val lessons: Set<UnitSubject> = HashSet()
 
   /**

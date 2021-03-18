@@ -1,5 +1,6 @@
 package es.uniovi.apuntesuniovi.models
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import javax.persistence.*
 
 /**
@@ -18,6 +19,7 @@ class TeachSubject {
   lateinit var subject: Subject
 
   @OneToMany(mappedBy = "teachSubject", cascade = [(CascadeType.ALL)])
+  @JsonIgnore
   val registries: Set<TeachSubjectRegistry> = HashSet()
 
   var isCoordinator: Boolean = false
