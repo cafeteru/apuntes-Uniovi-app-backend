@@ -1,12 +1,10 @@
 package es.uniovi.apuntesuniovi.repositories.builders.users
 
 import com.querydsl.core.types.dsl.Expressions
-import es.uniovi.apuntesuniovi.mocks.dtos.MockUserDtoCreator
+import es.uniovi.apuntesuniovi.mocks.entities.MockUserCreator
 import es.uniovi.apuntesuniovi.models.QUser
-import es.uniovi.apuntesuniovi.models.types.IdentificationType
-import es.uniovi.apuntesuniovi.models.types.RoleType
+import es.uniovi.apuntesuniovi.models.User
 import es.uniovi.apuntesuniovi.repositories.builders.UserBuilder
-import es.uniovi.apuntesuniovi.services.dtos.entities.UserDto
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -15,7 +13,7 @@ import org.junit.jupiter.api.Test
  * Test class UserBuilder
  */
 class EmailTest {
-  private lateinit var userDto: UserDto
+  private lateinit var user: User
   private lateinit var qUser: QUser
 
   /**
@@ -23,7 +21,7 @@ class EmailTest {
    */
   @BeforeEach
   fun initData() {
-    userDto = MockUserDtoCreator().create()
+    user = MockUserCreator().create()
     qUser = QUser.user
   }
 
@@ -33,23 +31,10 @@ class EmailTest {
   @Test
   fun nullEmail() {
     val expression = qUser.email.like(
-      Expressions.asString("%").concat(userDto.email).concat("%")
+      Expressions.asString("%").concat(user.email).concat("%")
     )
-    userDto.email = null
-    val builder = UserBuilder().createBuilder(userDto)
-    Assertions.assertFalse(builder.value.toString().contains(expression.toString()))
-  }
-
-  /**
-   * Checks conditions with empty email
-   */
-  @Test
-  fun emptyEmail() {
-    val expression = qUser.email.like(
-      Expressions.asString("%").concat(userDto.email).concat("%")
-    )
-    userDto.email = ""
-    val builder = UserBuilder().createBuilder(userDto)
+    user.email = null
+    val builder = UserBuilder().createBuilder(user)
     Assertions.assertFalse(builder.value.toString().contains(expression.toString()))
   }
 }

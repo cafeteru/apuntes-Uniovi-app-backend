@@ -1,13 +1,11 @@
 package es.uniovi.apuntesuniovi.services.users
 
 import com.querydsl.core.BooleanBuilder
-import es.uniovi.apuntesuniovi.mocks.dtos.MockUserDtoCreator
 import es.uniovi.apuntesuniovi.mocks.entities.MockUserCreator
 import es.uniovi.apuntesuniovi.repositories.AddressRepository
 import es.uniovi.apuntesuniovi.repositories.UserRepository
 import es.uniovi.apuntesuniovi.repositories.builders.UserBuilder
 import es.uniovi.apuntesuniovi.services.UserService
-import es.uniovi.apuntesuniovi.services.dtos.assemblers.UserAssembler
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -32,14 +30,13 @@ class FindAllTest {
 
   @Mock
   private lateinit var addressRepository: AddressRepository
-  private val userAssembler = UserAssembler()
 
   /**
    * Create init data for the test
    */
   @BeforeEach
   fun initTest() {
-    userService = UserService(userRepository, addressRepository, userAssembler)
+    userService = UserService(userRepository, addressRepository)
   }
 
   /**
@@ -70,9 +67,9 @@ class FindAllTest {
     val list = listOf(user)
     val pageable = PageRequest.of(0, 10)
     val page = PageImpl(list, pageable, list.size.toLong())
-    val builder = UserBuilder().createBuilder(MockUserDtoCreator().create())
+    val builder = UserBuilder().createBuilder(user)
     Mockito.`when`(userRepository.findAll(builder, pageable)).thenReturn(page)
-    val result = userService.findAll(pageable, MockUserDtoCreator().create())
+    val result = userService.findAll(pageable, user)
     assertNotNull(result)
     assertEquals(result.totalElements, list.size.toLong())
     val element = result.content[0]

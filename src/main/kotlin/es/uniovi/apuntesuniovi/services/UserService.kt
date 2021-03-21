@@ -5,8 +5,6 @@ import es.uniovi.apuntesuniovi.models.User
 import es.uniovi.apuntesuniovi.repositories.AddressRepository
 import es.uniovi.apuntesuniovi.repositories.UserRepository
 import es.uniovi.apuntesuniovi.services.commands.users.*
-import es.uniovi.apuntesuniovi.services.dtos.assemblers.UserAssembler
-import es.uniovi.apuntesuniovi.services.dtos.entities.UserDto
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -19,47 +17,52 @@ import org.springframework.stereotype.Service
 class UserService @Autowired constructor(
   private val userRepository: UserRepository,
   private val addressRepository: AddressRepository,
-  private val userAssembler: UserAssembler
 ) {
   private val logService = LogService(this.javaClass)
 
   /**
    * Create a new user
    *
-   * @param dto User to create
+   * @param user User to create
    */
-  fun create(dto: UserDto): UserDto {
+  fun create(user: User): User {
     logService.info("create(dto: UserDto) - start")
-    val user = userAssembler.dtoToEntity(dto)
     val result = CreateUser(userRepository, addressRepository, user).execute()
     logService.info("create(dto: UserDto) - end")
-    return convertToDto(result)
+    return result
   }
 
   /**
    * Update a new user
    *
    * @param id User´s id
-   * @param dto User to update
+   * @param user User to update
    */
-  fun update(id: Long, dto: UserDto): UserDto {
+  fun update(id: Long, user: User): User {
     logService.info("update(id: Long, dto: UserDto) - start")
-    val user = userAssembler.dtoToEntity(dto)
     val result = UpdateUser(userRepository, addressRepository, id, user).execute()
     logService.info("update(id: Long, dto: UserDto) - end")
-    return convertToDto(result)
+    return result
   }
 
   /**
    * Returns all users
    *
    * @param pageable Pageable
+   *
+   * @return Page
    */
-  fun findAll(pageable: Pageable, userDto: UserDto?): Page<UserDto> {
+  fun findAll(pageable: Pageable, userDto: User?): Page<User> {
     logService.info("findAll() - start")
-    val result = FindAllUsers(userRepository, userDto, pageable).execute()
+    val page = FindAllUsers(userRepository, userDto, pageable).execute()
+    page.content.forEach { user ->
+      run {
+        user.img = null
+        user.password = null
+      }
+    }
     logService.info("findAll() - end")
-    return result.map { entity -> convertToDto(entity) }
+    return page
   }
 
   /**
@@ -67,12 +70,11 @@ class UserService @Autowired constructor(
    *
    * @param id User id
    */
-  fun findById(id: Long): UserDto {
+  fun findById(id: Long): User {
     logService.info("findById() - start")
     val user = FindUserById(userRepository, id).execute()
-    user.password = null
     logService.info("findById() - end")
-    return userAssembler.entityToDto(user)
+    return user
   }
 
   /**
@@ -80,11 +82,12 @@ class UserService @Autowired constructor(
    *
    * @param username User identifier
    */
-  fun findByUsername(username: String): UserDto {
+  fun findByUsername(username: String): User {
     logService.info("findByUsername(username: ${username}) - start")
     val user = FindUserByUsername(userRepository, username).execute()
+    user.password = null
     logService.info("findByUsername(username: ${username}) - end")
-    return convertToDto(user)
+    return user
   }
 
   /**
@@ -106,11 +109,11 @@ class UserService @Autowired constructor(
    * @param id User´s id
    * @param active New value to user´s active
    */
-  fun disable(id: Long, active: Boolean): UserDto {
+  fun disable(id: Long, active: Boolean): User {
     logService.info("disable(id: $id, active: $active) - start")
     val user = DisableUser(userRepository, id, active).execute()
     logService.info("disable(id: $id, active:  $active) - end")
-    return convertToDto(user)
+    return user
   }
 
   /**
@@ -123,11 +126,5 @@ class UserService @Autowired constructor(
     val result = DeleteUser(userRepository, id).execute()
     logService.info("delete(id: $id) - end")
     return result
-  }
-
-  private fun convertToDto(user: User): UserDto {
-    user.img = null
-    user.password = null
-    return userAssembler.entityToDto(user)
   }
 }

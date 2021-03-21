@@ -5,7 +5,6 @@ import es.uniovi.apuntesuniovi.models.User
 import es.uniovi.apuntesuniovi.repositories.AddressRepository
 import es.uniovi.apuntesuniovi.repositories.UserRepository
 import es.uniovi.apuntesuniovi.services.UserService
-import es.uniovi.apuntesuniovi.services.dtos.assemblers.UserAssembler
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -28,7 +27,6 @@ class UpdateTest {
   @Mock
   private lateinit var addressRepository: AddressRepository
 
-  private val userAssembler = UserAssembler()
   private lateinit var userService: UserService
 
   /**
@@ -36,7 +34,7 @@ class UpdateTest {
    */
   @BeforeEach
   fun initTest() {
-    userService = UserService(userRepository, addressRepository, userAssembler)
+    userService = UserService(userRepository, addressRepository)
   }
 
   /**
@@ -45,16 +43,12 @@ class UpdateTest {
   @Test
   fun validData() {
     val user = MockUserCreator().create()
-    val userDto = userAssembler.entityToDto(user)
     Mockito.`when`(userRepository.findById(user.id!!)).thenReturn(Optional.of(user))
     Mockito.`when`(userRepository.findByUsername(user.username!!)).thenReturn(Optional.of(user))
     Mockito.`when`(userRepository.findByNumberIdentification(user.numberIdentification!!))
       .thenReturn(Optional.of(user))
     Mockito.`when`(userRepository.save(Mockito.any(User::class.java))).thenReturn(user)
-    val result = userService.update(userDto.id!!, userDto)
-    assertNotEquals(userDto, result)
-    assertEquals(user.id, result.id)
-    assertNull(result.img)
-    assertNull(result.password)
+    val result = userService.update(user.id!!, user)
+    assertEquals(user, result)
   }
 }

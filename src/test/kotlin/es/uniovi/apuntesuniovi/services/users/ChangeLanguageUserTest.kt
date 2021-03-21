@@ -6,7 +6,6 @@ import es.uniovi.apuntesuniovi.models.types.LanguageType
 import es.uniovi.apuntesuniovi.repositories.AddressRepository
 import es.uniovi.apuntesuniovi.repositories.UserRepository
 import es.uniovi.apuntesuniovi.services.UserService
-import es.uniovi.apuntesuniovi.services.dtos.assemblers.UserAssembler
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -30,7 +29,6 @@ class ChangeLanguageUserTest {
 
   @Mock
   private lateinit var addressRepository: AddressRepository
-  private val userAssembler = UserAssembler()
   private val username = "username"
 
   /**
@@ -38,7 +36,7 @@ class ChangeLanguageUserTest {
    */
   @BeforeEach
   fun initTest() {
-    userService = UserService(userRepository, addressRepository, userAssembler)
+    userService = UserService(userRepository, addressRepository)
   }
 
   /**

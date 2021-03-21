@@ -1,5 +1,6 @@
 package es.uniovi.apuntesuniovi.models
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import java.util.*
 import javax.persistence.*
 
@@ -16,5 +17,6 @@ class Test {
   val units: Set<UnitSubject> = HashSet()
 
   @ManyToMany(mappedBy = "tests", fetch = FetchType.LAZY, cascade = [(CascadeType.ALL)])
+  @JsonIgnore
   val questions: Set<Question> = HashSet()
 }

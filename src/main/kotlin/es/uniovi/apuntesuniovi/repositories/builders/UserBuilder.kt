@@ -3,9 +3,7 @@ package es.uniovi.apuntesuniovi.repositories.builders
 import com.querydsl.core.BooleanBuilder
 import com.querydsl.core.types.dsl.Expressions
 import es.uniovi.apuntesuniovi.models.QUser
-import es.uniovi.apuntesuniovi.models.types.IdentificationType
-import es.uniovi.apuntesuniovi.models.types.RoleType
-import es.uniovi.apuntesuniovi.services.dtos.entities.UserDto
+import es.uniovi.apuntesuniovi.models.User
 
 /**
  * Class to create conditions to filter addresses
@@ -15,10 +13,10 @@ class UserBuilder {
   /**
    * Create conditions to filter addresses
    */
-  fun createBuilder(userDto: UserDto?): BooleanBuilder {
+  fun createBuilder(user: User?): BooleanBuilder {
     val builder = BooleanBuilder()
     val qUser = QUser.user
-    userDto?.let {
+    user?.let {
       createNameFilter(it, builder, qUser)
       createSurnameFilter(it, builder, qUser)
       createEmailFilter(it, builder, qUser)
@@ -37,108 +35,106 @@ class UserBuilder {
   }
 
   private fun createNameFilter(
-    userDto: UserDto,
+    user: User,
     builder: BooleanBuilder,
     qUser: QUser
   ) {
-    if (!userDto.name.isNullOrEmpty()) {
+    if (!user.name.isNullOrEmpty()) {
       builder.and(
         qUser.name.like(
-          Expressions.asString("%").concat(userDto.name).concat("%")
+          Expressions.asString("%").concat(user.name).concat("%")
         )
       )
     }
   }
 
   private fun createSurnameFilter(
-    userDto: UserDto,
+    user: User,
     builder: BooleanBuilder,
     qUser: QUser
   ) {
-    if (!userDto.surname.isNullOrEmpty()) {
+    if (!user.surname.isNullOrEmpty()) {
       builder.and(
         qUser.surname.like(
-          Expressions.asString("%").concat(userDto.surname).concat("%")
+          Expressions.asString("%").concat(user.surname).concat("%")
         )
       )
     }
   }
 
   private fun createEmailFilter(
-    userDto: UserDto,
+    user: User,
     builder: BooleanBuilder,
     qUser: QUser
   ) {
-    if (!userDto.email.isNullOrEmpty()) {
+    if (!user.email.isNullOrEmpty()) {
       builder.and(
         qUser.email.like(
-          Expressions.asString("%").concat(userDto.email).concat("%")
+          Expressions.asString("%").concat(user.email).concat("%")
         )
       )
     }
   }
 
   private fun createPhoneFilter(
-    userDto: UserDto,
+    user: User,
     builder: BooleanBuilder,
     qUser: QUser
   ) {
-    if (!userDto.phone.isNullOrEmpty()) {
+    if (!user.phone.isNullOrEmpty()) {
       builder.and(
         qUser.phone.like(
-          Expressions.asString("%").concat(userDto.phone).concat("%")
+          Expressions.asString("%").concat(user.phone).concat("%")
         )
       )
     }
   }
 
   private fun createUsernameFilter(
-    userDto: UserDto,
+    user: User,
     builder: BooleanBuilder,
     qUser: QUser
   ) {
-    if (!userDto.username.isNullOrEmpty()) {
+    if (!user.username.isNullOrEmpty()) {
       builder.and(
         qUser.username.like(
-          Expressions.asString("%").concat(userDto.username).concat("%")
+          Expressions.asString("%").concat(user.username).concat("%")
         )
       )
     }
   }
 
   private fun createRoleFilter(
-    userDto: UserDto,
+    user: User,
     builder: BooleanBuilder,
     qUser: QUser
   ) {
-    if (!userDto.role.isNullOrEmpty()) {
-      builder.and(
-        qUser.role.eq(RoleType.valueOf(userDto.role!!))
-      )
+    if (user.role != null) {
+      builder.and(qUser.role.eq(user.role))
     }
   }
 
   private fun createIdentificationTypeFilter(
-    userDto: UserDto,
+    user: User,
     builder: BooleanBuilder,
     qUser: QUser
   ) {
-    if (!userDto.identificationType.isNullOrEmpty()) {
+    if (user.identificationType != null) {
       builder.and(
-        qUser.identificationType.eq(IdentificationType.valueOf(userDto.identificationType!!))
+        qUser.identificationType.eq(user.identificationType)
       )
     }
   }
 
   private fun createNumberIdentificationFilter(
-    userDto: UserDto,
+    user: User,
     builder: BooleanBuilder,
     qUser: QUser
   ) {
-    if (!userDto.numberIdentification.isNullOrEmpty()) {
+    if (!user.numberIdentification.isNullOrEmpty()) {
       builder.and(
         qUser.numberIdentification.like(
-          Expressions.asString("%").concat(userDto.numberIdentification).concat("%")
+          Expressions.asString("%").concat(user.numberIdentification).concat("%")
         )
       )
     }

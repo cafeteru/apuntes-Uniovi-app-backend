@@ -1,9 +1,9 @@
 package es.uniovi.apuntesuniovi.controllers.users
 
 import es.uniovi.apuntesuniovi.controllers.UserController
-import es.uniovi.apuntesuniovi.mocks.dtos.MockUserDtoCreator
+import es.uniovi.apuntesuniovi.mocks.entities.MockUserCreator
+import es.uniovi.apuntesuniovi.models.User
 import es.uniovi.apuntesuniovi.services.UserService
-import es.uniovi.apuntesuniovi.services.dtos.entities.UserDto
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -33,8 +33,8 @@ class FindAllTest {
    */
   @Test
   fun validData() {
-    val userDto = MockUserDtoCreator().create()
-    val list = ArrayList<UserDto>()
+    val userDto = MockUserCreator().create()
+    val list = ArrayList<User>()
     list.add(userDto)
     val pageable = PageRequest.of(0, 5)
     val page = PageImpl(list, pageable, 1)

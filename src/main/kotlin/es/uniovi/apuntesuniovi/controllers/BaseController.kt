@@ -14,8 +14,8 @@ import javax.validation.Valid
 /**
  * Define base endpoints
  */
-abstract class BaseController<Entity, Dto> constructor(
-  private val baseService: BaseService<Entity, Dto>
+abstract class BaseController<Entity> constructor(
+  private val baseService: BaseService<Entity>
 ) {
   private val logService = LogService(this.javaClass)
 
@@ -23,7 +23,7 @@ abstract class BaseController<Entity, Dto> constructor(
    * Add a new entity through a text string (JSON)
    */
   @PostMapping("/create")
-  fun create(@Valid @RequestBody dto: Dto): ResponseEntity<Dto> {
+  fun create(@Valid @RequestBody dto: Entity): ResponseEntity<Entity> {
     logService.info("save(json: String) - start")
     val result = create(baseService, dto)
     logService.info("save(json: String) - end")
@@ -33,13 +33,13 @@ abstract class BaseController<Entity, Dto> constructor(
   /**
    * Return the controller command to execute create
    */
-  protected abstract fun create(baseService: BaseService<Entity, Dto>, dto: Dto): Dto
+  protected abstract fun create(baseService: BaseService<Entity>, entity: Entity): Entity
 
   /**
    * Returns all registered in the system
    */
   @GetMapping("")
-  fun findAll(pageable: Pageable): ResponseEntity<Page<Dto>> {
+  fun findAll(pageable: Pageable): ResponseEntity<Page<Entity>> {
     logService.info("findAll() - start")
     val result = findAll(baseService, pageable)
     logService.info("findAll() - end")
@@ -50,7 +50,7 @@ abstract class BaseController<Entity, Dto> constructor(
    * Return the controller command to execute findAll
    */
   protected abstract fun findAll(
-    baseService: BaseService<Entity, Dto>,
+    baseService: BaseService<Entity>,
     pageable: Pageable
-  ): Page<Dto>
+  ): Page<Entity>
 }

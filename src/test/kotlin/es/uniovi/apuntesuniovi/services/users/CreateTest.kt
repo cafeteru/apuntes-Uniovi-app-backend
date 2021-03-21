@@ -5,7 +5,6 @@ import es.uniovi.apuntesuniovi.models.User
 import es.uniovi.apuntesuniovi.repositories.AddressRepository
 import es.uniovi.apuntesuniovi.repositories.UserRepository
 import es.uniovi.apuntesuniovi.services.UserService
-import es.uniovi.apuntesuniovi.services.dtos.assemblers.UserAssembler
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -26,7 +25,6 @@ class CreateTest {
 
   @Mock
   private lateinit var addressRepository: AddressRepository
-  private val userAssembler = UserAssembler()
 
   private lateinit var userService: UserService
 
@@ -35,7 +33,7 @@ class CreateTest {
    */
   @BeforeEach
   fun initTest() {
-    userService = UserService(userRepository, addressRepository, userAssembler)
+    userService = UserService(userRepository, addressRepository)
   }
 
   /**
@@ -44,12 +42,8 @@ class CreateTest {
   @Test
   fun validData() {
     val user = MockUserCreator().create()
-    val userDto = userAssembler.entityToDto(user)
     Mockito.`when`(userRepository.save(Mockito.any(User::class.java))).thenReturn(user)
-    val result = userService.create(userDto)
-    assertNotEquals(userDto, result)
-    assertEquals(user.id, result.id)
-    assertNull(result.img)
-    assertNull(result.password)
+    val result = userService.create(user)
+    assertEquals(user, result)
   }
 }

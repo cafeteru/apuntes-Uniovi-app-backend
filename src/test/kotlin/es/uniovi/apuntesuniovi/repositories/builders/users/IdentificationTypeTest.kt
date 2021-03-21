@@ -1,12 +1,10 @@
 package es.uniovi.apuntesuniovi.repositories.builders.users
 
 import com.querydsl.core.types.dsl.Expressions
-import es.uniovi.apuntesuniovi.mocks.dtos.MockUserDtoCreator
+import es.uniovi.apuntesuniovi.mocks.entities.MockUserCreator
 import es.uniovi.apuntesuniovi.models.QUser
-import es.uniovi.apuntesuniovi.models.types.IdentificationType
-import es.uniovi.apuntesuniovi.models.types.RoleType
+import es.uniovi.apuntesuniovi.models.User
 import es.uniovi.apuntesuniovi.repositories.builders.UserBuilder
-import es.uniovi.apuntesuniovi.services.dtos.entities.UserDto
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -15,7 +13,7 @@ import org.junit.jupiter.api.Test
  * Test class UserBuilder
  */
 class IdentificationTypeTest {
-  private lateinit var userDto: UserDto
+  private lateinit var user: User
   private lateinit var qUser: QUser
 
   /**
@@ -23,7 +21,7 @@ class IdentificationTypeTest {
    */
   @BeforeEach
   fun initData() {
-    userDto = MockUserDtoCreator().create()
+    user = MockUserCreator().create()
     qUser = QUser.user
   }
 
@@ -32,24 +30,9 @@ class IdentificationTypeTest {
    */
   @Test
   fun nullIdentificationType() {
-    val expression = qUser.identificationType.eq(
-      IdentificationType.valueOf(userDto.identificationType!!)
-    )
-    userDto.identificationType = null
-    val builder = UserBuilder().createBuilder(userDto)
-    Assertions.assertFalse(builder.value.toString().contains(expression.toString()))
-  }
-
-  /**
-   * Checks conditions with empty identificationType
-   */
-  @Test
-  fun emptyIdentificationType() {
-    val expression = qUser.identificationType.eq(
-      IdentificationType.valueOf(userDto.identificationType!!)
-    )
-    userDto.identificationType = ""
-    val builder = UserBuilder().createBuilder(userDto)
+    val expression = qUser.identificationType.eq(user.identificationType)
+    user.identificationType = null
+    val builder = UserBuilder().createBuilder(user)
     Assertions.assertFalse(builder.value.toString().contains(expression.toString()))
   }
 
@@ -59,23 +42,10 @@ class IdentificationTypeTest {
   @Test
   fun nullNumberIdentification() {
     val expression = qUser.numberIdentification.like(
-      Expressions.asString("%").concat(userDto.numberIdentification).concat("%")
+      Expressions.asString("%").concat(user.numberIdentification).concat("%")
     )
-    userDto.numberIdentification = null
-    val builder = UserBuilder().createBuilder(userDto)
-    Assertions.assertFalse(builder.value.toString().contains(expression.toString()))
-  }
-
-  /**
-   * Checks conditions with empty numberIdentification
-   */
-  @Test
-  fun emptyNumberIdentification() {
-    val expression = qUser.numberIdentification.like(
-      Expressions.asString("%").concat(userDto.numberIdentification).concat("%")
-    )
-    userDto.numberIdentification = ""
-    val builder = UserBuilder().createBuilder(userDto)
+    user.numberIdentification = null
+    val builder = UserBuilder().createBuilder(user)
     Assertions.assertFalse(builder.value.toString().contains(expression.toString()))
   }
 
@@ -85,9 +55,9 @@ class IdentificationTypeTest {
    */
   @Test
   fun nullBirthday() {
-    val expression = qUser.birthDate.eq(userDto.birthDate)
-    userDto.birthDate = null
-    val builder = UserBuilder().createBuilder(userDto)
+    val expression = qUser.birthDate.eq(user.birthDate)
+    user.birthDate = null
+    val builder = UserBuilder().createBuilder(user)
     Assertions.assertFalse(builder.value.toString().contains(expression.toString()))
   }
 }

@@ -1,7 +1,6 @@
 package es.uniovi.apuntesuniovi.services
 
 import es.uniovi.apuntesuniovi.infrastructure.log.LogService
-import es.uniovi.apuntesuniovi.services.dtos.assemblers.AbstractAssembler
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.PagingAndSortingRepository
@@ -9,23 +8,21 @@ import org.springframework.data.repository.PagingAndSortingRepository
 /**
  * Abstract service to define
  */
-abstract class BaseService<Entity, Dto>(
+abstract class BaseService<Entity>(
   private val repository: PagingAndSortingRepository<Entity, Long>,
-  private val assembler: AbstractAssembler<Entity, Dto>
 ) {
   protected val logService = LogService(this.javaClass)
 
   /**
    * Create a new element
    *
-   * @param dto Element to create
+   * @param entity Element to create
    */
-  fun create(dto: Dto): Dto {
+  fun create(entity: Entity): Entity {
     logService.info("create(dto: UserDto) - start")
-    val value = assembler.dtoToEntity(dto)
-    val result = create(repository, value)
+    val result = create(repository, entity)
     logService.info("create(dto: UserDto) - end")
-    return assembler.entityToDto(result)
+    return result
   }
 
   /**
@@ -39,11 +36,11 @@ abstract class BaseService<Entity, Dto>(
   /**
    * Returns all elements
    */
-  fun findAll(pageable: Pageable): Page<Dto> {
+  fun findAll(pageable: Pageable): Page<Entity> {
     logService.info("findAll() - start")
     val result = findAll(repository, pageable)
     logService.info("findAll() - end")
-    return result.map { entity -> assembler.entityToDto(entity) }
+    return result
   }
 
   /**

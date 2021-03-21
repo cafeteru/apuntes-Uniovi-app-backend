@@ -1,10 +1,9 @@
 package es.uniovi.apuntesuniovi.controllers.users
 
 import es.uniovi.apuntesuniovi.controllers.UserController
-import es.uniovi.apuntesuniovi.mocks.dtos.MockUserDtoCreator
+import es.uniovi.apuntesuniovi.mocks.entities.MockUserCreator
 import es.uniovi.apuntesuniovi.services.UserService
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito
@@ -31,10 +30,10 @@ class DisableTest {
    */
   @Test
   fun validData() {
-    val userDto = MockUserDtoCreator().create()
-    Mockito.`when`(userService.disable(userDto.id!!, true)).thenReturn(userDto)
-    val httpResponse = userController.disable(userDto.id!!, true)
+    val user = MockUserCreator().create()
+    Mockito.`when`(userService.disable(user.id!!, true)).thenReturn(user)
+    val httpResponse = userController.disable(user.id!!, true)
     assertEquals(httpResponse.statusCode, HttpStatus.OK)
-    assertEquals(httpResponse.body, userDto)
+    assertEquals(httpResponse.body, user)
   }
 }

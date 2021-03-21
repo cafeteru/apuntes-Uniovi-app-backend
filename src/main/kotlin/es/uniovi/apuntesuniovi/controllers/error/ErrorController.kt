@@ -32,7 +32,7 @@ class ErrorController @Autowired constructor(
     val username = authentication.name
     if (username != "anonymousUser") {
       val user = userService.findByUsername(username)
-      loadMessages.setLanguage(user.language)
+      loadMessages.setLanguage(user.language.toString())
     }
     return ResponseEntity(createJsonError(e.message), HttpStatus.BAD_REQUEST)
   }

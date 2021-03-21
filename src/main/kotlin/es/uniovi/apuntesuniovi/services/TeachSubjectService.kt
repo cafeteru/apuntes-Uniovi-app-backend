@@ -4,8 +4,6 @@ import es.uniovi.apuntesuniovi.models.TeachSubject
 import es.uniovi.apuntesuniovi.repositories.TeachSubjectRepository
 import es.uniovi.apuntesuniovi.services.commands.teachSubjects.CreateTeachSubject
 import es.uniovi.apuntesuniovi.services.commands.teachSubjects.FindAllTeachSubjects
-import es.uniovi.apuntesuniovi.services.dtos.assemblers.TeachSubjectAssembler
-import es.uniovi.apuntesuniovi.services.dtos.entities.TeachSubjectDto
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -18,8 +16,7 @@ import org.springframework.stereotype.Service
 @Service
 class TeachSubjectService @Autowired constructor(
   private val teachSubjectRepository: TeachSubjectRepository,
-  teachSubjectAssembler: TeachSubjectAssembler
-) : BaseService<TeachSubject, TeachSubjectDto>(teachSubjectRepository, teachSubjectAssembler) {
+) : BaseService<TeachSubject>(teachSubjectRepository) {
 
   override fun create(
     repository: PagingAndSortingRepository<TeachSubject, Long>,

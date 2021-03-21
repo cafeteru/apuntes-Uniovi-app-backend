@@ -1,8 +1,8 @@
 package es.uniovi.apuntesuniovi.controllers
 
 import es.uniovi.apuntesuniovi.infrastructure.log.LogService
+import es.uniovi.apuntesuniovi.models.User
 import es.uniovi.apuntesuniovi.services.UserService
-import es.uniovi.apuntesuniovi.services.dtos.entities.UserDto
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation
 import io.swagger.annotations.ApiParam
@@ -32,17 +32,17 @@ class UserController @Autowired constructor(
   /**
    * Create a new user
    *
-   * @param userDto User to create
+   * @param user User to create
    */
   @PreAuthorize("hasRole('ROLE_ADMIN')")
   @PostMapping(value = ["/create"], consumes = [MediaType.APPLICATION_JSON_VALUE])
   @ApiOperation(value = "Create a new user")
   fun create(
-    @ApiParam(name = "userDto", value = "User to create") @Valid @RequestBody userDto: UserDto
-  ): ResponseEntity<UserDto> {
-    logService.info("save(userDto: UserDto) - start")
-    val result = userService.create(userDto)
-    logService.info("save(userDto: UserDto) - end")
+    @ApiParam(name = "user", value = "User to create") @Valid @RequestBody user: User
+  ): ResponseEntity<User> {
+    logService.info("save(user: user) - start")
+    val result = userService.create(user)
+    logService.info("save(user: user) - end")
     return ResponseEntity(result, HttpStatus.OK)
   }
 
@@ -50,25 +50,25 @@ class UserController @Autowired constructor(
    * Create a new user
    *
    * @param id User´s id
-   * @param userDto User to update
+   * @param user User to update
    */
   @PreAuthorize("hasRole('ROLE_ADMIN')")
   @PutMapping(value = ["/{id}"], consumes = [MediaType.APPLICATION_JSON_VALUE])
   @ApiOperation(value = "Update a user")
   fun update(
     @ApiParam(name = "id", value = "User´s id") @PathVariable id: Long,
-    @ApiParam(name = "userDto", value = "User to update") @Valid @RequestBody userDto: UserDto
-  ): ResponseEntity<UserDto> {
-    logService.info("update(id: ${id}, userDto: UserDto) - start")
-    val result = userService.update(id, userDto)
-    logService.info("update(id: ${id}, userDto: UserDto) - end")
+    @ApiParam(name = "user", value = "User to update") @Valid @RequestBody user: User
+  ): ResponseEntity<User> {
+    logService.info("update(id: ${id}, user: user) - start")
+    val result = userService.update(id, user)
+    logService.info("update(id: ${id}, user: user) - end")
     return ResponseEntity(result, HttpStatus.OK)
   }
 
   /**
    * Returns all registered users
    *
-   * @param userDto User to apply filters
+   * @param user User to apply filters
    * @param pageable Pageable
    */
   @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -76,10 +76,10 @@ class UserController @Autowired constructor(
   @ApiOperation("Returns all registered users")
   fun findAll(
     @ApiParam(name = "pageable", value = "Pageable") pageable: Pageable,
-    @ApiParam(name = "userDto", value = "User to apply filters") @RequestBody(required = false) userDto: UserDto?
-  ): ResponseEntity<Page<UserDto>> {
+    @ApiParam(name = "user", value = "User to apply filters") @RequestBody(required = false) user: User?
+  ): ResponseEntity<Page<User>> {
     logService.info("findAll() - start")
-    val result = userService.findAll(pageable, userDto)
+    val result = userService.findAll(pageable, user)
     logService.info("findAll() - end")
     return ResponseEntity(result, HttpStatus.OK)
   }
@@ -94,7 +94,7 @@ class UserController @Autowired constructor(
   @ApiOperation("Return a user by id")
   fun findById(
     @ApiParam(name = "id", value = "User´s id") @PathVariable id: Long
-  ): ResponseEntity<UserDto> {
+  ): ResponseEntity<User> {
     logService.info("findById(id: ${id}) - start")
     val result = userService.findById(id)
     logService.info("findById(id: ${id}) - end")
@@ -135,11 +135,11 @@ class UserController @Autowired constructor(
   fun disable(
     @ApiParam(name = "id", value = "User´s id") @PathVariable id: Long,
     @ApiParam(name = "active", value = "New value to user´s active") @PathVariable active: Boolean
-  ): ResponseEntity<UserDto> {
+  ): ResponseEntity<User> {
     logService.info("disable(id: ${id}, active: ${active}) - start")
-    val userDto = userService.disable(id, active)
+    val user = userService.disable(id, active)
     logService.info("disable(id: ${id}, active: ${active}) - end")
-    return ResponseEntity(userDto, HttpStatus.OK)
+    return ResponseEntity(user, HttpStatus.OK)
   }
 
   /**
@@ -154,8 +154,8 @@ class UserController @Autowired constructor(
     @ApiParam(name = "id", value = "User´s id") @PathVariable id: Long
   ): ResponseEntity<Boolean> {
     logService.info("delete(id: ${id}) - start")
-    val userDto = userService.delete(id)
+    val user = userService.delete(id)
     logService.info("delete(id: ${id}) - end")
-    return ResponseEntity(userDto, HttpStatus.OK)
+    return ResponseEntity(user, HttpStatus.OK)
   }
 }

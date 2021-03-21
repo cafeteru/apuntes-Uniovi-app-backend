@@ -2,10 +2,11 @@ package es.uniovi.apuntesuniovi.services.insertData
 
 import es.uniovi.apuntesuniovi.infrastructure.log.LogService
 import es.uniovi.apuntesuniovi.models.Address
+import es.uniovi.apuntesuniovi.models.User
+import es.uniovi.apuntesuniovi.models.types.IdentificationType
 import es.uniovi.apuntesuniovi.models.types.LanguageType
 import es.uniovi.apuntesuniovi.models.types.RoleType
 import es.uniovi.apuntesuniovi.services.UserService
-import es.uniovi.apuntesuniovi.services.dtos.entities.UserDto
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import java.time.LocalDate
@@ -19,23 +20,7 @@ class InsertDataExample @Autowired constructor(
   private val userService: UserService
 ) {
   private val logService = LogService(this.javaClass)
-  private var admin = UserDto(
-    id = null,
-    name = "adminName",
-    surname = "adminSurname",
-    active = true,
-    birthDate = LocalDate.of(1990, 12, 22),
-    email = "admin@admin.com",
-    identificationType = "dni",
-    img = null,
-    numberIdentification = "72479503V",
-    password = "admin",
-    phone = "623548956",
-    username = "admin",
-    role = RoleType.ADMIN.toString(),
-    address = null,
-    language = LanguageType.ES.toString()
-  )
+
 
   /**
    * Create initial data test
@@ -43,6 +28,23 @@ class InsertDataExample @Autowired constructor(
   @PostConstruct
   fun initData() {
     logService.info("initData() - start")
+    val admin = User()
+    admin.id = null
+    admin.name = "adminName"
+    admin.surname = "adminSurname"
+    admin.active = true
+    admin.birthDate = LocalDate.of(1990, 12, 22)
+    admin.email = "admin@admin.com"
+    admin.identificationType = IdentificationType.DNI
+    admin.img = null
+    admin.numberIdentification = "72479503V"
+    admin.password = "admin"
+    admin.phone = "623548956"
+    admin.username = "admin"
+    admin.role = RoleType.ADMIN
+    admin.address = null
+    admin.language = LanguageType.ES
+
     val address = Address()
     address.city = "city"
     address.country = "country"

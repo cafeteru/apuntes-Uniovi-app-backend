@@ -3,7 +3,6 @@ package es.uniovi.apuntesuniovi.controllers
 import es.uniovi.apuntesuniovi.models.Subject
 import es.uniovi.apuntesuniovi.services.BaseService
 import es.uniovi.apuntesuniovi.services.SubjectService
-import es.uniovi.apuntesuniovi.services.dtos.entities.SubjectDto
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -17,19 +16,19 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/subjects")
 class SubjectController @Autowired constructor(
   private val subjectService: SubjectService
-) : BaseController<Subject, SubjectDto>(subjectService) {
+) : BaseController<Subject>(subjectService) {
 
   override fun create(
-    baseService: BaseService<Subject, SubjectDto>,
-    dto: SubjectDto
-  ): SubjectDto {
-    return subjectService.create(dto)
+    baseService: BaseService<Subject>,
+    entity: Subject
+  ): Subject {
+    return subjectService.create(entity)
   }
 
   override fun findAll(
-    baseService: BaseService<Subject, SubjectDto>,
+    baseService: BaseService<Subject>,
     pageable: Pageable
-  ): Page<SubjectDto> {
+  ): Page<Subject> {
     return subjectService.findAll(pageable)
   }
 }
