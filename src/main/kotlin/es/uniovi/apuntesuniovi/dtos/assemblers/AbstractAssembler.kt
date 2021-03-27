@@ -1,4 +1,4 @@
-package es.uniovi.apuntesuniovi.services.dtos.assemblers
+package es.uniovi.apuntesuniovi.dtos.assemblers
 
 import es.uniovi.apuntesuniovi.infrastructure.log.LogService
 

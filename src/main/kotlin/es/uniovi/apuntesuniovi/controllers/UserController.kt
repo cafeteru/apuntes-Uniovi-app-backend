@@ -1,8 +1,9 @@
 package es.uniovi.apuntesuniovi.controllers
 
+import es.uniovi.apuntesuniovi.dtos.entities.UserDto
 import es.uniovi.apuntesuniovi.infrastructure.log.LogService
 import es.uniovi.apuntesuniovi.services.UserService
-import es.uniovi.apuntesuniovi.services.dtos.entities.UserDto
+import es.uniovi.apuntesuniovi.statistics.UserStatistics
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation
 import io.swagger.annotations.ApiParam
@@ -154,8 +155,21 @@ class UserController @Autowired constructor(
     @ApiParam(name = "id", value = "User´s id") @PathVariable id: Long
   ): ResponseEntity<Boolean> {
     logService.info("delete(id: ${id}) - start")
-    val userDto = userService.delete(id)
+    val result = userService.delete(id)
     logService.info("delete(id: ${id}) - end")
-    return ResponseEntity(userDto, HttpStatus.OK)
+    return ResponseEntity(result, HttpStatus.OK)
+  }
+
+  /**
+   * Return user statistics
+   */
+  @PreAuthorize("hasRole('ROLE_ADMIN')")
+  @GetMapping("/statistics")
+  @ApiOperation("Return user statistics")
+  fun getStatistics(): ResponseEntity<UserStatistics> {
+    logService.info("getStatistics() - start")
+    val userStatistics = userService.getStadistics()
+    logService.info("getStatistics() - end")
+    return ResponseEntity(userStatistics, HttpStatus.OK)
   }
 }

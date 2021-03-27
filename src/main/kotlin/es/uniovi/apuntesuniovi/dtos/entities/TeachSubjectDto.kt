@@ -1,4 +1,4 @@
-package es.uniovi.apuntesuniovi.services.dtos.entities
+package es.uniovi.apuntesuniovi.dtos.entities
 
 /**
  * Data Transfer Object of relationship between users and subjects

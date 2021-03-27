@@ -4,7 +4,7 @@ import es.uniovi.apuntesuniovi.mocks.entities.MockUserCreator
 import es.uniovi.apuntesuniovi.repositories.AddressRepository
 import es.uniovi.apuntesuniovi.repositories.UserRepository
 import es.uniovi.apuntesuniovi.services.UserService
-import es.uniovi.apuntesuniovi.services.dtos.assemblers.UserAssembler
+import es.uniovi.apuntesuniovi.dtos.assemblers.UserAssembler
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith

@@ -5,7 +5,7 @@ import com.querydsl.core.types.dsl.Expressions
 import es.uniovi.apuntesuniovi.models.QUser
 import es.uniovi.apuntesuniovi.models.types.IdentificationType
 import es.uniovi.apuntesuniovi.models.types.RoleType
-import es.uniovi.apuntesuniovi.services.dtos.entities.UserDto
+import es.uniovi.apuntesuniovi.dtos.entities.UserDto
 
 /**
  * Class to create conditions to filter addresses

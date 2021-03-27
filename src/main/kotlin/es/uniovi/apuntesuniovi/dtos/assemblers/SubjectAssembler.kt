@@ -1,8 +1,8 @@
-package es.uniovi.apuntesuniovi.services.dtos.assemblers
+package es.uniovi.apuntesuniovi.dtos.assemblers
 
 import es.uniovi.apuntesuniovi.infrastructure.messages.SubjectMessages
 import es.uniovi.apuntesuniovi.models.Subject
-import es.uniovi.apuntesuniovi.services.dtos.entities.SubjectDto
+import es.uniovi.apuntesuniovi.dtos.entities.SubjectDto
 import org.springframework.stereotype.Service
 
 /**

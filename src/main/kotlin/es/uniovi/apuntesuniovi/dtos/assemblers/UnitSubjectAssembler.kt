@@ -1,11 +1,10 @@
-package es.uniovi.apuntesuniovi.services.dtos.assemblers
+package es.uniovi.apuntesuniovi.dtos.assemblers
 
-import es.uniovi.apuntesuniovi.infrastructure.messages.CourseMessages
 import es.uniovi.apuntesuniovi.infrastructure.messages.UnitSubjectMessages
 import es.uniovi.apuntesuniovi.models.UnitSubject
 import es.uniovi.apuntesuniovi.repositories.SubjectRepository
 import es.uniovi.apuntesuniovi.services.commands.subjects.FindSubjectById
-import es.uniovi.apuntesuniovi.services.dtos.entities.UnitSubjectDto
+import es.uniovi.apuntesuniovi.dtos.entities.UnitSubjectDto
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 

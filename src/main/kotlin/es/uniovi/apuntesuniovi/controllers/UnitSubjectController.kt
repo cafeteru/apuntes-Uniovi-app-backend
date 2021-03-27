@@ -3,7 +3,7 @@ package es.uniovi.apuntesuniovi.controllers
 import es.uniovi.apuntesuniovi.models.UnitSubject
 import es.uniovi.apuntesuniovi.services.BaseService
 import es.uniovi.apuntesuniovi.services.UnitSubjectService
-import es.uniovi.apuntesuniovi.services.dtos.entities.UnitSubjectDto
+import es.uniovi.apuntesuniovi.dtos.entities.UnitSubjectDto
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable

@@ -4,8 +4,8 @@ import es.uniovi.apuntesuniovi.models.UnitSubject
 import es.uniovi.apuntesuniovi.repositories.UnitSubjectRepository
 import es.uniovi.apuntesuniovi.services.commands.unitSubjects.CreateUnitSubject
 import es.uniovi.apuntesuniovi.services.commands.unitSubjects.FindAllUnitSubjects
-import es.uniovi.apuntesuniovi.services.dtos.assemblers.UnitSubjectAssembler
-import es.uniovi.apuntesuniovi.services.dtos.entities.UnitSubjectDto
+import es.uniovi.apuntesuniovi.dtos.assemblers.UnitSubjectAssembler
+import es.uniovi.apuntesuniovi.dtos.entities.UnitSubjectDto
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable

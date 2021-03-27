@@ -1,4 +1,4 @@
-package es.uniovi.apuntesuniovi.services.dtos.assemblers
+package es.uniovi.apuntesuniovi.dtos.assemblers
 
 import es.uniovi.apuntesuniovi.infrastructure.messages.TeachSubjectMessages
 import es.uniovi.apuntesuniovi.models.TeachSubject
@@ -7,7 +7,7 @@ import es.uniovi.apuntesuniovi.repositories.SubjectRepository
 import es.uniovi.apuntesuniovi.repositories.UserRepository
 import es.uniovi.apuntesuniovi.services.commands.subjects.FindSubjectById
 import es.uniovi.apuntesuniovi.services.commands.users.FindUserById
-import es.uniovi.apuntesuniovi.services.dtos.entities.TeachSubjectDto
+import es.uniovi.apuntesuniovi.dtos.entities.TeachSubjectDto
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 

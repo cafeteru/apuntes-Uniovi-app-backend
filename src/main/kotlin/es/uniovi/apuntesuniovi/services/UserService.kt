@@ -1,12 +1,13 @@
 package es.uniovi.apuntesuniovi.services
 
+import es.uniovi.apuntesuniovi.dtos.assemblers.UserAssembler
+import es.uniovi.apuntesuniovi.dtos.entities.UserDto
 import es.uniovi.apuntesuniovi.infrastructure.log.LogService
 import es.uniovi.apuntesuniovi.models.User
 import es.uniovi.apuntesuniovi.repositories.AddressRepository
 import es.uniovi.apuntesuniovi.repositories.UserRepository
 import es.uniovi.apuntesuniovi.services.commands.users.*
-import es.uniovi.apuntesuniovi.services.dtos.assemblers.UserAssembler
-import es.uniovi.apuntesuniovi.services.dtos.entities.UserDto
+import es.uniovi.apuntesuniovi.statistics.UserStatistics
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -122,6 +123,16 @@ class UserService @Autowired constructor(
     logService.info("delete(id: $id) - start")
     val result = DeleteUser(userRepository, id).execute()
     logService.info("delete(id: $id) - end")
+    return result
+  }
+
+  /**
+   * Return user statistics
+   */
+  fun getStadistics(): UserStatistics {
+    logService.info("getStadistics() - start")
+    val result = GetUserStatistics(userRepository).execute()
+    logService.info("getStadistics() - end")
     return result
   }
 

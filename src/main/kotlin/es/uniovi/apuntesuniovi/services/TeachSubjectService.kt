@@ -4,8 +4,8 @@ import es.uniovi.apuntesuniovi.models.TeachSubject
 import es.uniovi.apuntesuniovi.repositories.TeachSubjectRepository
 import es.uniovi.apuntesuniovi.services.commands.teachSubjects.CreateTeachSubject
 import es.uniovi.apuntesuniovi.services.commands.teachSubjects.FindAllTeachSubjects
-import es.uniovi.apuntesuniovi.services.dtos.assemblers.TeachSubjectAssembler
-import es.uniovi.apuntesuniovi.services.dtos.entities.TeachSubjectDto
+import es.uniovi.apuntesuniovi.dtos.assemblers.TeachSubjectAssembler
+import es.uniovi.apuntesuniovi.dtos.entities.TeachSubjectDto
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable

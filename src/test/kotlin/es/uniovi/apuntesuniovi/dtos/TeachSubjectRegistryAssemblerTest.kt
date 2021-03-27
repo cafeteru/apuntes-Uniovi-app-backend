@@ -1,11 +1,11 @@
-package es.uniovi.apuntesuniovi.services.dtos
+package es.uniovi.apuntesuniovi.dtos
 
 import es.uniovi.apuntesuniovi.infrastructure.messages.TeachSubjectRegistryMessages
 import es.uniovi.apuntesuniovi.mocks.dtos.MockTeachSubjectRegistryDtoCreator
 import es.uniovi.apuntesuniovi.mocks.entities.MockTeachSubjectCreator
 import es.uniovi.apuntesuniovi.mocks.entities.MockTeachSubjectRegistryCreator
 import es.uniovi.apuntesuniovi.repositories.TeachSubjectRepository
-import es.uniovi.apuntesuniovi.services.dtos.assemblers.TeachSubjectRegistryAssembler
+import es.uniovi.apuntesuniovi.dtos.assemblers.TeachSubjectRegistryAssembler
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test

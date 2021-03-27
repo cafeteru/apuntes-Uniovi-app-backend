@@ -5,7 +5,7 @@ import es.uniovi.apuntesuniovi.models.Address
 import es.uniovi.apuntesuniovi.models.types.LanguageType
 import es.uniovi.apuntesuniovi.models.types.RoleType
 import es.uniovi.apuntesuniovi.services.UserService
-import es.uniovi.apuntesuniovi.services.dtos.entities.UserDto
+import es.uniovi.apuntesuniovi.dtos.entities.UserDto
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import java.time.LocalDate
