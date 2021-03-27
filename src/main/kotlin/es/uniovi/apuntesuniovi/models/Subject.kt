@@ -29,9 +29,6 @@ class Subject {
   @Enumerated(EnumType.STRING)
   var subjectType: SubjectType? = null
 
-  @ManyToOne
-  var semester: Semester? = null
-
   @OneToMany(mappedBy = "subject", cascade = [(CascadeType.ALL)])
   val teachSubjects: Set<TeachSubject> = HashSet()
 

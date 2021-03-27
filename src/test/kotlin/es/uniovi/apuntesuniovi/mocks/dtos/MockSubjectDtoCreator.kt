@@ -2,7 +2,7 @@ package es.uniovi.apuntesuniovi.mocks.dtos
 
 import es.uniovi.apuntesuniovi.mocks.MockCreator
 import es.uniovi.apuntesuniovi.models.types.SubjectType
-import es.uniovi.apuntesuniovi.services.dtos.entities.SubjectDto
+import es.uniovi.apuntesuniovi.dtos.entities.SubjectDto
 
 /**
  * Service to create mock data of the dto SubjectDto

@@ -1,7 +1,7 @@
 package es.uniovi.apuntesuniovi.services
 
 import es.uniovi.apuntesuniovi.infrastructure.log.LogService
-import es.uniovi.apuntesuniovi.services.dtos.assemblers.AbstractAssembler
+import es.uniovi.apuntesuniovi.dtos.assemblers.AbstractAssembler
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.PagingAndSortingRepository

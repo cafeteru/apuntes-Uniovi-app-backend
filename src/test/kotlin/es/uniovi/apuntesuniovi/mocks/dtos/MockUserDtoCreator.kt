@@ -5,7 +5,7 @@ import es.uniovi.apuntesuniovi.mocks.entities.MockAddressCreator
 import es.uniovi.apuntesuniovi.models.types.IdentificationType
 import es.uniovi.apuntesuniovi.models.types.LanguageType
 import es.uniovi.apuntesuniovi.models.types.RoleType
-import es.uniovi.apuntesuniovi.services.dtos.entities.UserDto
+import es.uniovi.apuntesuniovi.dtos.entities.UserDto
 import java.time.LocalDate
 
 /**

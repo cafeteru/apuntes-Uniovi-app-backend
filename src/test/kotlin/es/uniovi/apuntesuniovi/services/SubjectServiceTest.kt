@@ -2,7 +2,7 @@ package es.uniovi.apuntesuniovi.services
 
 import es.uniovi.apuntesuniovi.mocks.dtos.MockSubjectDtoCreator
 import es.uniovi.apuntesuniovi.repositories.SubjectRepository
-import es.uniovi.apuntesuniovi.services.dtos.assemblers.SubjectAssembler
+import es.uniovi.apuntesuniovi.dtos.assemblers.SubjectAssembler
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test

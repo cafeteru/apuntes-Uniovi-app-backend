@@ -3,10 +3,8 @@ package es.uniovi.apuntesuniovi.repositories.builders.users
 import com.querydsl.core.types.dsl.Expressions
 import es.uniovi.apuntesuniovi.mocks.dtos.MockUserDtoCreator
 import es.uniovi.apuntesuniovi.models.QUser
-import es.uniovi.apuntesuniovi.models.types.IdentificationType
-import es.uniovi.apuntesuniovi.models.types.RoleType
 import es.uniovi.apuntesuniovi.repositories.builders.UserBuilder
-import es.uniovi.apuntesuniovi.services.dtos.entities.UserDto
+import es.uniovi.apuntesuniovi.dtos.entities.UserDto
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test

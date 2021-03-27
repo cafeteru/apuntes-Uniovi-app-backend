@@ -2,7 +2,7 @@ package es.uniovi.apuntesuniovi.mocks.dtos
 
 import es.uniovi.apuntesuniovi.mocks.MockCreator
 import es.uniovi.apuntesuniovi.mocks.entities.MockTeachSubjectCreator
-import es.uniovi.apuntesuniovi.services.dtos.entities.TeachSubjectRegistryDto
+import es.uniovi.apuntesuniovi.dtos.entities.TeachSubjectRegistryDto
 import java.time.LocalDate
 
 /**
