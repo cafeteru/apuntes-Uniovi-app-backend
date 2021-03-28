@@ -46,7 +46,7 @@ class DisableTest {
     val userDto = userAssembler.entityToDto(user)
     Mockito.`when`(userRepository.findById(user.id!!)).thenReturn(Optional.of(user))
     Mockito.`when`(userRepository.save(user)).thenReturn(user)
-    val result = userService.disable(userDto.id!!, !userDto.active)
+    val result = userService.disable(userDto.id!!, !userDto.active!!)
     assertNotEquals(userDto, result)
     assertEquals(user.id, result.id)
   }

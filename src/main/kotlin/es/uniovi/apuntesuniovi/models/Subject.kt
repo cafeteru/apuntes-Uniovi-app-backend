@@ -17,7 +17,7 @@ class Subject {
   var id: Long? = null
 
   @Column(length = SubjectLimits.NAME)
-  var name: String = ""
+  var name: String? = ""
     set(value) {
       if (ValidatorMaxLength(value, SubjectLimits.NAME).isValid()) {
         field = value
@@ -29,7 +29,7 @@ class Subject {
   @Enumerated(EnumType.STRING)
   var subjectType: SubjectType? = null
 
-  var active: Boolean = true
+  var active: Boolean? = true
 
   @OneToMany(mappedBy = "subject", cascade = [(CascadeType.ALL)])
   val teachSubjects: Set<TeachSubject> = HashSet()

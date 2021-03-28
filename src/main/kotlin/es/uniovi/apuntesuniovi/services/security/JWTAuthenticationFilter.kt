@@ -44,7 +44,8 @@ class JWTAuthenticationFilter(
       val username = user.username
       if (username != null) {
         val aux = userService.findByUsername(username)
-        if (!aux.active) {
+        val active = aux.active
+        if (active != null && !active) {
           logService.error(UserMessages.DISABLE)
           return null
         }

@@ -6,6 +6,7 @@ import es.uniovi.apuntesuniovi.models.Address
 import es.uniovi.apuntesuniovi.models.QAddress
 import es.uniovi.apuntesuniovi.repositories.builders.AddressBuilder
 import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
@@ -57,7 +58,7 @@ class AddressBuilderTest {
     )
     address.city = null
     val builder = AddressBuilder().createBuilder(address)
-    Assertions.assertFalse(builder.value.toString().contains(expression.toString()))
+    assertFalse(builder.value.toString().contains(expression.toString()))
   }
 
   /**
@@ -70,7 +71,7 @@ class AddressBuilderTest {
     )
     address.postalCode = null
     val builder = AddressBuilder().createBuilder(address)
-    Assertions.assertFalse(builder.value.toString().contains(expression.toString()))
+    assertFalse(builder.value.toString().contains(expression.toString()))
   }
 
   /**
@@ -83,6 +84,6 @@ class AddressBuilderTest {
     )
     address.country = null
     val builder = AddressBuilder().createBuilder(address)
-    Assertions.assertFalse(builder.value.toString().contains(expression.toString()))
+    assertFalse(builder.value.toString().contains(expression.toString()))
   }
 }

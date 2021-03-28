@@ -16,7 +16,8 @@ class SubjectAssembler : AbstractAssembler<Subject, SubjectDto>() {
       val result = SubjectDto(
         id = it.id,
         name = it.name,
-        subjectType = it.subjectType.toString()
+        subjectType = it.subjectType.toString(),
+        active =  it.active
       )
       logService.info("entityToDto(entity: Subject) - end")
       return result
@@ -31,6 +32,7 @@ class SubjectAssembler : AbstractAssembler<Subject, SubjectDto>() {
       result.id = it.id
       result.name = it.name
       result.setSubjectType(it.subjectType)
+      result.active = it.active
       logService.info("dtoToEntity(dto: SubjectDto) - end")
       return result
     }

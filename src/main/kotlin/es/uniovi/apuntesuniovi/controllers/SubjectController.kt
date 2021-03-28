@@ -7,6 +7,8 @@ import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation
 import io.swagger.annotations.ApiParam
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
@@ -44,5 +46,29 @@ class SubjectController @Autowired constructor(
     val result = subjectService.create(subjectDto)
     logService.info("save(subjectDto: SubjectDto) - end")
     return ResponseEntity(result, HttpStatus.OK)
+  }
+
+  /**
+   * Returns all registered subjects
+   *
+   * @param subjectDto Subject to apply filters
+   * @param pageable Pageable
+   */
+  @PreAuthorize("hasRole('ROLE_ADMIN')")
+  @PostMapping("")
+  @ApiOperation("Returns all registered subjects")
+  fun findAll(
+    @ApiParam(name = "pageable", value = "Pageable") pageable: Pageable,
+    @ApiParam(name = "subjectDto", value = "Subject to apply filters")
+    @RequestBody(required = false) subjectDto: SubjectDto?
+  ): ResponseEntity<Page<SubjectDto>> {
+    logService.info("findAll() - start")
+    val page = subjectService.findAll(pageable, subjectDto)
+    var code = HttpStatus.OK
+    if (page.isEmpty) {
+      code = HttpStatus.NO_CONTENT
+    }
+    logService.info("findAll() - end")
+    return ResponseEntity(page, code)
   }
 }

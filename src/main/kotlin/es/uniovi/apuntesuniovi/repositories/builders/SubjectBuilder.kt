@@ -32,7 +32,7 @@ class SubjectBuilder {
     builder: BooleanBuilder,
     qSubject: QSubject
   ) {
-    if (subjectDto.name.isNotEmpty()) {
+    if (!subjectDto.name.isNullOrEmpty()) {
       builder.and(
         qSubject.name.like(
           Expressions.asString("%").concat(subjectDto.name).concat("%")
