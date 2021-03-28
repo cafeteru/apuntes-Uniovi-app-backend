@@ -8,14 +8,17 @@ import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito
+import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.PageRequest
 import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
+import java.util.ArrayList
 
 /**
  * Check find all method of the UserController class
  */
-class FindAllTest {
+class FindAllUsersTest {
   private lateinit var userController: UserController
   private lateinit var userService: UserService
 
@@ -32,15 +35,25 @@ class FindAllTest {
    * Checks the functionality with valid data
    */
   @Test
-  fun validData() {
+  fun findAllTest() {
     val userDto = MockUserDtoCreator().create()
-    val list = ArrayList<UserDto>()
-    list.add(userDto)
+    val list: List<UserDto> = listOf(userDto)
     val pageable = PageRequest.of(0, 5)
-    val page = PageImpl(list, pageable, 1)
-    Mockito.`when`(userService.findAll(pageable, null)).thenReturn(page)
-    val httpResponse = userController.findAll(pageable, null)
+    val page: Page<UserDto> = PageImpl(list, pageable, 1)
+    Mockito.`when`(userService.findAll(pageable, userDto)).thenReturn(page)
+    val httpResponse: ResponseEntity<Page<UserDto>> = userController.findAll(pageable, userDto)
     Assertions.assertEquals(httpResponse.statusCode, HttpStatus.OK)
     Assertions.assertEquals(httpResponse.body, page)
+  }
+
+  @Test
+  fun findAllEmptyTest() {
+    val pageable = PageRequest.of(0, 5)
+    val page: Page<UserDto> = PageImpl(ArrayList(), pageable, 1)
+    val userDto = MockUserDtoCreator().create()
+    Mockito.`when`(userService.findAll(pageable, userDto)).thenReturn(page)
+    val httpResponse: ResponseEntity<Page<UserDto>> =
+      userController.findAll(pageable, userDto)
+    Assertions.assertEquals(httpResponse.statusCode, HttpStatus.NO_CONTENT)
   }
 }

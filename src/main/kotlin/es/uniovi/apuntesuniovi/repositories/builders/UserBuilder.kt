@@ -23,7 +23,9 @@ class UserBuilder {
       createSurnameFilter(it, builder, qUser)
       createEmailFilter(it, builder, qUser)
       createPhoneFilter(it, builder, qUser)
-      builder.and(qUser.active.eq(it.active))
+      if (it.active != null) {
+        builder.and(qUser.active.eq(it.active))
+      }
       if (it.birthDate != null) {
         builder.and(qUser.birthDate.eq(it.birthDate))
       }

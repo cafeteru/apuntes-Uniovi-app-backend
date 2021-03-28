@@ -12,7 +12,8 @@ class MockSubjectDtoCreator : MockCreator<SubjectDto> {
     return SubjectDto(
       id = 3,
       name = "name",
-      subjectType = SubjectType.BASIC.toString()
+      subjectType = SubjectType.BASIC.toString(),
+      active = true
     )
   }
 }

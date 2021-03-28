@@ -1,9 +1,10 @@
 package es.uniovi.apuntesuniovi.dtos.assemblers
 
+import es.uniovi.apuntesuniovi.dtos.entities.UserDto
 import es.uniovi.apuntesuniovi.infrastructure.messages.UserMessages
 import es.uniovi.apuntesuniovi.models.User
-import es.uniovi.apuntesuniovi.dtos.entities.UserDto
 import org.springframework.stereotype.Service
+import java.lang.Boolean
 
 /**
  * Define the entity and dto conversion methods of users
@@ -50,7 +51,7 @@ class UserAssembler : AbstractAssembler<User, UserDto>() {
       user.surname = it.surname
       user.email = it.email
       user.phone = it.phone
-      user.active = it.active
+      user.active = Boolean.parseBoolean(it.active.toString())
       user.img = it.img
       user.birthDate = it.birthDate
       user.username = it.username

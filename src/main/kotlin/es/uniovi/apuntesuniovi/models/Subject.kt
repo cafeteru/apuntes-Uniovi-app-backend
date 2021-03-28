@@ -17,7 +17,7 @@ class Subject {
   var id: Long? = null
 
   @Column(length = SubjectLimits.NAME)
-  var name: String = ""
+  var name: String? = ""
     set(value) {
       if (ValidatorMaxLength(value, SubjectLimits.NAME).isValid()) {
         field = value
@@ -27,7 +27,9 @@ class Subject {
     }
 
   @Enumerated(EnumType.STRING)
-  var subjectType: SubjectType? = null
+  var subjectType: SubjectType = SubjectType.BASIC
+
+  var active: Boolean = true
 
   @OneToMany(mappedBy = "subject", cascade = [(CascadeType.ALL)])
   val teachSubjects: Set<TeachSubject> = HashSet()
@@ -54,7 +56,7 @@ class Subject {
         throw IllegalArgumentException(SubjectMessages.INVALID_SUBJECT_TYPE)
       }
     } else {
-      this.subjectType = null
+      throw IllegalArgumentException(SubjectMessages.INVALID_SUBJECT_TYPE)
     }
   }
 
@@ -67,14 +69,18 @@ class Subject {
     if (id != other.id) return false
     if (name != other.name) return false
     if (subjectType != other.subjectType) return false
+    if (active != other.active) return false
 
     return true
   }
 
   override fun hashCode(): Int {
     var result = id?.hashCode() ?: 0
-    result = 31 * result + name.hashCode()
-    result = 31 * result + (subjectType?.hashCode() ?: 0)
+    result = 31 * result + (name?.hashCode() ?: 0)
+    result = 31 * result + subjectType.hashCode()
+    result = 31 * result + active.hashCode()
     return result
   }
+
+
 }

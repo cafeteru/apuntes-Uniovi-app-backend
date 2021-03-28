@@ -1,35 +1,74 @@
 package es.uniovi.apuntesuniovi.controllers
 
-import es.uniovi.apuntesuniovi.models.Subject
-import es.uniovi.apuntesuniovi.services.BaseService
-import es.uniovi.apuntesuniovi.services.SubjectService
 import es.uniovi.apuntesuniovi.dtos.entities.SubjectDto
+import es.uniovi.apuntesuniovi.infrastructure.log.LogService
+import es.uniovi.apuntesuniovi.services.SubjectService
+import io.swagger.annotations.Api
+import io.swagger.annotations.ApiOperation
+import io.swagger.annotations.ApiParam
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
+import org.springframework.http.HttpStatus
+import org.springframework.http.MediaType
+import org.springframework.http.ResponseEntity
+import org.springframework.security.access.prepost.PreAuthorize
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import javax.validation.Valid
 
 /**
  * Define subject endpoints
  */
 @RestController
 @RequestMapping("/subjects")
+@Api(tags = ["Subjects"])
 class SubjectController @Autowired constructor(
   private val subjectService: SubjectService
-) : BaseController<Subject, SubjectDto>(subjectService) {
+) {
+  private val logService = LogService(this.javaClass)
 
-  override fun create(
-    baseService: BaseService<Subject, SubjectDto>,
-    dto: SubjectDto
-  ): SubjectDto {
-    return subjectService.create(dto)
+  /**
+   * Create a new subject
+   *
+   * @param subjectDto Subject to create
+   */
+  @PreAuthorize("hasRole('ROLE_ADMIN')")
+  @PostMapping(value = ["/create"], consumes = [MediaType.APPLICATION_JSON_VALUE])
+  @ApiOperation(value = "Create a new subject")
+  fun create(
+    @ApiParam(name = "subjectDto", value = "Subject to create")
+    @Valid @RequestBody subjectDto: SubjectDto
+  ): ResponseEntity<SubjectDto> {
+    logService.info("save(subjectDto: SubjectDto) - start")
+    val result = subjectService.create(subjectDto)
+    logService.info("save(subjectDto: SubjectDto) - end")
+    return ResponseEntity(result, HttpStatus.OK)
   }
 
-  override fun findAll(
-    baseService: BaseService<Subject, SubjectDto>,
-    pageable: Pageable
-  ): Page<SubjectDto> {
-    return subjectService.findAll(pageable)
+  /**
+   * Returns all registered subjects
+   *
+   * @param subjectDto Subject to apply filters
+   * @param pageable Pageable
+   */
+  @PreAuthorize("hasRole('ROLE_ADMIN')")
+  @PostMapping("")
+  @ApiOperation("Returns all registered subjects")
+  fun findAll(
+    @ApiParam(name = "pageable", value = "Pageable") pageable: Pageable,
+    @ApiParam(name = "subjectDto", value = "Subject to apply filters")
+    @RequestBody(required = false) subjectDto: SubjectDto?
+  ): ResponseEntity<Page<SubjectDto>> {
+    logService.info("findAll() - start")
+    val page = subjectService.findAll(pageable, subjectDto)
+    var code = HttpStatus.OK
+    if (page.isEmpty) {
+      code = HttpStatus.NO_CONTENT
+    }
+    logService.info("findAll() - end")
+    return ResponseEntity(page, code)
   }
 }

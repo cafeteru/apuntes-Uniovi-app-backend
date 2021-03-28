@@ -80,9 +80,13 @@ class UserController @Autowired constructor(
     @ApiParam(name = "userDto", value = "User to apply filters") @RequestBody(required = false) userDto: UserDto?
   ): ResponseEntity<Page<UserDto>> {
     logService.info("findAll() - start")
-    val result = userService.findAll(pageable, userDto)
+    val page = userService.findAll(pageable, userDto)
+    var code = HttpStatus.OK
+    if (page.isEmpty) {
+      code = HttpStatus.NO_CONTENT
+    }
     logService.info("findAll() - end")
-    return ResponseEntity(result, HttpStatus.OK)
+    return ResponseEntity(page, code)
   }
 
   /**
