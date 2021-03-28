@@ -28,6 +28,7 @@ class SpringFoxConfig {
       .paths(PathSelectors.any())
       .build()
       .tags(
+        Tag("Subjects", "Define subject`s endpoints"),
         Tag("Users", "Define user`s endpoints")
       )
   }

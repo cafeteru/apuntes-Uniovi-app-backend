@@ -1,15 +1,11 @@
 package es.uniovi.apuntesuniovi.services
 
-import es.uniovi.apuntesuniovi.models.Subject
-import es.uniovi.apuntesuniovi.repositories.SubjectRepository
-import es.uniovi.apuntesuniovi.services.commands.subjects.CreateSubject
-import es.uniovi.apuntesuniovi.services.commands.subjects.FindAllSubjects
 import es.uniovi.apuntesuniovi.dtos.assemblers.SubjectAssembler
 import es.uniovi.apuntesuniovi.dtos.entities.SubjectDto
+import es.uniovi.apuntesuniovi.infrastructure.log.LogService
+import es.uniovi.apuntesuniovi.repositories.SubjectRepository
+import es.uniovi.apuntesuniovi.services.commands.subjects.CreateSubject
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.data.domain.Page
-import org.springframework.data.domain.Pageable
-import org.springframework.data.repository.PagingAndSortingRepository
 import org.springframework.stereotype.Service
 
 /**
@@ -18,20 +14,20 @@ import org.springframework.stereotype.Service
 @Service
 class SubjectService @Autowired constructor(
   private val subjectRepository: SubjectRepository,
-  subjectAssembler: SubjectAssembler,
-) : BaseService<Subject, SubjectDto>(subjectRepository, subjectAssembler) {
+  private val subjectAssembler: SubjectAssembler,
+) {
+  private val logService = LogService(this.javaClass)
 
-  override fun create(
-    repository: PagingAndSortingRepository<Subject, Long>,
-    entity: Subject
-  ): Subject {
-    return CreateSubject(subjectRepository, entity).execute()
-  }
-
-  override fun findAll(
-    repository: PagingAndSortingRepository<Subject, Long>,
-    pageable: Pageable
-  ): Page<Subject> {
-    return FindAllSubjects(subjectRepository, pageable).execute()
+  /**
+   * Create a new subject
+   *
+   * @param dto Subject to create
+   */
+  fun create(dto: SubjectDto): SubjectDto {
+    logService.info("create(dto: UserDto) - start")
+    val subject = subjectAssembler.dtoToEntity(dto)
+    val result = CreateSubject(subjectRepository, subject).execute()
+    logService.info("create(dto: UserDto) - end")
+    return subjectAssembler.entityToDto(result)
   }
 }

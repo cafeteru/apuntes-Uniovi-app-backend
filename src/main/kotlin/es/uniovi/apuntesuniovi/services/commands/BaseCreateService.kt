@@ -16,7 +16,7 @@ abstract class BaseCreateService<Entity>(
     logService.info("execute() - start")
     checkData()
     entity?.let {
-      val result = repository.save(it)
+      val result = repository.save(entity)
       logService.info("execute() - end")
       return result
     }
