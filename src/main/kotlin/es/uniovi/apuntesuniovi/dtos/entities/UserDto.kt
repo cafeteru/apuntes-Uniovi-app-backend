@@ -12,7 +12,7 @@ data class UserDto(
   var surname: String?,
   var email: String?,
   var phone: String?,
-  var active: Boolean,
+  var active: Boolean?,
   var img: String?,
   var birthDate: LocalDate?,
   var username: String?,
