@@ -60,7 +60,7 @@ open class User {
       }
     }
 
-  var active: Boolean? = true
+  var active: Boolean = true
 
   @Column(length = UserLimits.IMG)
   var img: String? = null
