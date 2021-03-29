@@ -6,6 +6,7 @@ import es.uniovi.apuntesuniovi.infrastructure.log.LogService
 import es.uniovi.apuntesuniovi.repositories.SubjectRepository
 import es.uniovi.apuntesuniovi.services.commands.subjects.CreateSubject
 import es.uniovi.apuntesuniovi.services.commands.subjects.FindAllSubjects
+import es.uniovi.apuntesuniovi.services.commands.subjects.FindSubjectById
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -44,5 +45,17 @@ class SubjectService @Autowired constructor(
     val result = FindAllSubjects(subjectRepository, subjectDto, pageable).execute()
     logService.info("findAll() - end")
     return result.map { entity -> subjectAssembler.entityToDto(entity) }
+  }
+
+  /**
+   * Returns the subject whose id matches
+   *
+   * @param id Subject id
+   */
+  fun findById(id: Long): SubjectDto {
+    logService.info("findById() - start")
+    val user = FindSubjectById(subjectRepository, id).execute()
+    logService.info("findById() - end")
+    return subjectAssembler.entityToDto(user)
   }
 }

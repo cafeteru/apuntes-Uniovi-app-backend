@@ -13,10 +13,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.security.access.prepost.PreAuthorize
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
 
 /**
@@ -70,5 +67,22 @@ class SubjectController @Autowired constructor(
     }
     logService.info("findAll() - end")
     return ResponseEntity(page, code)
+  }
+
+  /**
+   * Return a subject by id
+   *
+   * @param id Subject´s id
+   */
+  @PreAuthorize("hasRole('ROLE_ADMIN')")
+  @GetMapping("/{id}")
+  @ApiOperation("Return a subject by id")
+  fun findById(
+    @ApiParam(name = "id", value = "Subject´s id") @PathVariable id: Long
+  ): ResponseEntity<SubjectDto> {
+    logService.info("findById(id: ${id}) - start")
+    val result = subjectService.findById(id)
+    logService.info("findById(id: ${id}) - end")
+    return ResponseEntity(result, HttpStatus.OK)
   }
 }
