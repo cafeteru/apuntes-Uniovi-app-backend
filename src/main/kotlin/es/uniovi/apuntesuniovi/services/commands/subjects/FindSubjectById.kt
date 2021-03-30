@@ -12,6 +12,7 @@ class FindSubjectById(
   subjectRepository: SubjectRepository,
   id: Long
 ) : BaseFindByIdService<Subject>(subjectRepository, id) {
+
   override fun getMessageNotFound(): String {
     return SubjectMessages.NOT_FOUND
   }

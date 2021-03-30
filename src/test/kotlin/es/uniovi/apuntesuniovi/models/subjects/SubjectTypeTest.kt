@@ -53,8 +53,13 @@ class SubjectTypeTest {
    */
   @Test
   fun nullSubjectType() {
-    subject.setSubjectType(null)
-    assertNull(subject.subjectType)
+    try {
+      subject.setSubjectType(null)
+      fail("SubjectType is empty")
+    } catch (e: IllegalArgumentException) {
+      assertEquals(subjectType, subject.subjectType)
+      assertEquals(e.message, SubjectMessages.INVALID_SUBJECT_TYPE)
+    }
   }
 
   /**
