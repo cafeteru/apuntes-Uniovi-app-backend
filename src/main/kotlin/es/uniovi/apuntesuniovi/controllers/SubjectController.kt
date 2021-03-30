@@ -23,66 +23,66 @@ import javax.validation.Valid
 @RequestMapping("/subjects")
 @Api(tags = ["Subjects"])
 class SubjectController @Autowired constructor(
-  private val subjectService: SubjectService
+    private val subjectService: SubjectService
 ) {
-  private val logService = LogService(this.javaClass)
+    private val logService = LogService(this.javaClass)
 
-  /**
-   * Create a new subject
-   *
-   * @param subjectDto Subject to create
-   */
-  @PreAuthorize("hasRole('ROLE_ADMIN')")
-  @PostMapping(value = ["/create"], consumes = [MediaType.APPLICATION_JSON_VALUE])
-  @ApiOperation(value = "Create a new subject")
-  fun create(
-    @ApiParam(name = "subjectDto", value = "Subject to create")
-    @Valid @RequestBody subjectDto: SubjectDto
-  ): ResponseEntity<SubjectDto> {
-    logService.info("save(subjectDto: SubjectDto) - start")
-    val result = subjectService.create(subjectDto)
-    logService.info("save(subjectDto: SubjectDto) - end")
-    return ResponseEntity(result, HttpStatus.OK)
-  }
-
-  /**
-   * Returns all registered subjects
-   *
-   * @param subjectDto Subject to apply filters
-   * @param pageable Pageable
-   */
-  @PreAuthorize("hasRole('ROLE_ADMIN')")
-  @PostMapping("")
-  @ApiOperation("Returns all registered subjects")
-  fun findAll(
-    @ApiParam(name = "pageable", value = "Pageable") pageable: Pageable,
-    @ApiParam(name = "subjectDto", value = "Subject to apply filters")
-    @RequestBody(required = false) subjectDto: SubjectDto?
-  ): ResponseEntity<Page<SubjectDto>> {
-    logService.info("findAll() - start")
-    val page = subjectService.findAll(pageable, subjectDto)
-    var code = HttpStatus.OK
-    if (page.isEmpty) {
-      code = HttpStatus.NO_CONTENT
+    /**
+     * Create a new subject
+     *
+     * @param subjectDto Subject to create
+     */
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PostMapping(value = ["/create"], consumes = [MediaType.APPLICATION_JSON_VALUE])
+    @ApiOperation(value = "Create a new subject")
+    fun create(
+        @ApiParam(name = "subjectDto", value = "Subject to create")
+        @Valid @RequestBody subjectDto: SubjectDto
+    ): ResponseEntity<SubjectDto> {
+        logService.info("save(subjectDto: SubjectDto) - start")
+        val result = subjectService.create(subjectDto)
+        logService.info("save(subjectDto: SubjectDto) - end")
+        return ResponseEntity(result, HttpStatus.OK)
     }
-    logService.info("findAll() - end")
-    return ResponseEntity(page, code)
-  }
 
-  /**
-   * Return a subject by id
-   *
-   * @param id Subject´s id
-   */
-  @PreAuthorize("hasRole('ROLE_ADMIN')")
-  @GetMapping("/{id}")
-  @ApiOperation("Return a subject by id")
-  fun findById(
-    @ApiParam(name = "id", value = "Subject´s id") @PathVariable id: Long
-  ): ResponseEntity<SubjectDto> {
-    logService.info("findById(id: ${id}) - start")
-    val result = subjectService.findById(id)
-    logService.info("findById(id: ${id}) - end")
-    return ResponseEntity(result, HttpStatus.OK)
-  }
+    /**
+     * Returns all registered subjects
+     *
+     * @param subjectDto Subject to apply filters
+     * @param pageable Pageable
+     */
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PostMapping("")
+    @ApiOperation("Returns all registered subjects")
+    fun findAll(
+        @ApiParam(name = "pageable", value = "Pageable") pageable: Pageable,
+        @ApiParam(name = "subjectDto", value = "Subject to apply filters")
+        @RequestBody(required = false) subjectDto: SubjectDto?
+    ): ResponseEntity<Page<SubjectDto>> {
+        logService.info("findAll() - start")
+        val page = subjectService.findAll(pageable, subjectDto)
+        var code = HttpStatus.OK
+        if (page.isEmpty) {
+            code = HttpStatus.NO_CONTENT
+        }
+        logService.info("findAll() - end")
+        return ResponseEntity(page, code)
+    }
+
+    /**
+     * Return a subject by id
+     *
+     * @param id Subject´s id
+     */
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/{id}")
+    @ApiOperation("Return a subject by id")
+    fun findById(
+        @ApiParam(name = "id", value = "Subject´s id") @PathVariable id: Long
+    ): ResponseEntity<SubjectDto> {
+        logService.info("findById(id: ${id}) - start")
+        val result = subjectService.findById(id)
+        logService.info("findById(id: ${id}) - end")
+        return ResponseEntity(result, HttpStatus.OK)
+    }
 }

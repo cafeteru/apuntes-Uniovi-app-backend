@@ -24,50 +24,61 @@ import javax.inject.Inject
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 class WebSecurityConfig @Inject constructor(
-  private var userDetailsService: UserDetailsServiceImpl,
-  private var userService: UserService
+    private var userDetailsService: UserDetailsServiceImpl,
+    private var userService: UserService
 ) : WebSecurityConfigurerAdapter() {
-  private val logService = LogService(this.javaClass)
+    private val logService = LogService(this.javaClass)
 
-  override fun configure(http: HttpSecurity) {
-    logService.info("configure(httpSecurity: HttpSecurity) - start")
-    http.cors().and().csrf().disable().authorizeRequests()
-      .antMatchers(
-        LOGIN_URL, "/swagger", "/v2/api-docs", "/swagger-resources/**",
-        "/swagger-ui.html", "/webjars/**", "/swagger.json", "/"
-      ).permitAll().anyRequest()
-      .authenticated().and()
-      .addFilter(JWTAuthenticationFilter(authenticationManager(), userService))
-      .addFilter(JWTAuthorizationFilter(authenticationManager()))
-      .sessionManagement()
-      .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-      .logout().permitAll()
-    logService.info("configure(httpSecurity: HttpSecurity) - end")
-  }
+    override fun configure(http: HttpSecurity) {
+        logService.info("configure(httpSecurity: HttpSecurity) - start")
+        http.cors().and().csrf().disable().authorizeRequests()
+            .antMatchers(
+                LOGIN_URL, "/swagger", "/v2/api-docs", "/swagger-resources/**",
+                "/swagger-ui.html", "/webjars/**", "/swagger.json", "/"
+            ).permitAll().anyRequest()
+            .authenticated().and()
+            .addFilter(JWTAuthenticationFilter(authenticationManager(), userService))
+            .addFilter(JWTAuthorizationFilter(authenticationManager()))
+            .exceptionHandling().accessDeniedHandler(accessDeniedHandler())
+            .authenticationEntryPoint(authenticationEntryPoint()).and()
+            .sessionManagement()
+            .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+            .logout().permitAll()
+        logService.info("configure(httpSecurity: HttpSecurity) - end")
+    }
 
-  /**
-   * Add encryptor for passwords
-   */
-  @Inject
-  fun configureGlobal(auth: AuthenticationManagerBuilder) {
-    logService.info("configureGlobal(auth: AuthenticationManagerBuilder) - start")
-    auth.userDetailsService(userDetailsService).passwordEncoder(BCryptPasswordEncoder())
-    logService.info("configureGlobal(auth: AuthenticationManagerBuilder) - start")
-  }
+    /**
+     * Add encryptor for passwords
+     */
+    @Inject
+    fun configureGlobal(auth: AuthenticationManagerBuilder) {
+        logService.info("configureGlobal(auth: AuthenticationManagerBuilder) - start")
+        auth.userDetailsService(userDetailsService).passwordEncoder(BCryptPasswordEncoder())
+        logService.info("configureGlobal(auth: AuthenticationManagerBuilder) - start")
+    }
 
-  /**
-   * Indicates the types of requests allowed
-   */
-  @Bean
-  fun corsConfigurationSource(): CorsConfigurationSource {
-    logService.info("corsConfigurationSource() - start")
-    val source = UrlBasedCorsConfigurationSource()
-    val cors = CorsConfiguration()
-    cors.allowedMethods = listOf("GET", "POST", "PUT", "HEAD", "PATCH", "DELETE", "OPTIONS")
-    cors.allowedHeaders = listOf("authorization", "content-type", "x-auth-token")
-    source.registerCorsConfiguration("/**", cors.applyPermitDefaultValues())
-    logService.info("corsConfigurationSource() - end")
-    return source
-  }
+    /**
+     * Indicates the types of requests allowed
+     */
+    @Bean
+    fun corsConfigurationSource(): CorsConfigurationSource {
+        logService.info("corsConfigurationSource() - start")
+        val source = UrlBasedCorsConfigurationSource()
+        val cors = CorsConfiguration()
+        cors.allowedMethods = listOf("GET", "POST", "PUT", "HEAD", "PATCH", "DELETE", "OPTIONS")
+        cors.allowedHeaders = listOf("authorization", "content-type", "x-auth-token")
+        source.registerCorsConfiguration("/**", cors.applyPermitDefaultValues())
+        logService.info("corsConfigurationSource() - end")
+        return source
+    }
 
+    @Bean
+    fun accessDeniedHandler(): RestAccessDeniedHandler {
+        return RestAccessDeniedHandler()
+    }
+
+    @Bean
+    fun authenticationEntryPoint(): RestAuthenticationEntryPoint {
+        return RestAuthenticationEntryPoint()
+    }
 }

@@ -12,16 +12,16 @@ import org.springframework.data.domain.Pageable
  * Return all subjects in service layer
  */
 class FindAllSubjects(
-  private val subjectRepository: SubjectRepository,
-  private val subjectDto: SubjectDto?,
-  private val pageable: Pageable
+    private val subjectRepository: SubjectRepository,
+    private val subjectDto: SubjectDto?,
+    private val pageable: Pageable
 ) : AbstractCommand<Page<Subject>>() {
 
-  override fun execute(): Page<Subject> {
-    logService.info("execute() - start")
-    val filters = SubjectBuilder().createBuilder(subjectDto)
-    val list = subjectRepository.findAll(filters, pageable)
-    logService.info("execute() - end")
-    return list
-  }
+    override fun execute(): Page<Subject> {
+        logService.info("execute() - start")
+        val filters = SubjectBuilder().createBuilder(subjectDto)
+        val list = subjectRepository.findAll(filters, pageable)
+        logService.info("execute() - end")
+        return list
+    }
 }

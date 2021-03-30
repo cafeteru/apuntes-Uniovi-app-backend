@@ -26,43 +26,43 @@ import javax.servlet.http.HttpServletResponse
 Decrypt tokens to authenticate users
  */
 class JWTAuthorizationFilter(authManager: AuthenticationManager) : BasicAuthenticationFilter(authManager) {
-  private val logService = LogService(this.javaClass)
+    private val logService = LogService(this.javaClass)
 
-  override fun doFilterInternal(request: HttpServletRequest, response: HttpServletResponse, chain: FilterChain) {
-    logService.info("request: HttpServletRequest, response: HttpServletResponse, chain: FilterChain - start")
-    val token = request.getHeader(AUTHORIZATION_HEADER)
-    if (token == null || !token.startsWith(TOKEN_BEARER_PREFIX)) {
-      chain.doFilter(request, response)
-      return
+    override fun doFilterInternal(request: HttpServletRequest, response: HttpServletResponse, chain: FilterChain) {
+        logService.info("request: HttpServletRequest, response: HttpServletResponse, chain: FilterChain - start")
+        val token = request.getHeader(AUTHORIZATION_HEADER)
+        if (token == null || !token.startsWith(TOKEN_BEARER_PREFIX)) {
+            chain.doFilter(request, response)
+            return
+        }
+        SecurityContextHolder.getContext().authentication = getAuthentication(request)
+        chain.doFilter(request, response)
+        logService.info("request: HttpServletRequest, response: HttpServletResponse, chain: FilterChain - end")
     }
-    SecurityContextHolder.getContext().authentication = getAuthentication(request)
-    chain.doFilter(request, response)
-    logService.info("request: HttpServletRequest, response: HttpServletResponse, chain: FilterChain - end")
-  }
 
-  private fun getAuthentication(request: HttpServletRequest): UsernamePasswordAuthenticationToken? {
-    logService.info("getAuthentication(request: HttpServletRequest) - start")
-    try {
-      val token = request.getHeader(AUTHORIZATION_HEADER).replace(TOKEN_BEARER_PREFIX, "")
-      if (token != "") {
-        val user = JWT.require(Algorithm.HMAC512(SECRET)).build().verify(token).subject
+    private fun getAuthentication(request: HttpServletRequest): UsernamePasswordAuthenticationToken? {
+        logService.info("getAuthentication(request: HttpServletRequest) - start")
+        try {
+            val token = request.getHeader(AUTHORIZATION_HEADER).replace(TOKEN_BEARER_PREFIX, "")
+            if (token != "") {
+                val user = JWT.require(Algorithm.HMAC512(SECRET)).build().verify(token).subject
+                logService.info("getAuthentication(request: HttpServletRequest) - end")
+                return UsernamePasswordAuthenticationToken(user, "", getAuthorities(token))
+            }
+        } catch (e: ExpiredJwtException) {
+            logService.error(UserMessages.EXPIRED_TOKEN)
+        } catch (e: SignatureException) {
+            logService.error(UserMessages.INVALID_TOKEN)
+        } catch (e: TokenExpiredException) {
+            logService.error(UserMessages.EXPIRED_TOKEN)
+        }
         logService.info("getAuthentication(request: HttpServletRequest) - end")
-        return UsernamePasswordAuthenticationToken(user, "", getAuthorities(token))
-      }
-    } catch (e: ExpiredJwtException) {
-      logService.error(UserMessages.EXPIRED_TOKEN)
-    } catch (e: SignatureException) {
-      logService.error(UserMessages.INVALID_TOKEN)
-    } catch (e: TokenExpiredException) {
-      logService.error(UserMessages.EXPIRED_TOKEN)
+        return null
     }
-    logService.info("getAuthentication(request: HttpServletRequest) - end")
-    return null
-  }
 
-  private fun getAuthorities(token: String): List<GrantedAuthority> {
-    val decodedJwt = JWT.decode(token)
-    val role = decodedJwt.getClaim("role").asString()
-    return listOf(SimpleGrantedAuthority(role))
-  }
+    private fun getAuthorities(token: String): List<GrantedAuthority> {
+        val decodedJwt = JWT.decode(token)
+        val role = decodedJwt.getClaim("role").asString()
+        return listOf(SimpleGrantedAuthority(role))
+    }
 }

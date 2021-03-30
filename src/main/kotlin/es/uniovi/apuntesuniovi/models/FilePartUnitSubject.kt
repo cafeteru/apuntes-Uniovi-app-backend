@@ -10,20 +10,20 @@ import javax.persistence.*
  */
 @Entity
 class FilePartUnitSubject {
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  var id: Long? = null
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    var id: Long? = null
 
-  @Column(length = FilePartUnitSubjectLimits.CONTENT)
-  var content: String? = null
-    set(value) {
-      if (ValidatorMaxLength(value, FilePartUnitSubjectLimits.CONTENT).isValid()) {
-        field = value
-      } else {
-        throw IllegalArgumentException(FilePartUnitSubjectMessages.LIMIT_CONTENT)
-      }
-    }
+    @Column(length = FilePartUnitSubjectLimits.CONTENT)
+    var content: String? = null
+        set(value) {
+            if (ValidatorMaxLength(value, FilePartUnitSubjectLimits.CONTENT).isValid()) {
+                field = value
+            } else {
+                throw IllegalArgumentException(FilePartUnitSubjectMessages.LIMIT_CONTENT)
+            }
+        }
 
-  @ManyToOne
-  var partUnitSubject: PartUnitSubject? = null
+    @ManyToOne
+    var partUnitSubject: PartUnitSubject? = null
 }

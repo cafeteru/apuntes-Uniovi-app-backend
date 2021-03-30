@@ -16,17 +16,17 @@ import javax.inject.Inject
  */
 @Service
 class UserDetailsServiceImpl @Inject constructor(
-  private val userRepository: UserRepository
+    private val userRepository: UserRepository
 ) : UserDetailsService {
-  private val logService = LogService(this.javaClass)
+    private val logService = LogService(this.javaClass)
 
-  override fun loadUserByUsername(username: String): UserDetails {
-    logService.info("loadUserByUsername(username: $username) - start")
-    val optional = userRepository.findByUsername(username)
-    Assert.isTrue(optional.isPresent, username)
-    val user = optional.get()
-    logService.info("loadUserByUsername(username: $username) - end")
-    val role = SimpleGrantedAuthority("ROLE_" + user.role)
-    return User(user.username, user.password, listOf(role))
-  }
+    override fun loadUserByUsername(username: String): UserDetails {
+        logService.info("loadUserByUsername(username: $username) - start")
+        val optional = userRepository.findByUsername(username)
+        Assert.isTrue(optional.isPresent, username)
+        val user = optional.get()
+        logService.info("loadUserByUsername(username: $username) - end")
+        val role = SimpleGrantedAuthority("ROLE_" + user.role)
+        return User(user.username, user.password, listOf(role))
+    }
 }

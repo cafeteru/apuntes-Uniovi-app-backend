@@ -8,23 +8,23 @@ import org.springframework.data.repository.PagingAndSortingRepository
  * Create a entity in service layer
  */
 abstract class BaseCreateService<Entity>(
-  private val repository: PagingAndSortingRepository<Entity, Long>,
-  private val entity: Entity,
+    private val repository: PagingAndSortingRepository<Entity, Long>,
+    private val entity: Entity,
 ) : AbstractCommand<Entity>() {
 
-  override fun execute(): Entity {
-    logService.info("execute() - start")
-    checkData()
-    entity?.let {
-      val result = repository.save(entity)
-      logService.info("execute() - end")
-      return result
+    override fun execute(): Entity {
+        logService.info("execute() - start")
+        checkData()
+        entity?.let {
+            val result = repository.save(entity)
+            logService.info("execute() - end")
+            return result
+        }
+        throw IllegalArgumentException(UserMessages.NULL)
     }
-    throw IllegalArgumentException(UserMessages.NULL)
-  }
 
-  /**
-   * Check the data
-   */
-  abstract fun checkData();
+    /**
+     * Check the data
+     */
+    abstract fun checkData();
 }

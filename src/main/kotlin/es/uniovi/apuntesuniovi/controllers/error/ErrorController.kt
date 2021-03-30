@@ -17,31 +17,31 @@ import java.util.*
  */
 @ControllerAdvice
 class ErrorController @Autowired constructor(
-  private val userService: UserService,
-  private val loadMessages: LoadMessages
+    private val userService: UserService,
+    private val loadMessages: LoadMessages
 ) {
-  private val logService = LogService(this.javaClass)
+    private val logService = LogService(this.javaClass)
 
-  /**
-   * Returns a Json with the error occurred
-   */
-  @ExceptionHandler(value = [IllegalArgumentException::class])
-  fun responseException(e: IllegalArgumentException): ResponseEntity<Map<String, String?>> {
-    logService.error(e.message)
-    val authentication = SecurityContextHolder.getContext().authentication
-    val username = authentication.name
-    if (username != "anonymousUser") {
-      val user = userService.findByUsername(username)
-      loadMessages.setLanguage(user.language)
+    /**
+     * Returns a Json with the error occurred
+     */
+    @ExceptionHandler(value = [IllegalArgumentException::class])
+    fun responseException(e: IllegalArgumentException): ResponseEntity<Map<String, String?>> {
+        logService.error(e.message)
+        val authentication = SecurityContextHolder.getContext().authentication
+        val username = authentication.name
+        if (username != "anonymousUser") {
+            val user = userService.findByUsername(username)
+            loadMessages.setLanguage(user.language)
+        }
+        return ResponseEntity(createJsonError(e.message), HttpStatus.BAD_REQUEST)
     }
-    return ResponseEntity(createJsonError(e.message), HttpStatus.BAD_REQUEST)
-  }
 
-  private fun createJsonError(message: String?): Map<String, String?> {
-    logService.info("createJsonError(message: ${message}) - start")
-    val map = HashMap<String, String?>()
-    map["error"] = loadMessages[message]
-    logService.info("createJsonError(message: ${message}) - end")
-    return map
-  }
+    private fun createJsonError(message: String?): Map<String, String?> {
+        logService.info("createJsonError(message: ${message}) - start")
+        val map = HashMap<String, String?>()
+        map["error"] = loadMessages[message]
+        logService.info("createJsonError(message: ${message}) - end")
+        return map
+    }
 }
