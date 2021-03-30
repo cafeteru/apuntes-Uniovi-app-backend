@@ -17,19 +17,19 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2
 @EnableSwagger2
 class SpringFoxConfig {
 
-  /**
-   * Create Swagger's bean
-   */
-  @Bean
-  fun api(): Docket {
-    return Docket(DocumentationType.SWAGGER_2)
-      .select()
-      .apis(RequestHandlerSelectors.any())
-      .paths(PathSelectors.any())
-      .build()
-      .tags(
-        Tag("Subjects", "Define subject`s endpoints"),
-        Tag("Users", "Define user`s endpoints")
-      )
-  }
+    /**
+     * Create Swagger's bean
+     */
+    @Bean
+    fun api(): Docket {
+        return Docket(DocumentationType.SWAGGER_2)
+            .select()
+            .apis(RequestHandlerSelectors.any())
+            .paths(PathSelectors.any())
+            .build()
+            .tags(
+                Tag("Subjects", "Define subject`s endpoints"),
+                Tag("Users", "Define user`s endpoints")
+            )
+    }
 }

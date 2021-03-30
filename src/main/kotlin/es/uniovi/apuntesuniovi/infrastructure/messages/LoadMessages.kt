@@ -13,33 +13,33 @@ import java.util.*
  */
 @Component
 class LoadMessages @Autowired constructor(
-  private val messageSource: MessageSource
+    private val messageSource: MessageSource
 ) {
-  init {
-    setLanguage(LanguageType.ES.toString())
-  }
-
-  private lateinit var accessor: MessageSourceAccessor
-
-  /**
-   * Set the language
-   */
-  final fun setLanguage(language: String) {
-    val locale = Locale(language)
-    accessor = MessageSourceAccessor(messageSource, locale)
-  }
-
-  /**
-   * Get the 18n message
-   */
-  operator fun get(code: String?): String {
-    code?.let {
-      return try {
-        accessor.getMessage(it)
-      } catch (e: NoSuchMessageException) {
-        it
-      }
+    init {
+        setLanguage(LanguageType.ES.toString())
     }
-    return ""
-  }
+
+    private lateinit var accessor: MessageSourceAccessor
+
+    /**
+     * Set the language
+     */
+    final fun setLanguage(language: String) {
+        val locale = Locale(language)
+        accessor = MessageSourceAccessor(messageSource, locale)
+    }
+
+    /**
+     * Get the 18n message
+     */
+    operator fun get(code: String?): String {
+        code?.let {
+            return try {
+                accessor.getMessage(it)
+            } catch (e: NoSuchMessageException) {
+                it
+            }
+        }
+        return ""
+    }
 }

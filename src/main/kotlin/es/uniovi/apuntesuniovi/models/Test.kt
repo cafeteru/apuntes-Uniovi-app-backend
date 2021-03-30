@@ -8,13 +8,13 @@ import javax.persistence.*
  */
 @Entity
 class Test {
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  var id: Long? = null
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    var id: Long? = null
 
-  @ManyToMany
-  val units: Set<UnitSubject> = HashSet()
+    @ManyToMany
+    val units: Set<UnitSubject> = HashSet()
 
-  @ManyToMany(mappedBy = "tests", fetch = FetchType.LAZY, cascade = [(CascadeType.ALL)])
-  val questions: Set<Question> = HashSet()
+    @ManyToMany(mappedBy = "tests", fetch = FetchType.LAZY, cascade = [(CascadeType.ALL)])
+    val questions: Set<Question> = HashSet()
 }

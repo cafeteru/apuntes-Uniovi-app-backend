@@ -9,14 +9,14 @@ import es.uniovi.apuntesuniovi.services.commands.BaseFindByIdService
  * Return user by id in service layer
  */
 class FindUserById(
-  userRepository: UserRepository,
-  id: Long
+    userRepository: UserRepository,
+    id: Long
 ) : BaseFindByIdService<User>(userRepository, id) {
-  override fun getMessageNotFound(): String {
-    return UserMessages.NOT_FOUND
-  }
+    override fun getMessageNotFound(): String {
+        return UserMessages.NOT_FOUND
+    }
 
-  override fun getMessageInvalidId(): String {
-    return UserMessages.INVALID_ID
-  }
+    override fun getMessageInvalidId(): String {
+        return UserMessages.INVALID_ID
+    }
 }

@@ -8,4 +8,4 @@ import org.springframework.data.repository.PagingAndSortingRepository
  * Manage the Subject table
  */
 interface SubjectRepository : PagingAndSortingRepository<Subject, Long>,
-  QuerydslPredicateExecutor<Subject>
+    QuerydslPredicateExecutor<Subject>

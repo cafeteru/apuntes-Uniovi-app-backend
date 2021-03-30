@@ -11,57 +11,57 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
  * Update a user in service layer
  */
 class UpdateUser(
-  private val userRepository: UserRepository,
-  private val addressRepository: AddressRepository,
-  private val id: Long,
-  private val user: User
+    private val userRepository: UserRepository,
+    private val addressRepository: AddressRepository,
+    private val id: Long,
+    private val user: User
 ) : AbstractCommand<User>() {
 
-  override fun execute(): User {
-    logService.info("execute() - start")
-    val optional = userRepository.findById(id)
-    if (optional.isPresent) {
-      if (user.password != null) {
-        user.password = BCryptPasswordEncoder().encode(user.password)
-      } else {
-        user.password = optional.get().password
-      }
-      checkUniqueUsername()
-      checkUniqueNumberIdentification()
-      user.id = id
-      user.address?.let {
-        user.address = addressRepository.save(it)
-      }
-      val result = userRepository.save(user)
-      logService.info("execute() - end")
-      return result
+    override fun execute(): User {
+        logService.info("execute() - start")
+        val optional = userRepository.findById(id)
+        if (optional.isPresent) {
+            if (user.password != null) {
+                user.password = BCryptPasswordEncoder().encode(user.password)
+            } else {
+                user.password = optional.get().password
+            }
+            checkUniqueUsername()
+            checkUniqueNumberIdentification()
+            user.id = id
+            user.address?.let {
+                user.address = addressRepository.save(it)
+            }
+            val result = userRepository.save(user)
+            logService.info("execute() - end")
+            return result
+        }
+        throw IllegalArgumentException(UserMessages.NOT_FOUND)
     }
-    throw IllegalArgumentException(UserMessages.NOT_FOUND)
-  }
 
-  private fun checkUniqueUsername() {
-    logService.info("checkUniqueUsername() - start")
-    val username = user.username
-    if (username != null) {
-      val optional = userRepository.findByUsername(username)
-      if (optional.isPresent && optional.get().id != id) {
-        throw IllegalArgumentException(UserMessages.ALREADY_REGISTERED_USERNAME)
-      }
-      logService.info("checkUniqueUsername() - end")
-    } else {
-      throw IllegalArgumentException(UserMessages.INVALID_DATA_USER)
+    private fun checkUniqueUsername() {
+        logService.info("checkUniqueUsername() - start")
+        val username = user.username
+        if (username != null) {
+            val optional = userRepository.findByUsername(username)
+            if (optional.isPresent && optional.get().id != id) {
+                throw IllegalArgumentException(UserMessages.ALREADY_REGISTERED_USERNAME)
+            }
+            logService.info("checkUniqueUsername() - end")
+        } else {
+            throw IllegalArgumentException(UserMessages.INVALID_DATA_USER)
+        }
     }
-  }
 
-  private fun checkUniqueNumberIdentification() {
-    logService.info("checkUniqueNumberIdentification() - start")
-    val numberIdentification = user.numberIdentification
-    if (numberIdentification != null) {
-      val optional = userRepository.findByNumberIdentification(numberIdentification)
-      if (optional.isPresent && optional.get().id != id) {
-        throw IllegalArgumentException(UserMessages.ALREADY_REGISTERED_NUMBER_IDENTIFICATION)
-      }
-      logService.info("checkUniqueNumberIdentification() - end")
+    private fun checkUniqueNumberIdentification() {
+        logService.info("checkUniqueNumberIdentification() - start")
+        val numberIdentification = user.numberIdentification
+        if (numberIdentification != null) {
+            val optional = userRepository.findByNumberIdentification(numberIdentification)
+            if (optional.isPresent && optional.get().id != id) {
+                throw IllegalArgumentException(UserMessages.ALREADY_REGISTERED_NUMBER_IDENTIFICATION)
+            }
+            logService.info("checkUniqueNumberIdentification() - end")
+        }
     }
-  }
 }

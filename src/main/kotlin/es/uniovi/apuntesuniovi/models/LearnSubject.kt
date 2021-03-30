@@ -7,15 +7,15 @@ import javax.persistence.*
  */
 @Entity
 class LearnSubject {
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  var id: Long? = null
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    var id: Long? = null
 
-  @ManyToOne
-  lateinit var student: User
+    @ManyToOne
+    lateinit var student: User
 
-  @ManyToOne
-  lateinit var subject: Subject
+    @ManyToOne
+    lateinit var subject: Subject
 
-  var pass: Boolean = false
+    var pass: Boolean = false
 }
