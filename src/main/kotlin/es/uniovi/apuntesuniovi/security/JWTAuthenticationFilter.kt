@@ -3,6 +3,7 @@ package es.uniovi.apuntesuniovi.security
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm.HMAC512
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.google.gson.Gson
 import es.uniovi.apuntesuniovi.infrastructure.constants.SecurityConstants.AUTHORIZATION_HEADER
 import es.uniovi.apuntesuniovi.infrastructure.constants.SecurityConstants.EXPIRATION_TIME
 import es.uniovi.apuntesuniovi.infrastructure.constants.SecurityConstants.SECRET
@@ -23,6 +24,7 @@ import java.util.*
 import javax.servlet.FilterChain
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
+import kotlin.collections.HashMap
 
 /**
  * Service to authenticate users and create their token
@@ -37,7 +39,7 @@ class JWTAuthenticationFilter(
     this.authenticationManager = authenticationManager
   }
 
-  override fun attemptAuthentication(req: HttpServletRequest, res: HttpServletResponse): Authentication? {
+  override fun attemptAuthentication(req: HttpServletRequest, res: HttpServletResponse): Authentication?{
     logService.info("attemptAuthentication(req: HttpServletRequest, res: HttpServletResponse) - start")
     try {
       val user = ObjectMapper().readValue(req.inputStream, es.uniovi.apuntesuniovi.models.User::class.java)
@@ -75,7 +77,9 @@ class JWTAuthenticationFilter(
           "response: HttpServletResponse, chain: FilterChain, auth: Authentication) - start"
     )
     response.contentType = "application/json;charset=UTF-8"
-    response.writer.print("{ \"$AUTHORIZATION_HEADER\" : \"$TOKEN_BEARER_PREFIX${createToken(auth)}\" }")
+    val map = HashMap<String, String>()
+    map[AUTHORIZATION_HEADER] = createToken(auth)
+    response.writer.print(Gson().toJson(map))
     logService.info(
       "successfulAuthentication(request: HttpServletRequest, " +
           "response: HttpServletResponse, chain: FilterChain, auth: Authentication) - end"
@@ -93,7 +97,7 @@ class JWTAuthenticationFilter(
       .withExpiresAt(Date(System.currentTimeMillis() + EXPIRATION_TIME))
       .sign(HMAC512(SECRET))
     logService.info("createToken(auth: Authentication) - end")
-    return token
+    return TOKEN_BEARER_PREFIX + token
   }
 
   private fun getAuthorities(user: es.uniovi.apuntesuniovi.models.User): List<GrantedAuthority> {
