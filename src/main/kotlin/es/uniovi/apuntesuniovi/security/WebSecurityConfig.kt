@@ -1,4 +1,4 @@
-package es.uniovi.apuntesuniovi.services.security
+package es.uniovi.apuntesuniovi.security
 
 import es.uniovi.apuntesuniovi.infrastructure.constants.SecurityConstants.LOGIN_URL
 import es.uniovi.apuntesuniovi.infrastructure.log.LogService

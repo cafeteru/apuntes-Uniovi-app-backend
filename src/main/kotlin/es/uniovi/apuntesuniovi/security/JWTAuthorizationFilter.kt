@@ -1,4 +1,4 @@
-package es.uniovi.apuntesuniovi.services.security
+package es.uniovi.apuntesuniovi.security
 
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
