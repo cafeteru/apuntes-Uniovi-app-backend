@@ -39,8 +39,6 @@ class WebSecurityConfig @Inject constructor(
             .authenticated().and()
             .addFilter(JWTAuthenticationFilter(authenticationManager(), userService))
             .addFilter(JWTAuthorizationFilter(authenticationManager()))
-            .exceptionHandling().accessDeniedHandler(accessDeniedHandler())
-            .authenticationEntryPoint(authenticationEntryPoint()).and()
             .sessionManagement()
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
             .logout().permitAll()
@@ -70,15 +68,5 @@ class WebSecurityConfig @Inject constructor(
         source.registerCorsConfiguration("/**", cors.applyPermitDefaultValues())
         logService.info("corsConfigurationSource() - end")
         return source
-    }
-
-    @Bean
-    fun accessDeniedHandler(): RestAccessDeniedHandler {
-        return RestAccessDeniedHandler()
-    }
-
-    @Bean
-    fun authenticationEntryPoint(): RestAuthenticationEntryPoint {
-        return RestAuthenticationEntryPoint()
     }
 }

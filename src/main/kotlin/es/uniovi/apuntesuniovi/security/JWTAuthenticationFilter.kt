@@ -12,7 +12,6 @@ import es.uniovi.apuntesuniovi.infrastructure.log.LogService
 import es.uniovi.apuntesuniovi.infrastructure.messages.UserMessages
 import es.uniovi.apuntesuniovi.services.UserService
 import org.springframework.security.authentication.AuthenticationManager
-import org.springframework.security.authentication.InternalAuthenticationServiceException
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.GrantedAuthority
@@ -43,15 +42,6 @@ class JWTAuthenticationFilter(
         logService.info("attemptAuthentication(req: HttpServletRequest, res: HttpServletResponse) - start")
         try {
             val user = ObjectMapper().readValue(req.inputStream, es.uniovi.apuntesuniovi.models.User::class.java)
-            val username = user.username
-            if (username != null) {
-                val aux = userService.findByUsername(username)
-                val active = aux.active
-                if (active != null && !active) {
-                    logService.error(UserMessages.DISABLE)
-                    return null
-                }
-            }
             val authentication = UsernamePasswordAuthenticationToken(user.username, user.password, getAuthorities(user))
             val result = authenticationManager.authenticate(authentication)
             logService.info("attemptAuthentication(req: $req, response: $res) - end")
@@ -59,10 +49,6 @@ class JWTAuthenticationFilter(
         } catch (e: IOException) {
             logService.error(
                 "attemptAuthentication(req: HttpServletRequest, res: HttpServletResponse) - ${UserMessages.LOGIN_SYSTEM}"
-            )
-        } catch (e: InternalAuthenticationServiceException) {
-            logService.error(
-                "attemptAuthentication(req: HttpServletRequest, res: HttpServletResponse) - ${UserMessages.NOT_EXISTS}"
             )
         }
         return null
