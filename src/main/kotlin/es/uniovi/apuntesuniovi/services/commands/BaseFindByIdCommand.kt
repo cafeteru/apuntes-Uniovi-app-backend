@@ -1,15 +1,15 @@
 package es.uniovi.apuntesuniovi.services.commands
 
 import es.uniovi.apuntesuniovi.infrastructure.AbstractCommand
+import es.uniovi.apuntesuniovi.repositories.PagingQueryDslRepository
 import es.uniovi.apuntesuniovi.validators.impl.ValidatorId
-import org.springframework.data.repository.PagingAndSortingRepository
 import org.springframework.util.Assert
 
 /**
  * Find entity by id
  */
-abstract class BaseFindByIdService<Entity>(
-    private val repository: PagingAndSortingRepository<Entity, Long>,
+abstract class BaseFindByIdCommand<Entity>(
+    private val repository: PagingQueryDslRepository<Entity>,
     private val id: Long
 ) : AbstractCommand<Entity>() {
 

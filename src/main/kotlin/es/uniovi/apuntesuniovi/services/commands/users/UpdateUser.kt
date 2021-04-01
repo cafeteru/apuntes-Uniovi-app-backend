@@ -21,13 +21,13 @@ class UpdateUser(
         logService.info("execute() - start")
         val optional = userRepository.findById(id)
         if (optional.isPresent) {
+            checkUniqueUsername()
+            checkUniqueNumberIdentification()
             if (user.password != null) {
                 user.password = BCryptPasswordEncoder().encode(user.password)
             } else {
                 user.password = optional.get().password
             }
-            checkUniqueUsername()
-            checkUniqueNumberIdentification()
             user.id = id
             user.address?.let {
                 user.address = addressRepository.save(it)

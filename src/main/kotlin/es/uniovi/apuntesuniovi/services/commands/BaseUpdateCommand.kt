@@ -1,26 +1,30 @@
 package es.uniovi.apuntesuniovi.services.commands
 
 import es.uniovi.apuntesuniovi.infrastructure.AbstractCommand
-import org.springframework.data.repository.PagingAndSortingRepository
+import es.uniovi.apuntesuniovi.repositories.PagingQueryDslRepository
 
-/**
- * Create a entity in service layer
- */
-abstract class BaseCreateService<Entity>(
-    private val repository: PagingAndSortingRepository<Entity, Long>,
+abstract class BaseUpdateCommand<Entity>(
+    private val repository: PagingQueryDslRepository<Entity>,
+    private val id: Long,
     private val entity: Entity,
 ) : AbstractCommand<Entity>() {
 
     override fun execute(): Entity {
         logService.info("execute() - start")
+
         checkData()
         val result = repository.save(entity!!)
         logService.info("execute() - end")
         return result
     }
 
+    private fun checkExists(){
+        val optional = repository.findById(id)
+
+    }
+
     /**
      * Check the data
      */
-    abstract fun checkData();
+    abstract fun checkData()
 }
