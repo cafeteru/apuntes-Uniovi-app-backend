@@ -8,17 +8,14 @@ import es.uniovi.apuntesuniovi.models.types.IdentificationType
 import es.uniovi.apuntesuniovi.models.types.RoleType
 
 /**
- * Class to create conditions to filter addresses
+ * Class to create conditions to filter users
  */
-class UserBuilder {
+class UserBuilder : Builder<UserDto> {
 
-    /**
-     * Create conditions to filter addresses
-     */
-    fun createBuilder(userDto: UserDto?): BooleanBuilder {
+    override fun createBuilder(dto: UserDto?): BooleanBuilder {
         val builder = BooleanBuilder()
         val qUser = QUser.user
-        userDto?.let {
+        dto?.let {
             createNameFilter(it, builder, qUser)
             createSurnameFilter(it, builder, qUser)
             createEmailFilter(it, builder, qUser)

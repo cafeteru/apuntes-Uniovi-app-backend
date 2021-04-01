@@ -85,4 +85,24 @@ class SubjectController @Autowired constructor(
         logService.info("findById(id: ${id}) - end")
         return ResponseEntity(result, HttpStatus.OK)
     }
+
+    /**
+     * Create a new subject
+     *
+     * @param id Subject´s id
+     * @param subjectDto Subject to update
+     */
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PutMapping(value = ["/{id}"], consumes = [MediaType.APPLICATION_JSON_VALUE])
+    @ApiOperation(value = "Update a subject")
+    fun update(
+        @ApiParam(name = "id", value = "Subject´s id") @PathVariable id: Long,
+        @ApiParam(name = "subjectDto", value = "Subject to update")
+        @Valid @RequestBody subjectDto: SubjectDto
+    ): ResponseEntity<SubjectDto> {
+        logService.info("update(id: ${id}, SubjectDto: SubjectDto) - start")
+        val result = subjectService.update(id, subjectDto)
+        logService.info("update(id: ${id}, SubjectDto: SubjectDto) - end")
+        return ResponseEntity(result, HttpStatus.OK)
+    }
 }

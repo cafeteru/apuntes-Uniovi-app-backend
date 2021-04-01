@@ -22,40 +22,40 @@ import kotlin.test.assertNull
  */
 @ExtendWith(MockitoExtension::class)
 class ValidWithoutAddressTest {
-  private lateinit var user: User
-  private val encoder = BCryptPasswordEncoder()
+    private lateinit var user: User
+    private val encoder = BCryptPasswordEncoder()
 
-  @Mock
-  private lateinit var userRepository: UserRepository
+    @Mock
+    private lateinit var userRepository: UserRepository
 
-  @Mock
-  private lateinit var addressRepository: AddressRepository
+    @Mock
+    private lateinit var addressRepository: AddressRepository
 
-  /**
-   * Create init data for the test
-   */
-  @BeforeEach
-  fun initTest() {
-    user = MockUserCreator().create()
-    user.password = encoder.encode(user.password)
-  }
+    /**
+     * Create init data for the test
+     */
+    @BeforeEach
+    fun initTest() {
+        user = MockUserCreator().create()
+        user.password = encoder.encode(user.password)
+    }
 
-  /**
-   * Check with valid user and empty address
-   */
-  @Test
-  fun validUserWithoutAddress() {
-    val id = user.id!!
-    user.address = null
-    Mockito.`when`(userRepository.findById(id)).thenReturn(Optional.of(MockUserCreator().create()))
-    Mockito.`when`(userRepository.findByUsername(user.username!!)).thenReturn(Optional.of(user))
-    Mockito.`when`(userRepository.findByNumberIdentification(user.numberIdentification!!))
-      .thenReturn(Optional.of(MockUserCreator().create()))
-    Mockito.`when`(userRepository.save(Mockito.any(User::class.java))).thenReturn(user)
-    val result = UpdateUser(userRepository, addressRepository, id, user).execute()
-    assertNotNull(result)
-    assertEquals(result.password, user.password)
-    assertEquals(result.address, user.address)
-    assertNull(result.address)
-  }
+    /**
+     * Check with valid user and empty address
+     */
+    @Test
+    fun validUserWithoutAddress() {
+        val id = user.id!!
+        user.address = null
+        Mockito.`when`(userRepository.findById(id)).thenReturn(Optional.of(MockUserCreator().create()))
+        Mockito.`when`(userRepository.findByUsername(user.username!!)).thenReturn(Optional.of(user))
+        Mockito.`when`(userRepository.findByNumberIdentification(user.numberIdentification!!))
+            .thenReturn(Optional.of(MockUserCreator().create()))
+        Mockito.`when`(userRepository.save(Mockito.any(User::class.java))).thenReturn(user)
+        val result = UpdateUser(userRepository, addressRepository, id, user).execute()
+        assertNotNull(result)
+        assertEquals(result.password, user.password)
+        assertEquals(result.address, user.address)
+        assertNull(result.address)
+    }
 }

@@ -1,12 +1,11 @@
 package es.uniovi.apuntesuniovi.repositories
 
 import es.uniovi.apuntesuniovi.models.TeachSubject
-import org.springframework.data.repository.PagingAndSortingRepository
 
 /**
  * Manage the TeachSubject table
  */
-interface TeachSubjectRepository : PagingAndSortingRepository<TeachSubject, Long> {
+interface TeachSubjectRepository : PagingQueryDslRepository<TeachSubject> {
     /**
      * Return by id of subject and teacher
      */

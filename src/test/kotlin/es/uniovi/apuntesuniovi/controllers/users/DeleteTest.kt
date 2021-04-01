@@ -12,27 +12,27 @@ import org.springframework.http.HttpStatus
  * Check disable method of the UserController class
  */
 class DeleteTest {
-  private lateinit var userController: UserController
-  private lateinit var userService: UserService
+    private lateinit var userController: UserController
+    private lateinit var userService: UserService
 
-  /**
-   * Create init data for the test
-   */
-  @BeforeEach
-  fun initTest() {
-    userService = Mockito.mock(UserService::class.java)
-    userController = UserController(userService)
-  }
+    /**
+     * Create init data for the test
+     */
+    @BeforeEach
+    fun initTest() {
+        userService = Mockito.mock(UserService::class.java)
+        userController = UserController(userService)
+    }
 
-  /**
-   * Checks the functionality with valid data
-   */
-  @Test
-  fun validData() {
-    val id = 1L
-    Mockito.`when`(userService.delete(id)).thenReturn(true)
-    val httpResponse = userController.delete(id)
-    assertEquals(httpResponse.statusCode, HttpStatus.OK)
-    assertEquals(httpResponse.body, true)
-  }
+    /**
+     * Checks the functionality with valid data
+     */
+    @Test
+    fun validData() {
+        val id = 1L
+        Mockito.`when`(userService.delete(id)).thenReturn(true)
+        val httpResponse = userController.delete(id)
+        assertEquals(httpResponse.statusCode, HttpStatus.OK)
+        assertEquals(httpResponse.body, true)
+    }
 }

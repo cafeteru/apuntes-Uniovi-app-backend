@@ -20,102 +20,102 @@ import java.util.*
  */
 @ExtendWith(MockitoExtension::class)
 class CreateUserTest {
-  private lateinit var user: User
-  private val encoder = BCryptPasswordEncoder()
+    private lateinit var user: User
+    private val encoder = BCryptPasswordEncoder()
 
-  @Mock
-  private lateinit var userRepository: UserRepository
+    @Mock
+    private lateinit var userRepository: UserRepository
 
-  @Mock
-  private lateinit var addressRepository: AddressRepository
+    @Mock
+    private lateinit var addressRepository: AddressRepository
 
-  /**
-   * Create init data for the test
-   */
-  @BeforeEach
-  fun initTest() {
-    user = MockUserCreator().create()
-    user.password = encoder.encode(user.password)
-  }
-
-  /**
-   * Checks the functionality with valid user
-   */
-  @Test
-  fun validUser() {
-    Mockito.`when`(userRepository.save(Mockito.any(User::class.java))).thenReturn(user)
-    val result = CreateUser(userRepository, addressRepository, user).execute()
-    assertNotNull(result)
-    assertEquals(result.password, user.password)
-  }
-
-  /**
-   * Checks the functionality with valid user but the user already register
-   */
-  @Test
-  fun existedUser() {
-    Mockito.`when`(userRepository.findByUsername(user.username!!)).thenReturn(Optional.of(user))
-    try {
-      CreateUser(userRepository, addressRepository, user).execute()
-      fail("User already registered")
-    } catch (e: IllegalArgumentException) {
-      assertEquals(e.message, UserMessages.ALREADY_REGISTERED_USERNAME)
+    /**
+     * Create init data for the test
+     */
+    @BeforeEach
+    fun initTest() {
+        user = MockUserCreator().create()
+        user.password = encoder.encode(user.password)
     }
-  }
 
-  /**
-   * Checks the functionality with valid user except username is null
-   */
-  @Test
-  fun nullUsername() {
-    try {
-      user.username = null
-      CreateUser(userRepository, addressRepository, user).execute()
-      fail("Username can´t be null")
-    } catch (e: IllegalArgumentException) {
-      assertEquals(e.message, UserMessages.INVALID_DATA_USER)
+    /**
+     * Checks the functionality with valid user
+     */
+    @Test
+    fun validUser() {
+        Mockito.`when`(userRepository.save(Mockito.any(User::class.java))).thenReturn(user)
+        val result = CreateUser(userRepository, addressRepository, user).execute()
+        assertNotNull(result)
+        assertEquals(result.password, user.password)
     }
-  }
 
-  /**
-   * Checks the functionality with valid user except username is empty
-   */
-  @Test
-  fun emptyUsername() {
-    try {
-      user.username = ""
-      CreateUser(userRepository, addressRepository, user).execute()
-      fail("Username can´t be empty")
-    } catch (e: IllegalArgumentException) {
-      assertEquals(e.message, UserMessages.LIMIT_USERNAME)
+    /**
+     * Checks the functionality with valid user but the user already register
+     */
+    @Test
+    fun existedUser() {
+        Mockito.`when`(userRepository.findByUsername(user.username!!)).thenReturn(Optional.of(user))
+        try {
+            CreateUser(userRepository, addressRepository, user).execute()
+            fail("User already registered")
+        } catch (e: IllegalArgumentException) {
+            assertEquals(e.message, UserMessages.ALREADY_REGISTERED_USERNAME)
+        }
     }
-  }
 
-  /**
-   * Checks the functionality with valid user except password is null
-   */
-  @Test
-  fun nullPassword() {
-    try {
-      user.password = null
-      CreateUser(userRepository, addressRepository, user).execute()
-      fail("Password can´t be null")
-    } catch (e: IllegalArgumentException) {
-      assertEquals(e.message, UserMessages.INVALID_DATA_USER)
+    /**
+     * Checks the functionality with valid user except username is null
+     */
+    @Test
+    fun nullUsername() {
+        try {
+            user.username = null
+            CreateUser(userRepository, addressRepository, user).execute()
+            fail("Username can´t be null")
+        } catch (e: IllegalArgumentException) {
+            assertEquals(e.message, UserMessages.INVALID_DATA_USER)
+        }
     }
-  }
 
-  /**
-   * Checks the functionality with valid user except password is empty
-   */
-  @Test
-  fun emptyPassword() {
-    try {
-      user.password = ""
-      CreateUser(userRepository, addressRepository, user).execute()
-      fail("Password can´t be empty")
-    } catch (e: IllegalArgumentException) {
-      assertEquals(e.message, UserMessages.LIMIT_PASSWORD)
+    /**
+     * Checks the functionality with valid user except username is empty
+     */
+    @Test
+    fun emptyUsername() {
+        try {
+            user.username = ""
+            CreateUser(userRepository, addressRepository, user).execute()
+            fail("Username can´t be empty")
+        } catch (e: IllegalArgumentException) {
+            assertEquals(e.message, UserMessages.LIMIT_USERNAME)
+        }
     }
-  }
+
+    /**
+     * Checks the functionality with valid user except password is null
+     */
+    @Test
+    fun nullPassword() {
+        try {
+            user.password = null
+            CreateUser(userRepository, addressRepository, user).execute()
+            fail("Password can´t be null")
+        } catch (e: IllegalArgumentException) {
+            assertEquals(e.message, UserMessages.INVALID_DATA_USER)
+        }
+    }
+
+    /**
+     * Checks the functionality with valid user except password is empty
+     */
+    @Test
+    fun emptyPassword() {
+        try {
+            user.password = ""
+            CreateUser(userRepository, addressRepository, user).execute()
+            fail("Password can´t be empty")
+        } catch (e: IllegalArgumentException) {
+            assertEquals(e.message, UserMessages.LIMIT_PASSWORD)
+        }
+    }
 }

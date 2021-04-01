@@ -19,10 +19,10 @@ import org.springframework.stereotype.Service
 @Service
 class UserService @Autowired constructor(
     private val userRepository: UserRepository,
-    private val addressRepository: AddressRepository,
-    private val userAssembler: UserAssembler
+    private val addressRepository: AddressRepository
 ) {
     private val logService = LogService(this.javaClass)
+    private val userAssembler = UserAssembler()
 
     /**
      * Create a new user

@@ -22,37 +22,37 @@ import java.util.*
  */
 @ExtendWith(MockitoExtension::class)
 class NullUsernameTest {
-  private lateinit var user: User
-  private val encoder = BCryptPasswordEncoder()
+    private lateinit var user: User
+    private val encoder = BCryptPasswordEncoder()
 
-  @Mock
-  private lateinit var userRepository: UserRepository
+    @Mock
+    private lateinit var userRepository: UserRepository
 
-  @Mock
-  private lateinit var addressRepository: AddressRepository
+    @Mock
+    private lateinit var addressRepository: AddressRepository
 
-  /**
-   * Create init data for the test
-   */
-  @BeforeEach
-  fun initTest() {
-    user = MockUserCreator().create()
-    user.password = encoder.encode(user.password)
-  }
-
-  /**
-   * Check with valid user and null username
-   */
-  @Test
-  fun nullUsername() {
-    try {
-      val id = user.id!!
-      user.username = null
-      Mockito.`when`(userRepository.findById(id)).thenReturn(Optional.of(MockUserCreator().create()))
-      UpdateUser(userRepository, addressRepository, id, user).execute()
-      fail()
-    } catch (e: IllegalArgumentException) {
-      assertEquals(e.message, UserMessages.INVALID_DATA_USER)
+    /**
+     * Create init data for the test
+     */
+    @BeforeEach
+    fun initTest() {
+        user = MockUserCreator().create()
+        user.password = encoder.encode(user.password)
     }
-  }
+
+    /**
+     * Check with valid user and null username
+     */
+    @Test
+    fun nullUsername() {
+        try {
+            val id = user.id!!
+            user.username = null
+            Mockito.`when`(userRepository.findById(id)).thenReturn(Optional.of(MockUserCreator().create()))
+            UpdateUser(userRepository, addressRepository, id, user).execute()
+            fail()
+        } catch (e: IllegalArgumentException) {
+            assertEquals(e.message, UserMessages.INVALID_DATA_USER)
+        }
+    }
 }

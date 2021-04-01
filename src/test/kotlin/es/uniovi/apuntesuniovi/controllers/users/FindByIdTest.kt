@@ -13,27 +13,27 @@ import org.springframework.http.HttpStatus
  * Check find by id method of the UserController class
  */
 class FindByIdTest {
-  private lateinit var userController: UserController
-  private lateinit var userService: UserService
+    private lateinit var userController: UserController
+    private lateinit var userService: UserService
 
-  /**
-   * Create init data for the test
-   */
-  @BeforeEach
-  fun initTest() {
-    userService = Mockito.mock(UserService::class.java)
-    userController = UserController(userService)
-  }
+    /**
+     * Create init data for the test
+     */
+    @BeforeEach
+    fun initTest() {
+        userService = Mockito.mock(UserService::class.java)
+        userController = UserController(userService)
+    }
 
-  /**
-   * Checks the functionality with valid data
-   */
-  @Test
-  fun validData() {
-    val userDto = MockUserDtoCreator().create()
-    Mockito.`when`(userService.findById(1)).thenReturn(userDto)
-    val httpResponse = userController.findById(1)
-    Assertions.assertEquals(httpResponse.statusCode, HttpStatus.OK)
-    Assertions.assertEquals(httpResponse.body, userDto)
-  }
+    /**
+     * Checks the functionality with valid data
+     */
+    @Test
+    fun validData() {
+        val userDto = MockUserDtoCreator().create()
+        Mockito.`when`(userService.findById(1)).thenReturn(userDto)
+        val httpResponse = userController.findById(1)
+        Assertions.assertEquals(httpResponse.statusCode, HttpStatus.OK)
+        Assertions.assertEquals(httpResponse.body, userDto)
+    }
 }

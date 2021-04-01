@@ -3,16 +3,16 @@ package es.uniovi.apuntesuniovi.controllers.subjects
 import es.uniovi.apuntesuniovi.controllers.SubjectController
 import es.uniovi.apuntesuniovi.mocks.dtos.MockSubjectDtoCreator
 import es.uniovi.apuntesuniovi.services.SubjectService
-import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito
 import org.springframework.http.HttpStatus
 
 /**
- * Check find by id method of the UserController class
+ * Check the update method of the subjectService class
  */
-class FindByIdTest {
+class UpdateSubjectTest {
     private lateinit var subjectController: SubjectController
     private lateinit var subjectService: SubjectService
 
@@ -31,9 +31,9 @@ class FindByIdTest {
     @Test
     fun validData() {
         val subjectDto = MockSubjectDtoCreator().create()
-        Mockito.`when`(subjectService.findById(1)).thenReturn(subjectDto)
-        val httpResponse = subjectController.findById(1)
-        assertEquals(httpResponse.statusCode, HttpStatus.OK)
-        assertEquals(httpResponse.body, subjectDto)
+        Mockito.`when`(subjectService.update(subjectDto.id!!, subjectDto)).thenReturn(subjectDto)
+        val httpResponse = subjectController.update(subjectDto.id!!, subjectDto)
+        Assertions.assertEquals(httpResponse.statusCode, HttpStatus.OK)
+        Assertions.assertEquals(httpResponse.body, subjectDto)
     }
 }

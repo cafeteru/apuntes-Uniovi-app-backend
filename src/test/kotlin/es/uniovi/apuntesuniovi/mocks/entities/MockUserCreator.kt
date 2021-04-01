@@ -11,50 +11,50 @@ import java.time.LocalDate
  * Service to create mock data of the entity User
  */
 class MockUserCreator : MockCreator<User> {
-  override fun create(): User {
-    val user = User()
-    user.id = 1
-    user.name = "Test"
-    user.surname = "Test"
-    user.active = true
-    user.birthDate = LocalDate.now()
-    user.email = "test@test.es"
-    user.identificationType = IdentificationType.DNI
-    user.numberIdentification = RandomMethods.dni()
-    user.username = RandomMethods.randomUsername()
-    user.password = "testPassword"
-    user.role = RoleType.ADMIN
-    user.phone = "623548956"
-    user.img = "img"
-    user.address = MockAddressCreator().create()
-    return user
-  }
+    override fun create(): User {
+        val user = User()
+        user.id = 1
+        user.name = "Test"
+        user.surname = "Test"
+        user.active = true
+        user.birthDate = LocalDate.now()
+        user.email = "test@test.es"
+        user.identificationType = IdentificationType.DNI
+        user.numberIdentification = RandomMethods.dni()
+        user.username = RandomMethods.randomUsername()
+        user.password = "testPassword"
+        user.role = RoleType.ADMIN
+        user.phone = "623548956"
+        user.img = "img"
+        user.address = MockAddressCreator().create()
+        return user
+    }
 
-  /**
-   * Create a mock User without id
-   */
-  fun createWithoutId(): User {
-    val user = create()
-    user.id = null
-    return user
-  }
+    /**
+     * Create a mock User without id
+     */
+    fun createWithoutId(): User {
+        val user = create()
+        user.id = null
+        return user
+    }
 
-  /**
-   * Create a mock Teacher
-   */
-  fun createTeacher(): User {
-    val user = create()
-    user.role = RoleType.TEACHER
-    return user
-  }
+    /**
+     * Create a mock Teacher
+     */
+    fun createTeacher(): User {
+        val user = create()
+        user.role = RoleType.TEACHER
+        return user
+    }
 
-  /**
-   * Create a mock Student
-   */
-  fun createStudent(): User {
-    val user = create()
-    user.role = RoleType.STUDENT
-    return user
-  }
+    /**
+     * Create a mock Student
+     */
+    fun createStudent(): User {
+        val user = create()
+        user.role = RoleType.STUDENT
+        return user
+    }
 
 }

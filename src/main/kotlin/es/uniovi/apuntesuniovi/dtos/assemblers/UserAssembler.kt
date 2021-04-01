@@ -3,12 +3,10 @@ package es.uniovi.apuntesuniovi.dtos.assemblers
 import es.uniovi.apuntesuniovi.dtos.entities.UserDto
 import es.uniovi.apuntesuniovi.infrastructure.messages.UserMessages
 import es.uniovi.apuntesuniovi.models.User
-import org.springframework.stereotype.Service
 
 /**
  * Define the entity and dto conversion methods of users
  */
-@Service
 class UserAssembler : AbstractAssembler<User, UserDto>() {
     override fun entityToDto(entity: User?): UserDto {
         logService.info("entityToDto(user: User) - start")

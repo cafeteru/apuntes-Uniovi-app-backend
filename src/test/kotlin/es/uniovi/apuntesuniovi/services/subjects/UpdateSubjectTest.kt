@@ -1,12 +1,15 @@
 package es.uniovi.apuntesuniovi.services.subjects
 
 import es.uniovi.apuntesuniovi.dtos.assemblers.SubjectAssembler
+import es.uniovi.apuntesuniovi.dtos.entities.SubjectDto
 import es.uniovi.apuntesuniovi.infrastructure.messages.SubjectMessages
-import es.uniovi.apuntesuniovi.mocks.entities.MockSubjectCreator
+import es.uniovi.apuntesuniovi.mocks.dtos.MockSubjectDtoCreator
 import es.uniovi.apuntesuniovi.models.Subject
 import es.uniovi.apuntesuniovi.repositories.SubjectRepository
 import es.uniovi.apuntesuniovi.services.SubjectService
-import org.junit.jupiter.api.Assertions.*
+import org.assertj.core.api.Assertions.fail
+import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -16,47 +19,36 @@ import org.mockito.junit.jupiter.MockitoExtension
 import java.util.*
 
 /**
- * Check find by id method of the UserService class
+ * Check class UpdateSubject
  */
 @ExtendWith(MockitoExtension::class)
-class FindSubjectByIdTest {
-    private lateinit var subject: Subject
+class UpdateSubjectTest {
+    private lateinit var subjectDto: SubjectDto
     private lateinit var subjectService: SubjectService
+
+    private lateinit var subjectAssembler: SubjectAssembler
 
     @Mock
     private lateinit var subjectRepository: SubjectRepository
-
-    private val subjectAssembler = SubjectAssembler()
 
     /**
      * Create init data for the test
      */
     @BeforeEach
     fun initTest() {
-        subject = MockSubjectCreator().create()
+        subjectDto = MockSubjectDtoCreator().create()
         subjectService = SubjectService(subjectRepository)
+        subjectAssembler = SubjectAssembler()
     }
 
     /**
-     * Checks with valid id and existing user
+     * Check with valid user and a invalid id
      */
     @Test
-    fun validIdAndExistUser() {
-        val id = 1L
-        Mockito.`when`(subjectRepository.findById(id)).thenReturn(Optional.of(subject))
-        val result = subjectService.findById(id)
-        assertNotNull(result)
-        assertEquals(subjectAssembler.entityToDto(subject), result)
-    }
-
-    /**
-     * Checks with valid id and not existing user
-     */
-    @Test
-    fun validIdAndNotExistUser() {
-        val id = 1L
+    fun invalidId() {
         try {
-            subjectService.findById(id)
+            val id = 2L
+            subjectService.update(id, subjectDto)
             fail(SubjectMessages.NOT_FOUND)
         } catch (e: IllegalArgumentException) {
             assertEquals(e.message, SubjectMessages.NOT_FOUND)
@@ -64,16 +56,16 @@ class FindSubjectByIdTest {
     }
 
     /**
-     * Checks with invalid id
+     * Checks the functionality with valid user
      */
     @Test
-    fun invalidId() {
-        val id = -1L
-        try {
-            subjectService.findById(id)
-            fail(SubjectMessages.INVALID_ID)
-        } catch (e: IllegalArgumentException) {
-            assertEquals(e.message, SubjectMessages.INVALID_ID)
-        }
+    fun validUser() {
+        val id = subjectDto.id!!
+        val subject = subjectAssembler.dtoToEntity(subjectDto)
+        Mockito.`when`(subjectRepository.findById(id)).thenReturn(Optional.of(subject))
+        Mockito.`when`(subjectRepository.save(Mockito.any(Subject::class.java))).thenReturn(subject)
+        val result = subjectService.update(id, subjectDto)
+        Assertions.assertNotNull(result)
+        assertEquals(result, subjectDto)
     }
 }

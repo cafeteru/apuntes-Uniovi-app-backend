@@ -18,31 +18,31 @@ import kotlin.test.assertEquals
  */
 @ExtendWith(MockitoExtension::class)
 class CreateSubjectTest {
-  @Mock
-  private lateinit var subjectRepository: SubjectRepository
+    @Mock
+    private lateinit var subjectRepository: SubjectRepository
 
-  private val subjectAssembler = SubjectAssembler()
+    private val subjectAssembler = SubjectAssembler()
 
-  private lateinit var subjectService: SubjectService
+    private lateinit var subjectService: SubjectService
 
-  /**
-   * Create init data for the test
-   */
-  @BeforeEach
-  fun initTest() {
-    subjectService = SubjectService(subjectRepository, subjectAssembler)
-  }
+    /**
+     * Create init data for the test
+     */
+    @BeforeEach
+    fun initTest() {
+        subjectService = SubjectService(subjectRepository)
+    }
 
-  /**
-   * Checks the functionality with valid data
-   */
-  @Test
-  fun validData() {
-    val subject = MockSubjectCreator().create()
-    val subjectDto = subjectAssembler.entityToDto(subject)
-    Mockito.`when`(subjectRepository.save(Mockito.any(Subject::class.java))).thenReturn(subject)
-    val result = subjectService.create(subjectDto)
-    assertEquals(subjectDto, result)
-    assertEquals(subject.id, result.id)
-  }
+    /**
+     * Checks the functionality with valid data
+     */
+    @Test
+    fun validData() {
+        val subject = MockSubjectCreator().create()
+        val subjectDto = subjectAssembler.entityToDto(subject)
+        Mockito.`when`(subjectRepository.save(Mockito.any(Subject::class.java))).thenReturn(subject)
+        val result = subjectService.create(subjectDto)
+        assertEquals(subjectDto, result)
+        assertEquals(subject.id, result.id)
+    }
 }

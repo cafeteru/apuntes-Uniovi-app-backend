@@ -13,27 +13,27 @@ import org.springframework.http.HttpStatus
  * Check the update method of the UserService class
  */
 class UpdateTest {
-  private lateinit var userController: UserController
-  private lateinit var userService: UserService
+    private lateinit var userController: UserController
+    private lateinit var userService: UserService
 
-  /**
-   * Create init data for the test
-   */
-  @BeforeEach
-  fun initTest() {
-    userService = Mockito.mock(UserService::class.java)
-    userController = UserController(userService)
-  }
+    /**
+     * Create init data for the test
+     */
+    @BeforeEach
+    fun initTest() {
+        userService = Mockito.mock(UserService::class.java)
+        userController = UserController(userService)
+    }
 
-  /**
-   * Checks the functionality with valid data
-   */
-  @Test
-  fun validData() {
-    val userDto = MockUserDtoCreator().create()
-    Mockito.`when`(userService.update(userDto.id!!, userDto)).thenReturn(userDto)
-    val httpResponse = userController.update(userDto.id!!, userDto)
-    Assertions.assertEquals(httpResponse.statusCode, HttpStatus.OK)
-    Assertions.assertEquals(httpResponse.body, userDto)
-  }
+    /**
+     * Checks the functionality with valid data
+     */
+    @Test
+    fun validData() {
+        val userDto = MockUserDtoCreator().create()
+        Mockito.`when`(userService.update(userDto.id!!, userDto)).thenReturn(userDto)
+        val httpResponse = userController.update(userDto.id!!, userDto)
+        Assertions.assertEquals(httpResponse.statusCode, HttpStatus.OK)
+        Assertions.assertEquals(httpResponse.body, userDto)
+    }
 }
