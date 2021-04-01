@@ -10,39 +10,39 @@ import org.junit.jupiter.api.Test
  */
 class ValidatorMaxSizeTest {
 
-  /**
-   * Checks the functionality with valid data
-   */
-  @Test
-  fun validData() {
-    val validator = ValidatorMaxLength("uo239795", 10)
-    assertTrue(validator.isValid())
-  }
+    /**
+     * Checks the functionality with valid data
+     */
+    @Test
+    fun validData() {
+        val validator = ValidatorMaxLength("uo239795", 10)
+        assertTrue(validator.isValid())
+    }
 
-  /**
-   * Checks the functionality with null data
-   */
-  @Test
-  fun nullData() {
-    val validator = ValidatorMaxLength(null, 10)
-    assertTrue(validator.isValid())
-  }
+    /**
+     * Checks the functionality with null data
+     */
+    @Test
+    fun nullData() {
+        val validator = ValidatorMaxLength(null, 10)
+        assertTrue(validator.isValid())
+    }
 
-  /**
-   * Checks the functionality with empty data
-   */
-  @Test
-  fun emptyData() {
-    val validator = ValidatorMaxLength("", 10)
-    assertFalse(validator.isValid())
-  }
+    /**
+     * Checks the functionality with empty data
+     */
+    @Test
+    fun emptyData() {
+        val validator = ValidatorMaxLength("", 10)
+        assertFalse(validator.isValid())
+    }
 
-  /**
-   * Checks the functionality with invalid data
-   */
-  @Test
-  fun invalidData() {
-    val validator = ValidatorMaxLength("uo239795", 6)
-    assertFalse(validator.isValid())
-  }
+    /**
+     * Checks the functionality with invalid data
+     */
+    @Test
+    fun invalidData() {
+        val validator = ValidatorMaxLength("uo239795", 6)
+        assertFalse(validator.isValid())
+    }
 }

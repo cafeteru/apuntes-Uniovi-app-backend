@@ -1,10 +1,10 @@
 package es.uniovi.apuntesuniovi.services.commands.users
 
-import es.uniovi.apuntesuniovi.infrastructure.AbstractCommand
 import es.uniovi.apuntesuniovi.infrastructure.messages.UserMessages
 import es.uniovi.apuntesuniovi.models.User
 import es.uniovi.apuntesuniovi.repositories.AddressRepository
 import es.uniovi.apuntesuniovi.repositories.UserRepository
+import es.uniovi.apuntesuniovi.services.commands.BaseUpdateCommand
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 
 /**
@@ -15,28 +15,20 @@ class UpdateUser(
     private val addressRepository: AddressRepository,
     private val id: Long,
     private val user: User
-) : AbstractCommand<User>() {
+) : BaseUpdateCommand<User>(userRepository, id, user) {
 
-    override fun execute(): User {
-        logService.info("execute() - start")
-        val optional = userRepository.findById(id)
-        if (optional.isPresent) {
-            checkUniqueUsername()
-            checkUniqueNumberIdentification()
-            if (user.password != null) {
-                user.password = BCryptPasswordEncoder().encode(user.password)
-            } else {
-                user.password = optional.get().password
-            }
-            user.id = id
-            user.address?.let {
-                user.address = addressRepository.save(it)
-            }
-            val result = userRepository.save(user)
-            logService.info("execute() - end")
-            return result
+    override fun checkData() {
+        checkUniqueUsername()
+        checkUniqueNumberIdentification()
+        if (user.password != null) {
+            user.password = BCryptPasswordEncoder().encode(user.password)
+        } else {
+            user.password = original?.password
         }
-        throw IllegalArgumentException(UserMessages.NOT_FOUND)
+        user.id = id
+        user.address?.let {
+            user.address = addressRepository.save(it)
+        }
     }
 
     private fun checkUniqueUsername() {
@@ -63,5 +55,9 @@ class UpdateUser(
             }
             logService.info("checkUniqueNumberIdentification() - end")
         }
+    }
+
+    override fun getMessageNotFound(): String {
+        return UserMessages.NOT_FOUND
     }
 }

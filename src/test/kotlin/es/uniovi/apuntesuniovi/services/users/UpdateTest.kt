@@ -1,11 +1,11 @@
 package es.uniovi.apuntesuniovi.services.users
 
+import es.uniovi.apuntesuniovi.dtos.assemblers.UserAssembler
 import es.uniovi.apuntesuniovi.mocks.entities.MockUserCreator
 import es.uniovi.apuntesuniovi.models.User
 import es.uniovi.apuntesuniovi.repositories.AddressRepository
 import es.uniovi.apuntesuniovi.repositories.UserRepository
 import es.uniovi.apuntesuniovi.services.UserService
-import es.uniovi.apuntesuniovi.dtos.assemblers.UserAssembler
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -22,39 +22,39 @@ import kotlin.test.assertNull
  */
 @ExtendWith(MockitoExtension::class)
 class UpdateTest {
-  @Mock
-  private lateinit var userRepository: UserRepository
+    @Mock
+    private lateinit var userRepository: UserRepository
 
-  @Mock
-  private lateinit var addressRepository: AddressRepository
+    @Mock
+    private lateinit var addressRepository: AddressRepository
 
-  private val userAssembler = UserAssembler()
-  private lateinit var userService: UserService
+    private val userAssembler = UserAssembler()
+    private lateinit var userService: UserService
 
-  /**
-   * Create init data for the test
-   */
-  @BeforeEach
-  fun initTest() {
-    userService = UserService(userRepository, addressRepository, userAssembler)
-  }
+    /**
+     * Create init data for the test
+     */
+    @BeforeEach
+    fun initTest() {
+        userService = UserService(userRepository, addressRepository, userAssembler)
+    }
 
-  /**
-   * Checks the functionality with valid data
-   */
-  @Test
-  fun validData() {
-    val user = MockUserCreator().create()
-    val userDto = userAssembler.entityToDto(user)
-    Mockito.`when`(userRepository.findById(user.id!!)).thenReturn(Optional.of(user))
-    Mockito.`when`(userRepository.findByUsername(user.username!!)).thenReturn(Optional.of(user))
-    Mockito.`when`(userRepository.findByNumberIdentification(user.numberIdentification!!))
-      .thenReturn(Optional.of(user))
-    Mockito.`when`(userRepository.save(Mockito.any(User::class.java))).thenReturn(user)
-    val result = userService.update(userDto.id!!, userDto)
-    assertNotEquals(userDto, result)
-    assertEquals(user.id, result.id)
-    assertNull(result.img)
-    assertNull(result.password)
-  }
+    /**
+     * Checks the functionality with valid data
+     */
+    @Test
+    fun validData() {
+        val user = MockUserCreator().create()
+        val userDto = userAssembler.entityToDto(user)
+        Mockito.`when`(userRepository.findById(user.id!!)).thenReturn(Optional.of(user))
+        Mockito.`when`(userRepository.findByUsername(user.username!!)).thenReturn(Optional.of(user))
+        Mockito.`when`(userRepository.findByNumberIdentification(user.numberIdentification!!))
+            .thenReturn(Optional.of(user))
+        Mockito.`when`(userRepository.save(Mockito.any(User::class.java))).thenReturn(user)
+        val result = userService.update(userDto.id!!, userDto)
+        assertNotEquals(userDto, result)
+        assertEquals(user.id, result.id)
+        assertNull(result.img)
+        assertNull(result.password)
+    }
 }

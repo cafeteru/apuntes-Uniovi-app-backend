@@ -20,34 +20,34 @@ import kotlin.test.assertEquals
  */
 @ExtendWith(MockitoExtension::class)
 class NullNumberIdentificationTest {
-  private lateinit var user: User
-  private val encoder = BCryptPasswordEncoder()
+    private lateinit var user: User
+    private val encoder = BCryptPasswordEncoder()
 
-  @Mock
-  private lateinit var userRepository: UserRepository
+    @Mock
+    private lateinit var userRepository: UserRepository
 
-  @Mock
-  private lateinit var addressRepository: AddressRepository
+    @Mock
+    private lateinit var addressRepository: AddressRepository
 
-  /**
-   * Create init data for the test
-   */
-  @BeforeEach
-  fun initTest() {
-    user = MockUserCreator().create()
-    user.password = encoder.encode(user.password)
-  }
+    /**
+     * Create init data for the test
+     */
+    @BeforeEach
+    fun initTest() {
+        user = MockUserCreator().create()
+        user.password = encoder.encode(user.password)
+    }
 
-  /**
-   * Check with valid user and null number of identification
-   */
-  @Test
-  fun nullNumberIdentification() {
-    val id = user.id!!
-    user.numberIdentification = null
-    Mockito.`when`(userRepository.findById(id)).thenReturn(Optional.of(MockUserCreator().create()))
-    Mockito.`when`(userRepository.save(user)).thenReturn(user)
-    val result = UpdateUser(userRepository, addressRepository, id, user).execute()
-    assertEquals(result, user)
-  }
+    /**
+     * Check with valid user and null number of identification
+     */
+    @Test
+    fun nullNumberIdentification() {
+        val id = user.id!!
+        user.numberIdentification = null
+        Mockito.`when`(userRepository.findById(id)).thenReturn(Optional.of(MockUserCreator().create()))
+        Mockito.`when`(userRepository.save(user)).thenReturn(user)
+        val result = UpdateUser(userRepository, addressRepository, id, user).execute()
+        assertEquals(result, user)
+    }
 }

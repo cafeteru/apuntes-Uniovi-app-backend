@@ -22,39 +22,39 @@ import java.util.*
  */
 @ExtendWith(MockitoExtension::class)
 class ExistedUsernameTest {
-  private lateinit var user: User
-  private val encoder = BCryptPasswordEncoder()
+    private lateinit var user: User
+    private val encoder = BCryptPasswordEncoder()
 
-  @Mock
-  private lateinit var userRepository: UserRepository
+    @Mock
+    private lateinit var userRepository: UserRepository
 
-  @Mock
-  private lateinit var addressRepository: AddressRepository
+    @Mock
+    private lateinit var addressRepository: AddressRepository
 
-  /**
-   * Create init data for the test
-   */
-  @BeforeEach
-  fun initTest() {
-    user = MockUserCreator().create()
-    user.password = encoder.encode(user.password)
-  }
-
-  /**
-   * Check with valid user and a username existed
-   */
-  @Test
-  fun existedUsername() {
-    try {
-      val id = user.id!!
-      val user2 = MockUserCreator().create()
-      user2.id = id + 1
-      Mockito.`when`(userRepository.findById(id)).thenReturn(Optional.of(user))
-      Mockito.`when`(userRepository.findByUsername(user.username!!)).thenReturn(Optional.of(user2))
-      UpdateUser(userRepository, addressRepository, id, user).execute()
-      fail()
-    } catch (e: IllegalArgumentException) {
-      assertEquals(e.message, UserMessages.ALREADY_REGISTERED_USERNAME)
+    /**
+     * Create init data for the test
+     */
+    @BeforeEach
+    fun initTest() {
+        user = MockUserCreator().create()
+        user.password = encoder.encode(user.password)
     }
-  }
+
+    /**
+     * Check with valid user and a username existed
+     */
+    @Test
+    fun existedUsername() {
+        try {
+            val id = user.id!!
+            val user2 = MockUserCreator().create()
+            user2.id = id + 1
+            Mockito.`when`(userRepository.findById(id)).thenReturn(Optional.of(user))
+            Mockito.`when`(userRepository.findByUsername(user.username!!)).thenReturn(Optional.of(user2))
+            UpdateUser(userRepository, addressRepository, id, user).execute()
+            fail()
+        } catch (e: IllegalArgumentException) {
+            assertEquals(e.message, UserMessages.ALREADY_REGISTERED_USERNAME)
+        }
+    }
 }

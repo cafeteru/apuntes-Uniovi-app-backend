@@ -20,35 +20,35 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
  */
 @ExtendWith(MockitoExtension::class)
 class InvalidIdTest {
-  private lateinit var user: User
-  private val encoder = BCryptPasswordEncoder()
+    private lateinit var user: User
+    private val encoder = BCryptPasswordEncoder()
 
-  @Mock
-  private lateinit var userRepository: UserRepository
+    @Mock
+    private lateinit var userRepository: UserRepository
 
-  @Mock
-  private lateinit var addressRepository: AddressRepository
+    @Mock
+    private lateinit var addressRepository: AddressRepository
 
-  /**
-   * Create init data for the test
-   */
-  @BeforeEach
-  fun initTest() {
-    user = MockUserCreator().create()
-    user.password = encoder.encode(user.password)
-  }
-
-  /**
-   * Check with valid user and a invalid id
-   */
-  @Test
-  fun invalidId() {
-    try {
-      val id = 2L
-      UpdateUser(userRepository, addressRepository, id, user).execute()
-      fail()
-    } catch (e: IllegalArgumentException) {
-      assertEquals(e.message, UserMessages.NOT_FOUND)
+    /**
+     * Create init data for the test
+     */
+    @BeforeEach
+    fun initTest() {
+        user = MockUserCreator().create()
+        user.password = encoder.encode(user.password)
     }
-  }
+
+    /**
+     * Check with valid user and a invalid id
+     */
+    @Test
+    fun invalidId() {
+        try {
+            val id = 2L
+            UpdateUser(userRepository, addressRepository, id, user).execute()
+            fail()
+        } catch (e: IllegalArgumentException) {
+            assertEquals(e.message, UserMessages.NOT_FOUND)
+        }
+    }
 }

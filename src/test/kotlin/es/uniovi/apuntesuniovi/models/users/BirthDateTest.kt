@@ -13,46 +13,46 @@ import java.time.LocalDate
  * Test the assignments to birthDate of a user
  */
 class BirthDateTest {
-  private lateinit var user: User
+    private lateinit var user: User
 
-  /**
-   * Create init data for the test
-   */
-  @BeforeEach
-  fun initData() {
-    user = MockUserCreator().create()
-  }
-
-  /**
-   * Checks the assignment under the limit
-   */
-  @Test
-  fun limitBirthDate() {
-    val birthDate = LocalDate.now()
-    user.birthDate = birthDate
-    assertEquals(birthDate, user.birthDate)
-  }
-
-  /**
-   * Checks the assignment over the limit
-   */
-  @Test
-  fun upLimitBirthDate() {
-    try {
-      val birthDate = LocalDate.now().plusDays(1)
-      user.birthDate = birthDate
-      fail("BirthDate is too big")
-    } catch (e: IllegalArgumentException) {
-      assertEquals(e.message, UserMessages.LIMIT_BIRTH_DATE)
+    /**
+     * Create init data for the test
+     */
+    @BeforeEach
+    fun initData() {
+        user = MockUserCreator().create()
     }
-  }
 
-  /**
-   * Checks the assignment to null
-   */
-  @Test
-  fun nullBirthDate() {
-    user.birthDate = null
-    assertEquals(null, user.birthDate)
-  }
+    /**
+     * Checks the assignment under the limit
+     */
+    @Test
+    fun limitBirthDate() {
+        val birthDate = LocalDate.now()
+        user.birthDate = birthDate
+        assertEquals(birthDate, user.birthDate)
+    }
+
+    /**
+     * Checks the assignment over the limit
+     */
+    @Test
+    fun upLimitBirthDate() {
+        try {
+            val birthDate = LocalDate.now().plusDays(1)
+            user.birthDate = birthDate
+            fail("BirthDate is too big")
+        } catch (e: IllegalArgumentException) {
+            assertEquals(e.message, UserMessages.LIMIT_BIRTH_DATE)
+        }
+    }
+
+    /**
+     * Checks the assignment to null
+     */
+    @Test
+    fun nullBirthDate() {
+        user.birthDate = null
+        assertEquals(null, user.birthDate)
+    }
 }

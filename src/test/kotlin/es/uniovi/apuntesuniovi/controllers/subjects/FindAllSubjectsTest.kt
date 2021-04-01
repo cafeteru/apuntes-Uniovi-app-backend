@@ -20,38 +20,38 @@ import java.util.*
  * Check find all method of the UserController class
  */
 class FindAllSubjectsTest {
-  private lateinit var subjectController: SubjectController
-  private lateinit var subjectService: SubjectService
+    private lateinit var subjectController: SubjectController
+    private lateinit var subjectService: SubjectService
 
-  /**
-   * Create init data for the test
-   */
-  @BeforeEach
-  fun initTest() {
-    subjectService = Mockito.mock(SubjectService::class.java)
-    subjectController = SubjectController(subjectService)
-  }
+    /**
+     * Create init data for the test
+     */
+    @BeforeEach
+    fun initTest() {
+        subjectService = Mockito.mock(SubjectService::class.java)
+        subjectController = SubjectController(subjectService)
+    }
 
-  @Test
-  fun findAllTest() {
-    val subjectDto = MockSubjectDtoCreator().create()
-    val list: List<SubjectDto> = listOf(subjectDto)
-    val pageable = PageRequest.of(0, 5)
-    val page: Page<SubjectDto> = PageImpl(list, pageable, 1)
-    Mockito.`when`(subjectService.findAll(pageable, subjectDto)).thenReturn(page)
-    val httpResponse: ResponseEntity<Page<SubjectDto>> = subjectController.findAll(pageable, subjectDto)
-    assertEquals(httpResponse.statusCode, HttpStatus.OK)
-    assertEquals(httpResponse.body, page)
-  }
+    @Test
+    fun findAllTest() {
+        val subjectDto = MockSubjectDtoCreator().create()
+        val list: List<SubjectDto> = listOf(subjectDto)
+        val pageable = PageRequest.of(0, 5)
+        val page: Page<SubjectDto> = PageImpl(list, pageable, 1)
+        Mockito.`when`(subjectService.findAll(pageable, subjectDto)).thenReturn(page)
+        val httpResponse: ResponseEntity<Page<SubjectDto>> = subjectController.findAll(pageable, subjectDto)
+        assertEquals(httpResponse.statusCode, HttpStatus.OK)
+        assertEquals(httpResponse.body, page)
+    }
 
-  @Test
-  fun findAllEmptyTest() {
-    val pageable = PageRequest.of(0, 5)
-    val page: Page<SubjectDto> = PageImpl(ArrayList(), pageable, 1)
-    val subjectDto = MockSubjectDtoCreator().create()
-    Mockito.`when`(subjectService.findAll(pageable, subjectDto)).thenReturn(page)
-    val httpResponse: ResponseEntity<Page<SubjectDto>> =
-      subjectController.findAll(pageable, subjectDto)
-    assertEquals(httpResponse.statusCode, HttpStatus.NO_CONTENT)
-  }
+    @Test
+    fun findAllEmptyTest() {
+        val pageable = PageRequest.of(0, 5)
+        val page: Page<SubjectDto> = PageImpl(ArrayList(), pageable, 1)
+        val subjectDto = MockSubjectDtoCreator().create()
+        Mockito.`when`(subjectService.findAll(pageable, subjectDto)).thenReturn(page)
+        val httpResponse: ResponseEntity<Page<SubjectDto>> =
+            subjectController.findAll(pageable, subjectDto)
+        assertEquals(httpResponse.statusCode, HttpStatus.NO_CONTENT)
+    }
 }

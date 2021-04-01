@@ -17,21 +17,21 @@ import kotlin.test.assertEquals
 @DataJpaTest
 class UserRepositoryTest {
 
-  @Autowired
-  private lateinit var userRepository: UserRepository
+    @Autowired
+    private lateinit var userRepository: UserRepository
 
-  /**
-   * Checks the functionality with valid data
-   */
-  @Test
-  fun findByUsernameTest() {
-    val user = MockUserCreator().createWithoutId()
-    user.address = null
-    userRepository.save(user)
-    val optional = userRepository.findByUsername(user.username!!)
-    assertNotNull(optional.isPresent)
-    val result = optional.get()
-    assertNotNull(result.id)
-    assertEquals(result.username, user.username)
-  }
+    /**
+     * Checks the functionality with valid data
+     */
+    @Test
+    fun findByUsernameTest() {
+        val user = MockUserCreator().createWithoutId()
+        user.address = null
+        userRepository.save(user)
+        val optional = userRepository.findByUsername(user.username!!)
+        assertNotNull(optional.isPresent)
+        val result = optional.get()
+        assertNotNull(result.id)
+        assertEquals(result.username, user.username)
+    }
 }
