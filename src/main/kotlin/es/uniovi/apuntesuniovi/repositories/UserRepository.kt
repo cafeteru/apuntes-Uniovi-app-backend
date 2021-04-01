@@ -2,14 +2,12 @@ package es.uniovi.apuntesuniovi.repositories
 
 import es.uniovi.apuntesuniovi.models.User
 import es.uniovi.apuntesuniovi.models.types.RoleType
-import org.springframework.data.querydsl.QuerydslPredicateExecutor
-import org.springframework.data.repository.PagingAndSortingRepository
 import java.util.*
 
 /**
  * Manage the users table
  */
-interface UserRepository : PagingAndSortingRepository<User, Long>, QuerydslPredicateExecutor<User> {
+interface UserRepository : PagingQueryDslRepository<User> {
     /**
      * Find user by username
      */

@@ -5,7 +5,6 @@ import es.uniovi.apuntesuniovi.dtos.entities.TeachSubjectDto
 import es.uniovi.apuntesuniovi.models.TeachSubject
 import es.uniovi.apuntesuniovi.repositories.TeachSubjectRepository
 import es.uniovi.apuntesuniovi.services.commands.teachSubjects.CreateTeachSubject
-import es.uniovi.apuntesuniovi.services.commands.teachSubjects.FindAllTeachSubjects
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -32,6 +31,6 @@ class TeachSubjectService @Autowired constructor(
         repository: PagingAndSortingRepository<TeachSubject, Long>,
         pageable: Pageable
     ): Page<TeachSubject> {
-        return FindAllTeachSubjects(teachSubjectRepository, pageable).execute()
+        return Page.empty()
     }
 }

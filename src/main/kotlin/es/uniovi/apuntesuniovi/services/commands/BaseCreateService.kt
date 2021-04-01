@@ -1,7 +1,6 @@
 package es.uniovi.apuntesuniovi.services.commands
 
 import es.uniovi.apuntesuniovi.infrastructure.AbstractCommand
-import es.uniovi.apuntesuniovi.infrastructure.messages.UserMessages
 import org.springframework.data.repository.PagingAndSortingRepository
 
 /**
@@ -15,12 +14,9 @@ abstract class BaseCreateService<Entity>(
     override fun execute(): Entity {
         logService.info("execute() - start")
         checkData()
-        entity?.let {
-            val result = repository.save(entity)
-            logService.info("execute() - end")
-            return result
-        }
-        throw IllegalArgumentException(UserMessages.NULL)
+        val result = repository.save(entity!!)
+        logService.info("execute() - end")
+        return result
     }
 
     /**

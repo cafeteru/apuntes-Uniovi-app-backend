@@ -2,21 +2,19 @@ package es.uniovi.apuntesuniovi.repositories.builders
 
 import com.querydsl.core.BooleanBuilder
 import com.querydsl.core.types.dsl.Expressions
+import es.uniovi.apuntesuniovi.dtos.entities.UserDto
 import es.uniovi.apuntesuniovi.models.Address
 import es.uniovi.apuntesuniovi.models.QAddress
 
 /**
  * Class to create conditions to filter users
  */
-class AddressBuilder {
+class AddressBuilder : Builder<Address> {
 
-    /**
-     * Create conditions to filter users
-     */
-    fun createBuilder(address: Address?): BooleanBuilder {
+    override fun createBuilder(dto: Address?): BooleanBuilder {
         val builder = BooleanBuilder()
         val qAddress = QAddress.address
-        address?.let {
+        dto?.let {
             createStreetFilter(it, builder, qAddress)
             createCityFilter(it, builder, qAddress)
             createPostalCodeFilter(it, builder, qAddress)

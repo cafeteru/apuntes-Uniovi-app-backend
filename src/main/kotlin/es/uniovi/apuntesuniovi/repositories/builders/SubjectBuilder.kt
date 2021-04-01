@@ -7,20 +7,17 @@ import es.uniovi.apuntesuniovi.models.QSubject
 import es.uniovi.apuntesuniovi.models.types.SubjectType
 
 /**
- * Class to create conditions to filter users
+ * Class to create conditions to filter subjects
  */
-class SubjectBuilder {
+class SubjectBuilder : Builder<SubjectDto> {
 
-    /**
-     * Create conditions to filter users
-     */
-    fun createBuilder(subjectDto: SubjectDto?): BooleanBuilder {
+    override fun createBuilder(dto: SubjectDto?): BooleanBuilder {
         val builder = BooleanBuilder()
         val qSubject = QSubject.subject
-        subjectDto?.let {
+        dto?.let {
             createNameFilter(it, builder, qSubject)
             createSubjectTypeFilter(it, builder, qSubject)
-            if (subjectDto.active != null) {
+            if (dto.active != null) {
                 builder.and(qSubject.active.eq(it.active))
             }
         }
