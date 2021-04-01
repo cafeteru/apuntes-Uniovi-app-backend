@@ -5,14 +5,11 @@ import es.uniovi.apuntesuniovi.infrastructure.messages.UnitSubjectMessages
 import es.uniovi.apuntesuniovi.models.UnitSubject
 import es.uniovi.apuntesuniovi.repositories.SubjectRepository
 import es.uniovi.apuntesuniovi.services.commands.subjects.FindSubjectById
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Service
 
 /**
  * Define the entity and dto conversion methods of careers
  */
-@Service
-class UnitSubjectAssembler @Autowired constructor(
+class UnitSubjectAssembler(
     private val subjectRepository: SubjectRepository
 ) : AbstractAssembler<UnitSubject, UnitSubjectDto>() {
     override fun entityToDto(entity: UnitSubject?): UnitSubjectDto {

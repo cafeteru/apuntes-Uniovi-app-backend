@@ -28,7 +28,7 @@ class SubjectServiceTest {
      */
     @BeforeEach
     fun initTest() {
-        subjectService = SubjectService(subjectRepository, subjectAssembler)
+        subjectService = SubjectService(subjectRepository)
     }
 
     /**

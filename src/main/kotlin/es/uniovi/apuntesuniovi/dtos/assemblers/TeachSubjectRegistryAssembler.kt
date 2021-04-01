@@ -5,14 +5,11 @@ import es.uniovi.apuntesuniovi.infrastructure.messages.TeachSubjectRegistryMessa
 import es.uniovi.apuntesuniovi.models.TeachSubjectRegistry
 import es.uniovi.apuntesuniovi.repositories.TeachSubjectRepository
 import es.uniovi.apuntesuniovi.services.commands.teachSubjects.FindTeachSubjectById
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Service
 
 /**
  * Define the entity and dto conversion methods of teachSubjectRegistry
  */
-@Service
-class TeachSubjectRegistryAssembler @Autowired constructor(
+class TeachSubjectRegistryAssembler(
     private val teachSubjectRepository: TeachSubjectRepository
 ) : AbstractAssembler<TeachSubjectRegistry, TeachSubjectRegistryDto>() {
     override fun entityToDto(entity: TeachSubjectRegistry?): TeachSubjectRegistryDto {

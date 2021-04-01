@@ -35,7 +35,7 @@ class CreateTest {
      */
     @BeforeEach
     fun initTest() {
-        userService = UserService(userRepository, addressRepository, userAssembler)
+        userService = UserService(userRepository, addressRepository)
     }
 
     /**

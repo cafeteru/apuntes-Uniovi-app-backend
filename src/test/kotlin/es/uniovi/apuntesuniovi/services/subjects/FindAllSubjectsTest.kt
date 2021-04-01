@@ -1,7 +1,6 @@
 package es.uniovi.apuntesuniovi.services.subjects
 
 import com.querydsl.core.BooleanBuilder
-import es.uniovi.apuntesuniovi.dtos.assemblers.SubjectAssembler
 import es.uniovi.apuntesuniovi.mocks.dtos.MockSubjectDtoCreator
 import es.uniovi.apuntesuniovi.mocks.entities.MockSubjectCreator
 import es.uniovi.apuntesuniovi.repositories.SubjectRepository
@@ -29,14 +28,12 @@ class FindAllSubjectsTest {
     @Mock
     private lateinit var subjectRepository: SubjectRepository
 
-    private val subjectAssembler = SubjectAssembler()
-
     /**
      * Create init data for the test
      */
     @BeforeEach
     fun initTest() {
-        subjectService = SubjectService(subjectRepository, subjectAssembler)
+        subjectService = SubjectService(subjectRepository)
     }
 
     /**

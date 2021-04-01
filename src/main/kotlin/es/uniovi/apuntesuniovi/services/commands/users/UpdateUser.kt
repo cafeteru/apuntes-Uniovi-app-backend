@@ -18,6 +18,7 @@ class UpdateUser(
 ) : BaseUpdateCommand<User>(userRepository, id, user) {
 
     override fun checkData() {
+        logService.info("checkData() - start")
         checkUniqueUsername()
         checkUniqueNumberIdentification()
         if (user.password != null) {
@@ -29,6 +30,7 @@ class UpdateUser(
         user.address?.let {
             user.address = addressRepository.save(it)
         }
+        logService.info("checkData() - end")
     }
 
     private fun checkUniqueUsername() {

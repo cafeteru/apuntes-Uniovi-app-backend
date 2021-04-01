@@ -1,4 +1,4 @@
-package es.uniovi.apuntesuniovi.controllers
+package es.uniovi.apuntesuniovi.swagger
 
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping

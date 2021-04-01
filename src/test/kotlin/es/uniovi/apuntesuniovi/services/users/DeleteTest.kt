@@ -1,6 +1,5 @@
 package es.uniovi.apuntesuniovi.services.users
 
-import es.uniovi.apuntesuniovi.dtos.assemblers.UserAssembler
 import es.uniovi.apuntesuniovi.mocks.entities.MockUserCreator
 import es.uniovi.apuntesuniovi.repositories.AddressRepository
 import es.uniovi.apuntesuniovi.repositories.UserRepository
@@ -26,14 +25,13 @@ class DeleteTest {
 
     @Mock
     private lateinit var addressRepository: AddressRepository
-    private val userAssembler = UserAssembler()
 
     /**
      * Create init data for the test
      */
     @BeforeEach
     fun initTest() {
-        userService = UserService(userRepository, addressRepository, userAssembler)
+        userService = UserService(userRepository, addressRepository)
     }
 
     /**

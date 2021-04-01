@@ -7,6 +7,7 @@ import es.uniovi.apuntesuniovi.repositories.SubjectRepository
 import es.uniovi.apuntesuniovi.services.commands.subjects.CreateSubject
 import es.uniovi.apuntesuniovi.services.commands.subjects.FindAllSubjects
 import es.uniovi.apuntesuniovi.services.commands.subjects.FindSubjectById
+import es.uniovi.apuntesuniovi.services.commands.subjects.UpdateSubject
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -17,10 +18,10 @@ import org.springframework.stereotype.Service
  */
 @Service
 class SubjectService @Autowired constructor(
-    private val subjectRepository: SubjectRepository,
-    private val subjectAssembler: SubjectAssembler,
+    private val subjectRepository: SubjectRepository
 ) {
     private val logService = LogService(this.javaClass)
+    private val subjectAssembler = SubjectAssembler()
 
     /**
      * Create a new subject
@@ -50,12 +51,26 @@ class SubjectService @Autowired constructor(
     /**
      * Returns the subject whose id matches
      *
-     * @param id Subject id
+     * @param id Subject´s id
      */
     fun findById(id: Long): SubjectDto {
         logService.info("findById() - start")
-        val user = FindSubjectById(subjectRepository, id).execute()
+        val subject = FindSubjectById(subjectRepository, id).execute()
         logService.info("findById() - end")
-        return subjectAssembler.entityToDto(user)
+        return subjectAssembler.entityToDto(subject)
+    }
+
+    /**
+     * Update a new subject
+     *
+     * @param id Subject´s id
+     * @param dto Subject to update
+     */
+    fun update(id: Long, dto: SubjectDto): SubjectDto {
+        logService.info("update(id: Long, dto: SubjectDto) - start")
+        val subject = subjectAssembler.dtoToEntity(dto)
+        val result = UpdateSubject(subjectRepository, id, subject).execute()
+        logService.info("update(id: Long, dto: SubjectDto) - end")
+        return subjectAssembler.entityToDto(result)
     }
 }

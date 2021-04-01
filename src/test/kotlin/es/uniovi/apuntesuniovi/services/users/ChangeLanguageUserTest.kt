@@ -1,6 +1,5 @@
 package es.uniovi.apuntesuniovi.services.users
 
-import es.uniovi.apuntesuniovi.dtos.assemblers.UserAssembler
 import es.uniovi.apuntesuniovi.infrastructure.messages.UserMessages
 import es.uniovi.apuntesuniovi.mocks.entities.MockUserCreator
 import es.uniovi.apuntesuniovi.models.types.LanguageType
@@ -30,7 +29,6 @@ class ChangeLanguageUserTest {
 
     @Mock
     private lateinit var addressRepository: AddressRepository
-    private val userAssembler = UserAssembler()
     private val username = "username"
 
     /**
@@ -38,7 +36,7 @@ class ChangeLanguageUserTest {
      */
     @BeforeEach
     fun initTest() {
-        userService = UserService(userRepository, addressRepository, userAssembler)
+        userService = UserService(userRepository, addressRepository)
     }
 
     /**

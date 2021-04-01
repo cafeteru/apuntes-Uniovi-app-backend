@@ -8,14 +8,11 @@ import es.uniovi.apuntesuniovi.repositories.SubjectRepository
 import es.uniovi.apuntesuniovi.repositories.UserRepository
 import es.uniovi.apuntesuniovi.services.commands.subjects.FindSubjectById
 import es.uniovi.apuntesuniovi.services.commands.users.FindUserById
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Service
 
 /**
  * Define the entity and dto conversion methods of teachSubjects
  */
-@Service
-class TeachSubjectAssembler @Autowired constructor(
+class TeachSubjectAssembler(
     private val subjectRepository: SubjectRepository,
     private val userRepository: UserRepository
 ) : AbstractAssembler<TeachSubject, TeachSubjectDto>() {
