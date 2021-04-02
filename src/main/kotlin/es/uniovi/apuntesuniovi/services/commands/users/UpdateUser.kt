@@ -4,7 +4,7 @@ import es.uniovi.apuntesuniovi.infrastructure.messages.UserMessages
 import es.uniovi.apuntesuniovi.models.User
 import es.uniovi.apuntesuniovi.repositories.AddressRepository
 import es.uniovi.apuntesuniovi.repositories.UserRepository
-import es.uniovi.apuntesuniovi.services.commands.BaseUpdateCommand
+import es.uniovi.apuntesuniovi.services.commands.BaseUpdate
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 
 /**
@@ -15,7 +15,7 @@ class UpdateUser(
     private val addressRepository: AddressRepository,
     private val id: Long,
     private val user: User
-) : BaseUpdateCommand<User>(userRepository, id, user) {
+) : BaseUpdate<User>(userRepository, id, user) {
 
     override fun checkData() {
         logService.info("checkData() - start")

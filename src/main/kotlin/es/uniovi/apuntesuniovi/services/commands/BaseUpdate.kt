@@ -4,7 +4,7 @@ import es.uniovi.apuntesuniovi.infrastructure.AbstractCommand
 import es.uniovi.apuntesuniovi.repositories.PagingQueryDslRepository
 import org.springframework.util.Assert
 
-abstract class BaseUpdateCommand<Entity>(
+abstract class BaseUpdate<Entity>(
         private val repository: PagingQueryDslRepository<Entity>,
         private val id: Long,
         private val entity: Entity,

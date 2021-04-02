@@ -6,7 +6,7 @@ import es.uniovi.apuntesuniovi.repositories.PagingQueryDslRepository
 /**
  * Create a entity in service layer
  */
-abstract class BaseCreateCommand<Entity>(
+abstract class BaseCreate<Entity>(
     private val repository: PagingQueryDslRepository<Entity>,
     private val entity: Entity,
 ) : AbstractCommand<Entity>() {

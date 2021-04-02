@@ -3,7 +3,7 @@ package es.uniovi.apuntesuniovi.services.commands.teachSubjects
 import es.uniovi.apuntesuniovi.infrastructure.messages.TeachSubjectMessages
 import es.uniovi.apuntesuniovi.models.TeachSubject
 import es.uniovi.apuntesuniovi.repositories.TeachSubjectRepository
-import es.uniovi.apuntesuniovi.services.commands.BaseFindByIdCommand
+import es.uniovi.apuntesuniovi.services.commands.BaseFindById
 
 /**
  * Return teachSubject by id in service layer
@@ -11,7 +11,7 @@ import es.uniovi.apuntesuniovi.services.commands.BaseFindByIdCommand
 class FindTeachSubjectById(
     teachSubjectRepository: TeachSubjectRepository,
     id: Long
-) : BaseFindByIdCommand<TeachSubject>(teachSubjectRepository, id) {
+) : BaseFindById<TeachSubject>(teachSubjectRepository, id) {
     override fun getMessageNotFound(): String {
         return TeachSubjectMessages.NOT_FOUND
     }

@@ -3,7 +3,7 @@ package es.uniovi.apuntesuniovi.services.commands.unitSubjects
 import es.uniovi.apuntesuniovi.infrastructure.messages.UnitSubjectMessages
 import es.uniovi.apuntesuniovi.models.UnitSubject
 import es.uniovi.apuntesuniovi.repositories.UnitSubjectRepository
-import es.uniovi.apuntesuniovi.services.commands.BaseCreateCommand
+import es.uniovi.apuntesuniovi.services.commands.BaseCreate
 import io.jsonwebtoken.lang.Assert
 
 /**
@@ -12,7 +12,7 @@ import io.jsonwebtoken.lang.Assert
 class CreateUnitSubject(
     private val unitSubjectRepository: UnitSubjectRepository,
     private val unitSubject: UnitSubject
-) : BaseCreateCommand<UnitSubject>(unitSubjectRepository, unitSubject) {
+) : BaseCreate<UnitSubject>(unitSubjectRepository, unitSubject) {
 
     override fun checkData() {
         logService.info("checkData() - start")

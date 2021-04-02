@@ -4,10 +4,7 @@ import es.uniovi.apuntesuniovi.dtos.assemblers.SubjectAssembler
 import es.uniovi.apuntesuniovi.dtos.entities.SubjectDto
 import es.uniovi.apuntesuniovi.infrastructure.log.LogService
 import es.uniovi.apuntesuniovi.repositories.SubjectRepository
-import es.uniovi.apuntesuniovi.services.commands.subjects.CreateSubject
-import es.uniovi.apuntesuniovi.services.commands.subjects.FindAllSubjects
-import es.uniovi.apuntesuniovi.services.commands.subjects.FindSubjectById
-import es.uniovi.apuntesuniovi.services.commands.subjects.UpdateSubject
+import es.uniovi.apuntesuniovi.services.commands.subjects.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -72,5 +69,18 @@ class SubjectService @Autowired constructor(
         val result = UpdateSubject(subjectRepository, id, subject).execute()
         logService.info("update(id: Long, dto: SubjectDto) - end")
         return subjectAssembler.entityToDto(result)
+    }
+
+    /**
+     * Change the value active of a subject
+     *
+     * @param id Subject´s id
+     * @param active New value to subject´s active
+     */
+    fun disable(id: Long, active: Boolean): SubjectDto {
+        logService.info("disable(id: $id, active: $active) - start")
+        val subject = DisableSubject(subjectRepository, id, active).execute()
+        logService.info("disable(id: $id, active:  $active) - end")
+        return subjectAssembler.entityToDto(subject)
     }
 }

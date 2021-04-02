@@ -2,32 +2,33 @@ package es.uniovi.apuntesuniovi.services.users
 
 import es.uniovi.apuntesuniovi.dtos.assemblers.UserAssembler
 import es.uniovi.apuntesuniovi.mocks.entities.MockUserCreator
+import es.uniovi.apuntesuniovi.models.User
 import es.uniovi.apuntesuniovi.repositories.AddressRepository
 import es.uniovi.apuntesuniovi.repositories.UserRepository
 import es.uniovi.apuntesuniovi.services.UserService
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertNotEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.junit.jupiter.MockitoExtension
-import java.util.*
+import kotlin.test.assertEquals
+import kotlin.test.assertNotEquals
+import kotlin.test.assertNull
 
 /**
- * Check disable method of the UserService class
+ * Check the creation method of the UserService class
  */
 @ExtendWith(MockitoExtension::class)
-class DisableTest {
-    private lateinit var userService: UserService
-
+class CreateUserTest {
     @Mock
     private lateinit var userRepository: UserRepository
 
     @Mock
     private lateinit var addressRepository: AddressRepository
     private val userAssembler = UserAssembler()
+
+    private lateinit var userService: UserService
 
     /**
      * Create init data for the test
@@ -44,10 +45,11 @@ class DisableTest {
     fun validData() {
         val user = MockUserCreator().create()
         val userDto = userAssembler.entityToDto(user)
-        Mockito.`when`(userRepository.findById(user.id!!)).thenReturn(Optional.of(user))
-        Mockito.`when`(userRepository.save(user)).thenReturn(user)
-        val result = userService.disable(userDto.id!!, !userDto.active!!)
+        Mockito.`when`(userRepository.save(Mockito.any(User::class.java))).thenReturn(user)
+        val result = userService.create(userDto)
         assertNotEquals(userDto, result)
         assertEquals(user.id, result.id)
+        assertNull(result.img)
+        assertNull(result.password)
     }
 }

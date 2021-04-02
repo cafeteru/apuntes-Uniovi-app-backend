@@ -4,7 +4,7 @@ import es.uniovi.apuntesuniovi.infrastructure.messages.UserMessages
 import es.uniovi.apuntesuniovi.mocks.entities.MockUserCreator
 import es.uniovi.apuntesuniovi.models.User
 import es.uniovi.apuntesuniovi.repositories.UserRepository
-import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -12,8 +12,6 @@ import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.junit.jupiter.MockitoExtension
 import java.util.*
-import kotlin.test.assertEquals
-import kotlin.test.fail
 
 /**
  * Check class DisableUser
@@ -42,7 +40,7 @@ class DisableUserTest {
         Mockito.`when`(userRepository.save(user)).thenReturn(user)
         val disabledUser = DisableUser(userRepository, user.id!!, true)
         val result = disabledUser.execute()
-        Assertions.assertNotNull(result)
+        assertNotNull(result)
         assertEquals(user, result)
     }
 
@@ -53,9 +51,9 @@ class DisableUserTest {
     fun validIdAndNotExistUser() {
         try {
             DisableUser(userRepository, 1L, true).execute()
-            fail("User not found")
+            fail(UserMessages.NOT_FOUND)
         } catch (e: IllegalArgumentException) {
-            Assertions.assertEquals(e.message, UserMessages.NOT_FOUND)
+            assertEquals(e.message, UserMessages.NOT_FOUND)
         }
     }
 
@@ -66,9 +64,9 @@ class DisableUserTest {
     fun invalidId() {
         try {
             DisableUser(userRepository, -1L, true).execute()
-            fail("Invalid user id")
+            fail(UserMessages.INVALID_ID)
         } catch (e: IllegalArgumentException) {
-            Assertions.assertEquals(e.message, UserMessages.INVALID_ID)
+            assertEquals(e.message, UserMessages.INVALID_ID)
         }
     }
 }

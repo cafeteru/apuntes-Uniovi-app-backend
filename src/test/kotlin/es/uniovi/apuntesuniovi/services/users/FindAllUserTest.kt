@@ -23,7 +23,7 @@ import kotlin.test.assertNotNull
  * Check find all method of the UserService class
  */
 @ExtendWith(MockitoExtension::class)
-class FindAllTest {
+class FindAllUserTest {
     private lateinit var userService: UserService
 
     @Mock

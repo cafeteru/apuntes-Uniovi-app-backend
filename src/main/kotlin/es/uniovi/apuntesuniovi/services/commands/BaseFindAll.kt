@@ -10,7 +10,7 @@ import org.springframework.data.domain.Pageable
 /**
  * Return all entities in service layer
  */
-abstract class BaseFindAllCommand<Entity, Dto>(
+abstract class BaseFindAll<Entity, Dto>(
     private val repository: PagingQueryDslRepository<Entity>,
     private val builder: Builder<Dto>,
     private val dto: Dto?,

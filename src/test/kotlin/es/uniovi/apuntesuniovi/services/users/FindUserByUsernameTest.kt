@@ -20,7 +20,7 @@ import kotlin.test.assertNull
  * Check find by username method of the UserService class
  */
 @ExtendWith(MockitoExtension::class)
-class FindByUsernameTest {
+class FindUserByUsernameTest {
     private lateinit var userService: UserService
 
     @Mock

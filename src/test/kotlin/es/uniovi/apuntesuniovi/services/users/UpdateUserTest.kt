@@ -21,7 +21,7 @@ import kotlin.test.assertNull
  * Check the update method of the UserService class
  */
 @ExtendWith(MockitoExtension::class)
-class UpdateTest {
+class UpdateUserTest {
     @Mock
     private lateinit var userRepository: UserRepository
 
