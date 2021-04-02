@@ -170,9 +170,9 @@ class UserController @Autowired constructor(
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/statistics")
     @ApiOperation("Return user statistics")
-    fun getStatistics(): ResponseEntity<UserStatistics> {
+    fun statistics(): ResponseEntity<UserStatistics> {
         logService.info("getStatistics() - start")
-        val userStatistics = userService.getStadistics()
+        val userStatistics = userService.statistics()
         logService.info("getStatistics() - end")
         return ResponseEntity(userStatistics, HttpStatus.OK)
     }

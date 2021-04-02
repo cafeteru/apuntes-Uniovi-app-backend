@@ -3,16 +3,16 @@ package es.uniovi.apuntesuniovi.controllers.users
 import es.uniovi.apuntesuniovi.controllers.UserController
 import es.uniovi.apuntesuniovi.mocks.dtos.MockUserDtoCreator
 import es.uniovi.apuntesuniovi.services.UserService
-import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito
 import org.springframework.http.HttpStatus
 
 /**
- * Check disable method of the UserController class
+ * Check find by id method of the UserController class
  */
-class DisableTest {
+class FindUserByIdTest {
     private lateinit var userController: UserController
     private lateinit var userService: UserService
 
@@ -31,9 +31,9 @@ class DisableTest {
     @Test
     fun validData() {
         val userDto = MockUserDtoCreator().create()
-        Mockito.`when`(userService.disable(userDto.id!!, true)).thenReturn(userDto)
-        val httpResponse = userController.disable(userDto.id!!, true)
-        assertEquals(httpResponse.statusCode, HttpStatus.OK)
-        assertEquals(httpResponse.body, userDto)
+        Mockito.`when`(userService.findById(1)).thenReturn(userDto)
+        val httpResponse = userController.findById(1)
+        Assertions.assertEquals(httpResponse.statusCode, HttpStatus.OK)
+        Assertions.assertEquals(httpResponse.body, userDto)
     }
 }

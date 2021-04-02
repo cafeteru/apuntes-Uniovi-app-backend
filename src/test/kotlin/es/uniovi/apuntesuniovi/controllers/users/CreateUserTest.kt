@@ -10,9 +10,9 @@ import org.mockito.Mockito
 import org.springframework.http.HttpStatus
 
 /**
- * Check the update method of the UserService class
+ * Check the creation method of the UserController class
  */
-class UpdateTest {
+class CreateUserTest {
     private lateinit var userController: UserController
     private lateinit var userService: UserService
 
@@ -31,8 +31,8 @@ class UpdateTest {
     @Test
     fun validData() {
         val userDto = MockUserDtoCreator().create()
-        Mockito.`when`(userService.update(userDto.id!!, userDto)).thenReturn(userDto)
-        val httpResponse = userController.update(userDto.id!!, userDto)
+        Mockito.`when`(userService.create(userDto)).thenReturn(userDto)
+        val httpResponse = userController.create(userDto)
         Assertions.assertEquals(httpResponse.statusCode, HttpStatus.OK)
         Assertions.assertEquals(httpResponse.body, userDto)
     }
