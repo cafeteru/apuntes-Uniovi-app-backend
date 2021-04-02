@@ -1,12 +1,12 @@
-package es.uniovi.apuntesuniovi.services.commands.users
+package es.uniovi.apuntesuniovi.services.users
 
+import es.uniovi.apuntesuniovi.dtos.assemblers.UserAssembler
 import es.uniovi.apuntesuniovi.infrastructure.messages.UserMessages
 import es.uniovi.apuntesuniovi.mocks.entities.MockUserCreator
-import es.uniovi.apuntesuniovi.models.Address
-import es.uniovi.apuntesuniovi.models.User
+import es.uniovi.apuntesuniovi.repositories.AddressRepository
 import es.uniovi.apuntesuniovi.repositories.UserRepository
-import org.junit.jupiter.api.Assertions
-import org.junit.jupiter.api.Assertions.assertNotNull
+import es.uniovi.apuntesuniovi.services.UserService
+import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -14,27 +14,28 @@ import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.junit.jupiter.MockitoExtension
 import java.util.*
-import kotlin.test.assertEquals
-import kotlin.test.fail
 
 /**
- * Check class FindUserByIdService
+ * Check find by id method of the UserService class
  */
 @ExtendWith(MockitoExtension::class)
 class FindUserByIdTest {
-    private lateinit var user: User
-    private var address: Address? = null
+    private lateinit var userService: UserService
+    private lateinit var userAssembler: UserAssembler
 
     @Mock
     private lateinit var userRepository: UserRepository
+
+    @Mock
+    private lateinit var addressRepository: AddressRepository
 
     /**
      * Create init data for the test
      */
     @BeforeEach
     fun initTest() {
-        user = MockUserCreator().create()
-        address = user.address
+        userService = UserService(userRepository, addressRepository)
+        userAssembler = UserAssembler()
     }
 
     /**
@@ -43,12 +44,15 @@ class FindUserByIdTest {
     @Test
     fun validIdAndExistUser() {
         val id = 1L
+        val user = MockUserCreator().create()
+        user.id = 1L
+        val userDto = userAssembler.entityToDto(user)
         Mockito.`when`(userRepository.findById(id)).thenReturn(Optional.of(user))
-        val findUserByIdService = FindUserById(userRepository, id)
-        val result = findUserByIdService.execute()
-        assertNotNull(result)
-        assertEquals(user, result)
-        assertEquals(user.address, result.address)
+        val result = userService.findById(id)
+        assertNotEquals(userDto, result)
+        assertEquals(user.id, result.id)
+        assertNotNull(result.img)
+        assertNull(result.password)
     }
 
     /**
@@ -56,13 +60,11 @@ class FindUserByIdTest {
      */
     @Test
     fun validIdAndNotExistUser() {
-        val id = 1L
-        val findUserByIdService = FindUserById(userRepository, id)
         try {
-            findUserByIdService.execute()
-            fail("User not found")
+            userService.findById(1L)
+            fail(UserMessages.NOT_FOUND)
         } catch (e: IllegalArgumentException) {
-            Assertions.assertEquals(e.message, UserMessages.NOT_FOUND)
+            assertEquals(e.message, UserMessages.NOT_FOUND)
         }
     }
 
@@ -71,13 +73,11 @@ class FindUserByIdTest {
      */
     @Test
     fun invalidId() {
-        val id = -1L
-        val findUserByIdService = FindUserById(userRepository, id)
         try {
-            findUserByIdService.execute()
-            fail("Invalid user id")
+            userService.findById(-1L)
+            fail(UserMessages.INVALID_ID)
         } catch (e: IllegalArgumentException) {
-            Assertions.assertEquals(e.message, UserMessages.INVALID_ID)
+            assertEquals(e.message, UserMessages.INVALID_ID)
         }
     }
 }

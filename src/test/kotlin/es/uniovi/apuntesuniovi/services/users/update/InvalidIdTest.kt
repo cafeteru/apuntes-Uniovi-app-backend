@@ -1,4 +1,4 @@
-package es.uniovi.apuntesuniovi.services.commands.users.update
+package es.uniovi.apuntesuniovi.services.users.update
 
 import es.uniovi.apuntesuniovi.infrastructure.messages.UserMessages
 import es.uniovi.apuntesuniovi.mocks.entities.MockUserCreator
@@ -12,16 +12,14 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.Mock
-import org.mockito.Mockito
 import org.mockito.junit.jupiter.MockitoExtension
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
-import java.util.*
 
 /**
  * Check class UpdateUser
  */
 @ExtendWith(MockitoExtension::class)
-class ExistedUsernameTest {
+class InvalidIdTest {
     private lateinit var user: User
     private val encoder = BCryptPasswordEncoder()
 
@@ -41,20 +39,16 @@ class ExistedUsernameTest {
     }
 
     /**
-     * Check with valid user and a username existed
+     * Check with valid user and a invalid id
      */
     @Test
-    fun existedUsername() {
+    fun invalidId() {
         try {
-            val id = user.id!!
-            val user2 = MockUserCreator().create()
-            user2.id = id + 1
-            Mockito.`when`(userRepository.findById(id)).thenReturn(Optional.of(user))
-            Mockito.`when`(userRepository.findByUsername(user.username!!)).thenReturn(Optional.of(user2))
+            val id = 2L
             UpdateUser(userRepository, addressRepository, id, user).execute()
             fail()
         } catch (e: IllegalArgumentException) {
-            assertEquals(e.message, UserMessages.ALREADY_REGISTERED_USERNAME)
+            assertEquals(e.message, UserMessages.NOT_FOUND)
         }
     }
 }

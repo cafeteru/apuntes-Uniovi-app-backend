@@ -12,22 +12,23 @@ import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.junit.jupiter.MockitoExtension
+import java.util.*
 import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
 import kotlin.test.assertNull
 
 /**
- * Check the creation method of the UserService class
+ * Check the update method of the UserService class
  */
 @ExtendWith(MockitoExtension::class)
-class CreateTest {
+class UpdateUserTest {
     @Mock
     private lateinit var userRepository: UserRepository
 
     @Mock
     private lateinit var addressRepository: AddressRepository
-    private val userAssembler = UserAssembler()
 
+    private val userAssembler = UserAssembler()
     private lateinit var userService: UserService
 
     /**
@@ -45,8 +46,12 @@ class CreateTest {
     fun validData() {
         val user = MockUserCreator().create()
         val userDto = userAssembler.entityToDto(user)
+        Mockito.`when`(userRepository.findById(user.id!!)).thenReturn(Optional.of(user))
+        Mockito.`when`(userRepository.findByUsername(user.username!!)).thenReturn(Optional.of(user))
+        Mockito.`when`(userRepository.findByNumberIdentification(user.numberIdentification!!))
+            .thenReturn(Optional.of(user))
         Mockito.`when`(userRepository.save(Mockito.any(User::class.java))).thenReturn(user)
-        val result = userService.create(userDto)
+        val result = userService.update(userDto.id!!, userDto)
         assertNotEquals(userDto, result)
         assertEquals(user.id, result.id)
         assertNull(result.img)

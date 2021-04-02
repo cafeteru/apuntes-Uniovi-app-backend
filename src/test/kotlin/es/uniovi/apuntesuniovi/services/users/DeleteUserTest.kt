@@ -1,37 +1,40 @@
-package es.uniovi.apuntesuniovi.services.commands.users
+package es.uniovi.apuntesuniovi.services.users
 
 import es.uniovi.apuntesuniovi.infrastructure.messages.UserMessages
 import es.uniovi.apuntesuniovi.mocks.entities.MockUserCreator
-import es.uniovi.apuntesuniovi.models.User
+import es.uniovi.apuntesuniovi.repositories.AddressRepository
 import es.uniovi.apuntesuniovi.repositories.UserRepository
-import org.junit.jupiter.api.Assertions
+import es.uniovi.apuntesuniovi.services.UserService
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.Mock
 import org.mockito.Mockito
-import org.mockito.Mockito.times
 import org.mockito.junit.jupiter.MockitoExtension
 import java.util.*
 import kotlin.test.fail
 
 /**
- * Check class DisableUser
+ * Check delete method of the UserService class
  */
 @ExtendWith(MockitoExtension::class)
 class DeleteUserTest {
-    private lateinit var user: User
+    private lateinit var userService: UserService
 
     @Mock
     private lateinit var userRepository: UserRepository
+
+    @Mock
+    private lateinit var addressRepository: AddressRepository
 
     /**
      * Create init data for the test
      */
     @BeforeEach
     fun initTest() {
-        user = MockUserCreator().create()
+        userService = UserService(userRepository, addressRepository)
     }
 
     /**
@@ -39,11 +42,12 @@ class DeleteUserTest {
      */
     @Test
     fun validIdAndExistUser() {
+        val user = MockUserCreator().create()
         val id = user.id!!
         Mockito.`when`(userRepository.findById(id)).thenReturn(Optional.of(user))
-        val deleteUser = DeleteUser(userRepository, id)
-        assertTrue(deleteUser.execute())
-        Mockito.verify(userRepository, times(1)).deleteById(id)
+        val result = userService.delete(id)
+        assertTrue(result)
+        Mockito.verify(userRepository, Mockito.times(1)).deleteById(id)
     }
 
     /**
@@ -52,10 +56,10 @@ class DeleteUserTest {
     @Test
     fun validIdAndNotExistUser() {
         try {
-            DeleteUser(userRepository, 1L).execute()
-            fail("User not found")
+            userService.delete(1L)
+            fail(UserMessages.NOT_FOUND)
         } catch (e: IllegalArgumentException) {
-            Assertions.assertEquals(e.message, UserMessages.NOT_FOUND)
+            assertEquals(e.message, UserMessages.NOT_FOUND)
         }
     }
 
@@ -65,10 +69,10 @@ class DeleteUserTest {
     @Test
     fun invalidId() {
         try {
-            DeleteUser(userRepository, -1L).execute()
-            fail("Invalid user id")
+            userService.delete(-1L)
+            fail(UserMessages.INVALID_ID)
         } catch (e: IllegalArgumentException) {
-            Assertions.assertEquals(e.message, UserMessages.INVALID_ID)
+            assertEquals(e.message, UserMessages.INVALID_ID)
         }
     }
 }

@@ -3,7 +3,7 @@ package es.uniovi.apuntesuniovi.services.commands.teachSubjects
 import es.uniovi.apuntesuniovi.infrastructure.messages.TeachSubjectMessages
 import es.uniovi.apuntesuniovi.models.TeachSubject
 import es.uniovi.apuntesuniovi.repositories.TeachSubjectRepository
-import es.uniovi.apuntesuniovi.services.commands.BaseCreateCommand
+import es.uniovi.apuntesuniovi.services.commands.BaseCreate
 import org.springframework.util.Assert
 
 /**
@@ -12,7 +12,7 @@ import org.springframework.util.Assert
 class CreateTeachSubject(
     private val teachSubjectRepository: TeachSubjectRepository,
     private val teachSubject: TeachSubject
-) : BaseCreateCommand<TeachSubject>(teachSubjectRepository, teachSubject) {
+) : BaseCreate<TeachSubject>(teachSubjectRepository, teachSubject) {
 
     override fun checkData() {
         logService.info("checkData() - start")

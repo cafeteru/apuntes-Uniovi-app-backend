@@ -8,7 +8,7 @@ import org.springframework.util.Assert
 /**
  * Find entity by id
  */
-abstract class BaseFindByIdCommand<Entity>(
+abstract class BaseFindById<Entity>(
     private val repository: PagingQueryDslRepository<Entity>,
     private val id: Long
 ) : AbstractCommand<Entity>() {

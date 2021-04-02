@@ -1,4 +1,4 @@
-package es.uniovi.apuntesuniovi.services.commands.users.update
+package es.uniovi.apuntesuniovi.services.users.update
 
 import es.uniovi.apuntesuniovi.infrastructure.messages.UserMessages
 import es.uniovi.apuntesuniovi.mocks.entities.MockUserCreator

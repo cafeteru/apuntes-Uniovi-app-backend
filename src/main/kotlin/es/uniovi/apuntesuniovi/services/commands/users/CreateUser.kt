@@ -4,7 +4,7 @@ import es.uniovi.apuntesuniovi.infrastructure.messages.UserMessages
 import es.uniovi.apuntesuniovi.models.User
 import es.uniovi.apuntesuniovi.repositories.AddressRepository
 import es.uniovi.apuntesuniovi.repositories.UserRepository
-import es.uniovi.apuntesuniovi.services.commands.BaseCreateCommand
+import es.uniovi.apuntesuniovi.services.commands.BaseCreate
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.util.Assert
 
@@ -15,7 +15,7 @@ class CreateUser(
     private val userRepository: UserRepository,
     private val addressRepository: AddressRepository,
     private val user: User
-) : BaseCreateCommand<User>(userRepository, user) {
+) : BaseCreate<User>(userRepository, user) {
 
     override fun checkData() {
         logService.info("checkData() - start")

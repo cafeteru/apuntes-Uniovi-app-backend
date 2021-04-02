@@ -96,13 +96,33 @@ class SubjectController @Autowired constructor(
     @PutMapping(value = ["/{id}"], consumes = [MediaType.APPLICATION_JSON_VALUE])
     @ApiOperation(value = "Update a subject")
     fun update(
-        @ApiParam(name = "id", value = "Subject´s id") @PathVariable id: Long,
-        @ApiParam(name = "subjectDto", value = "Subject to update")
-        @Valid @RequestBody subjectDto: SubjectDto
+            @ApiParam(name = "id", value = "Subject´s id") @PathVariable id: Long,
+            @ApiParam(name = "subjectDto", value = "Subject to update")
+            @Valid @RequestBody subjectDto: SubjectDto
     ): ResponseEntity<SubjectDto> {
         logService.info("update(id: ${id}, SubjectDto: SubjectDto) - start")
         val result = subjectService.update(id, subjectDto)
         logService.info("update(id: ${id}, SubjectDto: SubjectDto) - end")
         return ResponseEntity(result, HttpStatus.OK)
+    }
+
+    /**
+     * Change the value active of a subject
+     *
+     * @param id Subject´s id
+     * @param active New value to subject´s active
+     */
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PatchMapping("/disable/{id}/{active}")
+    @ApiOperation("Change the value active of a subject")
+    fun disable(
+            @ApiParam(name = "id", value = "Subject´s id") @PathVariable id: Long,
+            @ApiParam(name = "active", value = "New value to subject´s active")
+            @PathVariable active: Boolean
+    ): ResponseEntity<SubjectDto> {
+        logService.info("disable(id: ${id}, active: ${active}) - start")
+        val subjectDto = subjectService.disable(id, active)
+        logService.info("disable(id: ${id}, active: ${active}) - end")
+        return ResponseEntity(subjectDto, HttpStatus.OK)
     }
 }
