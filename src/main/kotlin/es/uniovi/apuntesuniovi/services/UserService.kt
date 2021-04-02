@@ -130,9 +130,9 @@ class UserService @Autowired constructor(
      * Return user statistics
      */
     fun statistics(): UserStatistics {
-        logService.info("getStadistics() - start")
+        logService.info("statistics() - start")
         val result = GetUserStatistics(userRepository).execute()
-        logService.info("getStadistics() - end")
+        logService.info("statistics() - end")
         return result
     }
 

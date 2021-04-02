@@ -3,6 +3,7 @@ package es.uniovi.apuntesuniovi.controllers
 import es.uniovi.apuntesuniovi.dtos.entities.SubjectDto
 import es.uniovi.apuntesuniovi.infrastructure.log.LogService
 import es.uniovi.apuntesuniovi.services.SubjectService
+import es.uniovi.apuntesuniovi.statistics.SubjectStatistics
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation
 import io.swagger.annotations.ApiParam
@@ -141,5 +142,18 @@ class SubjectController @Autowired constructor(
         val result = subjectService.delete(id)
         logService.info("delete(id: ${id}) - end")
         return ResponseEntity(result, HttpStatus.OK)
+    }
+
+    /**
+     * Return subject statistics
+     */
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/statistics")
+    @ApiOperation("Return subject statistics")
+    fun statistics(): ResponseEntity<SubjectStatistics> {
+        logService.info("statistics() - start")
+        val userStatistics = subjectService.statistics()
+        logService.info("statistics() - end")
+        return ResponseEntity(userStatistics, HttpStatus.OK)
     }
 }
