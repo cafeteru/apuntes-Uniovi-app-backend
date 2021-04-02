@@ -116,13 +116,30 @@ class SubjectController @Autowired constructor(
     @PatchMapping("/disable/{id}/{active}")
     @ApiOperation("Change the value active of a subject")
     fun disable(
-            @ApiParam(name = "id", value = "Subject´s id") @PathVariable id: Long,
-            @ApiParam(name = "active", value = "New value to subject´s active")
-            @PathVariable active: Boolean
+        @ApiParam(name = "id", value = "Subject´s id") @PathVariable id: Long,
+        @ApiParam(name = "active", value = "New value to subject´s active")
+        @PathVariable active: Boolean
     ): ResponseEntity<SubjectDto> {
         logService.info("disable(id: ${id}, active: ${active}) - start")
         val subjectDto = subjectService.disable(id, active)
         logService.info("disable(id: ${id}, active: ${active}) - end")
         return ResponseEntity(subjectDto, HttpStatus.OK)
+    }
+
+    /**
+     * Delete a subject
+     *
+     * @param id Subject´s id
+     */
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @DeleteMapping("/{id}")
+    @ApiOperation("Delete a subject")
+    fun delete(
+        @ApiParam(name = "id", value = "Subject´s id") @PathVariable id: Long
+    ): ResponseEntity<Boolean> {
+        logService.info("delete(id: ${id}) - start")
+        val result = subjectService.delete(id)
+        logService.info("delete(id: ${id}) - end")
+        return ResponseEntity(result, HttpStatus.OK)
     }
 }

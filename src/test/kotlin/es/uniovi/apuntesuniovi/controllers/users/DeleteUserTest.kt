@@ -1,18 +1,17 @@
 package es.uniovi.apuntesuniovi.controllers.users
 
 import es.uniovi.apuntesuniovi.controllers.UserController
-import es.uniovi.apuntesuniovi.mocks.dtos.MockUserDtoCreator
 import es.uniovi.apuntesuniovi.services.UserService
-import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito
 import org.springframework.http.HttpStatus
 
 /**
- * Check the creation method of the UserController class
+ * Check disable method of the UserController class
  */
-class CreateTest {
+class DeleteUserTest {
     private lateinit var userController: UserController
     private lateinit var userService: UserService
 
@@ -30,10 +29,10 @@ class CreateTest {
      */
     @Test
     fun validData() {
-        val userDto = MockUserDtoCreator().create()
-        Mockito.`when`(userService.create(userDto)).thenReturn(userDto)
-        val httpResponse = userController.create(userDto)
-        Assertions.assertEquals(httpResponse.statusCode, HttpStatus.OK)
-        Assertions.assertEquals(httpResponse.body, userDto)
+        val id = 1L
+        Mockito.`when`(userService.delete(id)).thenReturn(true)
+        val httpResponse = userController.delete(id)
+        assertEquals(httpResponse.statusCode, HttpStatus.OK)
+        assertEquals(httpResponse.body, true)
     }
 }

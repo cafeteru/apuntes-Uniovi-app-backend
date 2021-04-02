@@ -12,7 +12,7 @@ import java.security.Principal
 /**
  * Check the change of language method of the UserController class
  */
-class ChangeLanguageTest {
+class ChangeLanguageUserTest {
     private lateinit var userController: UserController
     private lateinit var userService: UserService
 
