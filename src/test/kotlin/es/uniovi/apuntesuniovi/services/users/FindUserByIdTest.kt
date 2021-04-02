@@ -1,6 +1,7 @@
 package es.uniovi.apuntesuniovi.services.users
 
 import es.uniovi.apuntesuniovi.dtos.assemblers.UserAssembler
+import es.uniovi.apuntesuniovi.infrastructure.messages.UserMessages
 import es.uniovi.apuntesuniovi.mocks.entities.MockUserCreator
 import es.uniovi.apuntesuniovi.repositories.AddressRepository
 import es.uniovi.apuntesuniovi.repositories.UserRepository
@@ -20,13 +21,13 @@ import java.util.*
 @ExtendWith(MockitoExtension::class)
 class FindUserByIdTest {
     private lateinit var userService: UserService
+    private lateinit var userAssembler: UserAssembler
 
     @Mock
     private lateinit var userRepository: UserRepository
 
     @Mock
     private lateinit var addressRepository: AddressRepository
-    private val userAssembler = UserAssembler()
 
     /**
      * Create init data for the test
@@ -34,16 +35,17 @@ class FindUserByIdTest {
     @BeforeEach
     fun initTest() {
         userService = UserService(userRepository, addressRepository)
+        userAssembler = UserAssembler()
     }
 
     /**
-     * Checks the functionality with valid data
+     * Checks with valid id and existing user
      */
     @Test
-    fun validData() {
+    fun validIdAndExistUser() {
         val id = 1L
         val user = MockUserCreator().create()
-        user.id = id
+        user.id = 1L
         val userDto = userAssembler.entityToDto(user)
         Mockito.`when`(userRepository.findById(id)).thenReturn(Optional.of(user))
         val result = userService.findById(id)
@@ -51,5 +53,31 @@ class FindUserByIdTest {
         assertEquals(user.id, result.id)
         assertNotNull(result.img)
         assertNull(result.password)
+    }
+
+    /**
+     * Checks with valid id and not existing user
+     */
+    @Test
+    fun validIdAndNotExistUser() {
+        try {
+            userService.findById(1L)
+            fail(UserMessages.NOT_FOUND)
+        } catch (e: IllegalArgumentException) {
+            assertEquals(e.message, UserMessages.NOT_FOUND)
+        }
+    }
+
+    /**
+     * Checks with invalid id
+     */
+    @Test
+    fun invalidId() {
+        try {
+            userService.findById(-1L)
+            fail(UserMessages.INVALID_ID)
+        } catch (e: IllegalArgumentException) {
+            assertEquals(e.message, UserMessages.INVALID_ID)
+        }
     }
 }

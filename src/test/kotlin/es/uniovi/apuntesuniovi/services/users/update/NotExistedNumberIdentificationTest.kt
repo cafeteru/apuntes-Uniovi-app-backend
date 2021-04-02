@@ -1,4 +1,4 @@
-package es.uniovi.apuntesuniovi.services.commands.users.update
+package es.uniovi.apuntesuniovi.services.users.update
 
 import es.uniovi.apuntesuniovi.mocks.entities.MockUserCreator
 import es.uniovi.apuntesuniovi.models.User
@@ -21,7 +21,7 @@ import kotlin.test.assertNull
  * Check class UpdateUser
  */
 @ExtendWith(MockitoExtension::class)
-class NotExistedUsernameTest {
+class NotExistedNumberIdentificationTest {
     private lateinit var user: User
     private val encoder = BCryptPasswordEncoder()
 
@@ -41,13 +41,13 @@ class NotExistedUsernameTest {
     }
 
     /**
-     * Check with valid user and a username isn´t exist
+     * Check with valid user and a number of identification isn´t exist
      */
     @Test
-    fun notExistedUsername() {
+    fun notExistedNumberIdentification() {
         val id = user.id!!
         Mockito.`when`(userRepository.findById(id)).thenReturn(Optional.of(user))
-        Mockito.`when`(userRepository.findByUsername(user.username!!)).thenReturn(Optional.empty())
+        Mockito.`when`(userRepository.findByUsername(user.username!!)).thenReturn(Optional.of(user))
         Mockito.`when`(userRepository.findByNumberIdentification(user.numberIdentification!!))
             .thenReturn(Optional.empty())
         Mockito.`when`(userRepository.save(Mockito.any(User::class.java))).thenReturn(user)

@@ -1,4 +1,4 @@
-package es.uniovi.apuntesuniovi.services.commands.users.update
+package es.uniovi.apuntesuniovi.services.users.update
 
 import es.uniovi.apuntesuniovi.mocks.entities.MockUserCreator
 import es.uniovi.apuntesuniovi.models.User
@@ -15,12 +15,13 @@ import org.mockito.Mockito
 import org.mockito.junit.jupiter.MockitoExtension
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import java.util.*
+import kotlin.test.assertNull
 
 /**
  * Check class UpdateUser
  */
 @ExtendWith(MockitoExtension::class)
-class ValidWithoutPasswordTest {
+class ValidWithoutAddressTest {
     private lateinit var user: User
     private val encoder = BCryptPasswordEncoder()
 
@@ -40,14 +41,14 @@ class ValidWithoutPasswordTest {
     }
 
     /**
-     * Check with valid user and empty password
+     * Check with valid user and empty address
      */
     @Test
-    fun validUserWithoutPassword() {
+    fun validUserWithoutAddress() {
         val id = user.id!!
-        user.password = null
+        user.address = null
         Mockito.`when`(userRepository.findById(id)).thenReturn(Optional.of(MockUserCreator().create()))
-        Mockito.`when`(userRepository.findByUsername(user.username!!)).thenReturn(Optional.empty())
+        Mockito.`when`(userRepository.findByUsername(user.username!!)).thenReturn(Optional.of(user))
         Mockito.`when`(userRepository.findByNumberIdentification(user.numberIdentification!!))
             .thenReturn(Optional.of(MockUserCreator().create()))
         Mockito.`when`(userRepository.save(Mockito.any(User::class.java))).thenReturn(user)
@@ -55,5 +56,6 @@ class ValidWithoutPasswordTest {
         assertNotNull(result)
         assertEquals(result.password, user.password)
         assertEquals(result.address, user.address)
+        assertNull(result.address)
     }
 }

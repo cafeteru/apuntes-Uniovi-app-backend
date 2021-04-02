@@ -1,25 +1,27 @@
-package es.uniovi.apuntesuniovi.services.commands.users.update
+package es.uniovi.apuntesuniovi.services.users.update
 
-import es.uniovi.apuntesuniovi.infrastructure.messages.UserMessages
 import es.uniovi.apuntesuniovi.mocks.entities.MockUserCreator
 import es.uniovi.apuntesuniovi.models.User
 import es.uniovi.apuntesuniovi.repositories.AddressRepository
 import es.uniovi.apuntesuniovi.repositories.UserRepository
 import es.uniovi.apuntesuniovi.services.commands.users.UpdateUser
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.fail
+import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.Mock
+import org.mockito.Mockito
 import org.mockito.junit.jupiter.MockitoExtension
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+import java.util.*
+import kotlin.test.assertNull
 
 /**
  * Check class UpdateUser
  */
 @ExtendWith(MockitoExtension::class)
-class InvalidIdTest {
+class NotExistedUsernameTest {
     private lateinit var user: User
     private val encoder = BCryptPasswordEncoder()
 
@@ -39,16 +41,20 @@ class InvalidIdTest {
     }
 
     /**
-     * Check with valid user and a invalid id
+     * Check with valid user and a username isn´t exist
      */
     @Test
-    fun invalidId() {
-        try {
-            val id = 2L
-            UpdateUser(userRepository, addressRepository, id, user).execute()
-            fail()
-        } catch (e: IllegalArgumentException) {
-            assertEquals(e.message, UserMessages.NOT_FOUND)
-        }
+    fun notExistedUsername() {
+        val id = user.id!!
+        Mockito.`when`(userRepository.findById(id)).thenReturn(Optional.of(user))
+        Mockito.`when`(userRepository.findByUsername(user.username!!)).thenReturn(Optional.empty())
+        Mockito.`when`(userRepository.findByNumberIdentification(user.numberIdentification!!))
+            .thenReturn(Optional.empty())
+        Mockito.`when`(userRepository.save(Mockito.any(User::class.java))).thenReturn(user)
+        val result = UpdateUser(userRepository, addressRepository, id, user).execute()
+        assertNotNull(result)
+        assertEquals(result.password, user.password)
+        assertEquals(result.address, user.address)
+        assertNull(result.address)
     }
 }
