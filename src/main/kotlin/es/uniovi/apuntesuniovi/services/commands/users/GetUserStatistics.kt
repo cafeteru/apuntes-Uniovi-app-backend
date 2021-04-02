@@ -12,7 +12,6 @@ class GetUserStatistics(
     override fun execute(): UserStatistics {
         logService.info("execute() - start")
         val userStatistics = UserStatistics(
-            total = userRepository.countAllBy(),
             active = userRepository.countByActive(true),
             inactive = userRepository.countByActive(false),
             numAdmin = userRepository.countByRole(RoleType.ADMIN),

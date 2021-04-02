@@ -19,11 +19,6 @@ interface UserRepository : PagingQueryDslRepository<User> {
     fun findByNumberIdentification(numberIdentification: String): Optional<User>
 
     /**
-     * Count all users
-     */
-    fun countAllBy(): Int
-
-    /**
      * Count users by active
      */
     fun countByActive(active: Boolean): Int

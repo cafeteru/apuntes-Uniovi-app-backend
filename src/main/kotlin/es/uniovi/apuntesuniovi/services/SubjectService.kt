@@ -5,7 +5,7 @@ import es.uniovi.apuntesuniovi.dtos.entities.SubjectDto
 import es.uniovi.apuntesuniovi.infrastructure.log.LogService
 import es.uniovi.apuntesuniovi.repositories.SubjectRepository
 import es.uniovi.apuntesuniovi.services.commands.subjects.*
-import es.uniovi.apuntesuniovi.services.commands.users.DeleteUser
+import es.uniovi.apuntesuniovi.statistics.SubjectStatistics
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -94,6 +94,16 @@ class SubjectService @Autowired constructor(
         logService.info("delete(id: $id) - start")
         val result = DeleteSubject(subjectRepository, id).execute()
         logService.info("delete(id: $id) - end")
+        return result
+    }
+
+    /**
+     * Return subject statistics
+     */
+    fun statistics(): SubjectStatistics {
+        logService.info("statistics() - start")
+        val result = GetSubjectStatistics(subjectRepository).execute()
+        logService.info("statistics() - end")
         return result
     }
 }
