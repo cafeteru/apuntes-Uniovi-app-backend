@@ -8,6 +8,7 @@ import es.uniovi.apuntesuniovi.repositories.SubjectRepository
 import es.uniovi.apuntesuniovi.repositories.UserRepository
 import es.uniovi.apuntesuniovi.services.commands.subjects.FindSubjectById
 import es.uniovi.apuntesuniovi.services.commands.users.FindUserById
+import org.springframework.util.Assert
 
 /**
  * Define the entity and dto conversion methods of teachSubjects
@@ -21,7 +22,6 @@ class TeachSubjectAssembler(
         entity?.let {
             val result = TeachSubjectDto(
                 id = it.id,
-                isCoordinator = it.isCoordinator,
                 subjectId = it.subject.id!!,
                 teacherId = it.teacher.id!!
             )
@@ -36,12 +36,9 @@ class TeachSubjectAssembler(
         dto?.let {
             val result = TeachSubject()
             result.id = it.id
-            result.isCoordinator = it.isCoordinator
             result.subject = FindSubjectById(subjectRepository, it.subjectId).execute()
             result.teacher = FindUserById(userRepository, it.teacherId).execute()
-            if (result.teacher.role != RoleType.TEACHER) {
-                throw IllegalArgumentException(TeachSubjectMessages.INVALID_USER_ROLE)
-            }
+            Assert.isTrue(result.teacher.role == RoleType.TEACHER, TeachSubjectMessages.INVALID_USER_ROLE)
             logService.info("dtoToEntity(dto: TeachSubjectDto) - end")
             return result
         }

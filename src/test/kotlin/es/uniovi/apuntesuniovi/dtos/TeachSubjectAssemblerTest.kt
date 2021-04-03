@@ -47,7 +47,6 @@ class TeachSubjectAssemblerTest {
         val teachSubject = MockTeachSubjectCreator().create()
         val dto = assembler.entityToDto(teachSubject)
         assertEquals(teachSubject.id, dto.id)
-        assertEquals(teachSubject.isCoordinator, dto.isCoordinator)
         assertEquals(teachSubject.subject.id, dto.subjectId)
         assertEquals(teachSubject.teacher.id, dto.teacherId)
     }
@@ -60,7 +59,6 @@ class TeachSubjectAssemblerTest {
         val teachSubject = MockTeachSubjectCreator().create()
         val dto = assembler.entityToDto(teachSubject)
         assertEquals(teachSubject.id, dto.id)
-        assertEquals(teachSubject.isCoordinator, dto.isCoordinator)
         assertEquals(teachSubject.subject.id, dto.subjectId)
         assertEquals(teachSubject.teacher.id, dto.teacherId)
     }
@@ -72,7 +70,7 @@ class TeachSubjectAssemblerTest {
     fun nullTeachSubject() {
         try {
             assembler.entityToDto(null)
-            fail("TeachSubject can´t be null")
+            fail(TeachSubjectMessages.NULL)
         } catch (e: IllegalArgumentException) {
             assertEquals(e.message, TeachSubjectMessages.NULL)
         }
@@ -92,7 +90,6 @@ class TeachSubjectAssemblerTest {
         )
         val teachSubject = assembler.dtoToEntity(dto)
         assertEquals(teachSubject.id, dto.id)
-        assertEquals(teachSubject.isCoordinator, dto.isCoordinator)
         assertEquals(teachSubject.subject.id, dto.subjectId)
         assertEquals(teachSubject.teacher.id, dto.teacherId)
     }
@@ -104,7 +101,7 @@ class TeachSubjectAssemblerTest {
     fun nullTeachSubjectDto() {
         try {
             assembler.dtoToEntity(null)
-            fail("TeachSubjectDto can´t be null")
+            fail(TeachSubjectMessages.NULL)
         } catch (e: IllegalArgumentException) {
             assertEquals(e.message, TeachSubjectMessages.NULL)
         }
