@@ -1,4 +1,4 @@
-package es.uniovi.apuntesuniovi.repositories
+package es.uniovi.apuntesuniovi.repositories.interfaces
 
 import org.springframework.data.querydsl.QuerydslPredicateExecutor
 import org.springframework.data.repository.NoRepositoryBean

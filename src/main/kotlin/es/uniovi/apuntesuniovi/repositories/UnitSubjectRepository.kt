@@ -1,13 +1,12 @@
 package es.uniovi.apuntesuniovi.repositories
 
 import es.uniovi.apuntesuniovi.models.UnitSubject
-import es.uniovi.apuntesuniovi.models.User
-import org.springframework.data.repository.PagingAndSortingRepository
+import es.uniovi.apuntesuniovi.repositories.interfaces.PagingQueryDslRepository
 
 /**
  * Manage the UnitSubject table
  */
-interface UnitSubjectRepository : PagingQueryDslRepository<UnitSubject>  {
+interface UnitSubjectRepository : PagingQueryDslRepository<UnitSubject> {
     /**
      * Check if it exist by name and subject
      */

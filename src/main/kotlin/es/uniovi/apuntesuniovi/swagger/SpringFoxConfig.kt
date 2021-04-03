@@ -29,6 +29,7 @@ class SpringFoxConfig {
             .build()
             .tags(
                 Tag("Subjects", "Define subject`s endpoints"),
+                Tag("Teach Subjects", "Define teach subject`s endpoints"),
                 Tag("Users", "Define user`s endpoints")
             )
     }

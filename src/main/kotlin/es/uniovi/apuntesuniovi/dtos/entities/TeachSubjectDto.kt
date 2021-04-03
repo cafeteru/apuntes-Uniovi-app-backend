@@ -5,7 +5,6 @@ package es.uniovi.apuntesuniovi.dtos.entities
  */
 data class TeachSubjectDto(
     var id: Long?,
-    var isCoordinator: Boolean,
     var subjectId: Long,
     var teacherId: Long
 )

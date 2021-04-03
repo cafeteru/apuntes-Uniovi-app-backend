@@ -2,6 +2,7 @@ package es.uniovi.apuntesuniovi.repositories
 
 import es.uniovi.apuntesuniovi.models.User
 import es.uniovi.apuntesuniovi.models.types.RoleType
+import es.uniovi.apuntesuniovi.repositories.interfaces.PagingQueryDslRepository
 import java.util.*
 
 /**

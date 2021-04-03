@@ -1,28 +1,14 @@
 package es.uniovi.apuntesuniovi.services.commands.teachSubjects
 
-import es.uniovi.apuntesuniovi.infrastructure.messages.TeachSubjectMessages
 import es.uniovi.apuntesuniovi.models.TeachSubject
 import es.uniovi.apuntesuniovi.repositories.TeachSubjectRepository
-import es.uniovi.apuntesuniovi.services.commands.BaseCreate
-import org.springframework.util.Assert
+import es.uniovi.apuntesuniovi.services.commands.BaseCreateAll
 
 /**
  * Create a TeachSubject in service layer
  */
 class CreateTeachSubject(
     private val teachSubjectRepository: TeachSubjectRepository,
-    private val teachSubject: TeachSubject
-) : BaseCreate<TeachSubject>(teachSubjectRepository, teachSubject) {
-
-    override fun checkData() {
-        logService.info("checkData() - start")
-        val teacherId = teachSubject.teacher.id
-        val subjectId = teachSubject.subject.id
-        Assert.isTrue(teacherId == null || subjectId == null, TeachSubjectMessages.INVALID_CREATE_DATA)
-        Assert.isTrue(
-            teachSubjectRepository.existsBySubjectIdAndTeacherId(subjectId!!, teacherId!!),
-            TeachSubjectMessages.INVALID_CREATE_DATA
-        )
-        logService.info("checkData() - end")
-    }
+    private val teachSubjects: List<TeachSubject>
+) : BaseCreateAll<TeachSubject>(teachSubjectRepository, teachSubjects) {
 }

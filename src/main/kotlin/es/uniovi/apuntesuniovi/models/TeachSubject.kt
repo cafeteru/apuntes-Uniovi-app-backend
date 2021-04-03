@@ -16,9 +16,4 @@ class TeachSubject {
 
     @ManyToOne
     lateinit var subject: Subject
-
-    @OneToMany(mappedBy = "teachSubject", cascade = [(CascadeType.ALL)])
-    val registries: Set<TeachSubjectRegistry> = HashSet()
-
-    var isCoordinator: Boolean = false
 }

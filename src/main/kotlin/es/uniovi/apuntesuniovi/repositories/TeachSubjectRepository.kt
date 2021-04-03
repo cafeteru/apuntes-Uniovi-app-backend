@@ -1,6 +1,7 @@
 package es.uniovi.apuntesuniovi.repositories
 
 import es.uniovi.apuntesuniovi.models.TeachSubject
+import es.uniovi.apuntesuniovi.repositories.interfaces.PagingQueryDslRepository
 
 /**
  * Manage the TeachSubject table
