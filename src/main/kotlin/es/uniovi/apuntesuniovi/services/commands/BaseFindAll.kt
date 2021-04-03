@@ -1,8 +1,7 @@
 package es.uniovi.apuntesuniovi.services.commands
 
-import es.uniovi.apuntesuniovi.dtos.entities.UserDto
 import es.uniovi.apuntesuniovi.infrastructure.AbstractCommand
-import es.uniovi.apuntesuniovi.repositories.PagingQueryDslRepository
+import es.uniovi.apuntesuniovi.repositories.interfaces.PagingQueryDslRepository
 import es.uniovi.apuntesuniovi.repositories.builders.Builder
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable

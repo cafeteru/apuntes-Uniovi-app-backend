@@ -1,7 +1,7 @@
 package es.uniovi.apuntesuniovi.services.commands
 
 import es.uniovi.apuntesuniovi.infrastructure.AbstractCommand
-import es.uniovi.apuntesuniovi.repositories.PagingQueryDslRepository
+import es.uniovi.apuntesuniovi.repositories.interfaces.PagingQueryDslRepository
 import es.uniovi.apuntesuniovi.validators.impl.ValidatorId
 import org.springframework.util.Assert
 

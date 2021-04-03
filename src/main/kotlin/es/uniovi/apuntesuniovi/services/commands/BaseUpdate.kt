@@ -1,13 +1,13 @@
 package es.uniovi.apuntesuniovi.services.commands
 
 import es.uniovi.apuntesuniovi.infrastructure.AbstractCommand
-import es.uniovi.apuntesuniovi.repositories.PagingQueryDslRepository
+import es.uniovi.apuntesuniovi.repositories.interfaces.PagingQueryDslRepository
 import org.springframework.util.Assert
 
 abstract class BaseUpdate<Entity>(
-        private val repository: PagingQueryDslRepository<Entity>,
-        private val id: Long,
-        private val entity: Entity,
+    private val repository: PagingQueryDslRepository<Entity>,
+    private val id: Long,
+    private val entity: Entity,
 ) : AbstractCommand<Entity>() {
     protected var original: Entity? = null
 
