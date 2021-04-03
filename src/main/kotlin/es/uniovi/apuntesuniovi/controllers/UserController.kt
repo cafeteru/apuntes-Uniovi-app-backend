@@ -39,7 +39,8 @@ class UserController @Autowired constructor(
     @PostMapping(value = ["/create"], consumes = [MediaType.APPLICATION_JSON_VALUE])
     @ApiOperation(value = "Create a new user")
     fun create(
-        @ApiParam(name = "userDto", value = "User to create") @Valid @RequestBody userDto: UserDto
+        @ApiParam(name = "userDto", value = "User to create")
+        @Valid @RequestBody userDto: UserDto
     ): ResponseEntity<UserDto> {
         logService.info("save(userDto: UserDto) - start")
         val result = userService.create(userDto)
@@ -57,8 +58,10 @@ class UserController @Autowired constructor(
     @PutMapping(value = ["/{id}"], consumes = [MediaType.APPLICATION_JSON_VALUE])
     @ApiOperation(value = "Update a user")
     fun update(
-        @ApiParam(name = "id", value = "User´s id") @PathVariable id: Long,
-        @ApiParam(name = "userDto", value = "User to update") @Valid @RequestBody userDto: UserDto
+        @ApiParam(name = "id", value = "User´s id")
+        @PathVariable id: Long,
+        @ApiParam(name = "userDto", value = "User to update") @Valid
+        @RequestBody userDto: UserDto
     ): ResponseEntity<UserDto> {
         logService.info("update(id: ${id}, userDto: UserDto) - start")
         val result = userService.update(id, userDto)
@@ -77,10 +80,50 @@ class UserController @Autowired constructor(
     @ApiOperation("Returns all registered users")
     fun findAll(
         @ApiParam(name = "pageable", value = "Pageable") pageable: Pageable,
-        @ApiParam(name = "userDto", value = "User to apply filters") @RequestBody(required = false) userDto: UserDto?
+        @ApiParam(name = "userDto", value = "User to apply filters")
+        @RequestBody(required = false) userDto: UserDto?
     ): ResponseEntity<Page<UserDto>> {
         logService.info("findAll() - start")
         val page = userService.findAll(pageable, userDto)
+        var code = HttpStatus.OK
+        if (page.isEmpty) {
+            code = HttpStatus.NO_CONTENT
+        }
+        logService.info("findAll() - end")
+        return ResponseEntity(page, code)
+    }
+
+    /**
+     * Returns all registered users by role
+     *
+     * @param role Role to apply filters
+     */
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/role/{role}")
+    @ApiOperation("Returns all registered users by role")
+    fun findAllByRole(
+        @ApiParam(name = "role", value = "Role to apply filters")
+        @PathVariable role: String
+    ): ResponseEntity<Page<UserDto>> {
+        logService.info("findAll() - start")
+        val userDto = UserDto(
+            active = true,
+            address = null,
+            birthDate = null,
+            email = null,
+            id = null,
+            identificationType = null,
+            img = null,
+            language = "",
+            name = null,
+            numberIdentification = null,
+            password = null,
+            phone = null,
+            role = role,
+            surname = null,
+            username = null
+        )
+        val page = userService.findAll(Pageable.unpaged(), userDto)
         var code = HttpStatus.OK
         if (page.isEmpty) {
             code = HttpStatus.NO_CONTENT
@@ -98,7 +141,8 @@ class UserController @Autowired constructor(
     @GetMapping("/{id}")
     @ApiOperation("Return a user by id")
     fun findById(
-        @ApiParam(name = "id", value = "User´s id") @PathVariable id: Long
+        @ApiParam(name = "id", value = "User´s id")
+        @PathVariable id: Long
     ): ResponseEntity<UserDto> {
         logService.info("findById(id: ${id}) - start")
         val result = userService.findById(id)
@@ -116,7 +160,8 @@ class UserController @Autowired constructor(
     @RequestMapping(path = ["/lang/{language}"], method = [RequestMethod.HEAD])
     @ApiOperation("Change a user's language")
     fun changeLanguage(
-        @ApiParam(name = "language", value = "Selected language") @PathVariable language: String,
+        @ApiParam(name = "language", value = "Selected language")
+        @PathVariable language: String,
         principal: Principal
     ): ResponseEntity<Boolean> {
         logService.info("changeLanguage(language: ${language}) - start")
@@ -138,8 +183,10 @@ class UserController @Autowired constructor(
     @PatchMapping("/disable/{id}/{active}")
     @ApiOperation("Change the value active of a user")
     fun disable(
-        @ApiParam(name = "id", value = "User´s id") @PathVariable id: Long,
-        @ApiParam(name = "active", value = "New value to user´s active") @PathVariable active: Boolean
+        @ApiParam(name = "id", value = "User´s id")
+        @PathVariable id: Long,
+        @ApiParam(name = "active", value = "New value to user´s active")
+        @PathVariable active: Boolean
     ): ResponseEntity<UserDto> {
         logService.info("disable(id: ${id}, active: ${active}) - start")
         val userDto = userService.disable(id, active)
@@ -156,7 +203,8 @@ class UserController @Autowired constructor(
     @DeleteMapping("/{id}")
     @ApiOperation("Delete a user")
     fun delete(
-        @ApiParam(name = "id", value = "User´s id") @PathVariable id: Long
+        @ApiParam(name = "id", value = "User´s id")
+        @PathVariable id: Long
     ): ResponseEntity<Boolean> {
         logService.info("delete(id: ${id}) - start")
         val result = userService.delete(id)
