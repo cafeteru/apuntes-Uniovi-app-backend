@@ -39,12 +39,12 @@ class TeachSubjectController @Autowired constructor(
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/subject/{id}")
     @ApiOperation("Return a list of teachSubjects by subject´s id")
-    fun findAllTeachersBySubjectId(
+    fun findTeachersBySubjectId(
         @ApiParam(name = "id", value = "Subject´s id")
         @PathVariable id: Long
     ): ResponseEntity<List<UserDto>> {
         logService.info("findById(id: ${id}) - start")
-        val result = teachSubjectService.findAllTeachersBySubjectId(id)
+        val result = teachSubjectService.findTeachersBySubjectId(id)
         logService.info("findById(id: ${id}) - end")
         return ResponseEntity(result, HttpStatus.OK)
     }

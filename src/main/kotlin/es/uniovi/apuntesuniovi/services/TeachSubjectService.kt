@@ -33,7 +33,7 @@ class TeachSubjectService @Autowired constructor(
         return result.map { teachSubject -> teachSubjectAssembler.entityToDto(teachSubject) }
     }
 
-    fun findAllTeachersBySubjectId(id: Long): List<UserDto> {
+    fun findTeachersBySubjectId(id: Long): List<UserDto> {
         logService.info("findAllBySubjectId(id: Long) - start")
         val result = FindTeachSubjectBySubjectId(teachSubjectRepository, id).execute()
         logService.info("findAllBySubjectId(id: Long) - end")
