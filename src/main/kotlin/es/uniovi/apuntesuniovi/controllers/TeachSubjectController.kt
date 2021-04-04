@@ -1,6 +1,7 @@
 package es.uniovi.apuntesuniovi.controllers
 
 import es.uniovi.apuntesuniovi.dtos.entities.TeachSubjectDto
+import es.uniovi.apuntesuniovi.dtos.entities.UserDto
 import es.uniovi.apuntesuniovi.infrastructure.log.LogService
 import es.uniovi.apuntesuniovi.services.TeachSubjectService
 import io.swagger.annotations.Api
@@ -11,10 +12,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.security.access.prepost.PreAuthorize
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
 
 @RestController
@@ -35,6 +33,19 @@ class TeachSubjectController @Autowired constructor(
         logService.info("save(list: List<TeachSubjectDto>) - start")
         val result = teachSubjectService.create(list)
         logService.info("save(list: List<TeachSubjectDto>) - end")
+        return ResponseEntity(result, HttpStatus.OK)
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/subject/{id}")
+    @ApiOperation("Return a list of teachSubjects by subject´s id")
+    fun findAllTeachersBySubjectId(
+        @ApiParam(name = "id", value = "Subject´s id")
+        @PathVariable id: Long
+    ): ResponseEntity<List<UserDto>> {
+        logService.info("findById(id: ${id}) - start")
+        val result = teachSubjectService.findAllTeachersBySubjectId(id)
+        logService.info("findById(id: ${id}) - end")
         return ResponseEntity(result, HttpStatus.OK)
     }
 }
