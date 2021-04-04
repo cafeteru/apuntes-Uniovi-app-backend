@@ -27,12 +27,6 @@ class TeachSubjectService @Autowired constructor(
     fun create(list: List<TeachSubjectDto>): List<TeachSubjectDto> {
         logService.info("create(list: List<TeachSubjectDto>) - start")
         val teachSubjects = list.map { dto -> teachSubjectAssembler.dtoToEntity(dto) }
-        teachSubjects.forEach { teachSubject ->
-            Assert.isTrue(
-                teachSubject.teacher.role == RoleType.TEACHER,
-                TeachSubjectMessages.INVALID_CREATE_DATA
-            )
-        }
         val result = CreateTeachSubject(teachSubjectRepository, teachSubjects).execute()
         logService.info("create(list: List<TeachSubjectDto>) - end")
         return result.map { teachSubject -> teachSubjectAssembler.entityToDto(teachSubject) }

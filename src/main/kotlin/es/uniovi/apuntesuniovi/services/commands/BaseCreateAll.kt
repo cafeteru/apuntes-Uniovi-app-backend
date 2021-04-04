@@ -13,8 +13,11 @@ abstract class BaseCreateAll<Entity>(
 
     override fun execute(): MutableIterable<Entity> {
         logService.info("execute() - start")
+        checkData()
         val result = repository.saveAll(entity)
         logService.info("execute() - end")
         return result
     }
+
+    abstract fun checkData()
 }
