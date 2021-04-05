@@ -79,7 +79,8 @@ class SubjectController @Autowired constructor(
     @GetMapping("/{id}")
     @ApiOperation("Return a subject by id")
     fun findById(
-        @ApiParam(name = "id", value = "Subject´s id") @PathVariable id: Long
+        @ApiParam(name = "id", value = "Subject´s id")
+        @PathVariable id: Long
     ): ResponseEntity<SubjectDto> {
         logService.info("findById(id: ${id}) - start")
         val result = subjectService.findById(id)

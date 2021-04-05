@@ -2,16 +2,15 @@ package es.uniovi.apuntesuniovi.repositories.builders
 
 import com.querydsl.core.BooleanBuilder
 import com.querydsl.core.types.dsl.Expressions
-import es.uniovi.apuntesuniovi.dtos.entities.UserDto
-import es.uniovi.apuntesuniovi.models.Address
+import es.uniovi.apuntesuniovi.dtos.entities.AddressDto
 import es.uniovi.apuntesuniovi.models.QAddress
 
 /**
  * Class to create conditions to filter users
  */
-class AddressBuilder : Builder<Address> {
+class AddressBuilder : Builder<AddressDto> {
 
-    override fun createBuilder(dto: Address?): BooleanBuilder {
+    override fun createBuilder(dto: AddressDto?): BooleanBuilder {
         val builder = BooleanBuilder()
         val qAddress = QAddress.address
         dto?.let {
@@ -24,7 +23,7 @@ class AddressBuilder : Builder<Address> {
     }
 
     private fun createStreetFilter(
-        address: Address,
+        address: AddressDto,
         builder: BooleanBuilder,
         qAddress: QAddress
     ) {
@@ -38,7 +37,7 @@ class AddressBuilder : Builder<Address> {
     }
 
     private fun createCityFilter(
-        address: Address,
+        address: AddressDto,
         builder: BooleanBuilder,
         qAddress: QAddress
     ) {
@@ -52,7 +51,7 @@ class AddressBuilder : Builder<Address> {
     }
 
     private fun createPostalCodeFilter(
-        address: Address,
+        address: AddressDto,
         builder: BooleanBuilder,
         qAddress: QAddress
     ) {
@@ -66,7 +65,7 @@ class AddressBuilder : Builder<Address> {
     }
 
     private fun createCountryFilter(
-        address: Address,
+        address: AddressDto,
         builder: BooleanBuilder,
         qAddress: QAddress
     ) {

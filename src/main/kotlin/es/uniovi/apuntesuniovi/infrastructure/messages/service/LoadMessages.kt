@@ -1,4 +1,4 @@
-package es.uniovi.apuntesuniovi.infrastructure.messages
+package es.uniovi.apuntesuniovi.infrastructure.messages.service
 
 import es.uniovi.apuntesuniovi.models.types.LanguageType
 import org.springframework.beans.factory.annotation.Autowired

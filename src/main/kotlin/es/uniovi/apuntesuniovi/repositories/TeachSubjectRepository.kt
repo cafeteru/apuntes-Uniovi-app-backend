@@ -7,8 +7,6 @@ import es.uniovi.apuntesuniovi.repositories.interfaces.PagingQueryDslRepository
  * Manage the TeachSubject table
  */
 interface TeachSubjectRepository : PagingQueryDslRepository<TeachSubject> {
-    /**
-     * Return by id of subject and teacher
-     */
-    fun existsBySubjectIdAndTeacherId(subjectId: Long, teacherId: Long): Boolean
+
+    fun findBySubjectId(id: Long): List<TeachSubject>
 }

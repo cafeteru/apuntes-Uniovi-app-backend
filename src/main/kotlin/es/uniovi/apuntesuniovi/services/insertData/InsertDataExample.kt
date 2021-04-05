@@ -1,8 +1,8 @@
 package es.uniovi.apuntesuniovi.services.insertData
 
+import es.uniovi.apuntesuniovi.dtos.entities.AddressDto
 import es.uniovi.apuntesuniovi.dtos.entities.UserDto
 import es.uniovi.apuntesuniovi.infrastructure.log.LogService
-import es.uniovi.apuntesuniovi.models.Address
 import es.uniovi.apuntesuniovi.models.types.LanguageType
 import es.uniovi.apuntesuniovi.models.types.RoleType
 import es.uniovi.apuntesuniovi.services.UserService
@@ -43,11 +43,14 @@ class InsertDataExample @Autowired constructor(
     @PostConstruct
     fun initData() {
         logService.info("initData() - start")
-        val address = Address()
-        address.city = "city"
-        address.country = "country"
-        address.street = "street"
-        address.postalCode = "postalCode"
+        val address = AddressDto(
+            id = null,
+            city = "city",
+            country = "country",
+            street = "street",
+            postalCode = "postalCode"
+        )
+
         admin.address = address
         userService.create(admin)
         logService.info("initData() - end")

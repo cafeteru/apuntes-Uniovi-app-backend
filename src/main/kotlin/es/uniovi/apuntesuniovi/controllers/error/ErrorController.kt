@@ -1,7 +1,7 @@
 package es.uniovi.apuntesuniovi.controllers.error
 
 import es.uniovi.apuntesuniovi.infrastructure.log.LogService
-import es.uniovi.apuntesuniovi.infrastructure.messages.LoadMessages
+import es.uniovi.apuntesuniovi.infrastructure.messages.service.LoadMessages
 import es.uniovi.apuntesuniovi.services.UserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus

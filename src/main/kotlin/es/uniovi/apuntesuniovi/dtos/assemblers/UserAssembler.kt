@@ -8,6 +8,8 @@ import es.uniovi.apuntesuniovi.models.User
  * Define the entity and dto conversion methods of users
  */
 class UserAssembler : AbstractAssembler<User, UserDto>() {
+    private val addressAssembler = AddressAssembler()
+
     override fun entityToDto(entity: User?): UserDto {
         logService.info("entityToDto(user: User) - start")
 
@@ -30,7 +32,7 @@ class UserAssembler : AbstractAssembler<User, UserDto>() {
                 role = it.role.toString(),
                 identificationType = identificationType,
                 numberIdentification = it.numberIdentification,
-                address = it.address,
+                address = addressAssembler.entityToDto(it.address),
                 language = it.language.toString()
             )
             logService.info("entityToDto(user: User) - end")
@@ -56,7 +58,7 @@ class UserAssembler : AbstractAssembler<User, UserDto>() {
             user.setIdentificationType(it.identificationType)
             user.numberIdentification = it.numberIdentification
             user.setRole(it.role)
-            user.address = it.address
+            user.address = addressAssembler.dtoToEntity(it.address)
             user.setLanguage(it.language)
             logService.info("dtoToEntity(userDto: UserDto) - end")
             return user

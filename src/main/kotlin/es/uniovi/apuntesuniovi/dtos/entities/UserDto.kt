@@ -21,5 +21,5 @@ data class UserDto(
     var language: String,
     var identificationType: String?,
     var numberIdentification: String?,
-    var address: Address?
+    var address: AddressDto?
 )
