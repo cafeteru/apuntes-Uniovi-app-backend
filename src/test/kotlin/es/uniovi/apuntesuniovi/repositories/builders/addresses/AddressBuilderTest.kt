@@ -1,8 +1,8 @@
 package es.uniovi.apuntesuniovi.repositories.builders.addresses
 
 import com.querydsl.core.types.dsl.Expressions
-import es.uniovi.apuntesuniovi.mocks.entities.MockAddressCreator
-import es.uniovi.apuntesuniovi.models.Address
+import es.uniovi.apuntesuniovi.dtos.entities.AddressDto
+import es.uniovi.apuntesuniovi.mocks.dtos.MockAddressDtoCreator
 import es.uniovi.apuntesuniovi.models.QAddress
 import es.uniovi.apuntesuniovi.repositories.builders.AddressBuilder
 import org.junit.jupiter.api.Assertions
@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test
  * Test class AddressBuilder
  */
 class AddressBuilderTest {
-    private lateinit var address: Address
+    private lateinit var address: AddressDto
     private lateinit var qAddress: QAddress
 
     /**
@@ -22,7 +22,7 @@ class AddressBuilderTest {
      */
     @BeforeEach
     fun initData() {
-        address = MockAddressCreator().create()
+        address = MockAddressDtoCreator().create()
         qAddress = QAddress.address
     }
 
@@ -45,7 +45,7 @@ class AddressBuilderTest {
         )
         address.street = null
         val builder = AddressBuilder().createBuilder(address)
-        Assertions.assertFalse(builder.value.toString().contains(expression.toString()))
+        assertFalse(builder.value.toString().contains(expression.toString()))
     }
 
     /**
