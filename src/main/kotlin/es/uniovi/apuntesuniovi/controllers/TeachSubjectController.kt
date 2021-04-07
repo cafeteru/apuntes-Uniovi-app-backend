@@ -1,5 +1,6 @@
 package es.uniovi.apuntesuniovi.controllers
 
+import es.uniovi.apuntesuniovi.dtos.entities.SubjectDto
 import es.uniovi.apuntesuniovi.dtos.entities.TeachSubjectDto
 import es.uniovi.apuntesuniovi.dtos.entities.UserDto
 import es.uniovi.apuntesuniovi.infrastructure.log.LogService
@@ -46,6 +47,20 @@ class TeachSubjectController @Autowired constructor(
         logService.info("findById(id: ${id}) - start")
         val result = teachSubjectService.findTeachersBySubjectId(id)
         logService.info("findById(id: ${id}) - end")
+        return ResponseEntity(result, HttpStatus.OK)
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PutMapping(value = ["/{id}"], consumes = [MediaType.APPLICATION_JSON_VALUE])
+    @ApiOperation(value = "Update a teach Subject")
+    fun update(
+        @ApiParam(name = "id", value = "Teach Subject´s id") @PathVariable id: Long,
+        @ApiParam(name = "list", value = "List of Teach Subjects to create")
+        @Valid @RequestBody list: List<TeachSubjectDto>
+    ): ResponseEntity<List<TeachSubjectDto>> {
+        logService.info("update(id: ${id}, list: List<TeachSubjectDto>) - start")
+        val result = teachSubjectService.update(id, list)
+        logService.info("update(id: ${id}, list: List<TeachSubjectDto>) - end")
         return ResponseEntity(result, HttpStatus.OK)
     }
 }

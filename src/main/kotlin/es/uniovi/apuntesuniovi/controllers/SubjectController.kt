@@ -102,9 +102,9 @@ class SubjectController @Autowired constructor(
             @ApiParam(name = "subjectDto", value = "Subject to update")
             @Valid @RequestBody subjectDto: SubjectDto
     ): ResponseEntity<SubjectDto> {
-        logService.info("update(id: ${id}, SubjectDto: SubjectDto) - start")
+        logService.info("update(id: ${id}, subjectDto: SubjectDto) - start")
         val result = subjectService.update(id, subjectDto)
-        logService.info("update(id: ${id}, SubjectDto: SubjectDto) - end")
+        logService.info("update(id: ${id}, subjectDto: SubjectDto) - end")
         return ResponseEntity(result, HttpStatus.OK)
     }
 
