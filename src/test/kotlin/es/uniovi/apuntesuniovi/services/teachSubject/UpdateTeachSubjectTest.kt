@@ -21,10 +21,10 @@ import kotlin.test.assertEquals
 import kotlin.test.fail
 
 /**
- * Check the creation method of the TeachSubjectService class
+ * Check the update method of the TeachSubjectService class
  */
 @ExtendWith(MockitoExtension::class)
-class CreateTeachSubjectTest {
+class UpdateTeachSubjectTest {
     private lateinit var teachSubjectService: TeachSubjectService
     private lateinit var teachSubjectAssembler: TeachSubjectAssembler
 
@@ -49,9 +49,6 @@ class CreateTeachSubjectTest {
         )
     }
 
-    /**
-     * Checks the functionality with valid data
-     */
     @Test
     fun validData() {
         val teachSubject = MockTeachSubjectCreator().create()
@@ -65,7 +62,7 @@ class CreateTeachSubjectTest {
         Mockito.`when`(
             teachSubjectRepository.saveAll(Mockito.anyList())
         ).thenReturn(listOf(teachSubject))
-        val result = teachSubjectService.create(listOf(dto))
+        val result = teachSubjectService.update(teachSubject.id!!, listOf(dto))
         assertEquals(dto, result[0])
         assertEquals(teachSubject.id, result[0].id)
     }
@@ -85,7 +82,7 @@ class CreateTeachSubjectTest {
             userRepository.findById(teachSubject.teacher.id!!)
         ).thenReturn(Optional.of(teachSubject.teacher))
         try {
-            teachSubjectService.create(listOf(dto))
+            teachSubjectService.update(teachSubject.id!!, listOf(dto))
         } catch (e: IllegalArgumentException) {
             assertEquals(e.message, TeachSubjectMessages.INVALID_USER_ROLE)
         }
@@ -96,7 +93,7 @@ class CreateTeachSubjectTest {
         try {
             val teachSubject = MockTeachSubjectCreator().create()
             val dto = teachSubjectAssembler.entityToDto(teachSubject)
-            teachSubjectService.create(listOf(dto))
+            teachSubjectService.update(1, listOf(dto))
             fail(SubjectMessages.NOT_FOUND)
         } catch (e: IllegalArgumentException) {
             assertEquals(e.message, SubjectMessages.NOT_FOUND)
@@ -111,7 +108,7 @@ class CreateTeachSubjectTest {
             Mockito.`when`(
                 subjectRepository.findById(teachSubject.subject.id!!)
             ).thenReturn(Optional.of(teachSubject.subject))
-            teachSubjectService.create(listOf(dto))
+            teachSubjectService.update(1, listOf(dto))
             fail(UserMessages.NOT_FOUND)
         } catch (e: IllegalArgumentException) {
             assertEquals(e.message, UserMessages.NOT_FOUND)
