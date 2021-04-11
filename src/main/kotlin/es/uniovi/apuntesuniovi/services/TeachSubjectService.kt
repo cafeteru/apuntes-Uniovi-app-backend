@@ -26,10 +26,10 @@ class TeachSubjectService @Autowired constructor(
     )
     private val userAssembler = UserAssembler()
 
-    fun create(list: List<TeachSubjectDto>): List<TeachSubjectDto> {
+    fun create(subjectId: Long, list: List<TeachSubjectDto>): List<TeachSubjectDto> {
         logService.info("create(list: List<TeachSubjectDto>) - start")
         val teachSubjects = list.map { dto -> teachSubjectAssembler.dtoToEntity(dto) }
-        val result = CreateTeachSubject(teachSubjectRepository, teachSubjects).execute()
+        val result = CreateTeachSubject(teachSubjectRepository, subjectId, teachSubjects).execute()
         logService.info("create(list: List<TeachSubjectDto>) - end")
         return result.map { teachSubject -> teachSubjectAssembler.entityToDto(teachSubject) }
     }

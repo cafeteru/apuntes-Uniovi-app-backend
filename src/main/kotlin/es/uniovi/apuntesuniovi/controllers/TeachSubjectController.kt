@@ -24,14 +24,16 @@ class TeachSubjectController @Autowired constructor(
     private val logService = LogService(this.javaClass)
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PostMapping(value = ["/create"], consumes = [MediaType.APPLICATION_JSON_VALUE])
+    @PostMapping(value = ["/create/{id}"], consumes = [MediaType.APPLICATION_JSON_VALUE])
     @ApiOperation(value = "Create a new teach subject")
     fun create(
+        @ApiParam(name = "id", value = "Subject´s id")
+        @PathVariable id: Long,
         @ApiParam(name = "list", value = "List of Teach Subjects to create")
         @Valid @RequestBody list: List<TeachSubjectDto>
     ): ResponseEntity<List<TeachSubjectDto>> {
         logService.info("save(list: List<TeachSubjectDto>) - start")
-        val result = teachSubjectService.create(list)
+        val result = teachSubjectService.create(id, list)
         logService.info("save(list: List<TeachSubjectDto>) - end")
         return ResponseEntity(result, HttpStatus.OK)
     }
