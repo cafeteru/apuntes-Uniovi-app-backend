@@ -11,7 +11,6 @@ import es.uniovi.apuntesuniovi.repositories.TeachSubjectRepository
 import es.uniovi.apuntesuniovi.repositories.UserRepository
 import es.uniovi.apuntesuniovi.services.commands.teachSubjects.CreateTeachSubject
 import es.uniovi.apuntesuniovi.services.commands.teachSubjects.FindTeachSubjectBySubjectId
-import es.uniovi.apuntesuniovi.services.commands.teachSubjects.UpdateTeachSubject
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
@@ -27,10 +26,10 @@ class TeachSubjectService @Autowired constructor(
     )
     private val userAssembler = UserAssembler()
 
-    fun create(list: List<TeachSubjectDto>): List<TeachSubjectDto> {
+    fun create(subjectId: Long, list: List<TeachSubjectDto>): List<TeachSubjectDto> {
         logService.info("create(list: List<TeachSubjectDto>) - start")
         val teachSubjects = list.map { dto -> teachSubjectAssembler.dtoToEntity(dto) }
-        val result = CreateTeachSubject(teachSubjectRepository, teachSubjects).execute()
+        val result = CreateTeachSubject(teachSubjectRepository, subjectId, teachSubjects).execute()
         logService.info("create(list: List<TeachSubjectDto>) - end")
         return result.map { teachSubject -> teachSubjectAssembler.entityToDto(teachSubject) }
     }
@@ -40,14 +39,6 @@ class TeachSubjectService @Autowired constructor(
         val result = FindTeachSubjectBySubjectId(teachSubjectRepository, id).execute()
         logService.info("findTeachersBySubjectId(id: Long) - end")
         return result.map { teachSubject -> convertUser(teachSubject) }
-    }
-
-    fun update(id: Long, list: List<TeachSubjectDto>): List<TeachSubjectDto> {
-        logService.info("update(id: Long, list: List<TeachSubjectDto>) - start")
-        val teachSubjects = list.map { dto -> teachSubjectAssembler.dtoToEntity(dto) }
-        val result = UpdateTeachSubject(teachSubjectRepository, id, teachSubjects).execute()
-        logService.info("create(id: Long, list: List<TeachSubjectDto>) - end")
-        return result.map { teachSubject -> teachSubjectAssembler.entityToDto(teachSubject) }
     }
 
     private fun convertUser(teachSubject: TeachSubject): UserDto {

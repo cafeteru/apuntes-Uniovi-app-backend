@@ -65,7 +65,7 @@ class CreateTeachSubjectTest {
         Mockito.`when`(
             teachSubjectRepository.saveAll(Mockito.anyList())
         ).thenReturn(listOf(teachSubject))
-        val result = teachSubjectService.create(listOf(dto))
+        val result = teachSubjectService.create(teachSubject.subject.id!!, listOf(dto))
         assertEquals(dto, result[0])
         assertEquals(teachSubject.id, result[0].id)
     }
@@ -85,7 +85,7 @@ class CreateTeachSubjectTest {
             userRepository.findById(teachSubject.teacher.id!!)
         ).thenReturn(Optional.of(teachSubject.teacher))
         try {
-            teachSubjectService.create(listOf(dto))
+            teachSubjectService.create(teachSubject.subject.id!!, listOf(dto))
         } catch (e: IllegalArgumentException) {
             assertEquals(e.message, TeachSubjectMessages.INVALID_USER_ROLE)
         }
@@ -96,7 +96,7 @@ class CreateTeachSubjectTest {
         try {
             val teachSubject = MockTeachSubjectCreator().create()
             val dto = teachSubjectAssembler.entityToDto(teachSubject)
-            teachSubjectService.create(listOf(dto))
+            teachSubjectService.create(teachSubject.subject.id!!, listOf(dto))
             fail(SubjectMessages.NOT_FOUND)
         } catch (e: IllegalArgumentException) {
             assertEquals(e.message, SubjectMessages.NOT_FOUND)
@@ -111,7 +111,7 @@ class CreateTeachSubjectTest {
             Mockito.`when`(
                 subjectRepository.findById(teachSubject.subject.id!!)
             ).thenReturn(Optional.of(teachSubject.subject))
-            teachSubjectService.create(listOf(dto))
+            teachSubjectService.create(teachSubject.subject.id!!, listOf(dto))
             fail(UserMessages.NOT_FOUND)
         } catch (e: IllegalArgumentException) {
             assertEquals(e.message, UserMessages.NOT_FOUND)

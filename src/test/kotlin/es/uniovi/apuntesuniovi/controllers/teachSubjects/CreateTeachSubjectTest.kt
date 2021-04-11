@@ -30,15 +30,14 @@ class CreateTeachSubjectTest {
      */
     @Test
     fun validData() {
+        val id = 1L
         val dto = MockTeachSubjectDtoCreator().create()
         Mockito.`when`(
-            teachSubjectService.create(
-                listOf(dto)
-            )
+            teachSubjectService.create(id, listOf(dto))
         ).thenReturn(
             listOf(dto)
         )
-        val httpResponse = teachSubjectController.create(listOf(dto))
+        val httpResponse = teachSubjectController.create(id, listOf(dto))
         Assertions.assertEquals(httpResponse.statusCode, HttpStatus.OK)
         Assertions.assertEquals(httpResponse.body, listOf(dto))
     }
