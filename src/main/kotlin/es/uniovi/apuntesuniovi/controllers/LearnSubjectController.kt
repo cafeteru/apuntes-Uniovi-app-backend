@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
 
 @RestController
-@RequestMapping("/LearnSubjects")
+@RequestMapping("/learnSubjects")
 @Api(tags = ["Learn Subjects"])
 class LearnSubjectController @Autowired constructor(
     private val learnSubjectService: LearnSubjectService
