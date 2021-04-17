@@ -8,6 +8,8 @@ import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation
 import io.swagger.annotations.ApiParam
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
@@ -32,9 +34,9 @@ class LearnSubjectController @Autowired constructor(
         @ApiParam(name = "list", value = "List of Learn Subjects to create")
         @Valid @RequestBody list: List<LearnSubjectDto>
     ): ResponseEntity<List<LearnSubjectDto>> {
-        logService.info("save(list: List<LearnSubjectDto>) - start")
+        logService.info("create(id: Long, list: List<LearnSubjectDto>) - start")
         val result = learnSubjectService.create(id, list)
-        logService.info("save(list: List<LearnSubjectDto>) - end")
+        logService.info("create(id: Long, list: List<LearnSubjectDto>) - end")
         return ResponseEntity(result, HttpStatus.OK)
     }
 
@@ -43,11 +45,17 @@ class LearnSubjectController @Autowired constructor(
     @ApiOperation("Return a list of learnSubjects by subject´s id")
     fun findStudentsBySubjectId(
         @ApiParam(name = "id", value = "Subject´s id")
-        @PathVariable id: Long
-    ): ResponseEntity<List<UserDto>> {
-        logService.info("findById(id: ${id}) - start")
-        val result = learnSubjectService.findStudentsBySubjectId(id)
-        logService.info("findById(id: ${id}) - end")
-        return ResponseEntity(result, HttpStatus.OK)
+        @PathVariable id: Long,
+        @ApiParam(name = "pageable", value = "Pageable")
+        pageable: Pageable,
+    ): ResponseEntity<Page<UserDto>> {
+        logService.info("findStudentsBySubjectId(id: ${id}) - start")
+        val page = learnSubjectService.findStudentsBySubjectId(id, pageable)
+        var code = HttpStatus.OK
+        if (page.isEmpty) {
+            code = HttpStatus.NO_CONTENT
+        }
+        logService.info("findStudentsBySubjectId(id: ${id}) - end")
+        return ResponseEntity(page, code)
     }
 }

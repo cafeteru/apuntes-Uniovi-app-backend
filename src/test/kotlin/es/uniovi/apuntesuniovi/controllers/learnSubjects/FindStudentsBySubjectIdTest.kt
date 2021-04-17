@@ -7,7 +7,10 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito
+import org.springframework.data.domain.PageImpl
+import org.springframework.data.domain.PageRequest
 import org.springframework.http.HttpStatus
+
 
 class FindStudentsBySubjectIdTest {
     private lateinit var learnSubjectController: LearnSubjectController
@@ -28,9 +31,12 @@ class FindStudentsBySubjectIdTest {
     @Test
     fun validData() {
         val subjectDto = MockUserDtoCreator().create()
-        Mockito.`when`(learnSubjectService.findStudentsBySubjectId(1)).thenReturn(listOf(subjectDto))
-        val httpResponse = learnSubjectController.findStudentsBySubjectId(1)
+        val list = listOf(subjectDto)
+        val pageable = PageRequest.of(0, 10)
+        val page = PageImpl(list, pageable, list.size.toLong())
+        Mockito.`when`(learnSubjectService.findStudentsBySubjectId(1, pageable)).thenReturn(page)
+        val httpResponse = learnSubjectController.findStudentsBySubjectId(1, pageable)
         assertEquals(httpResponse.statusCode, HttpStatus.OK)
-        assertEquals(httpResponse.body, listOf(subjectDto))
+        assertEquals(httpResponse.body, page)
     }
 }

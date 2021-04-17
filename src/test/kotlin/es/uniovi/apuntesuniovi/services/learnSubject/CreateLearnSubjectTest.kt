@@ -1,6 +1,7 @@
 package es.uniovi.apuntesuniovi.services.learnSubject
 
 import es.uniovi.apuntesuniovi.dtos.assemblers.LearnSubjectAssembler
+import es.uniovi.apuntesuniovi.dtos.assemblers.UserAssembler
 import es.uniovi.apuntesuniovi.infrastructure.messages.LearnSubjectMessages
 import es.uniovi.apuntesuniovi.infrastructure.messages.SubjectMessages
 import es.uniovi.apuntesuniovi.infrastructure.messages.UserMessages
@@ -16,6 +17,9 @@ import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.junit.jupiter.MockitoExtension
+import org.springframework.data.domain.PageImpl
+import org.springframework.data.domain.PageRequest
+import org.springframework.data.domain.Pageable
 import java.util.*
 import kotlin.test.assertEquals
 import kotlin.test.fail
@@ -49,9 +53,6 @@ class CreateLearnSubjectTest {
         )
     }
 
-    /**
-     * Checks the functionality with valid data
-     */
     @Test
     fun validData() {
         val learnSubject = MockLearnSubjectCreator().create()
@@ -65,18 +66,18 @@ class CreateLearnSubjectTest {
         Mockito.`when`(
             learnSubjectRepository.saveAll(Mockito.anyList())
         ).thenReturn(listOf(learnSubject))
-        val result = learnSubjectService.create(learnSubject.subject.id!!, listOf(dto))
+        val list = listOf(learnSubject)
+        val page = PageImpl(list, Pageable.unpaged(), list.size.toLong())
+        Mockito.`when`(learnSubjectRepository.findBySubjectId(dto.subjectId, Pageable.unpaged())).thenReturn(page)
+        val result = learnSubjectService.create(dto.subjectId, listOf(dto))
         assertEquals(dto, result[0])
         assertEquals(learnSubject.id, result[0].id)
     }
 
-    /**
-     * Checks the functionality with valid data
-     */
     @Test
     fun invalidData() {
         val learnSubject = MockLearnSubjectCreator().create()
-        learnSubject.student.role = RoleType.STUDENT
+        learnSubject.student.role = RoleType.ADMIN
         val dto = learnSubjectAssembler.entityToDto(learnSubject)
         Mockito.`when`(
             subjectRepository.findById(learnSubject.subject.id!!)

@@ -12,13 +12,15 @@ import es.uniovi.apuntesuniovi.repositories.UserRepository
 import es.uniovi.apuntesuniovi.services.commands.learnSubjects.CreateLearnSubject
 import es.uniovi.apuntesuniovi.services.commands.learnSubjects.FindLearnSubjectBySubjectId
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 
 @Service
 class LearnSubjectService @Autowired constructor(
     userRepository: UserRepository,
     subjectRepository: SubjectRepository,
-    private val LearnSubjectRepository: LearnSubjectRepository
+    private val learnSubjectRepository: LearnSubjectRepository
 ) {
     private val logService = LogService(this.javaClass)
     private val learnSubjectAssembler = LearnSubjectAssembler(
@@ -29,14 +31,14 @@ class LearnSubjectService @Autowired constructor(
     fun create(subjectId: Long, list: List<LearnSubjectDto>): List<LearnSubjectDto> {
         logService.info("create(list: List<LearnSubjectDto>) - start")
         val learnSubjects = list.map { dto -> learnSubjectAssembler.dtoToEntity(dto) }
-        val result = CreateLearnSubject(LearnSubjectRepository, subjectId, learnSubjects).execute()
+        val result = CreateLearnSubject(learnSubjectRepository, subjectId, learnSubjects).execute()
         logService.info("create(list: List<LearnSubjectDto>) - end")
         return result.map { learnSubject -> learnSubjectAssembler.entityToDto(learnSubject) }
     }
 
-    fun findStudentsBySubjectId(id: Long): List<UserDto> {
+    fun findStudentsBySubjectId(id: Long, pageable: Pageable): Page<UserDto> {
         logService.info("findLearnersBySubjectId(id: Long) - start")
-        val result = FindLearnSubjectBySubjectId(LearnSubjectRepository, id).execute()
+        val result = FindLearnSubjectBySubjectId(learnSubjectRepository, id, pageable).execute()
         logService.info("findLearnersBySubjectId(id: Long) - end")
         return result.map { learnSubject -> convertUser(learnSubject) }
     }

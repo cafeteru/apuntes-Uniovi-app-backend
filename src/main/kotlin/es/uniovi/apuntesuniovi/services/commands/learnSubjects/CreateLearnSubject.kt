@@ -5,6 +5,7 @@ import es.uniovi.apuntesuniovi.infrastructure.messages.LearnSubjectMessages
 import es.uniovi.apuntesuniovi.models.LearnSubject
 import es.uniovi.apuntesuniovi.models.types.RoleType
 import es.uniovi.apuntesuniovi.repositories.LearnSubjectRepository
+import org.springframework.data.domain.Pageable
 import org.springframework.util.Assert
 
 /**
@@ -27,8 +28,8 @@ class CreateLearnSubject(
 
     private fun checkExists() {
         logService.info("checkExists() - start")
-        val list = learnSubjectRepository.findBySubjectId(id)
-        if (list.isNotEmpty()) {
+        val list = learnSubjectRepository.findBySubjectId(id, Pageable.unpaged())
+        if (list.content.isNotEmpty()) {
             list.forEach { x -> learnSubjectRepository.deleteById(x.id!!) }
         }
         logService.info("checkExists() - end")

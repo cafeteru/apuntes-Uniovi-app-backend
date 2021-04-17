@@ -15,6 +15,9 @@ import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.junit.jupiter.MockitoExtension
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.PageImpl
+import org.springframework.data.domain.PageRequest
 
 /**
  * Check find by id method of the UserService class
@@ -52,12 +55,13 @@ class FindStudentsBySubjectIdTest {
     @Test
     fun validIdAndExistUser() {
         val id = 1L
-        Mockito.`when`(learnSubjectRepository.findBySubjectId(id)).thenReturn(
-            listOf(learnSubject)
-        )
-        val result = learnSubjectService.findStudentsBySubjectId(id)
-        assertFalse(result.isEmpty())
-        assertEquals(learnSubjectAssembler.entityToDto(learnSubject).studentId, result[0].id)
+        val list = listOf(learnSubject)
+        val pageable = PageRequest.of(0, 10)
+        val page = PageImpl(list, pageable, list.size.toLong())
+        Mockito.`when`(learnSubjectRepository.findBySubjectId(id, pageable)).thenReturn(page)
+        val result = learnSubjectService.findStudentsBySubjectId(id, pageable)
+        assertFalse(result.isEmpty)
+        assertEquals(learnSubjectAssembler.entityToDto(learnSubject).studentId, result.content[0].id)
     }
 
     /**
@@ -66,8 +70,10 @@ class FindStudentsBySubjectIdTest {
     @Test
     fun validIdAndNotExistUser() {
         val id = 1L
-        val result = learnSubjectService.findStudentsBySubjectId(id)
-        assertTrue(result.isEmpty())
+        val pageable = PageRequest.of(0, 10)
+        Mockito.`when`(learnSubjectRepository.findBySubjectId(id, pageable)).thenReturn(Page.empty())
+        val result = learnSubjectService.findStudentsBySubjectId(id, pageable)
+        assertTrue(result.isEmpty)
     }
 
     /**
@@ -77,7 +83,7 @@ class FindStudentsBySubjectIdTest {
     fun invalidId() {
         val id = -1L
         try {
-            learnSubjectService.findStudentsBySubjectId(id)
+            learnSubjectService.findStudentsBySubjectId(id, PageRequest.of(0, 10))
             fail(LearnSubjectMessages.INVALID_SUBJECT_ID)
         } catch (e: IllegalArgumentException) {
             assertEquals(e.message, LearnSubjectMessages.INVALID_SUBJECT_ID)
