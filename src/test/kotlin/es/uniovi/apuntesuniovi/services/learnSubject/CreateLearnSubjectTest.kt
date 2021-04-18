@@ -1,7 +1,6 @@
 package es.uniovi.apuntesuniovi.services.learnSubject
 
 import es.uniovi.apuntesuniovi.dtos.assemblers.LearnSubjectAssembler
-import es.uniovi.apuntesuniovi.dtos.assemblers.UserAssembler
 import es.uniovi.apuntesuniovi.infrastructure.messages.LearnSubjectMessages
 import es.uniovi.apuntesuniovi.infrastructure.messages.SubjectMessages
 import es.uniovi.apuntesuniovi.infrastructure.messages.UserMessages
@@ -18,7 +17,6 @@ import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.junit.jupiter.MockitoExtension
 import org.springframework.data.domain.PageImpl
-import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Pageable
 import java.util.*
 import kotlin.test.assertEquals
@@ -77,7 +75,7 @@ class CreateLearnSubjectTest {
     @Test
     fun invalidData() {
         val learnSubject = MockLearnSubjectCreator().create()
-        learnSubject.student.role = RoleType.ADMIN
+        learnSubject.student.role = RoleType.ROLE_ADMIN
         val dto = learnSubjectAssembler.entityToDto(learnSubject)
         Mockito.`when`(
             subjectRepository.findById(learnSubject.subject.id!!)

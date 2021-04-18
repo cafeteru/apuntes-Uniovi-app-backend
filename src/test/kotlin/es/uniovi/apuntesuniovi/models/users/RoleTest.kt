@@ -29,8 +29,8 @@ class RoleTest {
      */
     @Test
     fun validRole() {
-        user.setRole(RoleType.TEACHER.toString())
-        assertEquals(RoleType.TEACHER, user.role)
+        user.setRole(RoleType.ROLE_TEACHER.toString())
+        assertEquals(RoleType.ROLE_TEACHER, user.role)
     }
 
     /**

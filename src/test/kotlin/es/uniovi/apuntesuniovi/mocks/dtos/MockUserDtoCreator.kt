@@ -25,7 +25,7 @@ class MockUserDtoCreator : MockCreator<UserDto> {
             password = "admin",
             phone = "623548956",
             username = "admin",
-            role = RoleType.ADMIN.toString(),
+            role = RoleType.ROLE_ADMIN.toString(),
             address = MockAddressDtoCreator().create(),
             language = LanguageType.ES.toString()
         )

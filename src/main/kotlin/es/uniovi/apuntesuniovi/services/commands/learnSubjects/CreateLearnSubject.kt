@@ -39,7 +39,7 @@ class CreateLearnSubject(
         logService.info("checkData() - start")
         learnSubjects.forEach { learnSubject ->
             Assert.isTrue(
-                learnSubject.student.role == RoleType.STUDENT,
+                learnSubject.student.role == RoleType.ROLE_STUDENT,
                 LearnSubjectMessages.INVALID_CREATE_DATA
             )
         }

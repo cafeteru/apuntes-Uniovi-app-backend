@@ -76,7 +76,7 @@ class CreateTeachSubjectTest {
     @Test
     fun invalidData() {
         val teachSubject = MockTeachSubjectCreator().create()
-        teachSubject.teacher.role = RoleType.STUDENT
+        teachSubject.teacher.role = RoleType.ROLE_STUDENT
         val dto = teachSubjectAssembler.entityToDto(teachSubject)
         Mockito.`when`(
             subjectRepository.findById(teachSubject.subject.id!!)
