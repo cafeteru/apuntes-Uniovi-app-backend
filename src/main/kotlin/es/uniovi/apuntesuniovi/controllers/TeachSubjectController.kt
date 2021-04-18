@@ -25,7 +25,7 @@ class TeachSubjectController @Autowired constructor(
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping(value = ["/create/{id}"], consumes = [MediaType.APPLICATION_JSON_VALUE])
-    @ApiOperation(value = "Create a new teach subject")
+    @ApiOperation(value = "Create a list of teach subject")
     fun create(
         @ApiParam(name = "id", value = "Subject´s id")
         @PathVariable id: Long,

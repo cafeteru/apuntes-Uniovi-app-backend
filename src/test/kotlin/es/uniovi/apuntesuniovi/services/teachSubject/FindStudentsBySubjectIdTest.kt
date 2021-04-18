@@ -20,7 +20,7 @@ import org.mockito.junit.jupiter.MockitoExtension
  * Check find by id method of the UserService class
  */
 @ExtendWith(MockitoExtension::class)
-class FindTeachersBySubjectIdTest {
+class FindStudentsBySubjectIdTest {
     private lateinit var teachSubject: TeachSubject
     private lateinit var teachSubjectService: TeachSubjectService
     private lateinit var teachSubjectAssembler: TeachSubjectAssembler
