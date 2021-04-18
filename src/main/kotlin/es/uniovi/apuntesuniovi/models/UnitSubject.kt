@@ -3,10 +3,7 @@ package es.uniovi.apuntesuniovi.models
 import es.uniovi.apuntesuniovi.infrastructure.constants.database.UnitSubjectLimits
 import es.uniovi.apuntesuniovi.infrastructure.messages.UnitSubjectMessages
 import es.uniovi.apuntesuniovi.validators.impl.ValidatorMaxLength
-import es.uniovi.apuntesuniovi.validators.impl.ValidatorMinValue
-import java.util.*
 import javax.persistence.*
-import javax.validation.constraints.Min
 
 /**
  * Represents units of a subject
