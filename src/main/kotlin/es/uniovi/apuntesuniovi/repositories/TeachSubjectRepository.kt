@@ -9,4 +9,6 @@ import es.uniovi.apuntesuniovi.repositories.interfaces.PagingQueryDslRepository
 interface TeachSubjectRepository : PagingQueryDslRepository<TeachSubject> {
 
     fun findBySubjectId(id: Long): List<TeachSubject>
+
+    fun findByTeacherId(id: Long): List<TeachSubject>
 }
