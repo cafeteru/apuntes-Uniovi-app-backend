@@ -13,7 +13,6 @@ class MockUnitSubjectDtoCreator : MockCreator<UnitSubjectDto> {
         return UnitSubjectDto(
             id = 3,
             name = "unitSubject",
-            position = UnitSubjectLimits.POSITION_MIN,
             subjectId = MockSubjectCreator().create().id
         )
     }

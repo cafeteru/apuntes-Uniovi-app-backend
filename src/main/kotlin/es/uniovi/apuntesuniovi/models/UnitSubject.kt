@@ -30,17 +30,6 @@ class UnitSubject {
             }
         }
 
-    @Min(UnitSubjectLimits.POSITION_MIN.toLong())
-    var position: Int? = null
-        set(value) {
-            value?.let {
-                if (!ValidatorMinValue(it, UnitSubjectLimits.POSITION_MIN).isValid()) {
-                    throw IllegalArgumentException(UnitSubjectMessages.LIMIT_POSITION_MIN)
-                }
-            }
-            field = value
-        }
-
     @OneToMany(mappedBy = "unitSubject", cascade = [(CascadeType.ALL)])
     val partUnits: Set<PartUnitSubject> = HashSet()
 

@@ -11,7 +11,6 @@ class MockUnitSubjectCreator : MockCreator<UnitSubject> {
         val unitSubject = UnitSubject()
         unitSubject.id = 1
         unitSubject.name = "unitSubject"
-        unitSubject.position = 1
         unitSubject.subject = MockSubjectCreator().create()
         return unitSubject
     }

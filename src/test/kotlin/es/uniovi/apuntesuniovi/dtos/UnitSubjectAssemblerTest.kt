@@ -43,7 +43,6 @@ class UnitSubjectAssemblerTest {
         val dto = assembler.entityToDto(unitSubject)
         assertEquals(unitSubject.id, dto.id)
         assertEquals(unitSubject.name, dto.name)
-        assertEquals(unitSubject.position, dto.position)
         assertEquals(unitSubject.subject?.id, dto.subjectId)
     }
 
@@ -57,7 +56,6 @@ class UnitSubjectAssemblerTest {
         val dto = assembler.entityToDto(unitSubject)
         assertEquals(unitSubject.id, dto.id)
         assertEquals(unitSubject.name, dto.name)
-        assertEquals(unitSubject.position, dto.position)
         assertEquals(unitSubject.subject?.id, dto.subjectId)
     }
 
@@ -86,7 +84,6 @@ class UnitSubjectAssemblerTest {
         val unitSubject = assembler.dtoToEntity(dto)
         assertEquals(unitSubject.id, dto.id)
         assertEquals(unitSubject.name, dto.name)
-        assertEquals(unitSubject.position, dto.position)
         assertEquals(unitSubject.subject?.id, dto.subjectId)
     }
 
