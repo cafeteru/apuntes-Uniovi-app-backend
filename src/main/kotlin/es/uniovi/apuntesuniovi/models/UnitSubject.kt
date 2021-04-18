@@ -3,10 +3,7 @@ package es.uniovi.apuntesuniovi.models
 import es.uniovi.apuntesuniovi.infrastructure.constants.database.UnitSubjectLimits
 import es.uniovi.apuntesuniovi.infrastructure.messages.UnitSubjectMessages
 import es.uniovi.apuntesuniovi.validators.impl.ValidatorMaxLength
-import es.uniovi.apuntesuniovi.validators.impl.ValidatorMinValue
-import java.util.*
 import javax.persistence.*
-import javax.validation.constraints.Min
 
 /**
  * Represents units of a subject
@@ -28,17 +25,6 @@ class UnitSubject {
             } else {
                 throw IllegalArgumentException(UnitSubjectMessages.LIMIT_NAME)
             }
-        }
-
-    @Min(UnitSubjectLimits.POSITION_MIN.toLong())
-    var position: Int? = null
-        set(value) {
-            value?.let {
-                if (!ValidatorMinValue(it, UnitSubjectLimits.POSITION_MIN).isValid()) {
-                    throw IllegalArgumentException(UnitSubjectMessages.LIMIT_POSITION_MIN)
-                }
-            }
-            field = value
         }
 
     @OneToMany(mappedBy = "unitSubject", cascade = [(CascadeType.ALL)])

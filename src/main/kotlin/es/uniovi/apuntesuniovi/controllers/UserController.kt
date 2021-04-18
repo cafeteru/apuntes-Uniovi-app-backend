@@ -137,7 +137,7 @@ class UserController @Autowired constructor(
      *
      * @param id User´s id
      */
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/{id}")
     @ApiOperation("Return a user by id")
     fun findById(

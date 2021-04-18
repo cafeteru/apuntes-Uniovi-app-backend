@@ -14,9 +14,9 @@ class GetUserStatistics(
         val userStatistics = UserStatistics(
             active = userRepository.countByActive(true),
             inactive = userRepository.countByActive(false),
-            numAdmin = userRepository.countByRole(RoleType.ADMIN),
-            numStudents = userRepository.countByRole(RoleType.STUDENT),
-            numTeachers = userRepository.countByRole(RoleType.TEACHER)
+            numAdmin = userRepository.countByRole(RoleType.ROLE_ADMIN),
+            numStudents = userRepository.countByRole(RoleType.ROLE_STUDENT),
+            numTeachers = userRepository.countByRole(RoleType.ROLE_TEACHER)
         )
         logService.info("execute() - end")
         return userStatistics

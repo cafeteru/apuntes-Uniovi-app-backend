@@ -7,5 +7,4 @@ data class UnitSubjectDto(
     var id: Long?,
     var name: String?,
     var subjectId: Long?,
-    var position: Int?
 )

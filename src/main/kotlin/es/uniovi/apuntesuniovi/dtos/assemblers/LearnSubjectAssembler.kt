@@ -38,7 +38,7 @@ class LearnSubjectAssembler(
             result.id = it.id
             result.subject = FindSubjectById(subjectRepository, it.subjectId).execute()
             result.student = FindUserById(userRepository, it.studentId).execute()
-            Assert.isTrue(result.student.role == RoleType.STUDENT,
+            Assert.isTrue(result.student.role == RoleType.ROLE_STUDENT,
                 LearnSubjectMessages.INVALID_USER_ROLE)
             logService.info("dtoToEntity(dto: LearnSubjectDto) - end")
             return result

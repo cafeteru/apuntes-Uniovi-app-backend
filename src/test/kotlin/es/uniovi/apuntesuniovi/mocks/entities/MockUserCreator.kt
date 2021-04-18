@@ -23,7 +23,7 @@ class MockUserCreator : MockCreator<User> {
         user.numberIdentification = RandomMethods.dni()
         user.username = RandomMethods.randomUsername()
         user.password = "testPassword"
-        user.role = RoleType.ADMIN
+        user.role = RoleType.ROLE_ADMIN
         user.phone = "623548956"
         user.img = "img"
         user.address = MockAddressCreator().create()
@@ -44,7 +44,7 @@ class MockUserCreator : MockCreator<User> {
      */
     fun createTeacher(): User {
         val user = create()
-        user.role = RoleType.TEACHER
+        user.role = RoleType.ROLE_TEACHER
         return user
     }
 
@@ -53,7 +53,7 @@ class MockUserCreator : MockCreator<User> {
      */
     fun createStudent(): User {
         val user = create()
-        user.role = RoleType.STUDENT
+        user.role = RoleType.ROLE_STUDENT
         return user
     }
 

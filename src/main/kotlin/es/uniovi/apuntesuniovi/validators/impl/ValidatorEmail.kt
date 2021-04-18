@@ -12,7 +12,7 @@ class ValidatorEmail(private var email: String?) : Validator {
         email?.let {
             val pattern: Pattern = Pattern
                 .compile(
-                    "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+                    "^[_A-Za-z0-9]+(\\.[_A-Za-z0-9-]+)*@"
                             + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"
                 )
             val mather: Matcher = pattern.matcher(it)

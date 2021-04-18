@@ -1,6 +1,5 @@
 package es.uniovi.apuntesuniovi.dtos.entities
 
-import es.uniovi.apuntesuniovi.models.Address
 import java.time.LocalDate
 
 /**

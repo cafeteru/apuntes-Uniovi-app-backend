@@ -18,12 +18,12 @@ class UnitSubjectAssembler(
             val dto = UnitSubjectDto(
                 id = it.id,
                 name = it.name,
-                position = it.position,
                 subjectId = it.subject?.id
             )
             logService.info("entityToDto(entity: UnitSubject) - end")
             return dto
         }
+        logService.error("entityToDto(entity: UnitSubject) - error: ${UnitSubjectMessages.NULL}")
         throw IllegalArgumentException(UnitSubjectMessages.NULL)
     }
 
@@ -33,26 +33,21 @@ class UnitSubjectAssembler(
             val entity = UnitSubject()
             entity.id = it.id
             if (it.name == null) {
-                logService.info("dtoToEntity(dto: UnitSubjectDto) - error: ${UnitSubjectMessages.NULL_NAME}")
+                logService.error("dtoToEntity(dto: UnitSubjectDto) - error: ${UnitSubjectMessages.NULL_NAME}")
                 throw IllegalArgumentException(UnitSubjectMessages.NULL_NAME)
             } else {
                 entity.name = it.name
             }
-            if (it.position == null) {
-                logService.info("dtoToEntity(dto: UnitSubjectDto) - error: ${UnitSubjectMessages.NULL_POSITION}")
-                throw IllegalArgumentException(UnitSubjectMessages.NULL_POSITION)
-            } else {
-                entity.position = it.position
-            }
             it.subjectId?.let { id ->
                 entity.subject = FindSubjectById(subjectRepository, id).execute()
             } ?: run {
-                logService.info("dtoToEntity(dto: UnitSubjectDto) - error: ${UnitSubjectMessages.NULL_SUBJECT}")
+                logService.error("dtoToEntity(dto: UnitSubjectDto) - error: ${UnitSubjectMessages.NULL_SUBJECT}")
                 throw IllegalArgumentException(UnitSubjectMessages.NULL_SUBJECT)
             }
             logService.info("dtoToEntity(dto: UnitSubjectDto) - end")
             return entity
         }
+        logService.error("dtoToEntity(dto: UnitSubjectDto) - error: ${UnitSubjectMessages.NULL}")
         throw IllegalArgumentException(UnitSubjectMessages.NULL)
     }
 }

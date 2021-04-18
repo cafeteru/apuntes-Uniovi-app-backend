@@ -78,7 +78,7 @@ class JWTAuthenticationFilter(
         val user = userService.findByUsername(username)
         val token = JWT.create()
             .withSubject(user.username)
-            .withClaim("role", "ROLE_${user.role}")
+            .withClaim("role", "${user.role}")
             .withClaim("id", user.id)
             .withExpiresAt(Date(System.currentTimeMillis() + EXPIRATION_TIME))
             .sign(HMAC512(SECRET))

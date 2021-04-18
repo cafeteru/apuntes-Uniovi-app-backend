@@ -5,5 +5,4 @@ package es.uniovi.apuntesuniovi.infrastructure.constants.database
  */
 object UnitSubjectLimits {
     const val NAME = 50
-    const val POSITION_MIN = 1
 }

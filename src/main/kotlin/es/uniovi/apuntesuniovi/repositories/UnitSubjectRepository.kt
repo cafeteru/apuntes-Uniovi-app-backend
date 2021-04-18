@@ -11,9 +11,4 @@ interface UnitSubjectRepository : PagingQueryDslRepository<UnitSubject> {
      * Check if it exist by name and subject
      */
     fun existsByNameAndSubjectId(name: String, subjectId: Long): Boolean
-
-    /**
-     * Check if it exist by position and subject
-     */
-    fun existsByPositionAndSubjectId(position: Int, subjectId: Long): Boolean
 }
