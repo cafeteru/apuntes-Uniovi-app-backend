@@ -1,6 +1,7 @@
 package es.uniovi.apuntesuniovi.controllers.teachSubjects
 
 import es.uniovi.apuntesuniovi.controllers.TeachSubjectController
+import es.uniovi.apuntesuniovi.mocks.dtos.MockSubjectDtoCreator
 import es.uniovi.apuntesuniovi.mocks.dtos.MockUserDtoCreator
 import es.uniovi.apuntesuniovi.services.TeachSubjectService
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -11,7 +12,7 @@ import org.mockito.Mockito
 /**
  * Check find teachers by subject´s id method of the TeachSubjectController class
  */
-class FindTeachersBySubjectIdTest {
+class FindSubjectsByTeacherIdTest {
     private lateinit var teachSubjectController: TeachSubjectController
     private lateinit var teachSubjectService: TeachSubjectService
 
@@ -29,9 +30,9 @@ class FindTeachersBySubjectIdTest {
      */
     @Test
     fun validData() {
-        val userDto = MockUserDtoCreator().create()
-        Mockito.`when`(teachSubjectService.findTeachersBySubjectId(1)).thenReturn(listOf(userDto))
-        val list = teachSubjectController.findTeachersBySubjectId(1)
-        assertEquals(list, listOf(userDto))
+        val subjectDto = MockSubjectDtoCreator().create()
+        Mockito.`when`(teachSubjectService.findSubjectsByTeacherId(1)).thenReturn(listOf(subjectDto))
+        val list = teachSubjectController.findSubjectsByTeacherId(1)
+        assertEquals(list, listOf(subjectDto))
     }
 }
