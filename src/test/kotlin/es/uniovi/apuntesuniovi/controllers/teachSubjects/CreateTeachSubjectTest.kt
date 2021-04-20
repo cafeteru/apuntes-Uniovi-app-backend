@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito
-import org.springframework.http.HttpStatus
 
 /**
  * Check the creation method of the SubjectController class
@@ -37,8 +36,7 @@ class CreateTeachSubjectTest {
         ).thenReturn(
             listOf(dto)
         )
-        val httpResponse = teachSubjectController.create(id, listOf(dto))
-        Assertions.assertEquals(httpResponse.statusCode, HttpStatus.OK)
-        Assertions.assertEquals(httpResponse.body, listOf(dto))
+        val list = teachSubjectController.create(id, listOf(dto))
+        Assertions.assertEquals(list, listOf(dto))
     }
 }

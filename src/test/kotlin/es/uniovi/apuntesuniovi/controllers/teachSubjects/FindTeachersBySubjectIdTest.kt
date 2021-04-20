@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito
-import org.springframework.http.HttpStatus
 
 /**
  * Check find teachers by subject´s id method of the TeachSubjectController class
@@ -32,8 +31,7 @@ class FindTeachersBySubjectIdTest {
     fun validData() {
         val subjectDto = MockUserDtoCreator().create()
         Mockito.`when`(teachSubjectService.findTeachersBySubjectId(1)).thenReturn(listOf(subjectDto))
-        val httpResponse = teachSubjectController.findTeachersBySubjectId(1)
-        assertEquals(httpResponse.statusCode, HttpStatus.OK)
-        assertEquals(httpResponse.body, listOf(subjectDto))
+        val list = teachSubjectController.findTeachersBySubjectId(1)
+        assertEquals(list, listOf(subjectDto))
     }
 }
