@@ -17,6 +17,7 @@ class TeachSubjectAssembler(
     private val subjectRepository: SubjectRepository,
     private val userRepository: UserRepository
 ) : AbstractAssembler<TeachSubject, TeachSubjectDto>() {
+
     override fun entityToDto(entity: TeachSubject?): TeachSubjectDto {
         logService.info("entityToDto(entity: TeachSubject) - start")
         entity?.let {

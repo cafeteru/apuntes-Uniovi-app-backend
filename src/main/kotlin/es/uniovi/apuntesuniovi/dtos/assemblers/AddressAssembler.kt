@@ -8,6 +8,7 @@ import es.uniovi.apuntesuniovi.models.Address
  * Define the entity and dto conversion methods of subjects
  */
 class AddressAssembler : AbstractAssembler<Address, AddressDto>() {
+
     override fun entityToDto(entity: Address?): AddressDto {
         logService.info("entityToDto(entity: Address) - start")
         entity?.let {

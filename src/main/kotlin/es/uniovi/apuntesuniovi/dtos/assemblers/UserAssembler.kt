@@ -12,7 +12,6 @@ class UserAssembler : AbstractAssembler<User, UserDto>() {
 
     override fun entityToDto(entity: User?): UserDto {
         logService.info("entityToDto(user: User) - start")
-
         entity?.let {
             var identificationType: String? = null
             if (it.identificationType != null) {

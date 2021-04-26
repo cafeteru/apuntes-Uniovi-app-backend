@@ -12,18 +12,19 @@ import es.uniovi.apuntesuniovi.services.commands.subjects.FindSubjectById
 class UnitSubjectAssembler(
     private val subjectRepository: SubjectRepository
 ) : AbstractAssembler<UnitSubject, UnitSubjectDto>() {
+
     override fun entityToDto(entity: UnitSubject?): UnitSubjectDto {
         logService.info("entityToDto(entity: UnitSubject) - start")
         entity?.let {
             val dto = UnitSubjectDto(
                 id = it.id,
                 name = it.name,
+                position = it.position,
                 subjectId = it.subject?.id
             )
             logService.info("entityToDto(entity: UnitSubject) - end")
             return dto
         }
-        logService.error("entityToDto(entity: UnitSubject) - error: ${UnitSubjectMessages.NULL}")
         throw IllegalArgumentException(UnitSubjectMessages.NULL)
     }
 
@@ -32,22 +33,13 @@ class UnitSubjectAssembler(
         dto?.let {
             val entity = UnitSubject()
             entity.id = it.id
-            if (it.name == null) {
-                logService.error("dtoToEntity(dto: UnitSubjectDto) - error: ${UnitSubjectMessages.NULL_NAME}")
-                throw IllegalArgumentException(UnitSubjectMessages.NULL_NAME)
-            } else {
-                entity.name = it.name
-            }
-            it.subjectId?.let { id ->
-                entity.subject = FindSubjectById(subjectRepository, id).execute()
-            } ?: run {
-                logService.error("dtoToEntity(dto: UnitSubjectDto) - error: ${UnitSubjectMessages.NULL_SUBJECT}")
-                throw IllegalArgumentException(UnitSubjectMessages.NULL_SUBJECT)
-            }
+            entity.name = it.name ?: throw IllegalArgumentException(UnitSubjectMessages.NULL_NAME)
+            val id = it.subjectId ?: throw IllegalArgumentException(UnitSubjectMessages.NULL_SUBJECT)
+            entity.subject = FindSubjectById(subjectRepository, id).execute()
+            entity.position = dto.position ?: 1
             logService.info("dtoToEntity(dto: UnitSubjectDto) - end")
             return entity
         }
-        logService.error("dtoToEntity(dto: UnitSubjectDto) - error: ${UnitSubjectMessages.NULL}")
         throw IllegalArgumentException(UnitSubjectMessages.NULL)
     }
 }

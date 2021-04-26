@@ -16,9 +16,13 @@ class CreateUnitSubject(
 
     override fun checkData() {
         logService.info("checkData() - start")
-        val name = unitSubject.name!!
-        val subjectId = unitSubject.subject!!.id!!
-        Assert.isTrue(unitSubjectRepository.existsByNameAndSubjectId(name, subjectId), UnitSubjectMessages.EXISTS_NAME)
+        val name = unitSubject.name ?: throw IllegalArgumentException(UnitSubjectMessages.NULL_NAME)
+        val subject = unitSubject.subject ?: throw IllegalArgumentException(UnitSubjectMessages.NULL_SUBJECT)
+        val subjectId = subject.id ?: throw IllegalArgumentException(UnitSubjectMessages.INVALID_SUBJECT_ID)
+        Assert.isTrue(
+            !unitSubjectRepository.existsByNameAndSubjectId(name, subjectId),
+            UnitSubjectMessages.EXISTS_NAME
+        )
         logService.info("checkData() - end")
     }
 }

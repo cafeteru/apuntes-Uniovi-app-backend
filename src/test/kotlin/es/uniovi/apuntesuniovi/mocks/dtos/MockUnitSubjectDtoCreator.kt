@@ -1,7 +1,6 @@
 package es.uniovi.apuntesuniovi.mocks.dtos
 
 import es.uniovi.apuntesuniovi.dtos.entities.UnitSubjectDto
-import es.uniovi.apuntesuniovi.infrastructure.constants.database.UnitSubjectLimits
 import es.uniovi.apuntesuniovi.mocks.MockCreator
 import es.uniovi.apuntesuniovi.mocks.entities.MockSubjectCreator
 
@@ -13,6 +12,7 @@ class MockUnitSubjectDtoCreator : MockCreator<UnitSubjectDto> {
         return UnitSubjectDto(
             id = 3,
             name = "unitSubject",
+            position = 1,
             subjectId = MockSubjectCreator().create().id
         )
     }

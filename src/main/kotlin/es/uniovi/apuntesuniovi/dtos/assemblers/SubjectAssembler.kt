@@ -8,6 +8,7 @@ import es.uniovi.apuntesuniovi.models.Subject
  * Define the entity and dto conversion methods of subjects
  */
 class SubjectAssembler : AbstractAssembler<Subject, SubjectDto>() {
+
     override fun entityToDto(entity: Subject?): SubjectDto {
         logService.info("entityToDto(entity: Subject) - start")
         entity?.let {
