@@ -1,8 +1,9 @@
 package es.uniovi.apuntesuniovi.services
 
-import es.uniovi.apuntesuniovi.dtos.assemblers.SubjectAssembler
+import es.uniovi.apuntesuniovi.dtos.Converter
 import es.uniovi.apuntesuniovi.dtos.entities.SubjectDto
 import es.uniovi.apuntesuniovi.infrastructure.log.LogService
+import es.uniovi.apuntesuniovi.models.Subject
 import es.uniovi.apuntesuniovi.repositories.SubjectRepository
 import es.uniovi.apuntesuniovi.services.commands.subjects.*
 import es.uniovi.apuntesuniovi.statistics.SubjectStatistics
@@ -19,7 +20,6 @@ class SubjectService @Autowired constructor(
     private val subjectRepository: SubjectRepository
 ) {
     private val logService = LogService(this.javaClass)
-    private val subjectAssembler = SubjectAssembler()
 
     /**
      * Create a new subject
@@ -28,10 +28,10 @@ class SubjectService @Autowired constructor(
      */
     fun create(dto: SubjectDto): SubjectDto {
         logService.info("create(dto: UserDto) - start")
-        val subject = subjectAssembler.dtoToEntity(dto)
+        val subject = Converter.convert(dto, Subject::class.java)
         val result = CreateSubject(subjectRepository, subject).execute()
         logService.info("create(dto: UserDto) - end")
-        return subjectAssembler.entityToDto(result)
+        return Converter.convert(result, SubjectDto::class.java)
     }
 
     /**
@@ -43,7 +43,7 @@ class SubjectService @Autowired constructor(
         logService.info("findAll() - start")
         val result = FindAllSubjects(subjectRepository, subjectDto, pageable).execute()
         logService.info("findAll() - end")
-        return result.map { entity -> subjectAssembler.entityToDto(entity) }
+        return Converter.convert(result, SubjectDto::class.java)
     }
 
     /**
@@ -53,9 +53,9 @@ class SubjectService @Autowired constructor(
      */
     fun findById(id: Long): SubjectDto {
         logService.info("findById() - start")
-        val subject = FindSubjectById(subjectRepository, id).execute()
+        val result = FindSubjectById(subjectRepository, id).execute()
         logService.info("findById() - end")
-        return subjectAssembler.entityToDto(subject)
+        return Converter.convert(result, SubjectDto::class.java)
     }
 
     /**
@@ -66,10 +66,10 @@ class SubjectService @Autowired constructor(
      */
     fun update(id: Long, dto: SubjectDto): SubjectDto {
         logService.info("update(id: Long, dto: SubjectDto) - start")
-        val subject = subjectAssembler.dtoToEntity(dto)
+        val subject = Converter.convert(dto, Subject::class.java)
         val result = UpdateSubject(subjectRepository, id, subject).execute()
         logService.info("update(id: Long, dto: SubjectDto) - end")
-        return subjectAssembler.entityToDto(result)
+        return Converter.convert(result, SubjectDto::class.java)
     }
 
     /**
@@ -80,9 +80,9 @@ class SubjectService @Autowired constructor(
      */
     fun disable(id: Long, active: Boolean): SubjectDto {
         logService.info("disable(id: $id, active: $active) - start")
-        val subject = DisableSubject(subjectRepository, id, active).execute()
+        val result = DisableSubject(subjectRepository, id, active).execute()
         logService.info("disable(id: $id, active:  $active) - end")
-        return subjectAssembler.entityToDto(subject)
+        return Converter.convert(result, SubjectDto::class.java)
     }
 
     /**

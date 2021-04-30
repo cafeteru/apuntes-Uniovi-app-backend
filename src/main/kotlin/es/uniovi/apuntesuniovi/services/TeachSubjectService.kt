@@ -1,8 +1,6 @@
 package es.uniovi.apuntesuniovi.services
 
-import es.uniovi.apuntesuniovi.dtos.assemblers.SubjectAssembler
-import es.uniovi.apuntesuniovi.dtos.assemblers.TeachSubjectAssembler
-import es.uniovi.apuntesuniovi.dtos.assemblers.UserAssembler
+import es.uniovi.apuntesuniovi.dtos.Converter
 import es.uniovi.apuntesuniovi.dtos.entities.SubjectDto
 import es.uniovi.apuntesuniovi.dtos.entities.TeachSubjectDto
 import es.uniovi.apuntesuniovi.dtos.entities.UserDto
@@ -19,23 +17,24 @@ import org.springframework.stereotype.Service
 
 @Service
 class TeachSubjectService @Autowired constructor(
-    userRepository: UserRepository,
-    subjectRepository: SubjectRepository,
-    private val teachSubjectRepository: TeachSubjectRepository
+    private val teachSubjectRepository: TeachSubjectRepository,
+    private val userRepository: UserRepository,
+    private val subjectRepository: SubjectRepository,
 ) {
     private val logService = LogService(this.javaClass)
-    private val teachSubjectAssembler = TeachSubjectAssembler(
-        subjectRepository, userRepository
-    )
-    private val userAssembler = UserAssembler()
-    private val subjectAssembler = SubjectAssembler()
 
     fun create(subjectId: Long, list: List<TeachSubjectDto>): List<TeachSubjectDto> {
         logService.info("create(list: List<TeachSubjectDto>) - start")
-        val teachSubjects = list.map { dto -> teachSubjectAssembler.dtoToEntity(dto) }
-        val result = CreateTeachSubject(teachSubjectRepository, subjectId, teachSubjects).execute()
+        val teachSubjects = Converter.convert(list, TeachSubject::class.java)
+        val result = CreateTeachSubject(
+            teachSubjectRepository,
+            userRepository,
+            subjectRepository,
+            subjectId,
+            teachSubjects
+        ).execute()
         logService.info("create(list: List<TeachSubjectDto>) - end")
-        return result.map { teachSubject -> teachSubjectAssembler.entityToDto(teachSubject) }
+        return Converter.convert(result, TeachSubjectDto::class.java)
     }
 
     fun findTeachersBySubjectId(id: Long): List<UserDto> {
@@ -49,11 +48,11 @@ class TeachSubjectService @Autowired constructor(
         logService.info("findTeachersBySubjectId(id: Long) - start")
         val result = FindSubjectsByTeacherId(teachSubjectRepository, id).execute()
         logService.info("findTeachersBySubjectId(id: Long) - end")
-        return result.map { subject -> subjectAssembler.entityToDto(subject) }
+        return Converter.convert(result, SubjectDto::class.java)
     }
 
     private fun convertUser(teachSubject: TeachSubject): UserDto {
-        val user = userAssembler.entityToDto(teachSubject.teacher)
+        val user = Converter.convert(teachSubject.teacher, UserDto::class.java)
         user.password = null
         return user
     }

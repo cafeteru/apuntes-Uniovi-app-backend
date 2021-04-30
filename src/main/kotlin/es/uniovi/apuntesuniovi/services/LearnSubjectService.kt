@@ -1,7 +1,6 @@
 package es.uniovi.apuntesuniovi.services
 
-import es.uniovi.apuntesuniovi.dtos.assemblers.LearnSubjectAssembler
-import es.uniovi.apuntesuniovi.dtos.assemblers.UserAssembler
+import es.uniovi.apuntesuniovi.dtos.Converter
 import es.uniovi.apuntesuniovi.dtos.entities.LearnSubjectDto
 import es.uniovi.apuntesuniovi.dtos.entities.UserDto
 import es.uniovi.apuntesuniovi.infrastructure.log.LogService
@@ -18,22 +17,24 @@ import org.springframework.stereotype.Service
 
 @Service
 class LearnSubjectService @Autowired constructor(
-    userRepository: UserRepository,
-    subjectRepository: SubjectRepository,
+    private val userRepository: UserRepository,
+    private val subjectRepository: SubjectRepository,
     private val learnSubjectRepository: LearnSubjectRepository
 ) {
     private val logService = LogService(this.javaClass)
-    private val learnSubjectAssembler = LearnSubjectAssembler(
-        subjectRepository, userRepository
-    )
-    private val userAssembler = UserAssembler()
 
     fun create(subjectId: Long, list: List<LearnSubjectDto>): List<LearnSubjectDto> {
         logService.info("create(list: List<LearnSubjectDto>) - start")
-        val learnSubjects = list.map { dto -> learnSubjectAssembler.dtoToEntity(dto) }
-        val result = CreateLearnSubject(learnSubjectRepository, subjectId, learnSubjects).execute()
+        val learnSubjects = Converter.convert(list, LearnSubject::class.java)
+        val result = CreateLearnSubject(
+            learnSubjectRepository,
+            userRepository,
+            subjectRepository,
+            subjectId,
+            learnSubjects
+        ).execute()
         logService.info("create(list: List<LearnSubjectDto>) - end")
-        return result.map { learnSubject -> learnSubjectAssembler.entityToDto(learnSubject) }
+        return Converter.convert(result, LearnSubjectDto::class.java)
     }
 
     fun findStudentsBySubjectId(id: Long, pageable: Pageable): Page<UserDto> {
@@ -44,7 +45,7 @@ class LearnSubjectService @Autowired constructor(
     }
 
     private fun convertUser(learnSubject: LearnSubject): UserDto {
-        val user = userAssembler.entityToDto(learnSubject.student)
+        val user = Converter.convert(learnSubject.student, UserDto::class.java)
         user.password = null
         return user
     }

@@ -5,6 +5,8 @@ package es.uniovi.apuntesuniovi.dtos.entities
  */
 data class TeachSubjectDto(
     var id: Long?,
-    var subjectId: Long,
-    var teacherId: Long
-)
+    var subjectId: Long?,
+    var teacherId: Long?
+) {
+    constructor() : this(null, null, null)
+}

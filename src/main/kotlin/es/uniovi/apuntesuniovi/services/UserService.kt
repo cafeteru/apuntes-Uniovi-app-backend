@@ -1,6 +1,6 @@
 package es.uniovi.apuntesuniovi.services
 
-import es.uniovi.apuntesuniovi.dtos.assemblers.UserAssembler
+import es.uniovi.apuntesuniovi.dtos.Converter
 import es.uniovi.apuntesuniovi.dtos.entities.UserDto
 import es.uniovi.apuntesuniovi.infrastructure.log.LogService
 import es.uniovi.apuntesuniovi.models.User
@@ -22,7 +22,6 @@ class UserService @Autowired constructor(
     private val addressRepository: AddressRepository
 ) {
     private val logService = LogService(this.javaClass)
-    private val userAssembler = UserAssembler()
 
     /**
      * Create a new user
@@ -31,7 +30,7 @@ class UserService @Autowired constructor(
      */
     fun create(dto: UserDto): UserDto {
         logService.info("create(dto: UserDto) - start")
-        val user = userAssembler.dtoToEntity(dto)
+        val user = Converter.convert(dto, User::class.java)
         val result = CreateUser(userRepository, addressRepository, user).execute()
         logService.info("create(dto: UserDto) - end")
         return convertToDto(result)
@@ -45,7 +44,7 @@ class UserService @Autowired constructor(
      */
     fun update(id: Long, dto: UserDto): UserDto {
         logService.info("update(id: Long, dto: UserDto) - start")
-        val user = userAssembler.dtoToEntity(dto)
+        val user = Converter.convert(dto, User::class.java)
         val result = UpdateUser(userRepository, addressRepository, id, user).execute()
         logService.info("update(id: Long, dto: UserDto) - end")
         return convertToDto(result)
@@ -73,7 +72,7 @@ class UserService @Autowired constructor(
         val user = FindUserById(userRepository, id).execute()
         user.password = null
         logService.info("findById() - end")
-        return userAssembler.entityToDto(user)
+        return Converter.convert(user, UserDto::class.java)
     }
 
     /**
@@ -139,6 +138,6 @@ class UserService @Autowired constructor(
     private fun convertToDto(user: User): UserDto {
         user.img = null
         user.password = null
-        return userAssembler.entityToDto(user)
+        return Converter.convert(user, UserDto::class.java)
     }
 }

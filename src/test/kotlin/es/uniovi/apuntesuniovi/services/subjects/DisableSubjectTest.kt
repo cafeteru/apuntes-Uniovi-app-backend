@@ -1,6 +1,7 @@
 package es.uniovi.apuntesuniovi.services.subjects
 
-import es.uniovi.apuntesuniovi.dtos.assemblers.SubjectAssembler
+import es.uniovi.apuntesuniovi.dtos.Converter
+import es.uniovi.apuntesuniovi.dtos.entities.SubjectDto
 import es.uniovi.apuntesuniovi.infrastructure.messages.SubjectMessages
 import es.uniovi.apuntesuniovi.mocks.entities.MockSubjectCreator
 import es.uniovi.apuntesuniovi.repositories.SubjectRepository
@@ -20,7 +21,6 @@ import java.util.*
 @ExtendWith(MockitoExtension::class)
 class DisableSubjectTest {
     private lateinit var subjectService: SubjectService
-    private lateinit var subjectAssembler: SubjectAssembler
 
     @Mock
     private lateinit var subjectRepository: SubjectRepository
@@ -31,7 +31,6 @@ class DisableSubjectTest {
     @BeforeEach
     fun initTest() {
         subjectService = SubjectService(subjectRepository)
-        subjectAssembler = SubjectAssembler()
     }
 
     /**
@@ -40,7 +39,7 @@ class DisableSubjectTest {
     @Test
     fun validIdAndExistUser() {
         val subject = MockSubjectCreator().create()
-        val subjectDto = subjectAssembler.entityToDto(subject)
+        val subjectDto = Converter.convert(subject, SubjectDto::class.java)
         Mockito.`when`(subjectRepository.findById(subject.id!!)).thenReturn(Optional.of(subject))
         Mockito.`when`(subjectRepository.save(subject)).thenReturn(subject)
         val result = subjectService.disable(subjectDto.id!!, !subjectDto.active!!)

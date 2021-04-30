@@ -1,6 +1,7 @@
 package es.uniovi.apuntesuniovi.services.users
 
-import es.uniovi.apuntesuniovi.dtos.assemblers.UserAssembler
+import es.uniovi.apuntesuniovi.dtos.Converter
+import es.uniovi.apuntesuniovi.dtos.entities.UserDto
 import es.uniovi.apuntesuniovi.infrastructure.messages.UserMessages
 import es.uniovi.apuntesuniovi.mocks.entities.MockUserCreator
 import es.uniovi.apuntesuniovi.repositories.AddressRepository
@@ -31,7 +32,6 @@ class FindUserByUsernameTest {
 
     @Mock
     private lateinit var addressRepository: AddressRepository
-    private val userAssembler = UserAssembler()
 
     /**
      * Create init data for the test
@@ -49,7 +49,7 @@ class FindUserByUsernameTest {
         val username = "username"
         val user = MockUserCreator().create()
         user.username = username
-        val userDto = userAssembler.entityToDto(user)
+        val userDto = Converter.convert(user, UserDto::class.java)
         Mockito.`when`(userRepository.findByUsername(username)).thenReturn(Optional.of(user))
         val result = userService.findByUsername(username)
         assertNotEquals(userDto, result)

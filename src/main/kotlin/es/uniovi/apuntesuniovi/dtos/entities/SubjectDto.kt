@@ -8,4 +8,6 @@ data class SubjectDto(
     var name: String?,
     var subjectType: String?,
     var active: Boolean?
-)
+) {
+    constructor() : this(null, null, null, null)
+}

@@ -1,6 +1,7 @@
 package es.uniovi.apuntesuniovi.services.users
 
-import es.uniovi.apuntesuniovi.dtos.assemblers.UserAssembler
+import es.uniovi.apuntesuniovi.dtos.Converter
+import es.uniovi.apuntesuniovi.dtos.entities.UserDto
 import es.uniovi.apuntesuniovi.infrastructure.messages.UserMessages
 import es.uniovi.apuntesuniovi.mocks.entities.MockUserCreator
 import es.uniovi.apuntesuniovi.repositories.AddressRepository
@@ -21,7 +22,6 @@ import java.util.*
 @ExtendWith(MockitoExtension::class)
 class DisableUserTest {
     private lateinit var userService: UserService
-    private lateinit var userAssembler: UserAssembler
 
     @Mock
     private lateinit var userRepository: UserRepository
@@ -35,7 +35,6 @@ class DisableUserTest {
     @BeforeEach
     fun initTest() {
         userService = UserService(userRepository, addressRepository)
-        userAssembler = UserAssembler()
     }
 
     /**
@@ -44,7 +43,7 @@ class DisableUserTest {
     @Test
     fun validIdAndExistUser() {
         val user = MockUserCreator().create()
-        val userDto = userAssembler.entityToDto(user)
+        val userDto = Converter.convert(user, UserDto::class.java)
         Mockito.`when`(userRepository.findById(user.id!!)).thenReturn(Optional.of(user))
         Mockito.`when`(userRepository.save(user)).thenReturn(user)
         val result = userService.disable(userDto.id!!, !userDto.active!!)

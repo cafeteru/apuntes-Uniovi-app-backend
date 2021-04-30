@@ -21,4 +21,10 @@ data class UserDto(
     var identificationType: String?,
     var numberIdentification: String?,
     var address: AddressDto?
-)
+) {
+    constructor() : this(
+        null, null, null, null, null, null, null,
+        null, "", "", null,
+        "", null, null, null,
+    )
+}

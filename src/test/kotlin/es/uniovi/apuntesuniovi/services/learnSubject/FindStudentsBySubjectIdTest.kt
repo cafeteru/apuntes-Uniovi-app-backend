@@ -1,6 +1,7 @@
 package es.uniovi.apuntesuniovi.services.learnSubject
 
-import es.uniovi.apuntesuniovi.dtos.assemblers.LearnSubjectAssembler
+import es.uniovi.apuntesuniovi.dtos.Converter
+import es.uniovi.apuntesuniovi.dtos.entities.LearnSubjectDto
 import es.uniovi.apuntesuniovi.infrastructure.messages.LearnSubjectMessages
 import es.uniovi.apuntesuniovi.mocks.entities.MockLearnSubjectCreator
 import es.uniovi.apuntesuniovi.models.LearnSubject
@@ -26,7 +27,6 @@ import org.springframework.data.domain.PageRequest
 class FindStudentsBySubjectIdTest {
     private lateinit var learnSubject: LearnSubject
     private lateinit var learnSubjectService: LearnSubjectService
-    private lateinit var learnSubjectAssembler: LearnSubjectAssembler
 
     @Mock
     private lateinit var userRepository: UserRepository
@@ -43,10 +43,7 @@ class FindStudentsBySubjectIdTest {
     @BeforeEach
     fun initTest() {
         learnSubject = MockLearnSubjectCreator().create()
-        learnSubjectAssembler = LearnSubjectAssembler(subjectRepository, userRepository)
-        learnSubjectService = LearnSubjectService(
-            userRepository, subjectRepository, learnSubjectRepository
-        )
+        learnSubjectService = LearnSubjectService(userRepository, subjectRepository, learnSubjectRepository)
     }
 
     /**
@@ -61,7 +58,8 @@ class FindStudentsBySubjectIdTest {
         Mockito.`when`(learnSubjectRepository.findBySubjectId(id, pageable)).thenReturn(page)
         val result = learnSubjectService.findStudentsBySubjectId(id, pageable)
         assertFalse(result.isEmpty)
-        assertEquals(learnSubjectAssembler.entityToDto(learnSubject).studentId, result.content[0].id)
+        val dto = Converter.convert(learnSubject, LearnSubjectDto::class.java)
+        assertEquals(dto.studentId, result.content[0].id)
     }
 
     /**

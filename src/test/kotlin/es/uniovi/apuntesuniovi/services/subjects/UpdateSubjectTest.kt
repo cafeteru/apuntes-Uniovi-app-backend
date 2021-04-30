@@ -1,6 +1,6 @@
 package es.uniovi.apuntesuniovi.services.subjects
 
-import es.uniovi.apuntesuniovi.dtos.assemblers.SubjectAssembler
+import es.uniovi.apuntesuniovi.dtos.Converter
 import es.uniovi.apuntesuniovi.dtos.entities.SubjectDto
 import es.uniovi.apuntesuniovi.infrastructure.messages.SubjectMessages
 import es.uniovi.apuntesuniovi.mocks.dtos.MockSubjectDtoCreator
@@ -26,8 +26,6 @@ class UpdateSubjectTest {
     private lateinit var subjectDto: SubjectDto
     private lateinit var subjectService: SubjectService
 
-    private lateinit var subjectAssembler: SubjectAssembler
-
     @Mock
     private lateinit var subjectRepository: SubjectRepository
 
@@ -38,7 +36,6 @@ class UpdateSubjectTest {
     fun initTest() {
         subjectDto = MockSubjectDtoCreator().create()
         subjectService = SubjectService(subjectRepository)
-        subjectAssembler = SubjectAssembler()
     }
 
     /**
@@ -61,7 +58,7 @@ class UpdateSubjectTest {
     @Test
     fun validUser() {
         val id = subjectDto.id!!
-        val subject = subjectAssembler.dtoToEntity(subjectDto)
+        val subject = Converter.convert(subjectDto, Subject::class.java)
         Mockito.`when`(subjectRepository.findById(id)).thenReturn(Optional.of(subject))
         Mockito.`when`(subjectRepository.save(Mockito.any(Subject::class.java))).thenReturn(subject)
         val result = subjectService.update(id, subjectDto)

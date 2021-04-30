@@ -6,4 +6,6 @@ data class AddressDto(
     var city: String?,
     var postalCode: String?,
     var country: String?
-)
+) {
+    constructor() : this(null, null, null, null, null)
+}

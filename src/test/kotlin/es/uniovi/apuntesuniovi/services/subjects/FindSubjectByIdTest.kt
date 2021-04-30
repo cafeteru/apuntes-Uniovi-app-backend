@@ -1,6 +1,7 @@
 package es.uniovi.apuntesuniovi.services.subjects
 
-import es.uniovi.apuntesuniovi.dtos.assemblers.SubjectAssembler
+import es.uniovi.apuntesuniovi.dtos.Converter
+import es.uniovi.apuntesuniovi.dtos.entities.SubjectDto
 import es.uniovi.apuntesuniovi.infrastructure.messages.SubjectMessages
 import es.uniovi.apuntesuniovi.mocks.entities.MockSubjectCreator
 import es.uniovi.apuntesuniovi.models.Subject
@@ -26,8 +27,6 @@ class FindSubjectByIdTest {
     @Mock
     private lateinit var subjectRepository: SubjectRepository
 
-    private val subjectAssembler = SubjectAssembler()
-
     /**
      * Create init data for the test
      */
@@ -46,7 +45,7 @@ class FindSubjectByIdTest {
         Mockito.`when`(subjectRepository.findById(id)).thenReturn(Optional.of(subject))
         val result = subjectService.findById(id)
         assertNotNull(result)
-        assertEquals(subjectAssembler.entityToDto(subject), result)
+        assertEquals(Converter.convert(subject, SubjectDto::class.java), result)
     }
 
     /**

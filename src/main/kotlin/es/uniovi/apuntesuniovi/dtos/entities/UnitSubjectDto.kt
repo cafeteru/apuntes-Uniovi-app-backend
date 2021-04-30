@@ -8,4 +8,6 @@ data class UnitSubjectDto(
     var name: String?,
     var position: Int?,
     var subjectId: Long?,
-)
+) {
+    constructor() : this(null, null, null, null)
+}
