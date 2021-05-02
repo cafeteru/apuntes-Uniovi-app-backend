@@ -4,7 +4,6 @@ import es.uniovi.apuntesuniovi.dtos.Converter
 import es.uniovi.apuntesuniovi.dtos.entities.UnitSubjectDto
 import es.uniovi.apuntesuniovi.infrastructure.log.LogService
 import es.uniovi.apuntesuniovi.models.UnitSubject
-import es.uniovi.apuntesuniovi.repositories.SubjectRepository
 import es.uniovi.apuntesuniovi.repositories.UnitSubjectRepository
 import es.uniovi.apuntesuniovi.services.commands.unitSubjects.CreateUnitSubject
 import es.uniovi.apuntesuniovi.services.commands.unitSubjects.FindUnitSubjectBySubjectId
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Service
 
 @Service
 class UnitSubjectService @Autowired constructor(
-    subjectRepository: SubjectRepository,
     private val unitSubjectRepository: UnitSubjectRepository
 ) {
     private val logService = LogService(this.javaClass)
