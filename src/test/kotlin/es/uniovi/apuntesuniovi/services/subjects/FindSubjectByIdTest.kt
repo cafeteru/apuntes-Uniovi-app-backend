@@ -3,7 +3,7 @@ package es.uniovi.apuntesuniovi.services.subjects
 import es.uniovi.apuntesuniovi.dtos.Converter
 import es.uniovi.apuntesuniovi.dtos.entities.SubjectDto
 import es.uniovi.apuntesuniovi.infrastructure.messages.SubjectMessages
-import es.uniovi.apuntesuniovi.mocks.entities.MockSubjectCreator
+import es.uniovi.apuntesuniovi.mocks.entities.MockSubject
 import es.uniovi.apuntesuniovi.models.Subject
 import es.uniovi.apuntesuniovi.repositories.SubjectRepository
 import es.uniovi.apuntesuniovi.services.SubjectService
@@ -32,7 +32,7 @@ class FindSubjectByIdTest {
      */
     @BeforeEach
     fun initTest() {
-        subject = MockSubjectCreator().create()
+        subject = MockSubject().create()
         subjectService = SubjectService(subjectRepository)
     }
 

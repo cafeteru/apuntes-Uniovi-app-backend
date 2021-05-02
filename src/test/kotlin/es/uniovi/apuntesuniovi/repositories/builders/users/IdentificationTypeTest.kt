@@ -1,8 +1,9 @@
 package es.uniovi.apuntesuniovi.repositories.builders.users
 
 import com.querydsl.core.types.dsl.Expressions
+import es.uniovi.apuntesuniovi.dtos.Converter
 import es.uniovi.apuntesuniovi.dtos.entities.UserDto
-import es.uniovi.apuntesuniovi.mocks.dtos.MockUserDtoCreator
+import es.uniovi.apuntesuniovi.mocks.entities.MockUser
 import es.uniovi.apuntesuniovi.models.QUser
 import es.uniovi.apuntesuniovi.models.types.IdentificationType
 import es.uniovi.apuntesuniovi.repositories.builders.UserBuilder
@@ -22,7 +23,10 @@ class IdentificationTypeTest {
      */
     @BeforeEach
     fun initData() {
-        userDto = MockUserDtoCreator().create()
+        userDto = Converter.convert(
+            MockUser().create(),
+            UserDto::class.java
+        )
         qUser = QUser.user
     }
 

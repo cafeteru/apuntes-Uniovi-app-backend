@@ -3,7 +3,7 @@ package es.uniovi.apuntesuniovi.services.subjects
 import es.uniovi.apuntesuniovi.dtos.Converter
 import es.uniovi.apuntesuniovi.dtos.entities.SubjectDto
 import es.uniovi.apuntesuniovi.infrastructure.messages.SubjectMessages
-import es.uniovi.apuntesuniovi.mocks.entities.MockSubjectCreator
+import es.uniovi.apuntesuniovi.mocks.entities.MockSubject
 import es.uniovi.apuntesuniovi.repositories.SubjectRepository
 import es.uniovi.apuntesuniovi.services.SubjectService
 import org.junit.jupiter.api.Assertions.*
@@ -38,7 +38,7 @@ class DisableSubjectTest {
      */
     @Test
     fun validIdAndExistUser() {
-        val subject = MockSubjectCreator().create()
+        val subject = MockSubject().create()
         val subjectDto = Converter.convert(subject, SubjectDto::class.java)
         Mockito.`when`(subjectRepository.findById(subject.id!!)).thenReturn(Optional.of(subject))
         Mockito.`when`(subjectRepository.save(subject)).thenReturn(subject)

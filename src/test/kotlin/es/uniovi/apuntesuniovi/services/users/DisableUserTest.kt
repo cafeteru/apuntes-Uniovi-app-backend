@@ -3,7 +3,7 @@ package es.uniovi.apuntesuniovi.services.users
 import es.uniovi.apuntesuniovi.dtos.Converter
 import es.uniovi.apuntesuniovi.dtos.entities.UserDto
 import es.uniovi.apuntesuniovi.infrastructure.messages.UserMessages
-import es.uniovi.apuntesuniovi.mocks.entities.MockUserCreator
+import es.uniovi.apuntesuniovi.mocks.entities.MockUser
 import es.uniovi.apuntesuniovi.repositories.AddressRepository
 import es.uniovi.apuntesuniovi.repositories.UserRepository
 import es.uniovi.apuntesuniovi.services.UserService
@@ -42,7 +42,7 @@ class DisableUserTest {
      */
     @Test
     fun validIdAndExistUser() {
-        val user = MockUserCreator().create()
+        val user = MockUser().create()
         val userDto = Converter.convert(user, UserDto::class.java)
         Mockito.`when`(userRepository.findById(user.id!!)).thenReturn(Optional.of(user))
         Mockito.`when`(userRepository.save(user)).thenReturn(user)

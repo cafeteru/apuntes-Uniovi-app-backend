@@ -6,7 +6,7 @@ import es.uniovi.apuntesuniovi.models.Address
 /**
  * Service to create mock data of the entity Address
  */
-class MockAddressCreator : MockCreator<Address> {
+class MockAddress : MockCreator<Address> {
     override fun create(): Address {
         val address = Address()
         address.id = 1

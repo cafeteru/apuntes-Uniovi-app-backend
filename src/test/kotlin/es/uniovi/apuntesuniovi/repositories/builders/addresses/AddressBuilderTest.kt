@@ -1,8 +1,9 @@
 package es.uniovi.apuntesuniovi.repositories.builders.addresses
 
 import com.querydsl.core.types.dsl.Expressions
+import es.uniovi.apuntesuniovi.dtos.Converter
 import es.uniovi.apuntesuniovi.dtos.entities.AddressDto
-import es.uniovi.apuntesuniovi.mocks.dtos.MockAddressDtoCreator
+import es.uniovi.apuntesuniovi.mocks.entities.MockAddress
 import es.uniovi.apuntesuniovi.models.QAddress
 import es.uniovi.apuntesuniovi.repositories.builders.AddressBuilder
 import org.junit.jupiter.api.Assertions
@@ -22,7 +23,10 @@ class AddressBuilderTest {
      */
     @BeforeEach
     fun initData() {
-        address = MockAddressDtoCreator().create()
+        address = Converter.convert(
+            MockAddress().create(),
+            AddressDto::class.java
+        )
         qAddress = QAddress.address
     }
 

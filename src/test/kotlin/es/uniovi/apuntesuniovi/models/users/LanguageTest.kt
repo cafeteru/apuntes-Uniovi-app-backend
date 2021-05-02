@@ -1,7 +1,7 @@
 package es.uniovi.apuntesuniovi.models.users
 
 import es.uniovi.apuntesuniovi.infrastructure.messages.UserMessages
-import es.uniovi.apuntesuniovi.mocks.entities.MockUserCreator
+import es.uniovi.apuntesuniovi.mocks.entities.MockUser
 import es.uniovi.apuntesuniovi.models.User
 import es.uniovi.apuntesuniovi.models.types.LanguageType
 import org.junit.jupiter.api.Assertions.*
@@ -19,7 +19,7 @@ class LanguageTest {
      */
     @BeforeEach
     fun initData() {
-        user = MockUserCreator().create()
+        user = MockUser().create()
     }
 
     /**

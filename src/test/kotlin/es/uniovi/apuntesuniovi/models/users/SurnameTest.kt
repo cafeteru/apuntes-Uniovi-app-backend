@@ -2,7 +2,7 @@ package es.uniovi.apuntesuniovi.models.users
 
 import es.uniovi.apuntesuniovi.infrastructure.constants.database.UserLimits
 import es.uniovi.apuntesuniovi.infrastructure.messages.UserMessages
-import es.uniovi.apuntesuniovi.mocks.entities.MockUserCreator
+import es.uniovi.apuntesuniovi.mocks.entities.MockUser
 import es.uniovi.apuntesuniovi.models.User
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.fail
@@ -20,7 +20,7 @@ class SurnameTest {
      */
     @BeforeEach
     fun initData() {
-        user = MockUserCreator().create()
+        user = MockUser().create()
     }
 
     /**

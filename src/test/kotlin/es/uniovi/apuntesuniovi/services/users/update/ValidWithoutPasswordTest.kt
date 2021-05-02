@@ -1,6 +1,6 @@
 package es.uniovi.apuntesuniovi.services.users.update
 
-import es.uniovi.apuntesuniovi.mocks.entities.MockUserCreator
+import es.uniovi.apuntesuniovi.mocks.entities.MockUser
 import es.uniovi.apuntesuniovi.models.User
 import es.uniovi.apuntesuniovi.repositories.AddressRepository
 import es.uniovi.apuntesuniovi.repositories.UserRepository
@@ -35,7 +35,7 @@ class ValidWithoutPasswordTest {
      */
     @BeforeEach
     fun initTest() {
-        user = MockUserCreator().create()
+        user = MockUser().create()
         user.password = encoder.encode(user.password)
     }
 
@@ -46,10 +46,10 @@ class ValidWithoutPasswordTest {
     fun validUserWithoutPassword() {
         val id = user.id!!
         user.password = null
-        Mockito.`when`(userRepository.findById(id)).thenReturn(Optional.of(MockUserCreator().create()))
+        Mockito.`when`(userRepository.findById(id)).thenReturn(Optional.of(MockUser().create()))
         Mockito.`when`(userRepository.findByUsername(user.username!!)).thenReturn(Optional.empty())
         Mockito.`when`(userRepository.findByNumberIdentification(user.numberIdentification!!))
-            .thenReturn(Optional.of(MockUserCreator().create()))
+            .thenReturn(Optional.of(MockUser().create()))
         Mockito.`when`(userRepository.save(Mockito.any(User::class.java))).thenReturn(user)
         val result = UpdateUser(userRepository, addressRepository, id, user).execute()
         assertNotNull(result)

@@ -1,7 +1,9 @@
 package es.uniovi.apuntesuniovi.controllers.users
 
 import es.uniovi.apuntesuniovi.controllers.UserController
-import es.uniovi.apuntesuniovi.mocks.dtos.MockUserDtoCreator
+import es.uniovi.apuntesuniovi.dtos.Converter
+import es.uniovi.apuntesuniovi.dtos.entities.UserDto
+import es.uniovi.apuntesuniovi.mocks.entities.MockUser
 import es.uniovi.apuntesuniovi.services.UserService
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
@@ -15,6 +17,7 @@ import org.springframework.http.HttpStatus
 class CreateUserTest {
     private lateinit var userController: UserController
     private lateinit var userService: UserService
+    private lateinit var userDto: UserDto
 
     /**
      * Create init data for the test
@@ -23,6 +26,10 @@ class CreateUserTest {
     fun initTest() {
         userService = Mockito.mock(UserService::class.java)
         userController = UserController(userService)
+        userDto = Converter.convert(
+            MockUser().create(),
+            UserDto::class.java
+        )
     }
 
     /**
@@ -30,7 +37,6 @@ class CreateUserTest {
      */
     @Test
     fun validData() {
-        val userDto = MockUserDtoCreator().create()
         Mockito.`when`(userService.create(userDto)).thenReturn(userDto)
         val httpResponse = userController.create(userDto)
         Assertions.assertEquals(httpResponse.statusCode, HttpStatus.OK)

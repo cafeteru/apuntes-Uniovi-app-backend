@@ -1,7 +1,9 @@
 package es.uniovi.apuntesuniovi.controllers.users
 
 import es.uniovi.apuntesuniovi.controllers.UserController
-import es.uniovi.apuntesuniovi.mocks.dtos.MockUserDtoCreator
+import es.uniovi.apuntesuniovi.dtos.Converter
+import es.uniovi.apuntesuniovi.dtos.entities.UserDto
+import es.uniovi.apuntesuniovi.mocks.entities.MockUser
 import es.uniovi.apuntesuniovi.services.UserService
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
@@ -13,6 +15,7 @@ import org.springframework.http.HttpStatus
  * Check find by id method of the UserController class
  */
 class FindUserByIdTest {
+    private lateinit var userDto: UserDto
     private lateinit var userController: UserController
     private lateinit var userService: UserService
 
@@ -23,6 +26,10 @@ class FindUserByIdTest {
     fun initTest() {
         userService = Mockito.mock(UserService::class.java)
         userController = UserController(userService)
+        userDto = Converter.convert(
+            MockUser().create(),
+            UserDto::class.java
+        )
     }
 
     /**
@@ -30,7 +37,6 @@ class FindUserByIdTest {
      */
     @Test
     fun validData() {
-        val userDto = MockUserDtoCreator().create()
         Mockito.`when`(userService.findById(1)).thenReturn(userDto)
         val httpResponse = userController.findById(1)
         Assertions.assertEquals(httpResponse.statusCode, HttpStatus.OK)

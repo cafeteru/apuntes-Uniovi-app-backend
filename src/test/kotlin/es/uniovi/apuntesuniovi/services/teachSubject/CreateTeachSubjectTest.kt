@@ -5,7 +5,7 @@ import es.uniovi.apuntesuniovi.dtos.entities.TeachSubjectDto
 import es.uniovi.apuntesuniovi.infrastructure.messages.SubjectMessages
 import es.uniovi.apuntesuniovi.infrastructure.messages.TeachSubjectMessages
 import es.uniovi.apuntesuniovi.infrastructure.messages.UserMessages
-import es.uniovi.apuntesuniovi.mocks.entities.MockTeachSubjectCreator
+import es.uniovi.apuntesuniovi.mocks.entities.MockTeachSubject
 import es.uniovi.apuntesuniovi.models.TeachSubject
 import es.uniovi.apuntesuniovi.models.types.RoleType
 import es.uniovi.apuntesuniovi.repositories.SubjectRepository
@@ -47,7 +47,7 @@ class CreateTeachSubjectTest {
     @BeforeEach
     fun initTest() {
         teachSubjectService = TeachSubjectService(teachSubjectRepository, userRepository, subjectRepository)
-        teachSubject = MockTeachSubjectCreator().create()
+        teachSubject = MockTeachSubject().create()
         teachSubjectDto = Converter.convert(teachSubject, TeachSubjectDto::class.java)
     }
 

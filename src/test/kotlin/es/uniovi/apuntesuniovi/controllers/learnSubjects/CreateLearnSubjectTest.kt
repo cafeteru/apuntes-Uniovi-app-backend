@@ -1,7 +1,9 @@
 package es.uniovi.apuntesuniovi.controllers.learnSubjects
 
 import es.uniovi.apuntesuniovi.controllers.LearnSubjectController
-import es.uniovi.apuntesuniovi.mocks.dtos.MockLearnSubjectDtoCreator
+import es.uniovi.apuntesuniovi.dtos.Converter
+import es.uniovi.apuntesuniovi.dtos.entities.LearnSubjectDto
+import es.uniovi.apuntesuniovi.mocks.entities.MockLearnSubject
 import es.uniovi.apuntesuniovi.services.LearnSubjectService
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
@@ -10,6 +12,7 @@ import org.mockito.Mockito
 import org.springframework.http.HttpStatus
 
 class CreateLearnSubjectTest {
+    private lateinit var learnSubjectDto: LearnSubjectDto
     private lateinit var learnSubjectController: LearnSubjectController
     private lateinit var learnSubjectService: LearnSubjectService
 
@@ -20,6 +23,9 @@ class CreateLearnSubjectTest {
     fun initTest() {
         learnSubjectService = Mockito.mock(LearnSubjectService::class.java)
         learnSubjectController = LearnSubjectController(learnSubjectService)
+        learnSubjectDto = Converter.convert(
+            MockLearnSubject().create(), LearnSubjectDto::class.java
+        )
     }
 
     /**
@@ -27,15 +33,13 @@ class CreateLearnSubjectTest {
      */
     @Test
     fun validData() {
-        val id = 1L
-        val dto = MockLearnSubjectDtoCreator().create()
         Mockito.`when`(
-            learnSubjectService.create(id, listOf(dto))
+            learnSubjectService.create(learnSubjectDto.id!!, listOf(learnSubjectDto))
         ).thenReturn(
-            listOf(dto)
+            listOf(learnSubjectDto)
         )
-        val httpResponse = learnSubjectController.create(id, listOf(dto))
+        val httpResponse = learnSubjectController.create(learnSubjectDto.id!!, listOf(learnSubjectDto))
         Assertions.assertEquals(httpResponse.statusCode, HttpStatus.OK)
-        Assertions.assertEquals(httpResponse.body, listOf(dto))
+        Assertions.assertEquals(httpResponse.body, listOf(learnSubjectDto))
     }
 }

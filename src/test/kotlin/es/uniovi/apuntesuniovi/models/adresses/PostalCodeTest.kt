@@ -2,7 +2,7 @@ package es.uniovi.apuntesuniovi.models.adresses
 
 import es.uniovi.apuntesuniovi.infrastructure.constants.database.AddressLimits
 import es.uniovi.apuntesuniovi.infrastructure.messages.AddressMessages
-import es.uniovi.apuntesuniovi.mocks.entities.MockAddressCreator
+import es.uniovi.apuntesuniovi.mocks.entities.MockAddress
 import es.uniovi.apuntesuniovi.models.Address
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.fail
@@ -20,7 +20,7 @@ class PostalCodeTest {
      */
     @BeforeEach
     fun initData() {
-        address = MockAddressCreator().create()
+        address = MockAddress().create()
     }
 
     /**

@@ -1,7 +1,7 @@
 package es.uniovi.apuntesuniovi.services.users.update
 
 import es.uniovi.apuntesuniovi.infrastructure.messages.UserMessages
-import es.uniovi.apuntesuniovi.mocks.entities.MockUserCreator
+import es.uniovi.apuntesuniovi.mocks.entities.MockUser
 import es.uniovi.apuntesuniovi.models.User
 import es.uniovi.apuntesuniovi.repositories.AddressRepository
 import es.uniovi.apuntesuniovi.repositories.UserRepository
@@ -36,7 +36,7 @@ class ExistedNumberIdentificationTest {
      */
     @BeforeEach
     fun initTest() {
-        user = MockUserCreator().create()
+        user = MockUser().create()
         user.password = encoder.encode(user.password)
     }
 
@@ -47,7 +47,7 @@ class ExistedNumberIdentificationTest {
     fun existedNumberIdentification() {
         try {
             val id = user.id!!
-            val user2 = MockUserCreator().create()
+            val user2 = MockUser().create()
             user2.id = id + 1
             Mockito.`when`(userRepository.findById(id)).thenReturn(Optional.of(user))
             Mockito.`when`(userRepository.findByUsername(user.username!!)).thenReturn(Optional.of(user))

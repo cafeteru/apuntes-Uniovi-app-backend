@@ -5,7 +5,7 @@ import es.uniovi.apuntesuniovi.dtos.entities.LearnSubjectDto
 import es.uniovi.apuntesuniovi.infrastructure.messages.LearnSubjectMessages
 import es.uniovi.apuntesuniovi.infrastructure.messages.SubjectMessages
 import es.uniovi.apuntesuniovi.infrastructure.messages.UserMessages
-import es.uniovi.apuntesuniovi.mocks.entities.MockLearnSubjectCreator
+import es.uniovi.apuntesuniovi.mocks.entities.MockLearnSubject
 import es.uniovi.apuntesuniovi.models.types.RoleType
 import es.uniovi.apuntesuniovi.repositories.LearnSubjectRepository
 import es.uniovi.apuntesuniovi.repositories.SubjectRepository
@@ -50,7 +50,7 @@ class CreateLearnSubjectTest {
 
     @Test
     fun validData() {
-        val learnSubject = MockLearnSubjectCreator().create()
+        val learnSubject = MockLearnSubject().create()
         val dto = Converter.convert(learnSubject, LearnSubjectDto::class.java)
         Mockito.`when`(
             subjectRepository.findById(learnSubject.subject.id!!)
@@ -71,7 +71,7 @@ class CreateLearnSubjectTest {
 
     @Test
     fun invalidData() {
-        val learnSubject = MockLearnSubjectCreator().create()
+        val learnSubject = MockLearnSubject().create()
         learnSubject.student.role = RoleType.ROLE_ADMIN
         val dto = Converter.convert(learnSubject, LearnSubjectDto::class.java)
         Mockito.`when`(
@@ -90,7 +90,7 @@ class CreateLearnSubjectTest {
     @Test
     fun noExistSubject() {
         try {
-            val learnSubject = MockLearnSubjectCreator().create()
+            val learnSubject = MockLearnSubject().create()
             val dto = Converter.convert(learnSubject, LearnSubjectDto::class.java)
             learnSubjectService.create(learnSubject.subject.id!!, listOf(dto))
             fail(SubjectMessages.NOT_FOUND)
@@ -102,7 +102,7 @@ class CreateLearnSubjectTest {
     @Test
     fun noExistStudent() {
         try {
-            val learnSubject = MockLearnSubjectCreator().create()
+            val learnSubject = MockLearnSubject().create()
             val dto = Converter.convert(learnSubject, LearnSubjectDto::class.java)
             Mockito.`when`(
                 subjectRepository.findById(learnSubject.subject.id!!)

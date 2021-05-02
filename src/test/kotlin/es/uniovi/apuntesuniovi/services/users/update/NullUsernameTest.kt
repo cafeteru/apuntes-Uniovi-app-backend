@@ -1,7 +1,7 @@
 package es.uniovi.apuntesuniovi.services.users.update
 
 import es.uniovi.apuntesuniovi.infrastructure.messages.UserMessages
-import es.uniovi.apuntesuniovi.mocks.entities.MockUserCreator
+import es.uniovi.apuntesuniovi.mocks.entities.MockUser
 import es.uniovi.apuntesuniovi.models.User
 import es.uniovi.apuntesuniovi.repositories.AddressRepository
 import es.uniovi.apuntesuniovi.repositories.UserRepository
@@ -36,7 +36,7 @@ class NullUsernameTest {
      */
     @BeforeEach
     fun initTest() {
-        user = MockUserCreator().create()
+        user = MockUser().create()
         user.password = encoder.encode(user.password)
     }
 
@@ -48,7 +48,7 @@ class NullUsernameTest {
         try {
             val id = user.id!!
             user.username = null
-            Mockito.`when`(userRepository.findById(id)).thenReturn(Optional.of(MockUserCreator().create()))
+            Mockito.`when`(userRepository.findById(id)).thenReturn(Optional.of(MockUser().create()))
             UpdateUser(userRepository, addressRepository, id, user).execute()
             fail()
         } catch (e: IllegalArgumentException) {

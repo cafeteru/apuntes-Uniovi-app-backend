@@ -3,7 +3,7 @@ package es.uniovi.apuntesuniovi.services.learnSubject
 import es.uniovi.apuntesuniovi.dtos.Converter
 import es.uniovi.apuntesuniovi.dtos.entities.LearnSubjectDto
 import es.uniovi.apuntesuniovi.infrastructure.messages.LearnSubjectMessages
-import es.uniovi.apuntesuniovi.mocks.entities.MockLearnSubjectCreator
+import es.uniovi.apuntesuniovi.mocks.entities.MockLearnSubject
 import es.uniovi.apuntesuniovi.models.LearnSubject
 import es.uniovi.apuntesuniovi.repositories.LearnSubjectRepository
 import es.uniovi.apuntesuniovi.repositories.SubjectRepository
@@ -42,7 +42,7 @@ class FindStudentsBySubjectIdTest {
      */
     @BeforeEach
     fun initTest() {
-        learnSubject = MockLearnSubjectCreator().create()
+        learnSubject = MockLearnSubject().create()
         learnSubjectService = LearnSubjectService(userRepository, subjectRepository, learnSubjectRepository)
     }
 

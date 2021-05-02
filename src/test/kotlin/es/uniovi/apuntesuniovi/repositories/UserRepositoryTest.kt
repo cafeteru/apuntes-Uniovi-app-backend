@@ -1,6 +1,6 @@
 package es.uniovi.apuntesuniovi.repositories
 
-import es.uniovi.apuntesuniovi.mocks.entities.MockUserCreator
+import es.uniovi.apuntesuniovi.mocks.entities.MockUser
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -25,7 +25,7 @@ class UserRepositoryTest {
      */
     @Test
     fun findByUsernameTest() {
-        val user = MockUserCreator().createWithoutId()
+        val user = MockUser().createWithoutId()
         user.address = null
         userRepository.save(user)
         val optional = userRepository.findByUsername(user.username!!)

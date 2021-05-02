@@ -2,7 +2,7 @@ package es.uniovi.apuntesuniovi.models.unitSubjects
 
 import es.uniovi.apuntesuniovi.infrastructure.constants.database.UnitSubjectLimits
 import es.uniovi.apuntesuniovi.infrastructure.messages.UnitSubjectMessages
-import es.uniovi.apuntesuniovi.mocks.entities.MockUnitSubjectCreator
+import es.uniovi.apuntesuniovi.mocks.entities.MockUnitSubject
 import es.uniovi.apuntesuniovi.models.UnitSubject
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.fail
@@ -21,7 +21,7 @@ class NameTest {
      */
     @BeforeEach
     fun initData() {
-        unitSubject = MockUnitSubjectCreator().create()
+        unitSubject = MockUnitSubject().create()
     }
 
     /**

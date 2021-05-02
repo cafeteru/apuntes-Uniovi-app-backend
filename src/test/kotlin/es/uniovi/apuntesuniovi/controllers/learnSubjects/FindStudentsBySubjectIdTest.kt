@@ -1,7 +1,9 @@
 package es.uniovi.apuntesuniovi.controllers.learnSubjects
 
 import es.uniovi.apuntesuniovi.controllers.LearnSubjectController
-import es.uniovi.apuntesuniovi.mocks.dtos.MockUserDtoCreator
+import es.uniovi.apuntesuniovi.dtos.Converter
+import es.uniovi.apuntesuniovi.dtos.entities.UserDto
+import es.uniovi.apuntesuniovi.mocks.entities.MockUser
 import es.uniovi.apuntesuniovi.services.LearnSubjectService
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
@@ -13,6 +15,7 @@ import org.springframework.http.HttpStatus
 
 
 class FindStudentsBySubjectIdTest {
+    private lateinit var userDto: UserDto
     private lateinit var learnSubjectController: LearnSubjectController
     private lateinit var learnSubjectService: LearnSubjectService
 
@@ -23,6 +26,9 @@ class FindStudentsBySubjectIdTest {
     fun initTest() {
         learnSubjectService = Mockito.mock(LearnSubjectService::class.java)
         learnSubjectController = LearnSubjectController(learnSubjectService)
+        userDto = Converter.Companion.convert(
+            MockUser().createStudent(), UserDto::class.java
+        )
     }
 
     /**
@@ -30,8 +36,7 @@ class FindStudentsBySubjectIdTest {
      */
     @Test
     fun validData() {
-        val subjectDto = MockUserDtoCreator().create()
-        val list = listOf(subjectDto)
+        val list = listOf(userDto)
         val pageable = PageRequest.of(0, 10)
         val page = PageImpl(list, pageable, list.size.toLong())
         Mockito.`when`(learnSubjectService.findStudentsBySubjectId(1, pageable)).thenReturn(page)

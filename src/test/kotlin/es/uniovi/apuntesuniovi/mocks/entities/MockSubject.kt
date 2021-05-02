@@ -7,7 +7,7 @@ import es.uniovi.apuntesuniovi.models.types.SubjectType
 /**
  * Service to create mock data of the entity Subject
  */
-class MockSubjectCreator : MockCreator<Subject> {
+class MockSubject : MockCreator<Subject> {
     override fun create(): Subject {
         val subject = Subject()
         subject.id = 1

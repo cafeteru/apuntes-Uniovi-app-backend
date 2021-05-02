@@ -1,8 +1,9 @@
 package es.uniovi.apuntesuniovi.services.subjects
 
 import com.querydsl.core.BooleanBuilder
-import es.uniovi.apuntesuniovi.mocks.dtos.MockSubjectDtoCreator
-import es.uniovi.apuntesuniovi.mocks.entities.MockSubjectCreator
+import es.uniovi.apuntesuniovi.dtos.Converter
+import es.uniovi.apuntesuniovi.dtos.entities.SubjectDto
+import es.uniovi.apuntesuniovi.mocks.entities.MockSubject
 import es.uniovi.apuntesuniovi.repositories.SubjectRepository
 import es.uniovi.apuntesuniovi.repositories.builders.SubjectBuilder
 import es.uniovi.apuntesuniovi.services.SubjectService
@@ -23,6 +24,7 @@ import kotlin.test.assertNotNull
  */
 @ExtendWith(MockitoExtension::class)
 class FindAllSubjectsTest {
+    private lateinit var subjectDto: SubjectDto
     private lateinit var subjectService: SubjectService
 
     @Mock
@@ -34,6 +36,10 @@ class FindAllSubjectsTest {
     @BeforeEach
     fun initTest() {
         subjectService = SubjectService(subjectRepository)
+        subjectDto = Converter.convert(
+            MockSubject().create(),
+            SubjectDto::class.java
+        )
     }
 
     /**
@@ -41,7 +47,7 @@ class FindAllSubjectsTest {
      */
     @Test
     fun validData() {
-        val subject = MockSubjectCreator().create()
+        val subject = MockSubject().create()
         val list = listOf(subject)
         val pageable = PageRequest.of(0, 10)
         val page = PageImpl(list, pageable, list.size.toLong())
@@ -59,13 +65,13 @@ class FindAllSubjectsTest {
      */
     @Test
     fun validDataWithFilters() {
-        val subject = MockSubjectCreator().create()
+        val subject = MockSubject().create()
         val list = listOf(subject)
         val pageable = PageRequest.of(0, 10)
         val page = PageImpl(list, pageable, list.size.toLong())
-        val builder = SubjectBuilder().createBuilder(MockSubjectDtoCreator().create())
+        val builder = SubjectBuilder().createBuilder(subjectDto)
         Mockito.`when`(subjectRepository.findAll(builder, pageable)).thenReturn(page)
-        val result = subjectService.findAll(pageable, MockSubjectDtoCreator().create())
+        val result = subjectService.findAll(pageable, subjectDto)
         assertNotNull(result)
         assertEquals(result.totalElements, list.size.toLong())
         val element = result.content[0]
