@@ -11,42 +11,40 @@ class Converter {
 
         private fun getMapper(): ModelMapper {
             if (mapper == null) {
-                val mapper = ModelMapper()
-                // mapper.addConverter(LearnSubjectConverter().dtoToEntity())
-                this.mapper = mapper
+                mapper = ModelMapper()
             }
             return mapper as ModelMapper
         }
 
-        fun <D> convert(source: Any?, target: Class<D>?): D {
+        fun <T, D> convert(element: T, target: Class<D>): D {
             try {
-                return getMapper().map(source, target)
+                return getMapper().map(element, target)
             } catch (e: MappingException) {
                 throw IllegalArgumentException(findRootCause(e).message)
             }
         }
 
-        fun <T, D> convert(source: List<T>, target: Class<D>?): List<D> {
+        fun <T, D> convert(list: List<T>, target: Class<D>): List<D> {
             try {
-                return source.map { s: T -> getMapper().map(s, target) }
+                return list.map { element: T -> getMapper().map(element, target) }
             } catch (e: MappingException) {
                 throw IllegalArgumentException(findRootCause(e).message)
             }
         }
 
-        fun <T, D> convert(source: Page<T>, target: Class<D>?): Page<D> {
+        fun <T, D> convert(page: Page<T>, target: Class<D>): Page<D> {
             try {
-                return source.map { s: T -> getMapper().map(s, target) }
+                return page.map { element: T -> getMapper().map(element, target) }
             } catch (e: MappingException) {
                 throw IllegalArgumentException(findRootCause(e).message)
             }
         }
 
-        private fun findRootCause(throwable: Throwable?): Throwable {
+        private fun findRootCause(throwable: Throwable): Throwable {
             Objects.requireNonNull(throwable)
             var rootCause = throwable
-            while (rootCause!!.cause != null && rootCause.cause !== rootCause) {
-                rootCause = rootCause.cause
+            while (rootCause.cause != null && rootCause.cause !== rootCause) {
+                rootCause = rootCause.cause!!
             }
             return rootCause
         }
