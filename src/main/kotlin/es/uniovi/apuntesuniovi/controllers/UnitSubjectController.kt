@@ -40,14 +40,14 @@ class UnitSubjectController @Autowired constructor(
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/subject/{id}")
     @ApiOperation("Return a list of unitSubjects by subject´s id")
-    fun findTeachersBySubjectId(
+    fun findBySubjectId(
         @ApiParam(name = "id", value = "Subject´s id")
         @PathVariable id: Long,
         pageable: Pageable
     ): Page<UnitSubjectDto> {
-        logService.info("findTeachersBySubjectId(id: ${id}) - start")
+        logService.info("findBySubjectId(id: ${id}) - start")
         val result = unitSubjectService.findBySubjectId(id, pageable)
-        logService.info("findTeachersBySubjectId(id: ${id}) - end")
+        logService.info("findBySubjectId(id: ${id}) - end")
         return result
     }
 }
