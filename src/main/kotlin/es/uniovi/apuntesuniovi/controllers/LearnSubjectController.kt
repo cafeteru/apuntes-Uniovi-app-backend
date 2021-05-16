@@ -40,9 +40,9 @@ class LearnSubjectController @Autowired constructor(
         return ResponseEntity(result, HttpStatus.OK)
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/subject/{id}")
-    @ApiOperation("Return a list of learnSubjects by subject´s id")
+    @ApiOperation("Return a list of students by subject´s id")
     fun findStudentsBySubjectId(
         @ApiParam(name = "id", value = "Subject´s id")
         @PathVariable id: Long,
