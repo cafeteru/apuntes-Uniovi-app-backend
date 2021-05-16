@@ -75,7 +75,7 @@ class SubjectController @Autowired constructor(
      *
      * @param id Subject´s id
      */
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/{id}")
     @ApiOperation("Return a subject by id")
     fun findById(

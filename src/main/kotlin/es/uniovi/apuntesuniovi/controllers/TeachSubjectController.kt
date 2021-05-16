@@ -37,7 +37,7 @@ class TeachSubjectController @Autowired constructor(
         return result
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/subject/{id}")
     @ApiOperation("Return a list of teachSubjects by subject´s id")
     fun findTeachersBySubjectId(
