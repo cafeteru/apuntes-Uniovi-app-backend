@@ -50,7 +50,7 @@ class Subject {
         if (subjectType != null) {
             try {
                 this.subjectType = SubjectType.valueOf(
-                    subjectType.toUpperCase()
+                    subjectType.uppercase(Locale.getDefault())
                 )
             } catch (e: IllegalArgumentException) {
                 throw IllegalArgumentException(SubjectMessages.INVALID_SUBJECT_TYPE)

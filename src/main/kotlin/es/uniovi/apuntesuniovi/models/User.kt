@@ -7,6 +7,7 @@ import es.uniovi.apuntesuniovi.models.types.LanguageType
 import es.uniovi.apuntesuniovi.models.types.RoleType
 import es.uniovi.apuntesuniovi.validators.impl.*
 import java.time.LocalDate
+import java.util.*
 import javax.persistence.*
 
 /**
@@ -134,7 +135,7 @@ open class User {
     fun setLanguage(language: String?) {
         if (language != null) {
             try {
-                this.language = LanguageType.valueOf(language.toUpperCase())
+                this.language = LanguageType.valueOf(language.uppercase(Locale.getDefault()))
             } catch (e: IllegalArgumentException) {
                 throw IllegalArgumentException(UserMessages.INVALID_LANGUAGE)
             }
@@ -151,7 +152,7 @@ open class User {
         if (identificationType != null) {
             try {
                 this.identificationType = IdentificationType.valueOf(
-                    identificationType.toUpperCase()
+                    identificationType.uppercase(Locale.getDefault())
                 )
             } catch (e: IllegalArgumentException) {
                 throw IllegalArgumentException(UserMessages.INVALID_IDENTIFICATION_TYPE)
@@ -170,7 +171,7 @@ open class User {
     fun setRole(role: String?) {
         if (role != null) {
             try {
-                this.role = RoleType.valueOf(role.toUpperCase())
+                this.role = RoleType.valueOf(role.uppercase(Locale.getDefault()))
             } catch (e: IllegalArgumentException) {
                 throw IllegalArgumentException(UserMessages.INVALID_ROLE_TYPE)
             }
