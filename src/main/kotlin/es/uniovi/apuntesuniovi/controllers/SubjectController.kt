@@ -52,7 +52,7 @@ class SubjectController @Autowired constructor(
      * @param subjectDto Subject to apply filters
      * @param pageable Pageable
      */
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_TEACHER')")
     @PostMapping("")
     @ApiOperation("Returns all registered subjects")
     fun findAll(
@@ -98,9 +98,9 @@ class SubjectController @Autowired constructor(
     @PutMapping(value = ["/{id}"], consumes = [MediaType.APPLICATION_JSON_VALUE])
     @ApiOperation(value = "Update a subject")
     fun update(
-            @ApiParam(name = "id", value = "Subject´s id") @PathVariable id: Long,
-            @ApiParam(name = "subjectDto", value = "Subject to update")
-            @Valid @RequestBody subjectDto: SubjectDto
+        @ApiParam(name = "id", value = "Subject´s id") @PathVariable id: Long,
+        @ApiParam(name = "subjectDto", value = "Subject to update")
+        @Valid @RequestBody subjectDto: SubjectDto
     ): ResponseEntity<SubjectDto> {
         logService.info("update(id: ${id}, subjectDto: SubjectDto) - start")
         val result = subjectService.update(id, subjectDto)

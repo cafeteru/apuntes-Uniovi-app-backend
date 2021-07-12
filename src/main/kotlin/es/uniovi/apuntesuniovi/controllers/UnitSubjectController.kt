@@ -25,7 +25,7 @@ class UnitSubjectController @Autowired constructor(
     private val logService = LogService(this.javaClass)
 
     @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_TEACHER')")
-    @PostMapping(value = ["/create/{id}"], consumes = [MediaType.APPLICATION_JSON_VALUE])
+    @PostMapping(value = ["/create"], consumes = [MediaType.APPLICATION_JSON_VALUE])
     @ApiOperation(value = "Create a unit of a subject")
     fun create(
         @ApiParam(name = "unitSubjectDto", value = "Unit of a subject to create")
