@@ -22,6 +22,10 @@ class CreateUnitSubject(
             !unitSubjectRepository.existsByNameAndSubjectId(name, subjectId),
             UnitSubjectMessages.EXISTS_NAME
         )
+        Assert.isTrue(
+            !unitSubjectRepository.existsByPositionAndSubjectId(unitSubject.position, subjectId),
+            UnitSubjectMessages.EXISTS_POSITION
+        )
         logService.info("checkData() - end")
     }
 }

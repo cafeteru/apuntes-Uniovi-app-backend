@@ -14,5 +14,7 @@ interface UnitSubjectRepository : PagingQueryDslRepository<UnitSubject> {
      */
     fun existsByNameAndSubjectId(name: String, subjectId: Long): Boolean
 
+    fun existsByPositionAndSubjectId(position: Int, subjectId: Long): Boolean
+
     fun findBySubjectId(id: Long, pageable: Pageable): Page<UnitSubject>
 }
