@@ -84,9 +84,8 @@ class CreateUnitSubjectTest {
         }
     }
 
-
     @Test
-    fun existsUnitSubject() {
+    fun existsNameUnitSubject() {
         try {
             Mockito.`when`(
                 unitSubjectRepository.existsByNameAndSubjectId(
@@ -97,6 +96,21 @@ class CreateUnitSubjectTest {
             fail(UnitSubjectMessages.EXISTS_NAME)
         } catch (e: IllegalArgumentException) {
             assertEquals(e.message, UnitSubjectMessages.EXISTS_NAME)
+        }
+    }
+
+    @Test
+    fun existsPositionUnitSubject() {
+        try {
+            Mockito.`when`(
+                unitSubjectRepository.existsByPositionAndSubjectId(
+                    unitSubject.position, unitSubject.subject!!.id!!
+                )
+            ).thenReturn(true)
+            unitSubjectService.create(unitSubjectDto)
+            fail(UnitSubjectMessages.EXISTS_POSITION)
+        } catch (e: IllegalArgumentException) {
+            assertEquals(e.message, UnitSubjectMessages.EXISTS_POSITION)
         }
     }
 }
