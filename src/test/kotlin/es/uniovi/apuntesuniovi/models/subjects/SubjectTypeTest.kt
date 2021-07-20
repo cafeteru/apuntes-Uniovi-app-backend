@@ -1,7 +1,7 @@
 package es.uniovi.apuntesuniovi.models.subjects
 
 import es.uniovi.apuntesuniovi.infrastructure.messages.SubjectMessages
-import es.uniovi.apuntesuniovi.mocks.entities.MockSubjectCreator
+import es.uniovi.apuntesuniovi.mocks.entities.MockSubject
 import es.uniovi.apuntesuniovi.models.Subject
 import es.uniovi.apuntesuniovi.models.types.SubjectType
 import org.junit.jupiter.api.Assertions.*
@@ -20,7 +20,7 @@ class SubjectTypeTest {
      */
     @BeforeEach
     fun initData() {
-        subject = MockSubjectCreator().create()
+        subject = MockSubject().create()
         subject.subjectType = subjectType
     }
 

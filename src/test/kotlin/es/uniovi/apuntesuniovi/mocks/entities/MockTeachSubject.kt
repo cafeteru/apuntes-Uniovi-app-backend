@@ -6,13 +6,13 @@ import es.uniovi.apuntesuniovi.models.TeachSubject
 /**
  * Service to create mock data of the entity TeachSubject
  */
-class MockTeachSubjectCreator : MockCreator<TeachSubject> {
+class MockTeachSubject : MockCreator<TeachSubject> {
 
     override fun create(): TeachSubject {
         val teachSubject = TeachSubject()
         teachSubject.id = 1
-        teachSubject.subject = MockSubjectCreator().create()
-        teachSubject.teacher = MockUserCreator().createTeacher()
+        teachSubject.subject = MockSubject().create()
+        teachSubject.teacher = MockUser().createTeacher()
         return teachSubject
     }
 }

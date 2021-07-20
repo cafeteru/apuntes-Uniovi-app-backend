@@ -6,10 +6,7 @@ import es.uniovi.apuntesuniovi.models.types.IdentificationType
 import es.uniovi.apuntesuniovi.models.types.LanguageType
 import es.uniovi.apuntesuniovi.models.types.RoleType
 import es.uniovi.apuntesuniovi.models.types.SubjectType
-import es.uniovi.apuntesuniovi.services.LearnSubjectService
-import es.uniovi.apuntesuniovi.services.SubjectService
-import es.uniovi.apuntesuniovi.services.TeachSubjectService
-import es.uniovi.apuntesuniovi.services.UserService
+import es.uniovi.apuntesuniovi.services.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import java.time.LocalDate
@@ -23,7 +20,8 @@ class InsertDataExample @Autowired constructor(
     private val userService: UserService,
     private val subjectService: SubjectService,
     private val teachSubjectService: TeachSubjectService,
-    private val learnSubjectService: LearnSubjectService
+    private val learnSubjectService: LearnSubjectService,
+    private val unitSubjectService: UnitSubjectService
 ) {
     private val logService = LogService(this.javaClass)
 
@@ -121,6 +119,14 @@ class InsertDataExample @Autowired constructor(
             studentId = student.id!!
         )
         learnSubjectService.create(subjectDto.id!!, listOf(learnSubjectDto))
+
+        val unitSubjectDto = UnitSubjectDto(
+            id = null,
+            name = "Unit 1",
+            position = 1,
+            subjectId = subjectDto.id!!
+        )
+        unitSubjectService.create(unitSubjectDto)
         logService.info("initData() - end")
     }
 }

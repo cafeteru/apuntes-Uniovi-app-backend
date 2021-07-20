@@ -1,7 +1,7 @@
 package es.uniovi.apuntesuniovi.services.users
 
 import es.uniovi.apuntesuniovi.infrastructure.messages.UserMessages
-import es.uniovi.apuntesuniovi.mocks.entities.MockUserCreator
+import es.uniovi.apuntesuniovi.mocks.entities.MockUser
 import es.uniovi.apuntesuniovi.models.types.LanguageType
 import es.uniovi.apuntesuniovi.repositories.AddressRepository
 import es.uniovi.apuntesuniovi.repositories.UserRepository
@@ -44,7 +44,7 @@ class ChangeLanguageUserTest {
      */
     @Test
     fun validData() {
-        val user = MockUserCreator().create()
+        val user = MockUser().create()
         user.username = username
         Mockito.`when`(userRepository.findByUsername(username)).thenReturn(Optional.of(user))
         val result = userService.changeLanguage(username, LanguageType.ES.toString())
@@ -56,7 +56,7 @@ class ChangeLanguageUserTest {
      */
     @Test
     fun invalidLanguage() {
-        val user = MockUserCreator().create()
+        val user = MockUser().create()
         user.username = username
         Mockito.`when`(userRepository.findByUsername(username)).thenReturn(Optional.of(user))
         try {
@@ -72,7 +72,7 @@ class ChangeLanguageUserTest {
      */
     @Test
     fun invalidUsername() {
-        val user = MockUserCreator().create()
+        val user = MockUser().create()
         user.username = username
         try {
             userService.changeLanguage(username, "")

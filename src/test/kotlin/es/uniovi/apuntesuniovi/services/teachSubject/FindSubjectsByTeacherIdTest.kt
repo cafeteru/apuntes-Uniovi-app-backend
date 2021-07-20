@@ -1,8 +1,9 @@
 package es.uniovi.apuntesuniovi.services.teachSubject
 
-import es.uniovi.apuntesuniovi.dtos.assemblers.TeachSubjectAssembler
+import es.uniovi.apuntesuniovi.dtos.Converter
+import es.uniovi.apuntesuniovi.dtos.entities.TeachSubjectDto
 import es.uniovi.apuntesuniovi.infrastructure.messages.TeachSubjectMessages
-import es.uniovi.apuntesuniovi.mocks.entities.MockTeachSubjectCreator
+import es.uniovi.apuntesuniovi.mocks.entities.MockTeachSubject
 import es.uniovi.apuntesuniovi.models.TeachSubject
 import es.uniovi.apuntesuniovi.repositories.SubjectRepository
 import es.uniovi.apuntesuniovi.repositories.TeachSubjectRepository
@@ -23,7 +24,6 @@ import org.mockito.junit.jupiter.MockitoExtension
 class FindSubjectsByTeacherIdTest {
     private lateinit var teachSubject: TeachSubject
     private lateinit var teachSubjectService: TeachSubjectService
-    private lateinit var teachSubjectAssembler: TeachSubjectAssembler
 
     @Mock
     private lateinit var userRepository: UserRepository
@@ -39,11 +39,8 @@ class FindSubjectsByTeacherIdTest {
      */
     @BeforeEach
     fun initTest() {
-        teachSubject = MockTeachSubjectCreator().create()
-        teachSubjectAssembler = TeachSubjectAssembler(subjectRepository, userRepository)
-        teachSubjectService = TeachSubjectService(
-            userRepository, subjectRepository, teachSubjectRepository
-        )
+        teachSubject = MockTeachSubject().create()
+        teachSubjectService = TeachSubjectService(teachSubjectRepository, userRepository, subjectRepository)
     }
 
     /**
@@ -57,7 +54,7 @@ class FindSubjectsByTeacherIdTest {
         )
         val result = teachSubjectService.findSubjectsByTeacherId(id)
         assertFalse(result.isEmpty())
-        assertEquals(teachSubjectAssembler.entityToDto(teachSubject).teacherId, result[0].id)
+        assertEquals(Converter.convert(teachSubject, TeachSubjectDto::class.java).teacherId, result[0].id)
     }
 
     /**

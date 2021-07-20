@@ -75,7 +75,7 @@ class UserController @Autowired constructor(
      * @param userDto User to apply filters
      * @param pageable Pageable
      */
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','TEACHER_ADMIN')")
     @PostMapping("")
     @ApiOperation("Returns all registered users")
     fun findAll(

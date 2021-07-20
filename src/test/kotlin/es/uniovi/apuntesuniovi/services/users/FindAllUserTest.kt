@@ -1,8 +1,9 @@
 package es.uniovi.apuntesuniovi.services.users
 
 import com.querydsl.core.BooleanBuilder
-import es.uniovi.apuntesuniovi.mocks.dtos.MockUserDtoCreator
-import es.uniovi.apuntesuniovi.mocks.entities.MockUserCreator
+import es.uniovi.apuntesuniovi.dtos.Converter
+import es.uniovi.apuntesuniovi.dtos.entities.UserDto
+import es.uniovi.apuntesuniovi.mocks.entities.MockUser
 import es.uniovi.apuntesuniovi.repositories.AddressRepository
 import es.uniovi.apuntesuniovi.repositories.UserRepository
 import es.uniovi.apuntesuniovi.repositories.builders.UserBuilder
@@ -24,6 +25,7 @@ import kotlin.test.assertNotNull
  */
 @ExtendWith(MockitoExtension::class)
 class FindAllUserTest {
+    private lateinit var userDto: UserDto
     private lateinit var userService: UserService
 
     @Mock
@@ -38,6 +40,10 @@ class FindAllUserTest {
     @BeforeEach
     fun initTest() {
         userService = UserService(userRepository, addressRepository)
+        userDto = Converter.convert(
+            MockUser().create(),
+            UserDto::class.java
+        )
     }
 
     /**
@@ -45,7 +51,7 @@ class FindAllUserTest {
      */
     @Test
     fun validData() {
-        val user = MockUserCreator().create()
+        val user = MockUser().create()
         val list = listOf(user)
         val pageable = PageRequest.of(0, 10)
         val page = PageImpl(list, pageable, list.size.toLong())
@@ -64,13 +70,13 @@ class FindAllUserTest {
      */
     @Test
     fun validDataWithFilters() {
-        val user = MockUserCreator().create()
+        val user = MockUser().create()
         val list = listOf(user)
         val pageable = PageRequest.of(0, 10)
         val page = PageImpl(list, pageable, list.size.toLong())
-        val builder = UserBuilder().createBuilder(MockUserDtoCreator().create())
+        val builder = UserBuilder().createBuilder(userDto)
         Mockito.`when`(userRepository.findAll(builder, pageable)).thenReturn(page)
-        val result = userService.findAll(pageable, MockUserDtoCreator().create())
+        val result = userService.findAll(pageable, userDto)
         assertNotNull(result)
         assertEquals(result.totalElements, list.size.toLong())
         val element = result.content[0]

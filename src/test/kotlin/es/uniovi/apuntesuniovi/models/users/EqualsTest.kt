@@ -1,6 +1,6 @@
 package es.uniovi.apuntesuniovi.models.users
 
-import es.uniovi.apuntesuniovi.mocks.entities.MockUserCreator
+import es.uniovi.apuntesuniovi.mocks.entities.MockUser
 import es.uniovi.apuntesuniovi.models.User
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotEquals
@@ -18,7 +18,7 @@ class EqualsTest {
      */
     @BeforeEach
     fun initData() {
-        user = MockUserCreator().create()
+        user = MockUser().create()
     }
 
     /**

@@ -27,6 +27,15 @@ class UnitSubject {
             }
         }
 
+    var position: Int = 1
+        set(value) {
+            if (value > 0) {
+                field = value
+            } else {
+                throw IllegalArgumentException(UnitSubjectMessages.LIMIT_POSITION)
+            }
+        }
+
     @OneToMany(mappedBy = "unitSubject", cascade = [(CascadeType.ALL)])
     val partUnits: Set<PartUnitSubject> = HashSet()
 

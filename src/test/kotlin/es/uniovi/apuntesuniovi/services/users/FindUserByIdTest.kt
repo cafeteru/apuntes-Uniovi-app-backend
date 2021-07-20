@@ -1,8 +1,9 @@
 package es.uniovi.apuntesuniovi.services.users
 
-import es.uniovi.apuntesuniovi.dtos.assemblers.UserAssembler
+import es.uniovi.apuntesuniovi.dtos.Converter
+import es.uniovi.apuntesuniovi.dtos.entities.UserDto
 import es.uniovi.apuntesuniovi.infrastructure.messages.UserMessages
-import es.uniovi.apuntesuniovi.mocks.entities.MockUserCreator
+import es.uniovi.apuntesuniovi.mocks.entities.MockUser
 import es.uniovi.apuntesuniovi.repositories.AddressRepository
 import es.uniovi.apuntesuniovi.repositories.UserRepository
 import es.uniovi.apuntesuniovi.services.UserService
@@ -21,7 +22,6 @@ import java.util.*
 @ExtendWith(MockitoExtension::class)
 class FindUserByIdTest {
     private lateinit var userService: UserService
-    private lateinit var userAssembler: UserAssembler
 
     @Mock
     private lateinit var userRepository: UserRepository
@@ -35,7 +35,6 @@ class FindUserByIdTest {
     @BeforeEach
     fun initTest() {
         userService = UserService(userRepository, addressRepository)
-        userAssembler = UserAssembler()
     }
 
     /**
@@ -44,9 +43,9 @@ class FindUserByIdTest {
     @Test
     fun validIdAndExistUser() {
         val id = 1L
-        val user = MockUserCreator().create()
+        val user = MockUser().create()
         user.id = 1L
-        val userDto = userAssembler.entityToDto(user)
+        val userDto = Converter.convert(user, UserDto::class.java)
         Mockito.`when`(userRepository.findById(id)).thenReturn(Optional.of(user))
         val result = userService.findById(id)
         assertNotEquals(userDto, result)

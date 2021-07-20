@@ -1,9 +1,9 @@
 package es.uniovi.apuntesuniovi.services.users
 
-import es.uniovi.apuntesuniovi.dtos.assemblers.UserAssembler
+import es.uniovi.apuntesuniovi.dtos.Converter
+import es.uniovi.apuntesuniovi.dtos.entities.UserDto
 import es.uniovi.apuntesuniovi.infrastructure.messages.UserMessages
-import es.uniovi.apuntesuniovi.mocks.dtos.MockUserDtoCreator
-import es.uniovi.apuntesuniovi.mocks.entities.MockUserCreator
+import es.uniovi.apuntesuniovi.mocks.entities.MockUser
 import es.uniovi.apuntesuniovi.models.User
 import es.uniovi.apuntesuniovi.repositories.AddressRepository
 import es.uniovi.apuntesuniovi.repositories.UserRepository
@@ -26,7 +26,7 @@ import kotlin.test.assertNull
  */
 @ExtendWith(MockitoExtension::class)
 class CreateUserTest {
-    private lateinit var userAssembler: UserAssembler
+    private lateinit var userDto: UserDto
     private lateinit var userService: UserService
 
     @Mock
@@ -41,7 +41,10 @@ class CreateUserTest {
     @BeforeEach
     fun initTest() {
         userService = UserService(userRepository, addressRepository)
-        userAssembler = UserAssembler()
+        userDto = Converter.convert(
+            MockUser().create(),
+            UserDto::class.java
+        )
     }
 
     /**
@@ -49,8 +52,8 @@ class CreateUserTest {
      */
     @Test
     fun validData() {
-        val user = MockUserCreator().create()
-        val userDto = userAssembler.entityToDto(user)
+        val user = MockUser().create()
+        val userDto = Converter.convert(user, UserDto::class.java)
         Mockito.`when`(userRepository.save(Mockito.any(User::class.java))).thenReturn(user)
         val result = userService.create(userDto)
         assertNotEquals(userDto, result)
@@ -65,8 +68,8 @@ class CreateUserTest {
     @Test
     fun existedUser() {
         try {
-            val user = MockUserCreator().create()
-            val userDto = userAssembler.entityToDto(user)
+            val user = MockUser().create()
+            val userDto = Converter.convert(user, UserDto::class.java)
             Mockito.`when`(userRepository.findByUsername(user.username!!)).thenReturn(Optional.of(user))
             userService.create(userDto)
             fail(UserMessages.ALREADY_REGISTERED_USERNAME)
@@ -81,7 +84,6 @@ class CreateUserTest {
     @Test
     fun nullUsername() {
         try {
-            val userDto = MockUserDtoCreator().create()
             userDto.username = null
             userService.create(userDto)
             fail(UserMessages.INVALID_DATA_USER)
@@ -96,7 +98,6 @@ class CreateUserTest {
     @Test
     fun emptyUsername() {
         try {
-            val userDto = MockUserDtoCreator().create()
             userDto.username = ""
             userService.create(userDto)
             fail(UserMessages.LIMIT_USERNAME)
@@ -111,7 +112,6 @@ class CreateUserTest {
     @Test
     fun nullPassword() {
         try {
-            val userDto = MockUserDtoCreator().create()
             userDto.password = null
             userService.create(userDto)
             fail(UserMessages.INVALID_DATA_USER)
@@ -126,7 +126,6 @@ class CreateUserTest {
     @Test
     fun emptyPassword() {
         try {
-            val userDto = MockUserDtoCreator().create()
             userDto.password = ""
             userService.create(userDto)
             fail(UserMessages.LIMIT_PASSWORD)

@@ -1,7 +1,7 @@
 package es.uniovi.apuntesuniovi.services.subjects
 
 import es.uniovi.apuntesuniovi.infrastructure.messages.SubjectMessages
-import es.uniovi.apuntesuniovi.mocks.entities.MockSubjectCreator
+import es.uniovi.apuntesuniovi.mocks.entities.MockSubject
 import es.uniovi.apuntesuniovi.repositories.SubjectRepository
 import es.uniovi.apuntesuniovi.services.SubjectService
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -38,7 +38,7 @@ class DeleteSubjectTest {
      */
     @Test
     fun validIdAndExistSubject() {
-        val subject = MockSubjectCreator().create()
+        val subject = MockSubject().create()
         val id = subject.id!!
         Mockito.`when`(subjectRepository.findById(id)).thenReturn(Optional.of(subject))
         val result = subjectService.delete(id)

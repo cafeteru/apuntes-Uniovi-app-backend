@@ -1,8 +1,9 @@
 package es.uniovi.apuntesuniovi.controllers.subjects
 
 import es.uniovi.apuntesuniovi.controllers.SubjectController
+import es.uniovi.apuntesuniovi.dtos.Converter
 import es.uniovi.apuntesuniovi.dtos.entities.SubjectDto
-import es.uniovi.apuntesuniovi.mocks.dtos.MockSubjectDtoCreator
+import es.uniovi.apuntesuniovi.mocks.entities.MockSubject
 import es.uniovi.apuntesuniovi.services.SubjectService
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
@@ -13,7 +14,6 @@ import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.PageRequest
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import java.util.*
 
 
 /**
@@ -22,6 +22,7 @@ import java.util.*
 class FindAllSubjectsTest {
     private lateinit var subjectController: SubjectController
     private lateinit var subjectService: SubjectService
+    private lateinit var subjectDto: SubjectDto
 
     /**
      * Create init data for the test
@@ -30,11 +31,14 @@ class FindAllSubjectsTest {
     fun initTest() {
         subjectService = Mockito.mock(SubjectService::class.java)
         subjectController = SubjectController(subjectService)
+        subjectDto = Converter.convert(
+            MockSubject().create(),
+            SubjectDto::class.java
+        )
     }
 
     @Test
     fun findAllTest() {
-        val subjectDto = MockSubjectDtoCreator().create()
         val list: List<SubjectDto> = listOf(subjectDto)
         val pageable = PageRequest.of(0, 5)
         val page: Page<SubjectDto> = PageImpl(list, pageable, 1)
@@ -48,7 +52,6 @@ class FindAllSubjectsTest {
     fun findAllEmptyTest() {
         val pageable = PageRequest.of(0, 5)
         val page: Page<SubjectDto> = PageImpl(ArrayList(), pageable, 1)
-        val subjectDto = MockSubjectDtoCreator().create()
         Mockito.`when`(subjectService.findAll(pageable, subjectDto)).thenReturn(page)
         val httpResponse: ResponseEntity<Page<SubjectDto>> =
             subjectController.findAll(pageable, subjectDto)

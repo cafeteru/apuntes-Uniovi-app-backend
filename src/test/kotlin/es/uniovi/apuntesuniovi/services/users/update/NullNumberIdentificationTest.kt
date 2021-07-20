@@ -1,6 +1,6 @@
 package es.uniovi.apuntesuniovi.services.users.update
 
-import es.uniovi.apuntesuniovi.mocks.entities.MockUserCreator
+import es.uniovi.apuntesuniovi.mocks.entities.MockUser
 import es.uniovi.apuntesuniovi.models.User
 import es.uniovi.apuntesuniovi.repositories.AddressRepository
 import es.uniovi.apuntesuniovi.repositories.UserRepository
@@ -34,7 +34,7 @@ class NullNumberIdentificationTest {
      */
     @BeforeEach
     fun initTest() {
-        user = MockUserCreator().create()
+        user = MockUser().create()
         user.password = encoder.encode(user.password)
     }
 
@@ -45,7 +45,7 @@ class NullNumberIdentificationTest {
     fun nullNumberIdentification() {
         val id = user.id!!
         user.numberIdentification = null
-        Mockito.`when`(userRepository.findById(id)).thenReturn(Optional.of(MockUserCreator().create()))
+        Mockito.`when`(userRepository.findById(id)).thenReturn(Optional.of(MockUser().create()))
         Mockito.`when`(userRepository.save(user)).thenReturn(user)
         val result = UpdateUser(userRepository, addressRepository, id, user).execute()
         assertEquals(result, user)

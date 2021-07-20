@@ -1,8 +1,9 @@
 package es.uniovi.apuntesuniovi.repositories.builders.subjects
 
 import com.querydsl.core.types.dsl.Expressions
+import es.uniovi.apuntesuniovi.dtos.Converter
 import es.uniovi.apuntesuniovi.dtos.entities.SubjectDto
-import es.uniovi.apuntesuniovi.mocks.dtos.MockSubjectDtoCreator
+import es.uniovi.apuntesuniovi.mocks.entities.MockSubject
 import es.uniovi.apuntesuniovi.models.QSubject
 import es.uniovi.apuntesuniovi.models.types.SubjectType
 import es.uniovi.apuntesuniovi.repositories.builders.SubjectBuilder
@@ -23,7 +24,10 @@ class SubjectBuilderTest {
      */
     @BeforeEach
     fun initData() {
-        subjectDto = MockSubjectDtoCreator().create()
+        subjectDto = Converter.convert(
+            MockSubject().create(),
+            SubjectDto::class.java
+        )
         qSubject = QSubject.subject
     }
 

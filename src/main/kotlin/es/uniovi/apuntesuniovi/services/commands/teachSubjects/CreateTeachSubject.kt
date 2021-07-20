@@ -4,7 +4,11 @@ import es.uniovi.apuntesuniovi.infrastructure.AbstractCommand
 import es.uniovi.apuntesuniovi.infrastructure.messages.TeachSubjectMessages
 import es.uniovi.apuntesuniovi.models.TeachSubject
 import es.uniovi.apuntesuniovi.models.types.RoleType
+import es.uniovi.apuntesuniovi.repositories.SubjectRepository
 import es.uniovi.apuntesuniovi.repositories.TeachSubjectRepository
+import es.uniovi.apuntesuniovi.repositories.UserRepository
+import es.uniovi.apuntesuniovi.services.commands.subjects.FindSubjectById
+import es.uniovi.apuntesuniovi.services.commands.users.FindUserById
 import org.springframework.util.Assert
 
 /**
@@ -12,17 +16,19 @@ import org.springframework.util.Assert
  */
 class CreateTeachSubject(
     private val teachSubjectRepository: TeachSubjectRepository,
+    private val userRepository: UserRepository,
+    private val subjectRepository: SubjectRepository,
     private val id: Long,
     private val teachSubjects: List<TeachSubject>
-) : AbstractCommand<MutableIterable<TeachSubject>>() {
+) : AbstractCommand<List<TeachSubject>>() {
 
-    override fun execute(): MutableIterable<TeachSubject> {
+    override fun execute(): List<TeachSubject> {
         logService.info("execute() - start")
         checkData()
         checkExists()
         val result = teachSubjectRepository.saveAll(teachSubjects)
         logService.info("execute() - end")
-        return result
+        return result.toList()
     }
 
     private fun checkExists() {
@@ -36,10 +42,15 @@ class CreateTeachSubject(
 
     private fun checkData() {
         logService.info("checkData() - start")
-        teachSubjects.forEach { teachSubject ->
+        Assert.isTrue(
+            FindSubjectById(subjectRepository, id).execute().id != null,
+            TeachSubjectMessages.INVALID_CREATE_DATA
+        )
+        teachSubjects.forEach { learnSubject ->
+            learnSubject.teacher = FindUserById(userRepository, learnSubject.teacher.id!!).execute()
             Assert.isTrue(
-                teachSubject.teacher.role == RoleType.ROLE_TEACHER,
-                TeachSubjectMessages.INVALID_CREATE_DATA
+                learnSubject.teacher.role == RoleType.ROLE_TEACHER,
+                TeachSubjectMessages.INVALID_USER_ROLE
             )
         }
         logService.info("checkData() - start")

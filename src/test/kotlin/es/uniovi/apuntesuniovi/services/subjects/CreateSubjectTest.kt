@@ -1,7 +1,8 @@
 package es.uniovi.apuntesuniovi.services.subjects
 
-import es.uniovi.apuntesuniovi.dtos.assemblers.SubjectAssembler
-import es.uniovi.apuntesuniovi.mocks.entities.MockSubjectCreator
+import es.uniovi.apuntesuniovi.dtos.Converter
+import es.uniovi.apuntesuniovi.dtos.entities.SubjectDto
+import es.uniovi.apuntesuniovi.mocks.entities.MockSubject
 import es.uniovi.apuntesuniovi.models.Subject
 import es.uniovi.apuntesuniovi.repositories.SubjectRepository
 import es.uniovi.apuntesuniovi.services.SubjectService
@@ -20,9 +21,6 @@ import kotlin.test.assertEquals
 class CreateSubjectTest {
     @Mock
     private lateinit var subjectRepository: SubjectRepository
-
-    private val subjectAssembler = SubjectAssembler()
-
     private lateinit var subjectService: SubjectService
 
     /**
@@ -38,8 +36,8 @@ class CreateSubjectTest {
      */
     @Test
     fun validData() {
-        val subject = MockSubjectCreator().create()
-        val subjectDto = subjectAssembler.entityToDto(subject)
+        val subject = MockSubject().create()
+        val subjectDto = Converter.convert(subject, SubjectDto::class.java)
         Mockito.`when`(subjectRepository.save(Mockito.any(Subject::class.java))).thenReturn(subject)
         val result = subjectService.create(subjectDto)
         assertEquals(subjectDto, result)

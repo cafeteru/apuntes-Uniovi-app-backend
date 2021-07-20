@@ -1,7 +1,9 @@
 package es.uniovi.apuntesuniovi.controllers.teachSubjects
 
 import es.uniovi.apuntesuniovi.controllers.TeachSubjectController
-import es.uniovi.apuntesuniovi.mocks.dtos.MockTeachSubjectDtoCreator
+import es.uniovi.apuntesuniovi.dtos.Converter
+import es.uniovi.apuntesuniovi.dtos.entities.TeachSubjectDto
+import es.uniovi.apuntesuniovi.mocks.entities.MockSubject
 import es.uniovi.apuntesuniovi.services.TeachSubjectService
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
@@ -14,6 +16,7 @@ import org.mockito.Mockito
 class CreateTeachSubjectTest {
     private lateinit var teachSubjectController: TeachSubjectController
     private lateinit var teachSubjectService: TeachSubjectService
+    private lateinit var teachSubjectDto: TeachSubjectDto
 
     /**
      * Create init data for the test
@@ -22,6 +25,10 @@ class CreateTeachSubjectTest {
     fun initTest() {
         teachSubjectService = Mockito.mock(TeachSubjectService::class.java)
         teachSubjectController = TeachSubjectController(teachSubjectService)
+        teachSubjectDto = Converter.convert(
+            MockSubject().create(),
+            TeachSubjectDto::class.java
+        )
     }
 
     /**
@@ -29,14 +36,10 @@ class CreateTeachSubjectTest {
      */
     @Test
     fun validData() {
-        val id = 1L
-        val dto = MockTeachSubjectDtoCreator().create()
         Mockito.`when`(
-            teachSubjectService.create(id, listOf(dto))
-        ).thenReturn(
-            listOf(dto)
-        )
-        val list = teachSubjectController.create(id, listOf(dto))
-        Assertions.assertEquals(list, listOf(dto))
+            teachSubjectService.create(teachSubjectDto.id!!, listOf(teachSubjectDto))
+        ).thenReturn(listOf(teachSubjectDto))
+        val list = teachSubjectController.create(teachSubjectDto.id!!, listOf(teachSubjectDto))
+        Assertions.assertEquals(list, listOf(teachSubjectDto))
     }
 }

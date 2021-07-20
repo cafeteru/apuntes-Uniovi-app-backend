@@ -1,6 +1,6 @@
 package es.uniovi.apuntesuniovi.services.users.update
 
-import es.uniovi.apuntesuniovi.mocks.entities.MockUserCreator
+import es.uniovi.apuntesuniovi.mocks.entities.MockUser
 import es.uniovi.apuntesuniovi.models.User
 import es.uniovi.apuntesuniovi.repositories.AddressRepository
 import es.uniovi.apuntesuniovi.repositories.UserRepository
@@ -36,7 +36,7 @@ class NotExistedNumberIdentificationTest {
      */
     @BeforeEach
     fun initTest() {
-        user = MockUserCreator().create()
+        user = MockUser().create()
         user.password = encoder.encode(user.password)
     }
 

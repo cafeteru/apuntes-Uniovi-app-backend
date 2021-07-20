@@ -10,7 +10,7 @@ import java.time.LocalDate
 /**
  * Service to create mock data of the entity User
  */
-class MockUserCreator : MockCreator<User> {
+class MockUser : MockCreator<User> {
     override fun create(): User {
         val user = User()
         user.id = 1
@@ -26,7 +26,7 @@ class MockUserCreator : MockCreator<User> {
         user.role = RoleType.ROLE_ADMIN
         user.phone = "623548956"
         user.img = "img"
-        user.address = MockAddressCreator().create()
+        user.address = MockAddress().create()
         return user
     }
 

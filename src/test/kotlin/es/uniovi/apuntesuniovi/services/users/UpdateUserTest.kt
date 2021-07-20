@@ -1,7 +1,8 @@
 package es.uniovi.apuntesuniovi.services.users
 
-import es.uniovi.apuntesuniovi.dtos.assemblers.UserAssembler
-import es.uniovi.apuntesuniovi.mocks.entities.MockUserCreator
+import es.uniovi.apuntesuniovi.dtos.Converter
+import es.uniovi.apuntesuniovi.dtos.entities.UserDto
+import es.uniovi.apuntesuniovi.mocks.entities.MockUser
 import es.uniovi.apuntesuniovi.models.User
 import es.uniovi.apuntesuniovi.repositories.AddressRepository
 import es.uniovi.apuntesuniovi.repositories.UserRepository
@@ -28,7 +29,6 @@ class UpdateUserTest {
     @Mock
     private lateinit var addressRepository: AddressRepository
 
-    private val userAssembler = UserAssembler()
     private lateinit var userService: UserService
 
     /**
@@ -44,8 +44,8 @@ class UpdateUserTest {
      */
     @Test
     fun validData() {
-        val user = MockUserCreator().create()
-        val userDto = userAssembler.entityToDto(user)
+        val user = MockUser().create()
+        val userDto = Converter.convert(user, UserDto::class.java)
         Mockito.`when`(userRepository.findById(user.id!!)).thenReturn(Optional.of(user))
         Mockito.`when`(userRepository.findByUsername(user.username!!)).thenReturn(Optional.of(user))
         Mockito.`when`(userRepository.findByNumberIdentification(user.numberIdentification!!))

@@ -1,7 +1,9 @@
 package es.uniovi.apuntesuniovi.controllers.subjects
 
 import es.uniovi.apuntesuniovi.controllers.SubjectController
-import es.uniovi.apuntesuniovi.mocks.dtos.MockSubjectDtoCreator
+import es.uniovi.apuntesuniovi.dtos.Converter
+import es.uniovi.apuntesuniovi.dtos.entities.SubjectDto
+import es.uniovi.apuntesuniovi.mocks.entities.MockSubject
 import es.uniovi.apuntesuniovi.services.SubjectService
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
@@ -15,6 +17,7 @@ import org.springframework.http.HttpStatus
 class UpdateSubjectTest {
     private lateinit var subjectController: SubjectController
     private lateinit var subjectService: SubjectService
+    private lateinit var subjectDto: SubjectDto
 
     /**
      * Create init data for the test
@@ -23,6 +26,10 @@ class UpdateSubjectTest {
     fun initTest() {
         subjectService = Mockito.mock(SubjectService::class.java)
         subjectController = SubjectController(subjectService)
+        subjectDto = Converter.convert(
+            MockSubject().create(),
+            SubjectDto::class.java
+        )
     }
 
     /**
@@ -30,7 +37,6 @@ class UpdateSubjectTest {
      */
     @Test
     fun validData() {
-        val subjectDto = MockSubjectDtoCreator().create()
         Mockito.`when`(subjectService.update(subjectDto.id!!, subjectDto)).thenReturn(subjectDto)
         val httpResponse = subjectController.update(subjectDto.id!!, subjectDto)
         Assertions.assertEquals(httpResponse.statusCode, HttpStatus.OK)
