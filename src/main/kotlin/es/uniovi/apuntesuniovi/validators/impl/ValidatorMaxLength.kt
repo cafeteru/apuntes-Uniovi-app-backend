@@ -1,6 +1,6 @@
 package es.uniovi.apuntesuniovi.validators.impl
 
-import es.uniovi.apuntesuniovi.validators.Validator
+import io.github.cafeteru.validator_lib.Validator
 
 /**
  * Validate that a text don´t exceed a specific length
@@ -16,6 +16,6 @@ class ValidatorMaxLength(
             }
             return it.length <= maxSize
         }
-        return text.isNullOrEmpty()
+        return true
     }
 }

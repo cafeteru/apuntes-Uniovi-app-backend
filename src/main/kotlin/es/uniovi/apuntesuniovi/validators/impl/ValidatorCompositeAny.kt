@@ -9,7 +9,7 @@ class ValidatorCompositeAny : ValidatorComposite() {
 
     override fun isValid(): Boolean {
         for (validator in validators) {
-            if (validator.isValid()) {
+            if (validator.isValid) {
                 return true
             }
         }

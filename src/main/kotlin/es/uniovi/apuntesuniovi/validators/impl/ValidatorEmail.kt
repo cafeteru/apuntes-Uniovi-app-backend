@@ -1,6 +1,6 @@
 package es.uniovi.apuntesuniovi.validators.impl
 
-import es.uniovi.apuntesuniovi.validators.Validator
+import io.github.cafeteru.validator_lib.Validator
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
@@ -18,6 +18,6 @@ class ValidatorEmail(private var email: String?) : Validator {
             val mather: Matcher = pattern.matcher(it)
             return mather.find()
         }
-        return email == null
+        return true
     }
 }

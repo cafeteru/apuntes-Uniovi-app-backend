@@ -6,6 +6,8 @@ import es.uniovi.apuntesuniovi.models.types.IdentificationType
 import es.uniovi.apuntesuniovi.models.types.LanguageType
 import es.uniovi.apuntesuniovi.models.types.RoleType
 import es.uniovi.apuntesuniovi.validators.impl.*
+import io.github.cafeteru.validator_lib.impl.ValidatorDni
+import io.github.cafeteru.validator_lib.impl.ValidatorNie
 import java.time.LocalDate
 import java.util.*
 import javax.persistence.*

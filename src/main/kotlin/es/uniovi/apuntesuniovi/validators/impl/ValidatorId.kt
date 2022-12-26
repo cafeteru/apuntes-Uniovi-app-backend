@@ -1,6 +1,6 @@
 package es.uniovi.apuntesuniovi.validators.impl
 
-import es.uniovi.apuntesuniovi.validators.Validator
+import io.github.cafeteru.validator_lib.Validator
 
 /**
  * Validate that a id is valid

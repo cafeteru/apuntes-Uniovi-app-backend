@@ -1,6 +1,6 @@
 package es.uniovi.apuntesuniovi.validators
 
-import java.util.*
+import io.github.cafeteru.validator_lib.Validator
 
 /**
  * Check a list of validators
