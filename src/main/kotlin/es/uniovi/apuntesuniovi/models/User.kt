@@ -6,9 +6,10 @@ import es.uniovi.apuntesuniovi.models.types.IdentificationType
 import es.uniovi.apuntesuniovi.models.types.LanguageType
 import es.uniovi.apuntesuniovi.models.types.RoleType
 import es.uniovi.apuntesuniovi.validators.impl.*
-import io.github.cafeteru.validator_lib.impl.ValidatorDni
-import io.github.cafeteru.validator_lib.impl.ValidatorNie
-import io.github.cafeteru.validator_lib.impl.ValidatorPhone
+import io.github.cafeteru.validator_lib.DniValidator
+import io.github.cafeteru.validator_lib.EmailValidator
+import io.github.cafeteru.validator_lib.NieValidator
+import io.github.cafeteru.validator_lib.PhoneValidator
 import java.time.LocalDate
 import java.util.*
 import javax.persistence.*
@@ -46,7 +47,7 @@ open class User {
     var email: String? = null
         set(value) {
             val validator = ValidatorCompositeAll()
-            validator.add(ValidatorEmail(value))
+            validator.add(EmailValidator(value))
             validator.add(ValidatorMaxLength(value, UserLimits.EMAIL))
             if (validator.isValid) {
                 field = value
@@ -57,7 +58,7 @@ open class User {
 
     var phone: String? = null
         set(value) {
-            if (ValidatorPhone(value).isValid) {
+            if (PhoneValidator(value).isValid) {
                 field = value
             } else {
                 throw IllegalArgumentException(UserMessages.INVALID_PHONE)
@@ -117,8 +118,8 @@ open class User {
     var numberIdentification: String? = null
         set(value) {
             val validator = ValidatorCompositeAny()
-            validator.add(ValidatorDni(value))
-            validator.add(ValidatorNie(value))
+            validator.add(DniValidator(value))
+            validator.add(NieValidator(value))
             if (validator.isValid) {
                 field = value
             } else {
